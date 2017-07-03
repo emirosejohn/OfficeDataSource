@@ -23,9 +23,6 @@
 
 	$dbdeployExec = "$baseDir\lib\dbdeploy\dbdeploy.exe"
 	$roundhouseExec = "$srcFolder\packages\roundhouse*\bin\rh.exe" #check the folder version
-
-	$doDatabaseScriptPath = "$buildFolder\DatabaseUpgrade_GIPS_Local_$dateStamp.sql"
-	$undoDatabaseScriptPath = "$buildFolder\DatabaseRollback_GIPS_Local_$dateStamp.sql"
 	
 	$solutionFile = "$srcFolder\OfficeLocationMicroservice.sln"
 
@@ -102,7 +99,6 @@ task copyBuildFiles -depends BuildSolution {
 	Write-Host "Copying files from '$sourceFiles' to '$buildWebFolder'"
 	copy-item $sourceFiles "$buildWebFolder" -recurse
 
-
     mkdir $buildTargetFolder\_PublishedWebsites\Web\bin\roslyn |out-null
 
 	$roslyn = "$buildTargetFolder\roslyn\*"
@@ -131,6 +127,6 @@ task ZipFile -depends copyBuildFiles -requiredVariables projectVersion{
 
     $versionStamp = $projectVersion -replace "\.", "_"
 
-    Exec { &$zipExec a "-x!*.zip" "-x!*.dat" "$buildFolder\TinyReturns_App_$versionStamp.zip" "$buildFolder\*" }
+    Exec { &$zipExec a "-x!*.zip" "-x!*.dat" "$buildFolder\OfficeLocation_App_$versionStamp.zip" "$buildFolder\*" }
 
 }
