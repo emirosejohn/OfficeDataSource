@@ -79,7 +79,7 @@ if (Test-Path $ProjectName -pathType container)
     Remove-Item "$ProjectName" -recurse -Force
 }
 
-Write-Host "mkaing item at IIS:\Sites\$ProjectName"
+Write-Host "making item at IIS:\Sites\$ProjectName"
 $iisApp = New-Item $ProjectName -bindings @{protocol="http";bindingInformation=":1704:"} -physicalPath $directoryPath
 
 $iisApp | Set-ItemProperty -Name "applicationPool" -Value "$ProjectName"
