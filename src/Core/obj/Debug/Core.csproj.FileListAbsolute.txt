@@ -1,0 +1,5 @@
+C:\OfficeLocation\office-location-microservice\src\Core\bin\Debug\OfficeLocationMicroservice.Core.dll
+C:\OfficeLocation\office-location-microservice\src\Core\bin\Debug\OfficeLocationMicroservice.Core.pdb
+C:\OfficeLocation\office-location-microservice\src\Core\obj\Debug\Core.csprojResolveAssemblyReference.cache
+C:\OfficeLocation\office-location-microservice\src\Core\obj\Debug\OfficeLocationMicroservice.Core.dll
+C:\OfficeLocation\office-location-microservice\src\Core\obj\Debug\OfficeLocationMicroservice.Core.pdb

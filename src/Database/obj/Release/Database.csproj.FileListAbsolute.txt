@@ -1,0 +1,4 @@
+C:\OfficeLocation\office-location-microservice\.build\Release\OfficeLocationMicroservice.Database.dll
+C:\OfficeLocation\office-location-microservice\.build\Release\OfficeLocationMicroservice.Database.pdb
+C:\OfficeLocation\office-location-microservice\src\Database\obj\Release\OfficeLocationMicroservice.Database.dll
+C:\OfficeLocation\office-location-microservice\src\Database\obj\Release\OfficeLocationMicroservice.Database.pdb

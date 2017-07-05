@@ -1,0 +1,5 @@
+C:\OfficeLocation\office-location-microservice\.build\Release\OfficeLocationMicroservice.UnitTests.dll
+C:\OfficeLocation\office-location-microservice\.build\Release\OfficeLocationMicroservice.UnitTests.pdb
+C:\OfficeLocation\office-location-microservice\src\UnitTests\obj\Release\UnitTests.csprojResolveAssemblyReference.cache
+C:\OfficeLocation\office-location-microservice\src\UnitTests\obj\Release\OfficeLocationMicroservice.UnitTests.dll
+C:\OfficeLocation\office-location-microservice\src\UnitTests\obj\Release\OfficeLocationMicroservice.UnitTests.pdb
