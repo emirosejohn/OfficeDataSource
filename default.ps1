@@ -98,7 +98,7 @@ task copyBuildFiles -depends BuildSolution {
 	copy-item $sourceFiles "$buildWebFolder" -recurse
 
 
-    mkdir $buildTargetFolder\_PublishedWebsites\Web\bin\roslyn |out-null
+    mkdir $buildTargetFolder\_PublishedWebsites\WebUI\bin\roslyn |out-null
 
 	$roslyn = "$buildTargetFolder\roslyn\*"
 	Write-Host "Copying files from '$roslyn' to '$buildWebFolder'"
