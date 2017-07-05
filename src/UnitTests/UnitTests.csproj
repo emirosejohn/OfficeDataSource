@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{ECF61E48-5B40-4C6B-BC9D-614C8DF19930}</ProjectGuid>
+    <ProjectGuid>{17A8CB32-0698-432A-8A0D-2F17B120F703}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>OfficeLocationMicroservice.UnitTests</RootNamespace>

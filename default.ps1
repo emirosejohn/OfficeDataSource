@@ -37,6 +37,9 @@ task default -depends CleanSolution, UpdateNuGetPackages, BuildSolution, Rebuild
 
 task databaseonly -depends RebuildDatabase
 
+ task teamcity -depends CleanSolution, UpdateNuGetPackages, BuildSolution, `
+ RebuildDatabase, RunUnitTests, RunIntegrationTests, RebuildDatabase,  ZipFile
+
 formatTaskName {
 	param($taskName)
 	write-host "********************** $taskName **********************" -foregroundcolor Green
@@ -90,7 +93,7 @@ task copyBuildFiles -depends BuildSolution {
     
     mkdir $buildWebFolder | out-null
 	
-	$sourceFiles = "$buildTargetFolder\_PublishedWebsites\Web\*"
+	$sourceFiles = "$buildTargetFolder\_PublishedWebsites\WebUI\*"
 	Write-Host "Copying files from '$sourceFiles' to '$buildWebFolder'"
 	copy-item $sourceFiles "$buildWebFolder" -recurse
 
@@ -99,13 +102,13 @@ task copyBuildFiles -depends BuildSolution {
 
 	$roslyn = "$buildTargetFolder\roslyn\*"
 	Write-Host "Copying files from '$roslyn' to '$buildWebFolder'"
-	copy-item $roslyn "$buildTargetFolder\_PublishedWebsites\Web\bin\roslyn" -recurse
+	copy-item $roslyn "$buildTargetFolder\_PublishedWebsites\WebUI\bin\roslyn" -recurse
 
 	mkdir $buildLibFolder | out-null
 
 	$destXunitFolder = "$buildLibFolder\xunit"
 	mkdir $destXunitFolder | out-null
-	copy-item "$srcFolder\packages\xunit.runner.console.2.0.0\tools\*" $destXunitFolder -recurse
+	copy-item "$srcFolder\packages\xunit.runner.console.2.2.0\tools\*" $destXunitFolder -recurse
 	
     $destRoundhouseFolder = "$buildLibFolder\roundhouse"
 	mkdir $destRoundhouseFolder | out-null
