@@ -3,10 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Xunit;
+using FluentAssertions;
 
-namespace UnitTests
+namespace OfficeLocationMicroservice.UnitTests
 {
-    public class Class1
+    public class FirstTests
     {
+        [Fact]
+        public void FirstTest()
+        {
+
+        }
     }
 }

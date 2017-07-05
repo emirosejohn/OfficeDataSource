@@ -192,11 +192,15 @@
 <<<<<<< HEAD
     <Content Include="Views\OfficeLocation\Index.cshtml" />
 =======
->>>>>>> feature/SetupChanges
+>>>>>>> 996a7e27d323215f74a601482f0d42a5f6ea2c43
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />
+<<<<<<< HEAD
     <Folder Include="Views\OfficeLocation\" />
+=======
+    <Folder Include="Views\Home\" />
+>>>>>>> 996a7e27d323215f74a601482f0d42a5f6ea2c43
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
