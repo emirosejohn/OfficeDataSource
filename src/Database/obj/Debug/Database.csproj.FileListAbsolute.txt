@@ -1,5 +1,0 @@
-C:\OfficeLocation\office-location-microservice\src\Database\bin\Debug\OfficeLocationMicroservice.Database.dll
-C:\OfficeLocation\office-location-microservice\src\Database\bin\Debug\OfficeLocationMicroservice.Database.pdb
-C:\OfficeLocation\office-location-microservice\src\Database\obj\Debug\Database.csprojResolveAssemblyReference.cache
-C:\OfficeLocation\office-location-microservice\src\Database\obj\Debug\OfficeLocationMicroservice.Database.dll
-C:\OfficeLocation\office-location-microservice\src\Database\obj\Debug\OfficeLocationMicroservice.Database.pdb

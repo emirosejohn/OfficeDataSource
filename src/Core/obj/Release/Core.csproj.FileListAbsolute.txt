@@ -1,5 +1,0 @@
-C:\OfficeLocation\office-location-microservice\.build\Release\OfficeLocationMicroservice.Core.dll
-C:\OfficeLocation\office-location-microservice\.build\Release\OfficeLocationMicroservice.Core.pdb
-C:\OfficeLocation\office-location-microservice\src\Core\obj\Release\Core.csprojResolveAssemblyReference.cache
-C:\OfficeLocation\office-location-microservice\src\Core\obj\Release\OfficeLocationMicroservice.Core.dll
-C:\OfficeLocation\office-location-microservice\src\Core\obj\Release\OfficeLocationMicroservice.Core.pdb

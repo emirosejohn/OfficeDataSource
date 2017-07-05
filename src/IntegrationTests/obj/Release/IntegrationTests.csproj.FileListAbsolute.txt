@@ -1,5 +1,0 @@
-C:\OfficeLocation\office-location-microservice\.build\Release\OfficeLocationMicroservice.IntegrationTests.dll
-C:\OfficeLocation\office-location-microservice\.build\Release\OfficeLocationMicroservice.IntegrationTests.pdb
-C:\OfficeLocation\office-location-microservice\src\IntegrationTests\obj\Release\IntegrationTests.csprojResolveAssemblyReference.cache
-C:\OfficeLocation\office-location-microservice\src\IntegrationTests\obj\Release\OfficeLocationMicroservice.IntegrationTests.dll
-C:\OfficeLocation\office-location-microservice\src\IntegrationTests\obj\Release\OfficeLocationMicroservice.IntegrationTests.pdb
