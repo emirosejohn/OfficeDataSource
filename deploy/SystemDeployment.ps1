@@ -74,7 +74,7 @@ cd IIS:\Sites\
 
 if (Test-Path $ProjectName -pathType container)
 {
-    return
+    Remove-Item "$ProjectName" -recurse -Force
 }
 
 $iisApp = New-Item $ProjectName -bindings @{protocol="http";bindingInformation=":1704:"} -physicalPath $directoryPath
