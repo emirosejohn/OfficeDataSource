@@ -57,6 +57,7 @@ Else {
 }
 
 #Move from temp to the site folder.
+Write-Host "copying from C:\temp\$ProjectName\* to  $siteLocation"
 Copy-Item "C:\temp\$ProjectName\*" $siteLocation -recurse -Force
 
 
@@ -74,9 +75,11 @@ cd IIS:\Sites\
 
 if (Test-Path $ProjectName -pathType container)
 {
+    Write-Host "Removing IIS:\Sites\$ProjectName"
     Remove-Item "$ProjectName" -recurse -Force
 }
 
+Write-Host "mkaing item at IIS:\Sites\$ProjectName"
 $iisApp = New-Item $ProjectName -bindings @{protocol="http";bindingInformation=":1704:"} -physicalPath $directoryPath
 
 $iisApp | Set-ItemProperty -Name "applicationPool" -Value "$ProjectName"
