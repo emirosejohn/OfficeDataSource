@@ -1,8 +1,11 @@
 ﻿GET-PSSession | Remove-PSSession
 
 $ProjectName = 'OfficeLocationMicroservice'           #name of project
-$baseDir = (resolve-path .\..)
+$baseDir = (resolve-path .)
+
+Write-Host "Base Directory: $baseDir"
 $baseDir = "$baseDir\temp\$ProjectName"  #where the files in the team city agent are located
+Write-Host "Team city artifact dependency location: $baseDir"
 
 $targetServerName = '***REMOVED***'   #machine name where we are connecting to
 
