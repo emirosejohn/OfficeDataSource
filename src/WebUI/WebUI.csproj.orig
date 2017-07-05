@@ -189,7 +189,10 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
+<<<<<<< HEAD
     <Content Include="Views\OfficeLocation\Index.cshtml" />
+=======
+>>>>>>> feature/SetupChanges
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />
