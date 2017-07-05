@@ -68,7 +68,7 @@ Copy-Item "C:\temp\$ProjectName\*" $siteLocation -recurse -Force
 Import-Module WebAdministration
 
 
-$directoryPath = "$siteLocation\Release\_PublishedWebsites\Web" #path where the website is at
+$directoryPath = "$siteLocation\Release\_PublishedWebsites\WebUI" #path where the website is at
 
 cd IIS:\Sites\
 
