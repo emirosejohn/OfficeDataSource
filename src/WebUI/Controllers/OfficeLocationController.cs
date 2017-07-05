@@ -2,7 +2,7 @@
 
 namespace OfficeLocationMicroservice.WebUi.Controllers
 {
-    public class HomeController : Controller
+    public class OfficeLocationController : Controller
     {
         public ActionResult Index()
         {

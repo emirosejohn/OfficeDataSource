@@ -5,16 +5,43 @@
 
 <head>
     <style>
-
+        div.card {
+            width: 320px;
+            height: 220px;
+            background: red;
+            margin: 10px;
+        }
+        .details {
+            margin: 10px;
+        }
+      
+         .card:hover { 
+             box-shadow:0 8px 10px 0 rgba(0, 0, 0, 0.2), 0 8px 20px 0 rgba(0, 0, 0, 0.19);
+         }
     </style>
 </head>
 
 
 <body>
 
-    <h2>Index</h2>
-
+<h2>Index</h2>
+<div class="container">
+    <div class="card" >
+        Amsterdam
+        <div class="details">
+            ***REMOVED*** 
+            ***REMOVED***, Netherlands 
+            Switchboard: 
+            ***REMOVED*** 
+            Fax: ***REMOVED***
+            CEST
+        </div>
+    </div>
+    
+    
+</div>
 <script>
-
+    var cards = document.getElementsByClassName("card");
+    console.log(cards);
 </script>
 </body>
