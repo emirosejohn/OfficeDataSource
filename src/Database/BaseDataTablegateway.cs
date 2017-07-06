@@ -5,29 +5,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using OfficeLocationMicroservice.Core;
+using OfficeLocationMicroservice.Core.SharedContext;
 
 namespace OfficeLocationMicroservice.Database
 {
     public abstract class BaseDataTableGateway
     {
         protected ISystemLog SystemLog;
-        
-        private readonly IDatabaseSettings _officeLocationDatabaseSettings;
 
         protected BaseDataTableGateway(
-            IDatabaseSettings officeLocationDatabaseSettings,
             ISystemLog systemLog) 
         {
-            _officeLocationDatabaseSettings = officeLocationDatabaseSettings;
             SystemLog = systemLog;
         }
 
         //protected override string DefaultConnectionString
-        protected string DefaultConnectionString
-        {
-            get { return _officeLocationDatabaseSettings.ConnectionString; }
-        }
-
+        protected abstract string DefaultConnectionString { get; }
 
         protected void ConnectionExecuteWithLog(
             Action<SqlConnection> connectionAction,
@@ -76,11 +69,5 @@ namespace OfficeLocationMicroservice.Database
                 sqlConnection.Close();
             }
         }
-
-
-
     }
-
-
-
 }
