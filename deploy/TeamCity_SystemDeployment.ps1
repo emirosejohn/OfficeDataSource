@@ -21,7 +21,7 @@ Write-Host "copying from $teamCityFileLocation\* to  $remoteServerPath"
 Copy-Item "$teamCityFileLocation\*" $remoteServerPath -recurse
 
 $sess = New-PSSession -ComputerName $targetServerName 
-write-host "##teamcity[progressStart 'Install of Investor Reporting to $targetServerName']"
+write-host "##teamcity[progressStart 'Install of Office Location Microservice to $targetServerName']"
  
 Invoke-Command -Session $sess -ArgumentList ($ProjectName)  -Scriptblock { 
     $ProjectName = $($args[0])
@@ -36,4 +36,4 @@ Invoke-Command -Session $sess -ArgumentList ($ProjectName)  -Scriptblock {
 	exit $LastExitCode
 }
 
-write-host "##teamcity[progressStart 'Done with remote install of Investor Reporting to $targetServerName']"
+write-host "##teamcity[progressStart 'Done with remote install of Office Location Microservice to $targetServerName']"
