@@ -3,15 +3,16 @@
 )
 cls
 
-# '[p]sake' is the same as 'psake' but $Error is not polluted
-remove-module [p]sake
+$nugetExe = (get-childItem (".\src\.NuGet\NuGet.exe")).FullName
+&$nugetExe "restore" ".\src\build\packages.config" "-outputDirectory" ".\src\packages"
 
-# find psake's path
+# '[p]sake' is the same as 'psake' but $Error is not polluted
+remove-module [p]sake
 
-$psakeModule = (Get-ChildItem ("temp\$ProjectName\lib\psake\psake.psm1")).FullName | Sort-Object $_ | select -last 1
+# find psake's path
+$psakeModule = (Get-ChildItem (".\src\Packages\psake*\tools\psake.psm1")).FullName | Sort-Object $_ | select -last 1
  
-Import-Module $psakeModule
-
+Import-Module $psakeModule
 cd "c:\temp\$ProjectName"
 
 # you can put arguments to task in multiple lines using `
