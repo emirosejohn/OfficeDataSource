@@ -1,4 +1,5 @@
-﻿
+﻿@model OfficeLocationMicroservice.WebUi.Models.OfficeModel
+
 @{
     ViewBag.Title = "Index";
 }
@@ -38,7 +39,11 @@
         </div>
     </div>
     
-    
+    @foreach (var office in Model.Offices)
+    {
+        @office.Name
+    }
+
 </div>
 <script>
     var cards = document.getElementsByClassName("card");
