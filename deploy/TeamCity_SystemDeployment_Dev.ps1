@@ -22,6 +22,13 @@ Copy-Item "$teamCityFileLocation\*" $remoteServerPath -recurse
 
 $sess = New-PSSession -ComputerName $targetServerName 
 write-host "##teamcity[progressStart 'Install of Investor Reporting to $targetServerName']"
+
+# '[p]sake' is the same as 'psake' but $Error is not polluted
+remove-module [p]sake
+
+# find psake's path
+$psakeModule = (Get-ChildItem (".\src\Packages\psake*\tools\psake.psm1")).FullName | Sort-Object $_ | select -last 1
+ 
  
 Invoke-Command -Session $sess -ArgumentList ($ProjectName)  -Scriptblock { 
     $ProjectName = $($args[0])
