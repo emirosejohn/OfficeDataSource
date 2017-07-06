@@ -5,7 +5,7 @@
 cls
 
 $baseDir = (resolve-path .)
-$teamCityFileLocation = "$baseDir\temp\$ProjectName"  #where the files in the team city agent are located
+$teamCityFileLocation = "$baseDir\temp\$ProjectName"               #where the files in the team city agent are located
 $remoteServerPath = '\\' + $targetServerName + '\c$\temp\' + $ProjectName + '\'
 
 If (Test-Path "$remoteServerPath") {
@@ -25,14 +25,12 @@ $sess = New-PSSession -ComputerName $targetServerName
 write-host "##teamcity[progressStart 'Install of Office Location Microservice to $targetServerName']"
 
 
-
 Invoke-Command -Session $sess -ArgumentList ($ProjectName)  -Scriptblock { 
     $ProjectName = $($args[0])
 
 	cd "c:\temp\$ProjectName"
 
-
-	.\deploy\Local_SystemDeployment_Dev.ps1 -projectName $ProjectName
+	.\deploy\Web\Local_WebDeploy_Dev.ps1 -projectName $ProjectName
 
 	Write-Host "Build exit code:" $LastExitCode
 
@@ -41,3 +39,4 @@ Invoke-Command -Session $sess -ArgumentList ($ProjectName)  -Scriptblock {
 }
 
 write-host "##teamcity[progressStart 'Done with remote install of Office Location Microservice to $targetServerName']"
+

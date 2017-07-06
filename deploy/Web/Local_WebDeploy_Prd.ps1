@@ -8,16 +8,14 @@ remove-module [p]sake
 
 # find psake's path
 
-ls 
-
 $psakeModule = (Get-ChildItem (".\lib\psake\psake.psm1")).FullName | Sort-Object $_ | select -last 1
  
 Import-Module $psakeModule
 
 # you can put arguments to task in multiple lines using `
-Invoke-psake -buildFile .\deploy\default.ps1 `
+Invoke-psake -buildFile .\deploy\Web\default.ps1 `
 			 -parameters @{
-				 "enviornment" = "DEV"
+				 "enviornment" = "PRD"
                  "databaseServer" = "***REMOVED***"
                  "projectName" = "$projectName"
 				}

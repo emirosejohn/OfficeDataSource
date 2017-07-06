@@ -1,5 +1,4 @@
-﻿#$ProjectName = 'OfficeLocationMicroservice'           #name of project
-properties {
+﻿properties {
 	$baseDir = resolve-path .
     $siteLocation = "C:\UtilityApps\$ProjectName"
 
@@ -11,8 +10,12 @@ properties {
     $versionFile = "$dbFileDir\_BuildInfo.xml"
 }
 
-task default -depends CopyTempToSiteLocation, RebuildDatabase, RunIIS
+task default -depends CopyTempToSiteLocation, RunIIS
 
+formatTaskName {
+	param($taskName)
+	write-host "********************** $taskName **********************" -ForegroundColor Cyan
+}
 
 task CopyTempToSiteLocation{
 
@@ -36,7 +39,7 @@ task CopyTempToSiteLocation{
  
 task RebuildDatabase{
 
-    #databaseServer and enviornment are both passed in.
+    #databaseServer and environment are both passed in.
     &$roundhouseExec /d=$databaseName /f=$dbFileDir /s=$databaseServer /vf=$versionFile /vx='//buildInfo/version' /env=$enviornment /simple /silent
 
 }
@@ -52,8 +55,9 @@ task RunIIS{
 
     if (Test-Path $ProjectName -pathType container)
     {
-        Write-Host "Removing IIS:\Sites\$ProjectName"
-        Remove-Item "$ProjectName" -recurse -Force
+        #Write-Host "Removing IIS:\Sites\$ProjectName"
+        #Remove-Item "$ProjectName" -recurse -Force
+        return
     }
 
     Write-Host "making item at IIS:\Sites\$ProjectName"
