@@ -22,8 +22,14 @@ Write-Host "copying from $teamCityFileLocation\* to  $remoteServerPath"
 Copy-Item "$teamCityFileLocation\*" $remoteServerPath -recurse
 
 #copies deploy files from team city agent into temporary working directory
-Write-Host "copying from .\deploy\* to $remoteServerPath\deploy\*"
-Copy-Item ".\deploy\*" "$remoteServerPath\deploy\*" -recurse -Force
+If (Test-Path "$remoteServerPath\deploy") {
+    Write-Host "copying from .\deploy\* to $remoteServerPath\deploy\*"
+    Copy-Item ".\deploy\*" "$remoteServerPath\deploy\*" -recurse -Force
+}
+Else {
+    Write-Host "copying from .\deploy to $remoteServerPath\deploy"
+    Copy-Item ".\deploy" "$remoteServerPath\deploy" -recurse -Force
+}
 
 $sess = New-PSSession -ComputerName $targetServerName 
 write-host "##teamcity[progressStart 'Install of Office Location Microservice to $targetServerName']"

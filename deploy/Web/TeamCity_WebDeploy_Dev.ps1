@@ -22,13 +22,13 @@ Write-Host "copying from $teamCityFileLocation\* to  $remoteServerPath"
 Copy-Item "$teamCityFileLocation\*" $remoteServerPath -recurse
 
 #copies deploy files from team city agent into temporary working directory
-Write-Host "copying from .\deploy\* to $remoteServerPath\deploy\*"
-
 If (Test-Path "$remoteServerPath\deploy") {
-Copy-Item ".\deploy\*" "$remoteServerPath\deploy\*" -recurse -Force
+    Write-Host "copying from .\deploy\* to $remoteServerPath\deploy\*"
+    Copy-Item ".\deploy\*" "$remoteServerPath\deploy\*" -recurse -Force
 }
 Else {
-Copy-Item ".\deploy" "$remoteServerPath\deploy" -recurse -Force
+    Write-Host "copying from .\deploy to $remoteServerPath\deploy"
+    Copy-Item ".\deploy" "$remoteServerPath\deploy" -recurse -Force
 }
 
 $sess = New-PSSession -ComputerName $targetServerName 

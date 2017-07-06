@@ -125,7 +125,6 @@ task copyBuildFiles -depends BuildSolution {
 	mkdir $destPsakeFolder | out-null
 	copy-item "$srcFolder\packages\psake*\tools\*" $destPsakeFolder -recurse
 
-
 	copy-item -Path "$dataFolder" -Destination  "$buildDataFolder" -recurse
 }
 
