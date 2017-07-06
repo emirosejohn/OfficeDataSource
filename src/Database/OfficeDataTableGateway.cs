@@ -11,19 +11,15 @@ using Dapper;
 
 namespace OfficeLocationMicroservice.Database
 {
-    class OfficeDataTableGateway: BaseDataTableGateway, IOfficeDataTableGateway
+    public class OfficeDataTableGateway: BaseDataTableGateway, IOfficeDataTableGateway
     {
         private readonly IDatabaseSettings _settings;
 
-        public OfficeDataTableGateway(IOfficeLocationDatabaseSettings officeLocationDatabaseSettings, ISystemLog systemLog, IDatabaseSettings settings) : base(officeLocationDatabaseSettings, systemLog)
+        public OfficeDataTableGateway( IDatabaseSettings settings, ISystemLog systemLog) : base(settings, systemLog)
         {
             _settings = settings;
         }
 
-        public OfficeDataTableGateway(ISystemLog systemLog, IDatabaseSettings settings) : base(systemLog)
-        {
-            _settings = settings;
-        }
 
         public OfficeDto GetByName(string name)
         {

@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="BaseDataTableGateway.cs" />
     <Compile Include="OfficeDataTableGateway.cs" />
+    <Compile Include="OfficeLocationRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

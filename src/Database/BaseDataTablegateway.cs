@@ -12,25 +12,20 @@ namespace OfficeLocationMicroservice.Database
     {
         protected ISystemLog SystemLog;
         
-        private readonly IOfficeLocationDatabaseSettings _officeLocationDatabaseSettings;
+        private readonly IDatabaseSettings _officeLocationDatabaseSettings;
 
         protected BaseDataTableGateway(
-            IOfficeLocationDatabaseSettings officeLocationDatabaseSettings,
+            IDatabaseSettings officeLocationDatabaseSettings,
             ISystemLog systemLog) 
         {
             _officeLocationDatabaseSettings = officeLocationDatabaseSettings;
-        }
-
-        protected BaseDataTableGateway(
-            ISystemLog systemLog)
-        {
             SystemLog = systemLog;
         }
 
         //protected override string DefaultConnectionString
         protected string DefaultConnectionString
         {
-            get { return _officeLocationDatabaseSettings.OfficeLocationDatabaseConnectionString; }
+            get { return _officeLocationDatabaseSettings.ConnectionString; }
         }
 
 

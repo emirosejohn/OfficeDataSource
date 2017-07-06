@@ -1,5 +1,6 @@
 ﻿using System.Web.Mvc;
 using OfficeLocationMicroservice.Core;
+using OfficeLocationMicroservice.Database;
 using OfficeLocationMicroservice.WebUi.Models;
 
 namespace OfficeLocationMicroservice.WebUi.Controllers
@@ -9,10 +10,11 @@ namespace OfficeLocationMicroservice.WebUi.Controllers
         private readonly IOfficeLocationRepository _officeLocationRepository;
         private readonly IOfficeDataTableGateway _officeDataTableGateway;
 
-        public OfficeLocationController(IOfficeLocationRepository officeLocationRepository, IOfficeDataTableGateway officeDataTableGateway)
+        public OfficeLocationController()
         {
-            _officeLocationRepository = officeLocationRepository;
-            _officeDataTableGateway = officeDataTableGateway;
+            
+            _officeDataTableGateway = new OfficeDataTableGateway( new DatabaseSettings(), new SystemLog());
+            _officeLocationRepository = new OfficeLocationRepository(_officeDataTableGateway);
         }
 
         public ActionResult Index()

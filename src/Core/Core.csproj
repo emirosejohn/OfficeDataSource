@@ -37,9 +37,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IOfficeGateway.cs" />
+    <Compile Include="IDatabaseSettings.cs" />
+    <Compile Include="IOfficeDataTableGateway.cs" />
     <Compile Include="ISystemLog.cs" />
     <Compile Include="OfficeDto.cs" />
+    <Compile Include="IOfficeLocationRepository.cs" />
+    <Compile Include="OfficeLocation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
