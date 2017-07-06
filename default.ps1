@@ -114,6 +114,10 @@ task copyBuildFiles -depends BuildSolution {
 	mkdir $destRoundhouseFolder | out-null
 	copy-item "$srcFolder\packages\roundhouse.0.8.6\bin\*" $destRoundhouseFolder  -recurse
 
+    $destPsakeFolder = "$buildLibFolder\psake"
+	mkdir $destPsakeFolder | out-null
+	copy-item "$srcFolder\packages\psake*\tools\*" $destPsakeFolder -recurse
+
 	$msSqlFolder = "$buildDataFolder\mssql"
 	mkdir $msSqlFolder | out-null
 	copy-item "$dataFolder\mssql\*" $msSqlFolder -recurse
