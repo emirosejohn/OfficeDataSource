@@ -10,7 +10,7 @@
     $versionFile = "$dbFileDir\_BuildInfo.xml"
 }
 
-task default -depends CopyTempToSiteLocation, RunIIS
+task default -depends CopyTempToSiteLocation
 
 formatTaskName {
 	param($taskName)
@@ -41,28 +41,5 @@ task RebuildDatabase{
 
     #databaseServer and environment are both passed in.
     &$roundhouseExec /d=$databaseName /f=$dbFileDir /s=$databaseServer /vf=$versionFile /vx='//buildInfo/version' /env=$enviornment /simple /silent
-
-}
-
-task RunIIS{
-
-    #Set up Site using iis
-    Import-Module WebAdministration
-
-    $directoryPath = "$siteLocation\Release\_PublishedWebsites\WebUI" #path where the website is at
-
-    cd IIS:\Sites\
-
-    if (Test-Path $ProjectName -pathType container)
-    {
-        #Write-Host "Removing IIS:\Sites\$ProjectName"
-        #Remove-Item "$ProjectName" -recurse -Force
-        return
-    }
-
-    Write-Host "making item at IIS:\Sites\$ProjectName"
-    $iisApp = New-Item $ProjectName -bindings @{protocol="http";bindingInformation=":1704:"} -physicalPath $directoryPath
-
-    $iisApp | Set-ItemProperty -Name "applicationPool" -Value "$ProjectName"
 
 }
