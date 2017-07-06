@@ -8,12 +8,14 @@
 	$srcFolder = "$baseDir\src"
 	$docsFolder = "$baseDir\docs"
 	$dataFolder = "$baseDir\data"
+    $deployFolder = "$baseDir\deploy"
 	
 	$buildTargetFolder = "$buildFolder\$buildConfig"
 
 	$buildLibFolder = "$buildFolder\lib"
 	$buildDataFolder = "$buildFolder\data"
 	$buildWebFolder = "$buildFolder\Web"
+    $buildDeployFolder = "$buildFolder\deploy"
 
 	$databaseServer = "(local)\sqlexpress"
 	$databaseName = $projectName
@@ -98,7 +100,13 @@ task copyBuildFiles -depends BuildSolution {
 	copy-item $sourceFiles "$buildWebFolder" -recurse
 
 
-    mkdir $buildTargetFolder\_PublishedWebsites\WebUI\bin\roslyn |out-null
+    mkdir $builddeployFolder | out-null
+	
+	Write-Host "Copying files from '$deployFolder' to '$buildDeployFolder'"
+	copy-item $deployFolder "$buildDeployFolder" -recurse
+
+
+    mkdir $buildTargetFolder\_PublishedWebsites\Web\bin\roslyn |out-null
 
 	$roslyn = "$buildTargetFolder\roslyn\*"
 	Write-Host "Copying files from '$roslyn' to '$buildWebFolder'"
