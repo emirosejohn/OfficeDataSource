@@ -1,5 +1,5 @@
 ﻿properties {
-	$baseDir = resolve-path .
+	$baseDir = (resolve-path .\..\..)
     $teamCityFileLocation = "$baseDir\temp\$ProjectName"
 
     $dataFolder = "$teamCityFileLocation\data"
