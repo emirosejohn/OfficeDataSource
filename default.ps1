@@ -99,7 +99,6 @@ task copyBuildFiles -depends BuildSolution {
 	Write-Host "Copying files from '$sourceFiles' to '$buildWebFolder'"
 	copy-item $sourceFiles "$buildWebFolder" -recurse
 
-
     mkdir $builddeployFolder | out-null
 	
 	Write-Host "Copying files from '$deployFolder' to '$buildDeployFolder'"
