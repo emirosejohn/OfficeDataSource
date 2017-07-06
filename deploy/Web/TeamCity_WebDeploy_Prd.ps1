@@ -30,6 +30,8 @@ Invoke-Command -Session $sess -ArgumentList ($ProjectName)  -Scriptblock {
 
 	#cd "c:\temp\$ProjectName" include to use the artifact scripts instead.
 
+    ls 
+
 	.\deploy\Web\Local_WebDeploy_Prd.ps1 -projectName $ProjectName
 
 	Write-Host "Build exit code:" $LastExitCode
