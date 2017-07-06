@@ -9,8 +9,10 @@
         div.card {
             width: 320px;
             height: 220px;
-            background: red;
+            background: grey;
             margin: 10px;
+            padding: 10px;
+            display: inline-table;
         }
         .details {
             margin: 10px;
@@ -27,21 +29,21 @@
 
 <h2>Index</h2>
 <div class="container">
-    <div class="card" >
-        Amsterdam
-        <div class="details">
-            ***REMOVED*** 
-            ***REMOVED***, Netherlands 
-            Switchboard: 
-            ***REMOVED*** 
-            Fax: ***REMOVED***
-            CEST
-        </div>
-    </div>
-    
     @foreach (var office in Model.Offices)
     {
-        @office.Name
+        <div class="card">
+            @office.Name
+            <div class="details">
+                @office.Address
+                @office.Country
+                Switchboard:
+                @office.Switchboard
+                Fax: @office.Fax
+                @office.TimeZone
+                @office.Operating
+            </div>
+
+        </div>
     }
 
 </div>
