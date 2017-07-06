@@ -8,12 +8,14 @@
 	$srcFolder = "$baseDir\src"
 	$docsFolder = "$baseDir\docs"
 	$dataFolder = "$baseDir\data"
+    $deployFolder = "$baseDir\deploy"
 	
 	$buildTargetFolder = "$buildFolder\$buildConfig"
 
 	$buildLibFolder = "$buildFolder\lib"
 	$buildDataFolder = "$buildFolder\data"
 	$buildWebFolder = "$buildFolder\Web"
+    $buildDeployFolder = "$buildFolder\deploy"
 
 	$databaseServer = "(local)\sqlexpress"
 	$databaseName = $projectName
@@ -97,7 +99,6 @@ task copyBuildFiles -depends BuildSolution {
 	Write-Host "Copying files from '$sourceFiles' to '$buildWebFolder'"
 	copy-item $sourceFiles "$buildWebFolder" -recurse
 
-
     mkdir $buildTargetFolder\_PublishedWebsites\Web\bin\roslyn |out-null
 
 	$roslyn = "$buildTargetFolder\roslyn\*"
@@ -113,6 +114,10 @@ task copyBuildFiles -depends BuildSolution {
     $destRoundhouseFolder = "$buildLibFolder\roundhouse"
 	mkdir $destRoundhouseFolder | out-null
 	copy-item "$srcFolder\packages\roundhouse.0.8.6\bin\*" $destRoundhouseFolder  -recurse
+
+    $destPsakeFolder = "$buildLibFolder\psake"
+	mkdir $destPsakeFolder | out-null
+	copy-item "$srcFolder\packages\psake*\tools\*" $destPsakeFolder -recurse
 
 	$msSqlFolder = "$buildDataFolder\mssql"
 	mkdir $msSqlFolder | out-null

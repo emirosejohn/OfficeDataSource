@@ -1,7 +1,6 @@
 ﻿param(
 	[String]$projectVersion=$(throw "-projectVersion is required.")
 )
-
 cls
 
 $nugetExe = (get-childItem (".\src\.NuGet\NuGet.exe")).FullName
