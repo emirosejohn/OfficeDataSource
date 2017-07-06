@@ -16,7 +16,7 @@ namespace OfficeLocationMicroservice.Database
 
         protected BaseDataTableGateway(
             IOfficeLocationDatabaseSettings officeLocationDatabaseSettings,
-            ISystemLog systemLog) : base(systemLog)
+            ISystemLog systemLog) 
         {
             _officeLocationDatabaseSettings = officeLocationDatabaseSettings;
         }

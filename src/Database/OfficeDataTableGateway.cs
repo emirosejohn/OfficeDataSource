@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using OfficeLocationMicroservice.Core;
 using OfficeLocationMicroservice.Database;
+using Dapper;
 
 namespace OfficeLocationMicroservice.Database
 {
@@ -26,7 +27,7 @@ FROM
     [OfficeLocation].[Offices]";
 
             OfficeDto[] result = null;
-            BaseDataTableGateway.ConnectionExecuteWithLog(
+            ConnectionExecuteWithLog(
                 connection =>
                 {
                     result = connection.Query<OfficeDto>(query).ToArray();
