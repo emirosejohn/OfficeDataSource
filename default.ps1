@@ -125,9 +125,8 @@ task copyBuildFiles -depends BuildSolution {
 	mkdir $destPsakeFolder | out-null
 	copy-item "$srcFolder\packages\psake*\tools\*" $destPsakeFolder -recurse
 
-	$msSqlFolder = "$buildDataFolder\mssql"
-	mkdir $msSqlFolder | out-null
-	copy-item "$dataFolder\mssql\*" $msSqlFolder -recurse
+
+	copy-item -Path "$dataFolder" -Destination  "$buildDataFolder" -recurse
 }
 
 task ZipFile -depends copyBuildFiles -requiredVariables projectVersion{
