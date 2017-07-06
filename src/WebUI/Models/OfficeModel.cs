@@ -8,6 +8,6 @@ namespace OfficeLocationMicroservice.WebUi.Models
 {
     public class OfficeModel
     {
-        public OfficeDto[] Offices { get; set; }
+        public OfficeLocation[] Offices { get; set; }
     }
 }

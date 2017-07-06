@@ -4,45 +4,40 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using OfficeLocationMicroservice.Core;
+using OfficeLocationMicroservice.WebUi.Models;
 
 namespace OfficeLocationMicroservice.WebUi.Controllers
 {
     public class OfficeLocationAPIController : ApiController
     {
-        /*
-    *  public OfficeLocationAPIController(IRegionSchemeRepository regionSchemeRepository,
-           IRegionSchemeByCodeTypeRepository regionSchemeByCodeTypeRepository )
-       {
-           //fill interfaces model is dependent on
-           //plus repository
-           _regionSchemeRepository = regionSchemeRepository;
-           _regionSchemeByCodeTypeRepository = regionSchemeByCodeTypeRepository;
-           _schemegateway = new SchemeGateway(new APISettings());
-       }
+        private readonly IOfficeDataTableGateway _officeDataTableGateway;
+        private readonly IOfficeLocationRepository _officeLocationRepository;
 
-         /*
-     * private TreeModel GetModel()
+        public OfficeLocationAPIController(IOfficeDataTableGateway officeDataTableGateway, IOfficeLocationRepository officeLocationRepository)
         {
-            SchemeDto[] DTOs = _schemegateway.GetAll();
-            TreeModel model = new TreeModel();
+            //fill interfaces model is dependent on
+            //plus repository
+            _officeDataTableGateway = officeDataTableGateway;
+            _officeLocationRepository = officeLocationRepository;
+            //_schemegateway = new SchemeGateway(new APISettings());
+        }
+        
+        private OfficeModel GetModel()
+        {
+            OfficeDto[] DTOs = _officeDataTableGateway.GetAll();
+            OfficeModel model = new OfficeModel();
 
-            string[] slugs = new string[DTOs.Length];
-            int t = 0;
-            foreach (SchemeDto dto in DTOs)
-            {
-                slugs[t++] = dto.Slug;
-            }
-            //this sets RegionSchemes in model so can access
-            model.RegionSchemes = _regionSchemeRepository.GetAll(slugs);
+            //need to set Offices in model so can access
+            model.Offices = _officeLocationRepository.GetAll();
             return model;
         }
 
-        public TreeModel GetData()
+        public OfficeModel GetData()
         {
             return GetModel();
         }
-
-    */
+        
     }
 
 
