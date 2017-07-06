@@ -60,7 +60,8 @@ Invoke-Command -Session $sess -ArgumentList ($ProjectName)  -Scriptblock {
 
 	cd "c:\temp\$ProjectName"
 
-	.\Local_SystemDeployment_Dev.ps1 -projectName $ProjectName
+
+	.\deploy\Local_SystemDeployment_Dev.ps1 -projectName $ProjectName
 
 	Write-Host "Build exit code:" $LastExitCode
 
