@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OfficeLocationMicroservice.Core
 {
-    public interface IOfficeGateway
+    public interface IOfficeDataTableGateway
     {
         OfficeDto[] GetAll();
     }

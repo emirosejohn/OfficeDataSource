@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Dimensional.TinyReturns.Core.SharedContext.Services
+namespace OfficeLocationMicroservice.Core
 {
     public interface ISystemLog
     {

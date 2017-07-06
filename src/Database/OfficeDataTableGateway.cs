@@ -9,7 +9,7 @@ using OfficeLocationMicroservice.Database;
 
 namespace OfficeLocationMicroservice.Database
 {
-    class OfficeGateway: BaseDataTableGateway, IOfficeGateway
+    class OfficeDataTableGateway: BaseDataTableGateway, IOfficeDataTableGateway
     {
         public OfficeDto[] GetAll()
         {
@@ -35,6 +35,13 @@ FROM
 
             return result;
         }
-        
+
+        public OfficeDataTableGateway(IOfficeLocationDatabaseSettings officeLocationDatabaseSettings, ISystemLog systemLog) : base(officeLocationDatabaseSettings, systemLog)
+        {
+        }
+
+        public OfficeDataTableGateway(ISystemLog systemLog) : base(systemLog)
+        {
+        }
     }
 }
