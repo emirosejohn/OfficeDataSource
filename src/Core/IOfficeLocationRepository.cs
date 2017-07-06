@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace OfficeLocationMicroservice.Core
 {
-    public interface IOfficeDataTableGateway
+    public interface IOfficeLocationRepository
     {
-        OfficeDto GetByName(string name);
-        OfficeDto[] GetAll();
+        OfficeLocation GetByName(string name);
+        OfficeLocation[] GetAll();
     }
 }

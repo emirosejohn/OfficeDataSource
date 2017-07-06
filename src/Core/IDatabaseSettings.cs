@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace OfficeLocationMicroservice.Core
 {
-    public interface IOfficeDataTableGateway
+    public interface IDatabaseSettings
     {
-        OfficeDto GetByName(string name);
-        OfficeDto[] GetAll();
+        string ConnectionString { get; }
     }
 }

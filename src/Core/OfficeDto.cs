@@ -2,6 +2,20 @@ namespace OfficeLocationMicroservice.Core
 {
     public class OfficeDto
     {
+        //any constructors would be here
+        //any arrays/collections would be in OfficeLocation
+
+        /*  never used
+         *      public OfficeDto()
+                {
+
+                }
+         *  only used for fake gateway testing
+                public OfficeDto(string name, string address, )
+                {
+
+                }*/
+
         public string Name { get; set; }
         public string Address { get; set; }
         public string Country { get; set; }
