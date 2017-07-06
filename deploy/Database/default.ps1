@@ -1,8 +1,9 @@
 ﻿properties {
 	$baseDir = resolve-path .
+    $dataFolder = "$baseDir\data"
 
-    $roundhouseExec = "$siteLocation\lib\roundhouse\rh.exe"
-	
+    $roundhouseExec = "$baseDir\lib\roundhouse\rh.exe"
+
     $databaseName = $projectName
     $dbFileDir = "$dataFolder\mssql\$ProjectName"
     $versionFile = "$dbFileDir\_BuildInfo.xml"
