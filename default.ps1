@@ -98,7 +98,7 @@ task copyBuildFiles -depends BuildSolution {
 	copy-item $sourceFiles "$buildWebFolder" -recurse
 
 
-    mkdir $buildTargetFolder\_PublishedWebsites\WebUI\bin\roslyn |out-null
+    mkdir $buildTargetFolder\_PublishedWebsites\Web\bin\roslyn |out-null
 
 	$roslyn = "$buildTargetFolder\roslyn\*"
 	Write-Host "Copying files from '$roslyn' to '$buildWebFolder'"
@@ -113,6 +113,10 @@ task copyBuildFiles -depends BuildSolution {
     $destRoundhouseFolder = "$buildLibFolder\roundhouse"
 	mkdir $destRoundhouseFolder | out-null
 	copy-item "$srcFolder\packages\roundhouse.0.8.6\bin\*" $destRoundhouseFolder  -recurse
+
+    $destPsakeFolder = "$buildLibFolder\psake"
+	mkdir $destPsakeFolder | out-null
+	copy-item "$srcFolder\packages\psake*\tools\*" $destPsakeFolder -recurse
 
 	$msSqlFolder = "$buildDataFolder\mssql"
 	mkdir $msSqlFolder | out-null
