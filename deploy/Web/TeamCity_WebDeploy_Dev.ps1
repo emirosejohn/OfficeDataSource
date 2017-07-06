@@ -28,7 +28,7 @@ write-host "##teamcity[progressStart 'Install of Office Location Microservice to
 Invoke-Command -Session $sess -ArgumentList ($ProjectName)  -Scriptblock { 
     $ProjectName = $($args[0])
 
-	#cd "c:\temp\$ProjectName" include to use the artifact scripts instead.
+	cd "c:\temp\$ProjectName"
 
 	.\deploy\Web\Local_WebDeploy_Dev.ps1 -projectName $ProjectName
 
