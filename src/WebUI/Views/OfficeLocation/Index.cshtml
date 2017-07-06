@@ -21,6 +21,9 @@
          .card:hover { 
              box-shadow:0 8px 10px 0 rgba(0, 0, 0, 0.2), 0 8px 20px 0 rgba(0, 0, 0, 0.19);
          }
+         h4 {
+             color: black;
+         }
     </style>
 </head>
 
@@ -32,14 +35,14 @@
     @foreach (var office in Model.Offices)
     {
         <div class="card">
-            @office.Name
+            <h4>@office.Name</h4>
             <div class="details">
-                @office.Address
-                @office.Country
+                @office.Address<br/>
+                @office.Country<br />
                 Switchboard:
-                @office.Switchboard
-                Fax: @office.Fax
-                @office.TimeZone
+                @office.Switchboard<br />
+                Fax: @office.Fax<br />
+                @office.TimeZone<br />
                 @office.Operating
             </div>
 
