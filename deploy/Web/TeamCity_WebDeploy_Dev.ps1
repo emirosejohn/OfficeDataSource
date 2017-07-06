@@ -28,7 +28,7 @@ If (Test-Path "$remoteServerPath\deploy") {
 Copy-Item ".\deploy\*" "$remoteServerPath\deploy\*" -recurse -Force
 }
 Else {
-Copy-Item ".\deploy\*" "$remoteServerPath\deploy" -recurse -Force
+Copy-Item ".\deploy" "$remoteServerPath\deploy" -recurse -Force
 }
 
 $sess = New-PSSession -ComputerName $targetServerName 
