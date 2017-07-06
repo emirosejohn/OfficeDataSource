@@ -31,7 +31,7 @@ namespace OfficeLocationMicroservice.Database
     ,[TimeZone]
     ,[Operating]
 FROM
-    [OfficeLocation].[Offices]
+    [OfficeLocation].[Office]
 WHERE Name = @name";
             var data = GetFromDatabase(con => con.Query<OfficeDto>(query, new { name }).ToArray());
             return data.SingleOrDefault();
@@ -50,7 +50,7 @@ SELECT
     ,[TimeZone]
     ,[Operating]
 FROM
-    [OfficeLocation].[Offices]";
+    [OfficeLocation].[Office]";
 
             OfficeDto[] result = null;
             ConnectionExecuteWithLog(
