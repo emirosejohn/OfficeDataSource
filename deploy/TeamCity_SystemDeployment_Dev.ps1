@@ -1,10 +1,11 @@
-﻿cls
+﻿param(
+	[String]$ProjectName = 'OfficeLocationMicroservice',           #name of project
+    [String]$targetServerName = '***REMOVED***'                    #machine name where we are connecting to
+)
+cls
 
-$ProjectName = 'OfficeLocationMicroservice'           #name of project
 $baseDir = (resolve-path .)
 $teamCityFileLocation = "$baseDir\temp\$ProjectName"  #where the files in the team city agent are located
-$targetServerName = '***REMOVED***'   #machine name where we are connecting to
-
 $remoteServerPath = '\\' + $targetServerName + '\c$\temp\' + $ProjectName + '\'
 
 If (Test-Path "$remoteServerPath") {
@@ -15,36 +16,6 @@ Else {
 	Write-Host "Creating folder: $remoteServerPath"
 	New-Item -ItemType directory -Path $remoteServerPath
 }
-
-#... for testing until branch is merged into develop ...
-## ======================================================
-
-$teamCityFileLocation = "$baseDir\.build"  #where the files in the team city agent are located
-
-$nugetExe = (get-childItem (".\src\.NuGet\NuGet.exe")).FullName
-&$nugetExe "restore" ".\src\build\packages.config" "-outputDirectory" ".\src\packages"
-
-# '[p]sake' is the same as 'psake' but $Error is not polluted
-remove-module [p]sake
-
-# find psake's path
-$psakeModule = (Get-ChildItem (".\src\Packages\psake*\tools\psake.psm1")).FullName | Sort-Object $_ | select -last 1
- 
-Import-Module $psakeModule
-
-# you can write statements in multiple lines using `
-Invoke-psake -buildFile ./default.ps1 `
-			 -taskList teamcity `
-             -parameters @{
-                "projectVersion" = "101"
-                } `
-			 -framework 4.6
-
-Write-Host "Build exit code:" $LastExitCode
-
-
-## =====================================================
-
 
 #copies from team city agent into temporary working directory
 Write-Host "copying from $teamCityFileLocation\* to  $remoteServerPath"
