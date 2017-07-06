@@ -1,8 +1,11 @@
 ﻿properties {
 	$baseDir = resolve-path .
-    $dataFolder = "$baseDir\data"
+    $teamCityFileLocation = "$baseDir\temp\$ProjectName"
 
-    $roundhouseExec = "$baseDir\lib\roundhouse\rh.exe"
+    $dataFolder = "$teamCityFileLocation\data"
+
+
+    $roundhouseExec = "$teamCityFileLocation\lib\roundhouse\rh.exe"
 
     $databaseName = $projectName
     $dbFileDir = "$dataFolder\mssql\$ProjectName"

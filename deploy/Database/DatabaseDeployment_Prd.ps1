@@ -14,8 +14,6 @@ $psakeModule = (Get-ChildItem (".\src\Packages\psake*\tools\psake.psm1")).Ful
  
 Import-Module $psakeModule
 
-cd "c:\temp\$ProjectName"
-
 # you can put arguments to task in multiple lines using `
 Invoke-psake -buildFile .\deploy\Database\default.ps1 `
 			 -parameters @{
