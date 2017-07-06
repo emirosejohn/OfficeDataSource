@@ -8,7 +8,5 @@ namespace OfficeLocationMicroservice.WebUi.Controllers
         {
             return View();
         }
-
-        
     }
 }
