@@ -30,8 +30,6 @@ Write-Host "Build exit code:" $LastExitCode
 # =================== Run Local Build ===================================
 
 
-
-
 # you can put arguments to task in multiple lines using `
 Invoke-psake -buildFile .\deploy\Database\default.ps1 `
 			 -parameters @{
