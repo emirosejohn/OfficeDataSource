@@ -16,12 +16,13 @@ Else {
 	New-Item -ItemType directory -Path $remoteServerPath
 }
 
-#copies from team city agent into temporary workign directory
-Write-Host "copying from $teamCityFileLocation\* to  $remoteServerPath"
-Copy-Item "$teamCityFileLocation\*" $remoteServerPath -recurse
+#... for testing until branch is merged into develop ...
+## ======================================================
 
-$sess = New-PSSession -ComputerName $targetServerName 
-write-host "##teamcity[progressStart 'Install of Investor Reporting to $targetServerName']"
+$teamCityFileLocation = "$baseDir\.build"  #where the files in the team city agent are located
+
+$nugetExe = (get-childItem (".\src\.NuGet\NuGet.exe")).FullName
+&$nugetExe "restore" ".\src\build\packages.config" "-outputDirectory" ".\src\packages"
 
 # '[p]sake' is the same as 'psake' but $Error is not polluted
 remove-module [p]sake
@@ -29,7 +30,31 @@ remove-module [p]sake
 # find psake's path
 $psakeModule = (Get-ChildItem (".\src\Packages\psake*\tools\psake.psm1")).FullName | Sort-Object $_ | select -last 1
  
- 
+Import-Module $psakeModule
+
+# you can write statements in multiple lines using `
+Invoke-psake -buildFile ./default.ps1 `
+			 -taskList teamcity `
+             -parameters @{
+                "projectVersion" = "101"
+                } `
+			 -framework 4.6
+
+Write-Host "Build exit code:" $LastExitCode
+
+
+## =====================================================
+
+
+#copies from team city agent into temporary working directory
+Write-Host "copying from $teamCityFileLocation\* to  $remoteServerPath"
+Copy-Item "$teamCityFileLocation\*" $remoteServerPath -recurse
+
+$sess = New-PSSession -ComputerName $targetServerName 
+write-host "##teamcity[progressStart 'Install of Office Location Microservice to $targetServerName']"
+
+
+
 Invoke-Command -Session $sess -ArgumentList ($ProjectName)  -Scriptblock { 
     $ProjectName = $($args[0])
 
@@ -43,4 +68,4 @@ Invoke-Command -Session $sess -ArgumentList ($ProjectName)  -Scriptblock {
 	exit $LastExitCode
 }
 
-write-host "##teamcity[progressStart 'Done with remote install of Investor Reporting to $targetServerName']"
+write-host "##teamcity[progressStart 'Done with remote install of Office Location Microservice to $targetServerName']"
