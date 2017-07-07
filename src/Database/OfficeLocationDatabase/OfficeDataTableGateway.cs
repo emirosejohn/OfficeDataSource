@@ -3,7 +3,6 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using Dapper;
-using OfficeLocationMicroservice.Core;
 using OfficeLocationMicroservice.Core.SharedContext;
 using OfficeLocationMicroservice.Core.SharedContext.OfficeLocationDatabase;
 
