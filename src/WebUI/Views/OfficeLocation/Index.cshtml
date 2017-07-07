@@ -1,19 +1,52 @@
-﻿
+﻿@model OfficeLocationMicroservice.WebUi.Models.OfficeModel
+
 @{
     ViewBag.Title = "Index";
 }
 
 <head>
     <style>
-
+        div.card {
+            width: 320px;
+            height: 220px;
+            background: grey;
+            margin: 10px;
+            padding: 10px;
+            display: inline-table;
+        }
+        .details {
+            margin: 10px;
+        }
+      
+         .card:hover { 
+             box-shadow:0 8px 10px 0 rgba(0, 0, 0, 0.2), 0 8px 20px 0 rgba(0, 0, 0, 0.19);
+         }
     </style>
 </head>
 
+
 <body>
 
-    <h2>Index</h2>
+<h2>Index</h2>
+<div class="container">
+    @foreach (var office in Model.Offices)
+    {
+        <div class="card">
+            @office.Name
+            <div class="details">
+                @office.Address <br />
+                @office.Country <br />
+                Switchboard:
+                @office.Switchboard <br />
+                Fax: @office.Fax <br />
+                @office.TimeZone <br />
+                @office.Operating
+            </div>
 
+        </div>
+    }
+
+</div>
 <script>
-
 </script>
 </body>
