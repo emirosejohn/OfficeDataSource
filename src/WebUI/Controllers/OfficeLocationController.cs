@@ -19,8 +19,6 @@ namespace OfficeLocationMicroservice.WebUi.Controllers
 
         public ActionResult Index()
         {
-            //fill model
-            //OfficeDto[] DTOs = _officeDataTableGateway.GetAll();
             OfficeModel model = new OfficeModel();
 
             //need to set Offices in model so can access
