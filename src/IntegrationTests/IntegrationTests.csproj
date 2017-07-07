@@ -66,6 +66,7 @@
   <ItemGroup>
     <Compile Include="FirstTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Web\Controllers\OfficeLocationControllerTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
