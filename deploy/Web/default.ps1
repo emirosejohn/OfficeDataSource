@@ -23,7 +23,7 @@ task CopyTempToSiteLocation{
 
     If (Test-Path "$siteLocation") {
 	    Write-Host "Deleting contents: $siteLocation"
-	    Get-ChildItem "$siteLocation/*" -Recurse | Remove-Item -Force  
+	    Get-ChildItem "$siteLocation/*" -Recurse -Force | Remove-Item -Force  
     }
 
     Else {
