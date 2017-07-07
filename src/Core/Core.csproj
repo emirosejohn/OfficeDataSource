@@ -37,14 +37,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IDatabaseSettings.cs" />
-    <Compile Include="IOfficeDataTableGateway.cs" />
-    <Compile Include="ISystemLog.cs" />
-    <Compile Include="OfficeDto.cs" />
-    <Compile Include="IOfficeLocationRepository.cs" />
-    <Compile Include="OfficeLocation.cs" />
+    <Compile Include="MasterFactory.cs" />
+    <Compile Include="SharedContext\OfficeLocationDatabase\IOfficeLocationDatabaseSettings.cs" />
+    <Compile Include="SharedContext\OfficeLocationDatabase\IOfficeDataTableGateway.cs" />
+    <Compile Include="SharedContext\ISystemLog.cs" />
+    <Compile Include="SharedContext\OfficeLocationDatabase\OfficeDto.cs" />
+    <Compile Include="OfficeLocationContext\IOfficeLocationRepository.cs" />
+    <Compile Include="OfficeLocationContext\OfficeLocation.cs" />
+    <Compile Include="OfficeLocationContext\OfficeLocationRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SharedContext\IOfficeLocationGateway.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
