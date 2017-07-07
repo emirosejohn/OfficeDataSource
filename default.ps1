@@ -65,6 +65,7 @@ task UpdateNuGetPackages {
 
 task BuildSolution -depends CleanSolution {
 	Exec { msbuild "$solutionFile" /t:Build /p:Configuration=Release /v:quiet /p:OutDir="$buildTargetFolder\" }
+    Copy-Item "$srcFolder\Logging\Log4NetConfig.xml" "$buildTargetFolder"
 }
 
 task RunUnitTests -depends BuildSolution {
