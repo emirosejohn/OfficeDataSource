@@ -9,7 +9,6 @@ namespace OfficeLocationMicroservice.Core
         public static ISystemLog SystemLog { get; set; }
         public static IOfficeDataTableGateway OfficeDataTableGateway { get; set; }
 
-
         public static OfficeLocationRepository GetOfficeLocationRepository()
         {
             return new OfficeLocationRepository(OfficeDataTableGateway);
