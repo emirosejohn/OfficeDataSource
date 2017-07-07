@@ -16,6 +16,6 @@ namespace OfficeLocationMicroservice.Core
         public string Switchboard { get; set; }
         public string Fax { get; set; }
         public string TimeZone { get; set; }
-        public bool Operating { get; set; }
+        public string Operating { get; set; }
     }
 }

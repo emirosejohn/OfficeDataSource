@@ -27,9 +27,8 @@ namespace OfficeLocationMicroservice.Database
                 Switchboard = officeDto.Switchboard,
                 Fax = officeDto.Fax,
                 TimeZone = officeDto.TimeZone,
-                Operating = officeDto.Operating
+                Operating = officeDto.Operating ? "Active" : "Closed"
             };
-
             return office;
         }
         public OfficeLocation[] GetAll()
