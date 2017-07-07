@@ -11,10 +11,10 @@ namespace OfficeLocationMicroservice.Database.OfficeLocationDatabase
 {
     public class OfficeDataTableGateway: BaseOfficeLocationDataTableGateway, IOfficeDataTableGateway
     {
-        private readonly IDatabaseSettings _settings;
+        private readonly IOfficeLocationDatabaseSettings _settings;
 
         public OfficeDataTableGateway(
-            IDatabaseSettings settings, ISystemLog systemLog)
+            IOfficeLocationDatabaseSettings settings, ISystemLog systemLog)
             : base(settings, systemLog)
         {
             _settings = settings;
@@ -23,16 +23,17 @@ namespace OfficeLocationMicroservice.Database.OfficeLocationDatabase
 
         public OfficeDto GetByName(string name)
         {
-            const string query = @"SELECT [Name]
-    ,[Address]
-    ,[Country]
-    ,[Switchboard]
-    ,[Fax]
-    ,[TimeZone]
-    ,[Operating]
-FROM
-    [OfficeLocation].[Office]
-WHERE Name = @name";
+            const string query =
+               @"SELECT [Name]
+                ,[Address]
+                ,[Country]
+                ,[Switchboard]
+                ,[Fax]
+                ,[TimeZone]
+                ,[Operating]
+            FROM
+                [OfficeLocation].[Office]
+            WHERE Name = @name";
             var data = GetFromDatabase(con => con.Query<OfficeDto>(query, new { name }).ToArray());
             return data.SingleOrDefault();
 
@@ -41,16 +42,16 @@ WHERE Name = @name";
         public OfficeDto[] GetAll()
         {
             const string query = @"
-SELECT 
-    [Name]
-    ,[Address]
-    ,[Country]
-    ,[Switchboard]
-    ,[Fax]
-    ,[TimeZone]
-    ,[Operating]
-FROM
-    [OfficeLocation].[Office]";
+        SELECT 
+            [Name]
+            ,[Address]
+            ,[Country]
+            ,[Switchboard]
+            ,[Fax]
+            ,[TimeZone]
+            ,[Operating]
+        FROM
+            [OfficeLocation].[Office]";
 
             OfficeDto[] result = null;
             ConnectionExecuteWithLog(
@@ -62,6 +63,36 @@ FROM
 
             return result;
         }
+
+        public void Insert(OfficeDto dto)
+        {
+            const string sql = @"
+        Insert Into [OfficeLocation].[Office]
+            ([Name]
+            ,[Address]
+            ,[Country]
+            ,[Switchboard]
+            ,[Fax]
+            ,[TimeZone]
+            ,[Operating])
+        Values
+            (@Name
+            ,@Address
+            ,@Country
+            ,@Switchboard
+            ,@Fax
+            ,@TimeZone
+            ,@Operating)";
+
+            ConnectionExecuteWithLog(
+                connection =>
+                {
+                    connection.Execute(sql, dto);
+                },
+                sql,
+                dto);
+        }
+
 
         protected T[] GetFromDatabase<T>(Func<IDbConnection, T[]> connectionFunc)
         {

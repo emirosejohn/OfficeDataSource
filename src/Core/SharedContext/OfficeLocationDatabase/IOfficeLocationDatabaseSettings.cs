@@ -1,6 +1,6 @@
 ﻿namespace OfficeLocationMicroservice.Core.SharedContext.OfficeLocationDatabase
 {
-    public interface IDatabaseSettings
+    public interface IOfficeLocationDatabaseSettings
     {
         string ConnectionString { get; }
     }

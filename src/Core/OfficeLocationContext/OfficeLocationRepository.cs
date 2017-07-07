@@ -1,4 +1,5 @@
-﻿using OfficeLocationMicroservice.Core.SharedContext.OfficeLocationDatabase;
+﻿using System;
+using OfficeLocationMicroservice.Core.SharedContext.OfficeLocationDatabase;
 
 namespace OfficeLocationMicroservice.Core.OfficeLocationContext
 {
@@ -22,7 +23,7 @@ namespace OfficeLocationMicroservice.Core.OfficeLocationContext
                 Switchboard = officeDto.Switchboard,
                 Fax = officeDto.Fax,
                 TimeZone = officeDto.TimeZone,
-                Operating = officeDto.Operating
+                Operating = Convert.ToBoolean(officeDto.Operating)
             };
 
             return office;

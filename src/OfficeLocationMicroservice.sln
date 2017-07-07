@@ -16,6 +16,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{17A8CB32-0698-432A-8A0D-2F17B120F703}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{A9C918E8-1E45-4DAC-AF86-5E2CBD01FD8F}"
+	ProjectSection(SolutionItems) = preProject
+		app.config = app.config
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Business Rules", "Business Rules", "{8313890C-47D1-46EF-A972-07CC9FD1EA9B}"
 EndProject

@@ -13,10 +13,16 @@ namespace OfficeLocationMicroservice.WebUi.Controllers
     {
         private readonly IOfficeLocationRepository _officeLocationRepository;
 
+
         public OfficeLocationController()
         {
-
             _officeLocationRepository = MasterFactory.GetOfficeLocationRepository();
+        }
+
+        //for tests
+        public OfficeLocationController(IOfficeLocationRepository officeLocationRepository)
+        {
+            _officeLocationRepository = officeLocationRepository;
         }
 
         public ActionResult Index()

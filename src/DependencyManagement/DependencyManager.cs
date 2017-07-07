@@ -16,28 +16,28 @@ namespace DependencyManagement
 
         public static void BootstrapForTests(
             ISystemLog systemLog,
-            IDatabaseSettings databaseSettings)
+            IOfficeLocationDatabaseSettings officeLocationDatabaseSettings)
         {
-            BootstrapAll(systemLog, databaseSettings);
+            BootstrapAll(systemLog, officeLocationDatabaseSettings);
         }
 
         public static void BootstrapForSystem(
             string logName,
-            IDatabaseSettings databaseSettings)
+            IOfficeLocationDatabaseSettings officeLocationDatabaseSettings)
         {
             LoggingBootstrapper.StartupLog(logName);
 
             var logForNetSystemLog = new LogForNetSystemLog();
 
-            BootstrapAll(logForNetSystemLog, databaseSettings);
+            BootstrapAll(logForNetSystemLog, officeLocationDatabaseSettings);
         }
 
         private static void BootstrapAll(
             ISystemLog logForNetSystemLog,
-            IDatabaseSettings databaseSettings)
+            IOfficeLocationDatabaseSettings officeLocationDatabaseSettings)
         {
             MasterFactory.OfficeDataTableGateway =
-                new OfficeDataTableGateway(databaseSettings, logForNetSystemLog );
+                new OfficeDataTableGateway(officeLocationDatabaseSettings, logForNetSystemLog );
         }
     }
 }

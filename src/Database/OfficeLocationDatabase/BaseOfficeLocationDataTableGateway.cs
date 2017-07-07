@@ -11,18 +11,18 @@ namespace OfficeLocationMicroservice.Database.OfficeLocationDatabase
 {
     public class BaseOfficeLocationDataTableGateway : BaseDataTableGateway
     {
-        private readonly IDatabaseSettings _databaseSettings;
+        private readonly IOfficeLocationDatabaseSettings _officeLocationDatabaseSettings;
 
         protected BaseOfficeLocationDataTableGateway(
-            IDatabaseSettings databaseSettings,
+            IOfficeLocationDatabaseSettings officeLocationDatabaseSettings,
             ISystemLog systemLog) : base(systemLog)
         {
-            _databaseSettings = databaseSettings;
+            _officeLocationDatabaseSettings = officeLocationDatabaseSettings;
         }
 
         protected override string DefaultConnectionString
         {
-            get { return _databaseSettings.ConnectionString; }
+            get { return _officeLocationDatabaseSettings.ConnectionString; }
         }
 
     }

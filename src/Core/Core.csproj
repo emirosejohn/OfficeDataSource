@@ -38,7 +38,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MasterFactory.cs" />
-    <Compile Include="SharedContext\OfficeLocationDatabase\IDatabaseSettings.cs" />
+    <Compile Include="SharedContext\OfficeLocationDatabase\IOfficeLocationDatabaseSettings.cs" />
     <Compile Include="SharedContext\OfficeLocationDatabase\IOfficeDataTableGateway.cs" />
     <Compile Include="SharedContext\ISystemLog.cs" />
     <Compile Include="SharedContext\OfficeLocationDatabase\OfficeDto.cs" />
