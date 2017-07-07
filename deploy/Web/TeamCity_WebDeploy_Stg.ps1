@@ -24,7 +24,8 @@ Copy-Item "$teamCityFileLocation\*" $remoteServerPath -recurse
 #copies deploy files from team city agent into temporary working directory
 If (Test-Path "$remoteServerPath\deploy") {
     Write-Host "copying from .\deploy\* to $remoteServerPath\deploy\*"
-    Copy-Item ".\deploy\*" "$remoteServerPath\deploy\*" -recurse -Force
+    Remove-Item "$remoteServerPath\deploy\*" -recurse -Force
+    Copy-Item ".\deploy\*" "$remoteServerPath\deploy\" -recurse -Force
 }
 Else {
     Write-Host "copying from .\deploy to $remoteServerPath\deploy"
