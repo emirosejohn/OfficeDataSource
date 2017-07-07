@@ -3,28 +3,20 @@ using System.Data.SqlClient;
 using System.Text;
 using OfficeLocationMicroservice.Core.SharedContext;
 
-namespace OfficeLocationMicroservice.Database
+namespace OfficeLocationMicroservice.IntegrationTests
 {
-    public abstract class BaseDataTableGateway
+    public class SqlDatabaseHelper
     {
-        protected ISystemLog SystemLog;
-
-        protected BaseDataTableGateway(
-            ISystemLog systemLog) 
-        {
-            SystemLog = systemLog;
-        }
-
-        //protected override string DefaultConnectionString
-        protected abstract string DefaultConnectionString { get; }
-
-        protected void ConnectionExecuteWithLog(
+        public static void ConnectionExecuteWithLog(
+            string connectionString,
             Action<SqlConnection> connectionAction,
             string logSql)
         {
-            using (var sqlConnection = new SqlConnection(DefaultConnectionString))
+            var systemLog = CreateSystemLog();
+
+            using (var sqlConnection = new SqlConnection(connectionString))
             {
-                SystemLog.Info("Executing: " + logSql);
+                systemLog.Info("Executing: " + logSql);
 
                 sqlConnection.Open();
                 connectionAction(sqlConnection);
@@ -32,12 +24,14 @@ namespace OfficeLocationMicroservice.Database
             }
         }
 
-
-        protected void ConnectionExecuteWithLog(
+        public static void ConnectionExecuteWithLog(
+            string connectionString,
             Action<SqlConnection> connectionAction,
             string logSql,
             object values)
         {
+            var systemLog = CreateSystemLog();
+
             var propertyInfos = values.GetType().GetProperties();
 
             var stringBuilder = new StringBuilder();
@@ -56,14 +50,19 @@ namespace OfficeLocationMicroservice.Database
                     stringBuilder.AppendLine(value.ToString());
             }
 
-            SystemLog.Info(stringBuilder.ToString());
+            systemLog.Info(stringBuilder.ToString());
 
-            using (var sqlConnection = new SqlConnection(DefaultConnectionString))
+            using (var sqlConnection = new SqlConnection(connectionString))
             {
                 sqlConnection.Open();
                 connectionAction(sqlConnection);
                 sqlConnection.Close();
             }
+        }
+
+        private static ISystemLog CreateSystemLog()
+        {
+            return new SystemLogForIntegrationTests();
         }
     }
 }

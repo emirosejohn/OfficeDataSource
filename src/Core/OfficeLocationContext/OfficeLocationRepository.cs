@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using OfficeLocationMicroservice.Core;
+using OfficeLocationMicroservice.Core.SharedContext.OfficeLocationDatabase;
 
-namespace OfficeLocationMicroservice.Database
+namespace OfficeLocationMicroservice.Core.OfficeLocationContext
 {
     public class OfficeLocationRepository : IOfficeLocationRepository
     {
@@ -27,7 +23,7 @@ namespace OfficeLocationMicroservice.Database
                 Switchboard = officeDto.Switchboard,
                 Fax = officeDto.Fax,
                 TimeZone = officeDto.TimeZone,
-                Operating = officeDto.Operating
+                Operating = Convert.ToBoolean(officeDto.Operating)
             };
 
             return office;
