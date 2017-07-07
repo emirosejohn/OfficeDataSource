@@ -8,8 +8,6 @@ namespace OfficeLocationMicroservice.Core
 {
     public class OfficeLocation
     {
-        //any constructors would be in OfficeDto
-        //any arrays/collections would be here
         public string Name { get; set; }
         public string Address { get; set; }
         public string Country { get; set; }

@@ -2,9 +2,6 @@ namespace OfficeLocationMicroservice.Core
 {
     public class OfficeDto
     {
-        //any constructors would be here
-        //any arrays/collections would be in OfficeLocation
-
         /*  never used
          *      public OfficeDto()
                 {
