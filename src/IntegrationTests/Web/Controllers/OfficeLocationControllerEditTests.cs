@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -62,13 +63,14 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
                 };
 
                 testHelper.InsertOfficeDto(officeDto0);
-
+                Debug.WriteLine("1");
                 var controller = testHelper.CreateController();
 
                 var locationModel = new OfficeLocationModel();
                 locationModel.EditedOffice = officeDto1.ExtractOfficeLocation();
 
                 var actionResult = controller.Edit(locationModel);
+                Debug.WriteLine("2");
                 var viewResultModel = testHelper.GetOfficeModelModelFromActionResult(actionResult);
                 viewResultModel.EditedOffice.Should().NotBeNull();
 
@@ -129,6 +131,7 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
                 };
 
                 testHelper.InsertOfficeDto(officeDto0);
+                Debug.WriteLine("3");
 
                 var controller = testHelper.CreateController();
 
@@ -136,6 +139,9 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
                 locationModel.EditedOffice = officeDto1.ExtractOfficeLocation();
 
                 var actionResult = controller.Edit(locationModel);
+
+                Debug.WriteLine("4");
+
                 var viewResultModel = testHelper.GetOfficeModelModelFromActionResult(actionResult);
                 viewResultModel.EditedOffice.Should().NotBeNull();
 

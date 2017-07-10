@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.Diagnostics;
+using System.Web.Mvc;
 using OfficeLocationMicroservice.Core;
 using OfficeLocationMicroservice.Core.Domain.CountryContext;
 using OfficeLocationMicroservice.Core.Domain.OfficeLocationContext;
@@ -43,6 +44,8 @@ namespace OfficeLocationMicroservice.WebUi.Controllers
         {
             if (locationModel.EditedOffice != null)
             {
+                Debug.WriteLine("edit : " + locationModel.EditedOffice.OfficeId);
+
                 _officeLocationRepository.Update(locationModel.EditedOffice);
             }
 

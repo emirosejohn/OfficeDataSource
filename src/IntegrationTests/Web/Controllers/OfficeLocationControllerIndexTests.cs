@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Diagnostics;
+using System.Linq;
 using FluentAssertions;
 using OfficeLocationMicroservice.Core.Services.SharedContext.OfficeLocationDatabase;
 using Xunit;
@@ -81,7 +82,11 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
                     Operating = 0
                 };
 
+                Debug.WriteLine("5");
+
                 testHelper.InsertOfficeDto(officeDto0);
+
+                Debug.WriteLine("6");
 
                 testHelper.InsertOfficeDto(officeDto1);
 
