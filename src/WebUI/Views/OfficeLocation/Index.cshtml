@@ -13,13 +13,13 @@
             margin: 10px;
             padding: 10px;
             display: inline-table;
+
         }
         .details {
             margin: 10px;
 
         }
 
-      
          .card:hover {
              box-shadow:0 8px 10px 0 #000000, 0 8px 20px 0 #000000;
              box-shadow:0 8px 10px 0 rgba(0, 0, 0, 0.2), 0 8px 20px 0 rgba(0, 0, 0, 0.19);
@@ -41,15 +41,16 @@
 <div class="container">
     @foreach (var office in Model.Offices)
     {
-        <div class="card">
+        <div class="card" id ="clickableCard" data-identifier="@office.Id">
             <h4>@office.Name</h4>
             <div class="details">
-                @office.Address <br />
-                @office.Country <br />
+                @office.Id <br/>
+                @office.Address <br/>
+                @office.Country <br/>
                 Switchboard:
-                @office.Switchboard <br />
-                Fax: @office.Fax <br />
-                @office.TimeZone <br />
+                @office.Switchboard <br/>
+                Fax: @office.Fax <br/>
+                @office.TimeZone <br/>
                 @office.Operating
             </div>
 
@@ -57,7 +58,24 @@
     }
 
 </div>
+    
+    
+    
+<script language="JavaScript" type="text/javascript" src="/Scripts/jquery-1.10.2.js"></script>
+<script language="JavaScript" type="text/javascript" src="/Scripts/jquery-1.10.2.min.js"></script>
+    
+    
+
 <script>
+
+    var clickedCard = $("#clickableCard")[0];
+    //console.log(clickedCard.dataset.identifier);
+    //console.log(clickedCard);
+    clickedCard.onclick = function() {
+        console.log(clickedCard.dataset.identifier);
+        console.log(clickedCard);
+        window.location.href = `OfficeLocation/Edit/${clickedCard.dataset.identifier}`;
+    }
 
 </script>
 </body>

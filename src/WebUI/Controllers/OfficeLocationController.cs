@@ -29,9 +29,15 @@ namespace OfficeLocationMicroservice.WebUi.Controllers
         {
             OfficeModel model = new OfficeModel();
 
+            model.ShowOfficeEdit = false;
             model.Offices = _officeLocationRepository.GetAll();
             
             return View(model);
+        }
+
+        public ActionResult Edit(int id)
+        {
+            return null;
         }
     }
 }

@@ -2,6 +2,7 @@ namespace OfficeLocationMicroservice.Core.SharedContext.OfficeLocationDatabase
 {
     public class OfficeDto
     {
+        public int Id { get; set; }
         public string Name { get; set; }
 
         public string Address { get; set; }
@@ -14,6 +15,6 @@ namespace OfficeLocationMicroservice.Core.SharedContext.OfficeLocationDatabase
 
         public string TimeZone { get; set; }
 
-        public int Operating { get; set; }
+        public bool Operating { get; set; }
     }
 }
