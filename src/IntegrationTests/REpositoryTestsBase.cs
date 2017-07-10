@@ -30,9 +30,6 @@ namespace OfficeLocationMicroservice.IntegrationTests
 
                 AlreadyInit = true;
             }
-
-           // MasterFactory.OfficeDataTableGateway;
-
         }
     }
 }
