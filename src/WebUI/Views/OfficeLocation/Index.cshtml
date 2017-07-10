@@ -18,7 +18,8 @@
             margin: 10px;
         }
       
-         .card:hover { 
+         .card:hover {
+             box-shadow:0 8px 10px 0 #000000, 0 8px 20px 0 #000000;
              box-shadow:0 8px 10px 0 rgba(0, 0, 0, 0.2), 0 8px 20px 0 rgba(0, 0, 0, 0.19);
          }
     </style>
@@ -34,12 +35,12 @@
         <div class="card">
             @office.Name
             <div class="details">
-                @office.Address
-                @office.Country
+                @office.Address <br />
+                @office.Country <br />
                 Switchboard:
-                @office.Switchboard
-                Fax: @office.Fax
-                @office.TimeZone
+                @office.Switchboard <br />
+                Fax: @office.Fax <br />
+                @office.TimeZone <br />
                 @office.Operating
             </div>
 
@@ -48,5 +49,6 @@
 
 </div>
 <script>
+
 </script>
 </body>

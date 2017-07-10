@@ -14,6 +14,8 @@ namespace OfficeLocationMicroservice.Core.OfficeLocationContext
 
         public OfficeLocation GetByName(string name)
         {
+            //var tz = TimeZoneInfo.GetSystemTimeZones();
+            
             var officeDto = _officeDataTableGateway.GetByName(name);
             var office = new OfficeLocation
             {
