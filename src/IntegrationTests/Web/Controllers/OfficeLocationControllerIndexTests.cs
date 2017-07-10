@@ -5,7 +5,7 @@ using Xunit;
 
 namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
 {
-    public class OfficeLocationControllerTests
+    public class OfficeLocationControllerIndexTests
     {
         [Fact]
         public void ShouldReturnNoOfficesWhenNoOfficesAreFound()

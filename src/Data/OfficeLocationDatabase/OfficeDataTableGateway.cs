@@ -90,7 +90,8 @@ namespace OfficeLocationMicroservice.Data.OfficeLocationDatabase
             ,@Fax
             ,@TimeZone
             ,@Operating);
-        Set Identity_insert [OfficeLocationMicroservice].[OfficeLocation].[Office] off;";
+        Set Identity_insert [OfficeLocationMicroservice].[OfficeLocation].[Office] on;
+";
 
             ConnectionExecuteWithLog(
                 connection =>

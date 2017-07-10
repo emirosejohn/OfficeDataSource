@@ -38,10 +38,13 @@ namespace OfficeLocationMicroservice.WebUi.Controllers
             return View(locationModel);
         }
 
+        [HttpPost]
         public ActionResult Edit(OfficeLocationModel locationModel)
         {
-
-            _officeLocationRepository.Update(locationModel.EditedOffice);
+            if (locationModel.EditedOffice != null)
+            {
+                _officeLocationRepository.Update(locationModel.EditedOffice);
+            }
 
             return View(locationModel);
         }

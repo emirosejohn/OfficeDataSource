@@ -62,6 +62,11 @@ namespace OfficeLocationMicroservice.Core.Domain.OfficeLocationContext
     {
         public static OfficeDto ExtractDto(this OfficeLocation officeLocation)
         {
+            if (officeLocation == null)
+            {
+                return null;
+            }
+
             var officeDto = new OfficeDto()
             {
                 OfficeId = officeLocation.OfficeId,
@@ -82,6 +87,11 @@ namespace OfficeLocationMicroservice.Core.Domain.OfficeLocationContext
     {
         public static OfficeLocation ExtractOfficeLocation(this OfficeDto officeDto)
         {
+            if (officeDto == null)
+            {
+                return null;
+            }
+
             var officeLocation = new OfficeLocation()
             {
                 OfficeId = officeDto.OfficeId,
