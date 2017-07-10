@@ -15,6 +15,6 @@ namespace OfficeLocationMicroservice.Core.SharedContext.OfficeLocationDatabase
 
         public string TimeZone { get; set; }
 
-        public bool Operating { get; set; }
+        public int Operating { get; set; }
     }
 }

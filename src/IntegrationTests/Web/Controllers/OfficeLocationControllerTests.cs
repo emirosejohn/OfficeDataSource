@@ -79,7 +79,7 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
                 officesArray[0].Switchboard.Should().Be("***REMOVED***");
                 officesArray[0].Fax.Should().Be("+***REMOVED***");
                 officesArray[0].TimeZone.Should().Be("CST");
-                officesArray[0].Operating.Should().Be(true);
+                officesArray[0].Operating.Should().Be("Active");
 
                 officesArray[1].Name.Should().Be("Berlin");
                 officesArray[1].Address.Should().Be("***REMOVED*** Kurfürstendamm 194, D - 10707 Berlin");
@@ -87,7 +87,7 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
                 officesArray[1].Switchboard.Should().Be("***REMOVED***");
                 officesArray[1].Fax.Should().Be("***REMOVED***");
                 officesArray[1].TimeZone.Should().Be("CET");
-                officesArray[1].Operating.Should().Be(false);
+                officesArray[1].Operating.Should().Be("Closed");
 
             });
         }

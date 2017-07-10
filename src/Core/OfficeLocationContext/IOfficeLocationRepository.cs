@@ -5,5 +5,7 @@
         OfficeLocation GetByName(string name);
 
         OfficeLocation[] GetAll();
+
+        OfficeLocation GetById(int id);
     }
 }

@@ -23,7 +23,8 @@ namespace OfficeLocationMicroservice.Database.OfficeLocationDatabase
         public OfficeDto GetByName(string name)
         {
             const string query =
-               @"SELECT [Name]
+               @"SELECT [OfficeId]
+                ,[Name]
                 ,[Address]
                 ,[Country]
                 ,[Switchboard]
@@ -38,11 +39,31 @@ namespace OfficeLocationMicroservice.Database.OfficeLocationDatabase
 
         }
 
+        public OfficeDto GetById(int id)
+        {
+            const string query =
+                @"SELECT [OfficeId]
+                ,[Name]
+                ,[Address]
+                ,[Country]
+                ,[Switchboard]
+                ,[Fax]
+                ,[TimeZone]
+                ,[Operating]
+            FROM
+                [OfficeLocation].[Office]
+            WHERE OfficeId = @id";
+        var data = GetFromDatabase(con => con.Query<OfficeDto>(query, new { id }).ToArray());
+            return data.SingleOrDefault();
+
+        }
+
         public OfficeDto[] GetAll()
         {
             const string query = @"
         SELECT 
-            [Name]
+            [OfficeId]
+            ,[Name]
             ,[Address]
             ,[Country]
             ,[Switchboard]
@@ -67,7 +88,8 @@ namespace OfficeLocationMicroservice.Database.OfficeLocationDatabase
         {
             const string sql = @"
         Insert Into [OfficeLocation].[Office]
-            ([Name]
+            ([OfficeId]
+            ,[Name]
             ,[Address]
             ,[Country]
             ,[Switchboard]
@@ -75,7 +97,8 @@ namespace OfficeLocationMicroservice.Database.OfficeLocationDatabase
             ,[TimeZone]
             ,[Operating])
         Values
-            (@Name
+            (@OfficeId
+            ,@Name
             ,@Address
             ,@Country
             ,@Switchboard

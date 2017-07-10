@@ -5,5 +5,7 @@
         OfficeDto GetByName(string name);
         OfficeDto[] GetAll();
         void Insert(OfficeDto officeDto);
+
+        OfficeDto GetById(int id);
     }
 }

@@ -26,8 +26,49 @@ namespace OfficeLocationMicroservice.Core.OfficeLocationContext
                 Switchboard = officeDto.Switchboard,
                 Fax = officeDto.Fax,
                 TimeZone = officeDto.TimeZone,
-                Operating = officeDto.Operating ? "Active" : "Closed"
+                //Operating = officeDto.Operating ? "Active" : "Closed"
             };
+            switch (officeDto.Operating)
+            {
+                case 1:
+                    office.Operating = "Active";
+                    break;
+                case 0:
+                    office.Operating = "Closed";
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+            return office;
+        }
+
+        public OfficeLocation GetById(int id)
+        {
+            //var tz = TimeZoneInfo.GetSystemTimeZones();
+            OfficeDto officeDto = _officeDataTableGateway.GetById(id);
+            
+            var office = new OfficeLocation
+            {
+                Id = officeDto.Id,
+                Name = officeDto.Name,
+                Address = officeDto.Address,
+                Country = officeDto.Country,
+                Switchboard = officeDto.Switchboard,
+                Fax = officeDto.Fax,
+                TimeZone = officeDto.TimeZone,
+                //Operating = officeDto.Operating ? "Active" : "Closed"
+            };
+            switch (officeDto.Operating)
+            {
+                case 1:
+                    office.Operating = "Active";
+                    break;
+                case 0:
+                    office.Operating = "Closed";
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
             return office;
         }
         public OfficeLocation[] GetAll()

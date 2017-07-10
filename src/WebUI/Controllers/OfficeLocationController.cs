@@ -37,7 +37,23 @@ namespace OfficeLocationMicroservice.WebUi.Controllers
 
         public ActionResult Edit(int id)
         {
-            return null;
+            OfficeLocation toEditOffice = _officeLocationRepository.GetById(id);
+            OfficeEditModel officeEditModel = new OfficeEditModel
+            {
+                OfficeId = toEditOffice.Id,
+                NewOfficeName = toEditOffice.Name,
+                NewAddress = toEditOffice.Address,
+                NewCountry = toEditOffice.Country,
+                NewSwitchboard = toEditOffice.Switchboard,
+                NewFax = toEditOffice.Fax,
+                NewTimeZone = toEditOffice.TimeZone,
+                NewOperating = toEditOffice.Operating
+            };
+
+
+
+            return View(officeEditModel);
+            //return null;
         }
     }
 }
