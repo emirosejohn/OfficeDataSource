@@ -6,7 +6,7 @@ using Dapper;
 using OfficeLocationMicroservice.Core.SharedContext;
 using OfficeLocationMicroservice.Core.SharedContext.OfficeLocationDatabase;
 
-namespace OfficeLocationMicroservice.Database.OfficeLocationDatabase
+namespace OfficeLocationMicroservice.Data.OfficeLocationDatabase
 {
     public class OfficeDataTableGateway: BaseOfficeLocationDataTableGateway, IOfficeDataTableGateway
     {

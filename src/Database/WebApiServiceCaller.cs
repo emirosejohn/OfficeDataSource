@@ -4,7 +4,7 @@ using System.Net;
 using System.Web.Script.Serialization;
 using OfficeLocationMicroservice.Core.SharedContext;
 
-namespace OfficeLocationMicroservice.Database
+namespace OfficeLocationMicroservice.Data
 {
     public sealed class WebApiServiceCaller
     {

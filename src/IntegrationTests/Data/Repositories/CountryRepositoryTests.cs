@@ -23,12 +23,11 @@ namespace OfficeLocationMicroservice.IntegrationTests.Data.Repositories
         [Fact]
         public void ShouldReturnListOfCountries()
         {
-            var listofCountries =  _countryRepository.getAllCountries();
+            var countries =  _countryRepository.getAllCountries();
 
-            listofCountries.Should().NotBeNull();
+            countries.Should().NotBeNull();
 
-            listofCountries.Count.Should().BeGreaterThan(0);
+            countries.Length.Should().BeGreaterThan(0);
         }
-
     }
 }

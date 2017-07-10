@@ -3,9 +3,10 @@ using OfficeLocationMicroservice.Core;
 using OfficeLocationMicroservice.Core.Services.CountryFetcher.CountryWebApi;
 using OfficeLocationMicroservice.Core.SharedContext;
 using OfficeLocationMicroservice.Core.SharedContext.OfficeLocationDatabase;
-using OfficeLocationMicroservice.Database;
-using OfficeLocationMicroservice.Database.CountryWebApi;
-using OfficeLocationMicroservice.Database.OfficeLocationDatabase;
+using OfficeLocationMicroservice.Data;
+using OfficeLocationMicroservice.Data.CountryWebApi;
+using OfficeLocationMicroservice.Data.OfficeLocationDatabase;
+using OfficeLocationMicroservice.Data;
 
 namespace OfficeLocationMicroservice.DependencyManagement
 {
