@@ -1,8 +1,8 @@
 ﻿using OfficeLocationMicroservice.Core.Domain.CountryContext;
-using OfficeLocationMicroservice.Core.OfficeLocationContext;
+using OfficeLocationMicroservice.Core.Domain.OfficeLocationContext;
 using OfficeLocationMicroservice.Core.Services.CountryFetcher.CountryWebApi;
+using OfficeLocationMicroservice.Core.Services.SharedContext.OfficeLocationDatabase;
 using OfficeLocationMicroservice.Core.SharedContext;
-using OfficeLocationMicroservice.Core.SharedContext.OfficeLocationDatabase;
 
 namespace OfficeLocationMicroservice.Core
 {

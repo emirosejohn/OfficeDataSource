@@ -1,7 +1,9 @@
-﻿namespace OfficeLocationMicroservice.Core.OfficeLocationContext
+﻿namespace OfficeLocationMicroservice.Core.Domain.OfficeLocationContext
 {
     public class OfficeLocation
     {
+        public int OfficeId { get; set; }
+
         public string Name { get; set; }
 
         public string Address { get; set; }
@@ -15,5 +17,6 @@
         public string TimeZone { get; set; }
 
         public bool Operating { get; set; }
+
     }
 }

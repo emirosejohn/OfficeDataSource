@@ -3,8 +3,8 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using Dapper;
+using OfficeLocationMicroservice.Core.Services.SharedContext.OfficeLocationDatabase;
 using OfficeLocationMicroservice.Core.SharedContext;
-using OfficeLocationMicroservice.Core.SharedContext.OfficeLocationDatabase;
 
 namespace OfficeLocationMicroservice.Data.OfficeLocationDatabase
 {
@@ -23,7 +23,9 @@ namespace OfficeLocationMicroservice.Data.OfficeLocationDatabase
         public OfficeDto GetByName(string name)
         {
             const string query =
-               @"SELECT [Name]
+               @"SELECT 
+                 [OfficeId]
+                ,[Name]
                 ,[Address]
                 ,[Country]
                 ,[Switchboard]
@@ -42,7 +44,8 @@ namespace OfficeLocationMicroservice.Data.OfficeLocationDatabase
         {
             const string query = @"
         SELECT 
-            [Name]
+             [OfficeId]
+            ,[Name]
             ,[Address]
             ,[Country]
             ,[Switchboard]
@@ -66,8 +69,11 @@ namespace OfficeLocationMicroservice.Data.OfficeLocationDatabase
         public void Insert(OfficeDto dto)
         {
             const string sql = @"
+        Set Identity_insert [OfficeLocationMicroservice].[OfficeLocation].[Office] on;
         Insert Into [OfficeLocation].[Office]
-            ([Name]
+            (
+             [OfficeId]
+            ,[Name]
             ,[Address]
             ,[Country]
             ,[Switchboard]
@@ -75,13 +81,41 @@ namespace OfficeLocationMicroservice.Data.OfficeLocationDatabase
             ,[TimeZone]
             ,[Operating])
         Values
-            (@Name
+            (
+             @OfficeId
+            ,@Name
             ,@Address
             ,@Country
             ,@Switchboard
             ,@Fax
             ,@TimeZone
-            ,@Operating)";
+            ,@Operating);
+        Set Identity_insert [OfficeLocationMicroservice].[OfficeLocation].[Office] off;";
+
+            ConnectionExecuteWithLog(
+                connection =>
+                {
+                    connection.Execute(sql, dto);
+                },
+                sql,
+                dto);
+        }
+
+        public void Update(OfficeDto dto)
+        {
+            const string sql = @"
+        Update [OfficeLocation].[Office]
+        Set 
+             [Name] = @Name
+            ,[Address] = @Address
+            ,[Country] = @Country
+            ,[Switchboard] = @Switchboard
+            ,[Fax] = @Fax
+            ,[TimeZone] = @TimeZone
+            ,[Operating] = @Operating
+        where
+            [OfficeId] = @OfficeId
+";
 
             ConnectionExecuteWithLog(
                 connection =>

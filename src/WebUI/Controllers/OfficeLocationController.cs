@@ -1,7 +1,7 @@
 ﻿using System.Web.Mvc;
 using OfficeLocationMicroservice.Core;
 using OfficeLocationMicroservice.Core.Domain.CountryContext;
-using OfficeLocationMicroservice.Core.OfficeLocationContext;
+using OfficeLocationMicroservice.Core.Domain.OfficeLocationContext;
 using OfficeLocationMicroservice.WebUi.Models;
 
 namespace OfficeLocationMicroservice.WebUi.Controllers
@@ -34,6 +34,14 @@ namespace OfficeLocationMicroservice.WebUi.Controllers
             locationModel.Offices = _officeLocationRepository.GetAll();
             locationModel.Countries = _countryRepository.getAllCountries();
 
+
+            return View(locationModel);
+        }
+
+        public ActionResult Edit(OfficeLocationModel locationModel)
+        {
+
+            _officeLocationRepository.Update(locationModel.EditedOffice);
 
             return View(locationModel);
         }

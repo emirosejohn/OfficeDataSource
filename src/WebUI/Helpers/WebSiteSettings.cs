@@ -1,6 +1,6 @@
 ﻿using System.Configuration;
 using OfficeLocationMicroservice.Core.Services.CountryFetcher.CountryWebApi;
-using OfficeLocationMicroservice.Core.SharedContext.OfficeLocationDatabase;
+using OfficeLocationMicroservice.Core.Services.SharedContext.OfficeLocationDatabase;
 
 namespace OfficeLocationMicroservice.WebUi.Helpers
 {

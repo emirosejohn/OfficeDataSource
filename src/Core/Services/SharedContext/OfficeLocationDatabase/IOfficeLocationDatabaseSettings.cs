@@ -1,4 +1,4 @@
-﻿namespace OfficeLocationMicroservice.Core.SharedContext.OfficeLocationDatabase
+﻿namespace OfficeLocationMicroservice.Core.Services.SharedContext.OfficeLocationDatabase
 {
     public interface IOfficeLocationDatabaseSettings
     {

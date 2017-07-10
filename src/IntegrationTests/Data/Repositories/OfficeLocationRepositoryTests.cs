@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using FluentAssertions;
 using OfficeLocationMicroservice.Core;
-using OfficeLocationMicroservice.Core.OfficeLocationContext;
+using OfficeLocationMicroservice.Core.Domain.OfficeLocationContext;
 
 namespace OfficeLocationMicroservice.IntegrationTests.Data.Repositories
 {
