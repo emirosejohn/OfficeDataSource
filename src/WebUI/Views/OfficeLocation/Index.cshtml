@@ -20,7 +20,8 @@
         }
 
       
-         .card:hover { 
+         .card:hover {
+             box-shadow:0 8px 10px 0 #000000, 0 8px 20px 0 #000000;
              box-shadow:0 8px 10px 0 rgba(0, 0, 0, 0.2), 0 8px 20px 0 rgba(0, 0, 0, 0.19);
          }
          h4 {
@@ -43,12 +44,12 @@
         <div class="card">
             <h4>@office.Name</h4>
             <div class="details">
-                @office.Address<br/>
-                @office.Country<br />
+                @office.Address <br />
+                @office.Country <br />
                 Switchboard:
-                @office.Switchboard<br />
-                Fax: @office.Fax<br />
-                @office.TimeZone<br />
+                @office.Switchboard <br />
+                Fax: @office.Fax <br />
+                @office.TimeZone <br />
                 @office.Operating
             </div>
 
@@ -57,7 +58,6 @@
 
 </div>
 <script>
-    var cards = document.getElementsByClassName("card");
-    console.log(cards);
+
 </script>
 </body>

@@ -16,62 +16,62 @@ GO
 INSERT INTO [OfficeLocation].[Office] ([Name], [Address], 
 	[Country], [Switchboard], [Fax], [TimeZone], 
 	[Operating]) VALUES ('Amsterdam', '***REMOVED*** ***REMOVED***',
-	'Netherlands','***REMOVED***', '***REMOVED***', 'CEST', 1);
+	'Netherlands','***REMOVED***', '***REMOVED***', 'Central European Time Zone', 1);
 GO
 
 INSERT INTO [OfficeLocation].[Office] ([Name], [Address], 
 	[Country], [Switchboard], [Fax], [TimeZone], 
 	[Operating]) VALUES ('Austin','***REMOVED***
 	***REMOVED*** ***REMOVED***','United States','***REMOVED***',
-	'+***REMOVED***','CST', 1);
+	'+***REMOVED***','Central Standard Time', 1);
 
 
 INSERT INTO [OfficeLocation].[Office] ([Name], [Address], 
 	[Country], [Switchboard], [Fax], [TimeZone], 
 	[Operating]) VALUES ('Berlin','***REMOVED*** ***REMOVED***
-	***REMOVED***','Germany','***REMOVED***','***REMOVED***','CET', 1);
+	***REMOVED***','Germany','***REMOVED***','***REMOVED***','Central European Time Zone', 1);
 
 INSERT INTO [OfficeLocation].[Office] ([Name], [Address], 
 	[Country], [Switchboard], [Fax], [TimeZone], 
 	[Operating]) VALUES ('Charlotte','201 North Tryon Street, ste. 
-	2300 ***REMOVED***','United States','***REMOVED***','***REMOVED***','EST', 1);
+	2300 ***REMOVED***','United States','***REMOVED***','***REMOVED***','US Eastern Standard Time', 1);
 
 INSERT INTO [OfficeLocation].[Office] ([Name], [Address], 
 	[Country], [Switchboard], [Fax], [TimeZone], 
 	[Operating]) VALUES ('London','***REMOVED*** ***REMOVED***',
-	'United Kingdom','***REMOVED***','***REMOVED***','BST', 1);
+	'United Kingdom','***REMOVED***','***REMOVED***','Greenwich Standard Time', 1);
 
 INSERT INTO [OfficeLocation].[Office] ([Name], [Address], 
 	[Country], [Switchboard], [Fax], [TimeZone], 
 	[Operating]) VALUES ('Melbourne','***REMOVED*** ***REMOVED***',
-	'Australia','***REMOVED***','','AEST', 1);
+	'Australia','***REMOVED***','','AUS Eastern Standard Time', 1);
 
 INSERT INTO [OfficeLocation].[Office] ([Name], [Address], 
 	[Country], [Switchboard], [Fax], [TimeZone], 
 	[Operating]) VALUES ('Santa Monica','***REMOVED*** ***REMOVED***',
-	'United States','***REMOVED***','***REMOVED***','PST', 1);
+	'United States','***REMOVED***','***REMOVED***','Pacific Standard Time', 1);
 
 INSERT INTO [OfficeLocation].[Office] ([Name], [Address], 
 	[Country], [Switchboard], [Fax], [TimeZone], 
 	[Operating]) VALUES ('Singapore','***REMOVED*** ***REMOVED***',
-	'Singapore','***REMOVED***','***REMOVED***','SGT', 1);
+	'Singapore','***REMOVED***','***REMOVED***','Singapore Standard Time', 1);
 
 INSERT INTO [OfficeLocation].[Office] ([Name], [Address], 
 	[Country], [Switchboard], [Fax], [TimeZone], 
 	[Operating]) VALUES ('Sydney','***REMOVED*** ***REMOVED***',
-	'Australia','***REMOVED***','***REMOVED***','AEST', 1);
+	'Australia','***REMOVED***','***REMOVED***','AUS Eastern Standard Time', 1);
 
 INSERT INTO [OfficeLocation].[Office] ([Name], [Address], 
 	[Country], [Switchboard], [Fax], [TimeZone], 
 	[Operating]) VALUES ('Tokyo','***REMOVED*** ***REMOVED*** ***REMOVED***',
-	'Japan','***REMOVED***','***REMOVED***','JST', 1);
+	'Japan','***REMOVED***','***REMOVED***','Tokyo Standard Time', 1);
 
 INSERT INTO [OfficeLocation].[Office] ([Name], [Address], 
 	[Country], [Switchboard], [Fax], [TimeZone], 
 	[Operating]) VALUES ('Toronto','***REMOVED*** ***REMOVED***',
-	'Canada','***REMOVED***','***REMOVED***','EDT', 1);
+	'Canada','***REMOVED***','***REMOVED***','Eastern Standard Time', 1);
 
 INSERT INTO [OfficeLocation].[Office] ([Name], [Address], 
 	[Country], [Switchboard], [Fax], [TimeZone], 
 	[Operating]) VALUES ('Vancouver','***REMOVED*** ***REMOVED******REMOVED***',
-	'Canada','***REMOVED***','***REMOVED***','PDT', 1);
+	'Canada','***REMOVED***','***REMOVED***','Pacific Standard Time', 1);

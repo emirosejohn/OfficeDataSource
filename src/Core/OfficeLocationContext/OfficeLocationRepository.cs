@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using OfficeLocationMicroservice.Core;
+using OfficeLocationMicroservice.Core.SharedContext.OfficeLocationDatabase;
 
-namespace OfficeLocationMicroservice.Database
+namespace OfficeLocationMicroservice.Core.OfficeLocationContext
 {
     public class OfficeLocationRepository : IOfficeLocationRepository
     {
@@ -18,6 +14,8 @@ namespace OfficeLocationMicroservice.Database
 
         public OfficeLocation GetByName(string name)
         {
+            //var tz = TimeZoneInfo.GetSystemTimeZones();
+            
             var officeDto = _officeDataTableGateway.GetByName(name);
             var office = new OfficeLocation
             {

@@ -99,11 +99,17 @@ task copyBuildFiles -depends BuildSolution {
 	Write-Host "Copying files from '$sourceFiles' to '$buildWebFolder'"
 	copy-item $sourceFiles "$buildWebFolder" -recurse
 
+    mkdir $builddeployFolder | out-null
+	
+	Write-Host "Copying files from '$deployFolder' to '$buildDeployFolder'"
+	copy-item "$deployFolder\*" "$buildDeployFolder" -recurse
+
+
     mkdir $buildTargetFolder\_PublishedWebsites\Web\bin\roslyn |out-null
 
-	$roslyn = "$buildTargetFolder\roslyn\*"
+	$roslyn = "$buildTargetFolder\roslyn\"
 	Write-Host "Copying files from '$roslyn' to '$buildWebFolder'"
-	copy-item $roslyn "$buildTargetFolder\_PublishedWebsites\WebUI\bin\roslyn" -recurse
+	copy-item $roslyn "$buildTargetFolder\_PublishedWebsites\WebUI\bin\roslyn" -recurse -Force
 
 	mkdir $buildLibFolder | out-null
 
@@ -119,9 +125,7 @@ task copyBuildFiles -depends BuildSolution {
 	mkdir $destPsakeFolder | out-null
 	copy-item "$srcFolder\packages\psake*\tools\*" $destPsakeFolder -recurse
 
-	$msSqlFolder = "$buildDataFolder\mssql"
-	mkdir $msSqlFolder | out-null
-	copy-item "$dataFolder\mssql\*" $msSqlFolder -recurse
+	copy-item -Path "$dataFolder" -Destination  "$buildDataFolder" -recurse
 }
 
 task ZipFile -depends copyBuildFiles -requiredVariables projectVersion{
