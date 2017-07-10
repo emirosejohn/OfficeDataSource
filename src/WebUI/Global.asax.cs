@@ -2,7 +2,7 @@
 using System.Web.Optimization;
 using System.Web.Http;
 using System.Web.Routing;
-using DependencyManagement;
+using OfficeLocationMicroservice.DependencyManagement;
 using OfficeLocationMicroservice.WebUi.Helpers;
 using WebUI;
 
@@ -12,7 +12,8 @@ namespace OfficeLocationMicroservice.WebUi
     {
         protected void Application_Start()
         {
-            DependencyManager.BootstrapForSystem("Web Site", new WebSiteSettings());
+            var websiteSettings = new WebSiteSettings();
+            DependencyManager.BootstrapForSystem("Web Site", websiteSettings, websiteSettings);
 
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);

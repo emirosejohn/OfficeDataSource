@@ -7,8 +7,8 @@
     <ProjectGuid>{10F890B4-3442-4CDA-AC75-60F3651A7249}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DependencyManagement</RootNamespace>
-    <AssemblyName>DependencyManagement</AssemblyName>
+    <RootNamespace>OfficeLocationMicroservice.DependencyManagement</RootNamespace>
+    <AssemblyName>OfficeLocationMicroservice.DependencyManagement</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -56,9 +56,6 @@
       <Project>{275A7880-6916-4BA9-9252-26BD0B43D10A}</Project>
       <Name>Logging</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Log4NetConfig.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
