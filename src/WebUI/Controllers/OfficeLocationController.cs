@@ -49,11 +49,7 @@ namespace OfficeLocationMicroservice.WebUi.Controllers
                 NewTimeZone = toEditOffice.TimeZone,
                 NewOperating = toEditOffice.Operating
             };
-
-
-
             return View(officeEditModel);
-            //return null;
         }
     }
 }

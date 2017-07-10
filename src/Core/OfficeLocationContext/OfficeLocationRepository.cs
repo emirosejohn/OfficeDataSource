@@ -19,7 +19,7 @@ namespace OfficeLocationMicroservice.Core.OfficeLocationContext
             var officeDto = _officeDataTableGateway.GetByName(name);
             var office = new OfficeLocation
             {
-                Id = officeDto.Id,
+                Id = officeDto.OfficeId,
                 Name = officeDto.Name,
                 Address = officeDto.Address,
                 Country = officeDto.Country,
@@ -49,7 +49,7 @@ namespace OfficeLocationMicroservice.Core.OfficeLocationContext
             
             var office = new OfficeLocation
             {
-                Id = officeDto.Id,
+                Id = officeDto.OfficeId,
                 Name = officeDto.Name,
                 Address = officeDto.Address,
                 Country = officeDto.Country,
