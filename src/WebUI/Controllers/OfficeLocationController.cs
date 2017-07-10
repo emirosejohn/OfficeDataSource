@@ -2,9 +2,6 @@
 using OfficeLocationMicroservice.Core;
 using OfficeLocationMicroservice.Core.Domain.CountryContext;
 using OfficeLocationMicroservice.Core.OfficeLocationContext;
-using OfficeLocationMicroservice.Core.SharedContext.OfficeLocationDatabase;
-using OfficeLocationMicroservice.Data;
-using OfficeLocationMicroservice.WebUi.Helpers;
 using OfficeLocationMicroservice.WebUi.Models;
 
 namespace OfficeLocationMicroservice.WebUi.Controllers
