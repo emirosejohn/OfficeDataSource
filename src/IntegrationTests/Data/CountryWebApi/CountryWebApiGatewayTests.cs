@@ -7,7 +7,6 @@ using FluentAssertions;
 using OfficeLocationMicroservice.Core;
 using Xunit;
 using OfficeLocationMicroservice.DependencyManagement;
-using FluentAssertions;
 
 namespace OfficeLocationMicroservice.IntegrationTests.Data.CountryWebApi
 {
