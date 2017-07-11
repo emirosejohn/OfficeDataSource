@@ -38,7 +38,19 @@ namespace OfficeLocationMicroservice.WebUi.Controllers
 
             return View(officeModel);
         }
-	
+
+        public ActionResult IndexBK()
+        {
+            OfficeModel officeModel = new OfficeModel();
+
+            officeModel.ShowOfficeEdit = false;
+            officeModel.Offices = _officeLocationRepository.GetAll();
+            officeModel.Countries = _countryRepository.GetAllCountries();
+            officeModel.OfficeEdit = new OfficeLocation();
+
+            return View(officeModel);
+        }
+
         public ActionResult Edit(int id)
         {
             OfficeLocation toEditOffice = _officeLocationRepository.GetById(id);
