@@ -55,6 +55,16 @@
             display: flex;
             width: 100%;
         }
+
+        .modal {
+            top: 100px;
+        }
+
+        textarea {
+            margin: 2px;
+            background: aquamarine;
+            border: 
+        }
     </style>
 </head>
 
@@ -83,22 +93,34 @@
 
         </div>
 
-        <div class="editPanel">
-            <h2>Edit</h2>
+        <div class="modal show">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                
+                    <div class="modal-header">
+                        <h4 class="modal-title">Edit</h4>
+                    </div>
 
-            Model:
-            @Model.OfficeEdit.OfficeId
-            @Model.OfficeEdit.NewOfficeName
-            @Model.OfficeEdit.NewAddress
-            @Model.OfficeEdit.NewCountry
-            @Model.OfficeEdit.NewSwitchboard
-            @Model.OfficeEdit.NewFax
-            @Model.OfficeEdit.NewTimeZone
-            @Model.OfficeEdit.NewOperating
+                    <div class="modal-body">
+                        
+                            @using (Html.BeginForm())
+                            {
+                                @Html.TextBox("Name"); <br/>
+                                @Html.TextArea("Address");
+                                
+                            }
 
+
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-
 
     <script language="JavaScript" type="text/javascript" src="/Scripts/jquery-1.10.2.js"></script>
     <script language="JavaScript" type="text/javascript" src="/Scripts/jquery-1.10.2.min.js"></script>
