@@ -7,17 +7,7 @@
 <head>
     @*<link href="SharedOfficelocationStyles.css" rel="stylesheet" />*@
     <style>
-        .editPanel {
-            position: absolute;
-            margin: 10px;
-            padding: 10px;
-            width: 100%;
-            z-index: 100;
-            background: aquamarine;
-        }
-
-
-        div.card {
+               div.card {
             width: 320px;
             height: 230px;
             background: grey;
@@ -42,20 +32,25 @@
 
         .cardContainer {
             z-index: 10;
-            align-content: center;
+            width: inherit;
+            height: 100%;
             justify-content: center;
             flex-wrap: wrap;
             display: flex;
         }
 
-        .myContainer {
-            margin-top: 50px;
-            justify-content: center;
-            flex-wrap: wrap;
-            display: flex;
-            width: 100%;
+       .editPanel {
+            position: fixed;
+            text-align: center;
+            top: 100px;
+            width: 70%;
+            left: 15%;
+            height: 600px;
+            margin: 10px;
+            padding: 10px;
+            z-index: 100;
+            background: aquamarine;
         }
-
         .modal {
             top: 100px;
         }
@@ -65,6 +60,12 @@
             background: aquamarine;
             border: 
         }
+
+        .container {
+            height: 100%;
+            width: 100%;
+        }
+
     </style>
 </head>
 
@@ -78,7 +79,7 @@
                 <div class="card">
                     <h4>@office.Name</h4>
                     <div class="details">
-                        @office.Id <br />
+                        @office.OfficeId <br/>
                         @office.Address <br />
                         @office.Country <br />
                         Switchboard:
@@ -97,19 +98,63 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                 
-                    <div class="modal-header">
-                        <h4 class="modal-title">Edit</h4>
-                    </div>
+                <div class="modal-header">
+                    <h4 class="modal-title">Edit</h4>
+                </div>
+                             
 
-                    <div class="modal-body">
-                        
-                            @using (Html.BeginForm())
-                            {
-                                @Html.TextBox("Name"); <br/>
-                                @Html.TextArea("Address");
-                                
-                            }
+                <div class="modal-body">
+                    @using (Html.BeginForm())
+                    {
+                        <div class="form-group">
+                            <label for="office">Office</label>
+                            @Html.TextArea(@Model.OfficeEdit.NewOfficeName, @Model.OfficeEdit.NewOfficeName, new {@placeholder="Type Office Here",
+                           @class = "form-control", @rows="1", @id= "office", @style="min-width: 100%;"})
+                        </div>
 
+                        <div class="form-group">
+                            <label for="address">Address</label>
+                            @Html.TextArea(@Model.OfficeEdit.NewAddress, @Model.OfficeEdit.NewAddress,  new { @placeholder = "Type Address Here",
+                           @class = "form-control", @rows="3", @id= "address", @style="min-width: 100%;"})
+                           
+                            @* @Html.DropDownListFor(m => m.OfficeEdit.NewCountry, null, null, new { @class = "form-control" }))
+                            *@
+                        </div>
+
+                        <div class="form-group">
+                            <label for="switchboard">Switchboard</label>
+                            @Html.TextArea(@Model.OfficeEdit.NewSwitchboard, @Model.OfficeEdit.NewSwitchboard, new { @placeholder = "Type Switchboard Here",
+                           @class = "form-control", @rows="1", @id= "switchboard", @style="min-width: 100%;"})
+                        </div>
+
+                        <div class="form-group">
+                            <label for="fax">Fax</label>
+                            @Html.TextArea(@Model.OfficeEdit.NewFax, @Model.OfficeEdit.NewFax, new { @placeholder = "Type Fax Here",
+                           @class = "form-control", @rows="1", @id= "fax", @style="min-width: 100%;"})
+                        </div>
+
+                        <div class="form-group">
+                            <label for="timezone">timezone</label>
+                            @*  @Html.DropDownListFor(m => m.OfficeEdit.NewTimeZone, null, null, new { @class = "form-control" }))
+                                *@
+                        </div>
+
+                        <div class="form-group">
+                            <label for="operating">operating</label>        
+                            @* @Html.DropDownListFor(m => m.OfficeEdit.NewOperating, null, null, new { @class = "form-control" }))
+                            *@
+                        </div>
+                    }
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
                     </div>
 

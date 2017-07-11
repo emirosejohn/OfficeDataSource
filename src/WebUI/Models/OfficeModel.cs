@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using OfficeLocationMicroservice.Core;
-using OfficeLocationMicroservice.Core.OfficeLocationContext;
+using OfficeLocationMicroservice.Core.Domain.CountryContext;
+using OfficeLocationMicroservice.Core.Domain.OfficeLocationContext;
 
 namespace OfficeLocationMicroservice.WebUi.Models
 {
@@ -12,6 +13,8 @@ namespace OfficeLocationMicroservice.WebUi.Models
         public OfficeLocation[] Offices { get; set; }
         public OfficeEditModel OfficeEdit { get; set; }
         public bool ShowOfficeEdit { get; set; }
+        public Country[] Countries { get; set; }
+
     }
 
     public class OfficeEditModel

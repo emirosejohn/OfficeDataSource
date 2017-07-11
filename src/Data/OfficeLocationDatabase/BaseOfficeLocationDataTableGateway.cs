@@ -1,7 +1,7 @@
-﻿using OfficeLocationMicroservice.Core.SharedContext;
-using OfficeLocationMicroservice.Core.SharedContext.OfficeLocationDatabase;
+﻿using OfficeLocationMicroservice.Core.Services.SharedContext.OfficeLocationDatabase;
+using OfficeLocationMicroservice.Core.SharedContext;
 
-namespace OfficeLocationMicroservice.Database.OfficeLocationDatabase
+namespace OfficeLocationMicroservice.Data.OfficeLocationDatabase
 {
     public class BaseOfficeLocationDataTableGateway : BaseDataTableGateway
     {

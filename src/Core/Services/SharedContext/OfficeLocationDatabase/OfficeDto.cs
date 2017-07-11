@@ -1,8 +1,9 @@
-namespace OfficeLocationMicroservice.Core.SharedContext.OfficeLocationDatabase
+namespace OfficeLocationMicroservice.Core.Services.SharedContext.OfficeLocationDatabase
 {
     public class OfficeDto
     {
         public int OfficeId { get; set; }
+
         public string Name { get; set; }
 
         public string Address { get; set; }

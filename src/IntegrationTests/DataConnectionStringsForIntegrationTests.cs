@@ -2,11 +2,9 @@
 using OfficeLocationMicroservice.Core.Services.CountryFetcher.CountryWebApi;
 using OfficeLocationMicroservice.Core.Services.SharedContext.OfficeLocationDatabase;
 
-namespace OfficeLocationMicroservice.WebUi.Helpers
+namespace OfficeLocationMicroservice.IntegrationTests
 {
-    public class WebSiteSettings
-        : IOfficeLocationDatabaseSettings,
-            ICountryWebApiSettings
+    class DataConnectionStringsForIntegrationTests : IOfficeLocationDatabaseSettings, ICountryWebApiSettings
     {
         public string ConnectionString
         {
@@ -15,7 +13,7 @@ namespace OfficeLocationMicroservice.WebUi.Helpers
 
         public string CountryWebApiUrl
         {
-            get { return ConfigurationManager.AppSettings["CountryWebApiUrl"]; }
+            get { return ConfigurationManager.AppSettings["CountryWebApiUrl"];  }
         }
     }
 }
