@@ -8,11 +8,12 @@
     <style>
         div.card {
             width: 320px;
-            height: 220px;
+            height: 230px;
             background: grey;
             margin: 10px;
             padding: 10px;
             display: inline-table;
+            overflow: hidden;
         }
         .details {
             margin: 10px;
@@ -25,7 +26,7 @@
         h2 {
             text-align: center;
         }
-        .container {
+        .cardContainer {
             position: absolute;
             z-index: 10;
             width: 100%;
@@ -43,21 +44,21 @@
 </head>
 
 <body>
-  
+<div class="container">
     <h2>Office Locations</h2>
-    <div class="container">
+    <div class="cardContainer">
         @foreach (var office in Model.Offices)
         {
             <div class="card">
                 <h4>@office.Name</h4>
                 <div class="details">
-                    @office.Id <br />
-                    @office.Address <br />
-                    @office.Country <br />
+                    @office.Id <br/>
+                    @office.Address <br/>
+                    @office.Country <br/>
                     Switchboard:
-                    @office.Switchboard <br />
-                    Fax: @office.Fax <br />
-                    @office.TimeZone <br />
+                    @office.Switchboard <br/>
+                    Fax: @office.Fax <br/>
+                    @office.TimeZone <br/>
                     @office.Operating
                 </div>
 
@@ -65,21 +66,21 @@
         }
 
     </div>
-       
-<div class="editPanel">
-    <h2>Edit</h2>
 
-    Model:
-    @Model.OfficeEdit.OfficeId
-    @Model.OfficeEdit.NewOfficeName
-    @Model.OfficeEdit.NewAddress
-    @Model.OfficeEdit.NewCountry
-    @Model.OfficeEdit.NewSwitchboard
-    @Model.OfficeEdit.NewFax
-    @Model.OfficeEdit.NewTimeZone
-    @Model.OfficeEdit.NewOperating 
+    <div class="editPanel">
+        <h2>Edit</h2>
 
-</div>
+        Model:
+        @Model.OfficeEdit.OfficeId
+        @Model.OfficeEdit.NewOfficeName
+        @Model.OfficeEdit.NewAddress
+        @Model.OfficeEdit.NewCountry
+        @Model.OfficeEdit.NewSwitchboard
+        @Model.OfficeEdit.NewFax
+        @Model.OfficeEdit.NewTimeZone
+        @Model.OfficeEdit.NewOperating
+
+    </div></div>
 
 
 <script language="JavaScript" type="text/javascript" src="/Scripts/jquery-1.10.2.js"></script>
