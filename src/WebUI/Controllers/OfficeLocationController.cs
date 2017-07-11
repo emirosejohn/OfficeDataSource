@@ -12,17 +12,20 @@ namespace OfficeLocationMicroservice.WebUi.Controllers
     public class OfficeLocationController : Controller
     {
         private readonly IOfficeLocationRepository _officeLocationRepository;
+        private OfficeModel _officeModel;
 
 
         public OfficeLocationController()
         {
             _officeLocationRepository = MasterFactory.GetOfficeLocationRepository();
+            _officeModel = new OfficeModel();
         }
 
         //for tests
         public OfficeLocationController(IOfficeLocationRepository officeLocationRepository)
         {
             _officeLocationRepository = officeLocationRepository;
+            _officeModel = new OfficeModel();
         }
 
         public ActionResult Index()
@@ -31,6 +34,7 @@ namespace OfficeLocationMicroservice.WebUi.Controllers
 
             model.ShowOfficeEdit = false;
             model.Offices = _officeLocationRepository.GetAll();
+            _officeModel = model;
             
             return View(model);
         }
@@ -49,7 +53,10 @@ namespace OfficeLocationMicroservice.WebUi.Controllers
                 NewTimeZone = toEditOffice.TimeZone,
                 NewOperating = toEditOffice.Operating
             };
-            return View(officeEditModel);
+            OfficeModel model = _officeModel;
+            model.OfficeEdit = officeEditModel;
+            model.ShowOfficeEdit = true;
+            return View(model);
         }
     }
 }

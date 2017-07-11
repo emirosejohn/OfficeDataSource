@@ -67,15 +67,13 @@
     
 
 <script>
+    
 
-    var clickedCard = $("#clickableCard")[0];
-    //console.log(clickedCard.dataset.identifier);
-    //console.log(clickedCard);
-    clickedCard.onclick = function() {
-        console.log(clickedCard.dataset.identifier);
-        console.log(clickedCard);
-        
-        window.location.href = `OfficeLocation/Edit/${clickedCard.dataset.identifier}`;
+    $('.card').on('click', cardClicked);
+
+    function cardClicked() {
+        console.log(this.dataset.identifier);
+        window.location.href = 'OfficeLocation/Edit/' + this.dataset.identifier;
     }
 
 </script>

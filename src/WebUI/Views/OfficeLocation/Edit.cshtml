@@ -1,4 +1,4 @@
-﻿@model OfficeLocationMicroservice.WebUi.Models.OfficeEditModel
+﻿@model OfficeLocationMicroservice.WebUi.Models.OfficeModel
 
 @{
     ViewBag.Title = "Edit";
@@ -12,14 +12,14 @@
 <h2>Edit</h2>
     
 Model: 
-    @Model.OfficeId
-    @Model.NewOfficeName
-    @Model.NewAddress
-    @Model.NewCountry
-    @Model.NewSwitchboard
-    @Model.NewFax
-    @Model.NewTimeZone
-    @Model.NewOperating
+    @Model.OfficeEdit.OfficeId
+    @Model.OfficeEdit.NewOfficeName
+    @Model.OfficeEdit.NewAddress
+    @Model.OfficeEdit.NewCountry
+    @Model.OfficeEdit.NewSwitchboard
+    @Model.OfficeEdit.NewFax
+    @Model.OfficeEdit.NewTimeZone
+    @Model.OfficeEdit.NewOperating
     
 
 <script>
