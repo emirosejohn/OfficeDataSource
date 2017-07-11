@@ -98,8 +98,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AllTablesDeleter.cs" />
-    <Compile Include="DatabaseSettings.cs" />
+    <Compile Include="DataConnectionStringsForIntegrationTests.cs" />
+    <Compile Include="Data\CountryWebApi\CountryWebApiGatewayTests.cs" />
+    <Compile Include="Data\Repositories\CountryRepositoryTests.cs" />
+    <Compile Include="Data\Repositories\OfficeLocationRepositoryTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RepositoryTestsBase.cs" />
     <Compile Include="SqlDatabaseHelper.cs" />
     <Compile Include="Web\Controllers\OfficeLocationControllerTestHelper.cs" />
     <Compile Include="Web\Controllers\OfficeLocationControllerTests.cs" />
@@ -117,9 +121,13 @@
       <Project>{D7D65602-7B00-44AC-95FF-25A6F54E41B0}</Project>
       <Name>Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Database\Database.csproj">
-      <Project>{B5666D5C-30CC-429C-9620-9ECC777C3449}</Project>
-      <Name>Database</Name>
+    <ProjectReference Include="..\Data\Data.csproj">
+      <Project>{b5666d5c-30cc-429c-9620-9ecc777c3449}</Project>
+      <Name>Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DependencyManagement\DependencyManagement.csproj">
+      <Project>{10f890b4-3442-4cda-ac75-60f3651a7249}</Project>
+      <Name>DependencyManagement</Name>
     </ProjectReference>
     <ProjectReference Include="..\WebUI\WebUI.csproj">
       <Project>{20F89AD6-42AA-4DAB-AEBC-26992EB239AD}</Project>

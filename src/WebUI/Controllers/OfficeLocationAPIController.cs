@@ -11,12 +11,12 @@ using OfficeLocationMicroservice.WebUi.Models;
 
 namespace OfficeLocationMicroservice.WebUi.Controllers
 {
-    public class OfficeLocationAPIController : ApiController
+    public class OfficeLocationApiController : ApiController
     {
         private readonly IOfficeDataTableGateway _officeDataTableGateway;
         private readonly IOfficeLocationRepository _officeLocationRepository;
 
-        public OfficeLocationAPIController(IOfficeDataTableGateway officeDataTableGateway, IOfficeLocationRepository officeLocationRepository)
+        public OfficeLocationApiController(IOfficeDataTableGateway officeDataTableGateway, IOfficeLocationRepository officeLocationRepository)
         {
             //fill interfaces model is dependent on
             //plus repository
@@ -25,17 +25,17 @@ namespace OfficeLocationMicroservice.WebUi.Controllers
             //_schemegateway = new SchemeGateway(new APISettings());
         }
         
-        private OfficeModel GetModel()
+        private OfficeLocationModel GetModel()
         {
             OfficeDto[] DTOs = _officeDataTableGateway.GetAll();
-            OfficeModel model = new OfficeModel();
+            OfficeLocationModel locationModel = new OfficeLocationModel();
 
-            //need to set Offices in model so can access
-            model.Offices = _officeLocationRepository.GetAll();
-            return model;
+            //need to set Offices in locationModel so can access
+            locationModel.Offices = _officeLocationRepository.GetAll();
+            return locationModel;
         }
 
-        public OfficeModel GetData()
+        public OfficeLocationModel GetData()
         {
             return GetModel();
         }
