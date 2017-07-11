@@ -89,7 +89,18 @@
                 </div>
 
                 <div class="modal-body">
-                    Model:
+                    @using (Html.BeginForm())
+                    {
+                        <div class="form-group">
+                            <label for="office">Office</label>
+                            @Html.TextArea(@Model.OfficeEdit.NewOfficeName, new {@class = "form-control", @rows="1", @id= "office", @style="min-width: 100%;"})
+                        </div>
+
+                        <div class="form-group">
+                            <label for="address">Address</label>
+                            @Html.TextArea(@Model.OfficeEdit.NewOfficeName, new {@class = "form-control", @rows="3", @id= "address", @style="min-width: 100%;"})
+                        </div>
+                    }
                     @Model.OfficeEdit.OfficeId
                     @Model.OfficeEdit.NewOfficeName
                     @Model.OfficeEdit.NewAddress
