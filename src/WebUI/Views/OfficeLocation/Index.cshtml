@@ -41,10 +41,10 @@
 <div class="cardContainer">
     @foreach (var office in Model.Offices)
     {
-        <div class="card" id ="clickableCard" data-identifier="@office.Id">
+        <div class="card" id ="clickableCard" data-identifier="@office.OfficeId">
             <h4>@office.Name</h4>
             <div class="details">
-                @office.Id <br/>
+                @office.OfficeId <br/>
                 @office.Address <br/>
                 @office.Country <br/>
                 Switchboard:

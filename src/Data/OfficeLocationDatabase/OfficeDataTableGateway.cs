@@ -3,10 +3,10 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using Dapper;
+using OfficeLocationMicroservice.Core.Services.SharedContext.OfficeLocationDatabase;
 using OfficeLocationMicroservice.Core.SharedContext;
-using OfficeLocationMicroservice.Core.SharedContext.OfficeLocationDatabase;
 
-namespace OfficeLocationMicroservice.Database.OfficeLocationDatabase
+namespace OfficeLocationMicroservice.Data.OfficeLocationDatabase
 {
     public class OfficeDataTableGateway: BaseOfficeLocationDataTableGateway, IOfficeDataTableGateway
     {
@@ -23,7 +23,8 @@ namespace OfficeLocationMicroservice.Database.OfficeLocationDatabase
         public OfficeDto GetByName(string name)
         {
             const string query =
-               @"SELECT [OfficeId]
+               @"SELECT 
+                 [OfficeId]
                 ,[Name]
                 ,[Address]
                 ,[Country]
@@ -62,7 +63,7 @@ namespace OfficeLocationMicroservice.Database.OfficeLocationDatabase
         {
             const string query = @"
         SELECT 
-            [OfficeId]
+             [OfficeId]
             ,[Name]
             ,[Address]
             ,[Country]
@@ -87,8 +88,10 @@ namespace OfficeLocationMicroservice.Database.OfficeLocationDatabase
         public void Insert(OfficeDto dto)
         {
             const string sql = @"
+        Set Identity_insert [OfficeLocationMicroservice].[OfficeLocation].[Office] on;
         Insert Into [OfficeLocation].[Office]
-            ([OfficeId]
+            (
+             [OfficeId]
             ,[Name]
             ,[Address]
             ,[Country]
@@ -97,14 +100,42 @@ namespace OfficeLocationMicroservice.Database.OfficeLocationDatabase
             ,[TimeZone]
             ,[Operating])
         Values
-            (@OfficeId
+            (
+             @OfficeId
             ,@Name
             ,@Address
             ,@Country
             ,@Switchboard
             ,@Fax
             ,@TimeZone
-            ,@Operating)";
+            ,@Operating);
+        Set Identity_insert [OfficeLocationMicroservice].[OfficeLocation].[Office] off;
+";
+
+            ConnectionExecuteWithLog(
+                connection =>
+                {
+                    connection.Execute(sql, dto);
+                },
+                sql,
+                dto);
+        }
+
+        public void Update(OfficeDto dto)
+        {
+            const string sql = @"
+        Update [OfficeLocation].[Office]
+        Set 
+             [Name] = @Name
+            ,[Address] = @Address
+            ,[Country] = @Country
+            ,[Switchboard] = @Switchboard
+            ,[Fax] = @Fax
+            ,[TimeZone] = @TimeZone
+            ,[Operating] = @Operating
+        where
+            [OfficeId] = @OfficeId
+";
 
             ConnectionExecuteWithLog(
                 connection =>

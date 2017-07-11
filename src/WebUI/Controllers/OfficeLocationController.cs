@@ -1,10 +1,8 @@
-﻿using System.Web.Mvc;
+﻿using System.Diagnostics;
+using System.Web.Mvc;
 using OfficeLocationMicroservice.Core;
-using OfficeLocationMicroservice.Core.OfficeLocationContext;
-using OfficeLocationMicroservice.Core.SharedContext.OfficeLocationDatabase;
-using OfficeLocationMicroservice.Database;
-using OfficeLocationMicroservice.Database.OfficeLocationDatabase;
-using OfficeLocationMicroservice.WebUi.Helpers;
+using OfficeLocationMicroservice.Core.Domain.CountryContext;
+using OfficeLocationMicroservice.Core.Domain.OfficeLocationContext;
 using OfficeLocationMicroservice.WebUi.Models;
 
 namespace OfficeLocationMicroservice.WebUi.Controllers
@@ -12,39 +10,45 @@ namespace OfficeLocationMicroservice.WebUi.Controllers
     public class OfficeLocationController : Controller
     {
         private readonly IOfficeLocationRepository _officeLocationRepository;
+        private readonly CountryRepository _countryRepository;
         private OfficeModel _officeModel;
 
 
         public OfficeLocationController()
         {
             _officeLocationRepository = MasterFactory.GetOfficeLocationRepository();
+            _countryRepository = MasterFactory.GetCountryRepository();
             _officeModel = new OfficeModel();
         }
 
         //for tests
-        public OfficeLocationController(IOfficeLocationRepository officeLocationRepository)
+        public OfficeLocationController(
+            IOfficeLocationRepository officeLocationRepository,
+            CountryRepository countryRepository)
         {
             _officeLocationRepository = officeLocationRepository;
             _officeModel = new OfficeModel();
+            _countryRepository = countryRepository;
         }
 
         public ActionResult Index()
         {
-            OfficeModel model = new OfficeModel();
+            OfficeModel officeModel = new OfficeModel();
 
-            model.ShowOfficeEdit = false;
-            model.Offices = _officeLocationRepository.GetAll();
-            _officeModel = model;
-            
-            return View(model);
+            officeModel.ShowOfficeEdit = false;
+            officeModel.Offices = _officeLocationRepository.GetAll();
+            officeModel.Countries = _countryRepository.GetAllCountries();
+            _officeModel = officeModel;
+
+            return View(officeModel);
         }
-
+	
         public ActionResult Edit(int id)
         {
             OfficeLocation toEditOffice = _officeLocationRepository.GetById(id);
             OfficeEditModel officeEditModel = new OfficeEditModel
             {
-                OfficeId = toEditOffice.Id,
+                OfficeId = toEditOffice.OfficeId,
                 NewOfficeName = toEditOffice.Name,
                 NewAddress = toEditOffice.Address,
                 NewCountry = toEditOffice.Country,
@@ -57,8 +61,21 @@ namespace OfficeLocationMicroservice.WebUi.Controllers
             model.Offices = _officeLocationRepository.GetAll();
             model.OfficeEdit = officeEditModel;
             model.ShowOfficeEdit = true;
+            // _officeLocationRepository.Update(locationModel.EditedOffice);
             return View(model);
         }
+        
+        [HttpPost]
+        public ActionResult Save(OfficeLocationModel locationModel)
+        {
+            if (locationModel.EditedOffice != null)
+            {
+                _officeLocationRepository.Update(locationModel.EditedOffice);
+            }
+
+            return RedirectToAction("Index");
+         }
+
     }
 }
  
