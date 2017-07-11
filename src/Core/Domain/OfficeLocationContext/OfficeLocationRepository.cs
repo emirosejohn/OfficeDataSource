@@ -15,8 +15,6 @@ namespace OfficeLocationMicroservice.Core.Domain.OfficeLocationContext
 
         public OfficeLocation GetByName(string name)
         {
-            //var tz = TimeZoneInfo.GetSystemTimeZones();
-
             var officeDto = _officeDataTableGateway.GetByName(name);
 
             var office = officeDto.ExtractOfficeLocation();
@@ -26,7 +24,6 @@ namespace OfficeLocationMicroservice.Core.Domain.OfficeLocationContext
 
         public OfficeLocation[] GetAll()
         {
-            //want to use OfficeDataTableGateway.GetAll
             OfficeDto[] officeDtos = _officeDataTableGateway.GetAll();
 
             OfficeLocation[] officeLocations = new OfficeLocation[officeDtos.Length];
@@ -60,31 +57,10 @@ namespace OfficeLocationMicroservice.Core.Domain.OfficeLocationContext
 
         public OfficeLocation GetById(int id)
         {
-            //var tz = TimeZoneInfo.GetSystemTimeZones();
             OfficeDto officeDto = _officeDataTableGateway.GetById(id);
 
-            var office = new OfficeLocation
-            {
-                OfficeId = officeDto.OfficeId,
-                Name = officeDto.Name,
-                Address = officeDto.Address,
-                Country = officeDto.Country,
-                Switchboard = officeDto.Switchboard,
-                Fax = officeDto.Fax,
-                TimeZone = officeDto.TimeZone,
-                //Operating = officeDto.Operating ? "Active" : "Closed"
-            };
-            switch (officeDto.Operating)
-            {
-                case 1:
-                    office.Operating = "Active";
-                    break;
-                case 0:
-                    office.Operating = "Closed";
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
+            var office = officeDto.ExtractOfficeLocation();
+                
             return office;
         }
     }
@@ -106,8 +82,7 @@ namespace OfficeLocationMicroservice.Core.Domain.OfficeLocationContext
                 Country = officeLocation.Country,
                 Switchboard = officeLocation.Switchboard,
                 Fax = officeLocation.Fax,
-                TimeZone = officeLocation.TimeZone,
-               
+                TimeZone = officeLocation.TimeZone,  
             };
 
             switch (officeLocation.Operating)
@@ -146,6 +121,22 @@ namespace OfficeLocationMicroservice.Core.Domain.OfficeLocationContext
                 TimeZone = officeDto.TimeZone,
             };
 
+            if (officeLocation.Address == null)
+            {
+                officeLocation.Address = " ";
+            }
+            if (officeLocation.Switchboard == null)
+            {
+                officeLocation.Switchboard = " ";
+            }
+            if (officeLocation.Fax == null)
+            {
+                officeLocation.Fax = " ";
+            }
+            if (officeLocation.TimeZone == null)
+            {
+                officeLocation.TimeZone = " ";
+            }
             switch (officeDto.Operating)
             {
                 case 1:

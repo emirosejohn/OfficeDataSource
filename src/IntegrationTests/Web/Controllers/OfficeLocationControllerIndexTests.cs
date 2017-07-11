@@ -19,7 +19,7 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
 
                 var actionResult = controller.Index();
 
-                var viewResultModel = testHelper.GetOfficeModelModelFromActionResult(actionResult);
+                var viewResultModel = testHelper.GetOfficeModelFromActionResult(actionResult);
 
                 var officesArray = viewResultModel.Offices.ToArray();
 
@@ -94,7 +94,7 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
 
                 var actionResult = controller.Index();
 
-                var viewResultModel = testHelper.GetOfficeModelModelFromActionResult(actionResult);
+                var viewResultModel = testHelper.GetOfficeModelFromActionResult(actionResult);
 
                 var officesArray = viewResultModel.Offices.ToArray();
 

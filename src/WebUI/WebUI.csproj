@@ -168,7 +168,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\OfficeLocationModel.cs" />
     <Compile Include="Models\OfficeModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -215,6 +214,7 @@
     <Content Include="Views\OfficeLocation\Index.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\OfficeLocation\Edit.cshtml" />
+    <Content Include="Views\OfficeLocation\IndexBK.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

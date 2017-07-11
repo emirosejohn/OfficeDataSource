@@ -68,7 +68,7 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
                 databaseSettings.ConnectionString, tablesToSkip);
         }
 
-        public OfficeModel GetOfficeModelModelFromActionResult(
+        public OfficeModel GetOfficeModelFromActionResult(
             ActionResult actionResult)
         {
             actionResult.Should().BeAssignableTo<ViewResult>();
@@ -78,6 +78,14 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
             var officeModel = (OfficeModel) viewResult.Model;
 
             return officeModel;
+        }
+
+        public RedirectToRouteResult GetRedirectToRouteFromActionResult(
+            ActionResult actionResult)
+        {
+            actionResult.Should().BeAssignableTo<RedirectToRouteResult>();
+            var viewResult = (RedirectToRouteResult)actionResult;
+            return viewResult;
         }
     }
 }

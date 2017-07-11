@@ -11,7 +11,7 @@ namespace OfficeLocationMicroservice.WebUi.Models
     public class OfficeModel
     {
         public OfficeLocation[] Offices { get; set; }
-        public OfficeEditModel OfficeEdit { get; set; }
+        public OfficeLocation OfficeEdit { get; set; }
         public bool ShowOfficeEdit { get; set; }
         public Country[] Countries { get; set; }
 

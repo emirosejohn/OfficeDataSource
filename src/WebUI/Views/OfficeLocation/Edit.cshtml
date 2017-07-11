@@ -5,8 +5,11 @@
 }
 
 <head>
+
+    <link href="~/Content/SharedOfficelocationStyles.css" rel="stylesheet" />
+
     <style>
-        div.card {
+      /*  div.card {
             width: 320px;
             height: 230px;
             background: grey;
@@ -15,17 +18,20 @@
             display: inline-table;
             overflow: hidden;
         }
+
         .details {
             margin: 10px;
-
         }
+
         h4 {
             color: black;
             text-align: center;
         }
+
         h2 {
             text-align: center;
-        }
+        }*/
+
         .cardContainer {
             z-index: 10;
             width: inherit;
@@ -47,6 +53,15 @@
             z-index: 100;
             background: aquamarine;
         }
+        .modal {
+            top: 100px;
+        }
+
+        textarea {
+            margin: 2px;
+            background: aquamarine;
+            border:
+                  }
 
         .container {
             height: 100%;
@@ -57,21 +72,21 @@
 </head>
 
 <body>
-<div class="container">
-    <h2>Office Locations</h2>
+<h2>Office Locations</h2>
+<div class="myContainer">
+
     <div class="cardContainer">
         @foreach (var office in Model.Offices)
         {
             <div class="card">
                 <h4>@office.Name</h4>
                 <div class="details">
-                    @office.OfficeId <br/>
-                    @office.Address <br/>
-                    @office.Country <br/>
+                    @office.Address <br />
+                    @office.Country <br />
                     Switchboard:
-                    @office.Switchboard <br/>
-                    Fax: @office.Fax <br/>
-                    @office.TimeZone <br/>
+                    @office.Switchboard <br />
+                    Fax: @office.Fax <br />
+                    @office.TimeZone <br />
                     @office.Operating
                 </div>
 
@@ -87,20 +102,21 @@
                 <div class="modal-header">
                     <h4 class="modal-title">Edit</h4>
                 </div>
+                             
 
                 <div class="modal-body">
                     @using (Html.BeginForm())
                     {
                         <div class="form-group">
                             <label for="office">Office</label>
-                            @Html.TextArea(@Model.OfficeEdit.NewOfficeName, @Model.OfficeEdit.NewOfficeName, new {@placeholder="Type Office Here",
-                           @class = "form-control", @rows="1", @id= "office", @style="min-width: 100%;"})
+                            @Html.TextArea(@Model.OfficeEdit.Name, @Model.OfficeEdit.Name, new {@placeholder="Type Office Here",
+                                @class = "form-control", @rows="1", @id= "office", @style="min-width: 100%;"})
                         </div>
 
                         <div class="form-group">
                             <label for="address">Address</label>
-                            @Html.TextArea(@Model.OfficeEdit.NewAddress, @Model.OfficeEdit.NewAddress,  new { @placeholder = "Type Address Here",
-                           @class = "form-control", @rows="3", @id= "address", @style="min-width: 100%;"})
+                            @Html.TextArea(@Model.OfficeEdit.Address, @Model.OfficeEdit.Address,  new { @placeholder = "Type Address Here",
+                                @class = "form-control", @rows="3", @id= "address", @style="min-width: 100%;"})
                            
                             @* @Html.DropDownListFor(m => m.OfficeEdit.NewCountry, null, null, new { @class = "form-control" }))
                             *@
@@ -108,14 +124,14 @@
 
                         <div class="form-group">
                             <label for="switchboard">Switchboard</label>
-                            @Html.TextArea(@Model.OfficeEdit.NewSwitchboard, @Model.OfficeEdit.NewSwitchboard, new { @placeholder = "Type Switchboard Here",
-                           @class = "form-control", @rows="1", @id= "switchboard", @style="min-width: 100%;"})
+                            @Html.TextArea(@Model.OfficeEdit.Switchboard, @Model.OfficeEdit.Switchboard, new { @placeholder = "Type Switchboard Here",
+                                @class = "form-control", @rows="1", @id= "switchboard", @style="min-width: 100%;"})
                         </div>
 
                         <div class="form-group">
                             <label for="fax">Fax</label>
-                            @Html.TextArea(@Model.OfficeEdit.NewFax, @Model.OfficeEdit.NewFax, new { @placeholder = "Type Fax Here",
-                           @class = "form-control", @rows="1", @id= "fax", @style="min-width: 100%;"})
+                            @Html.TextArea(@Model.OfficeEdit.Fax, @Model.OfficeEdit.Fax, new { @placeholder = "Type Fax Here",
+                                @class = "form-control", @rows="1", @id= "fax", @style="min-width: 100%;"})
                         </div>
 
                         <div class="form-group">
@@ -140,12 +156,8 @@
         </div>
     </div>
 </div>
-
-
+    
 <script language="JavaScript" type="text/javascript" src="/Scripts/jquery-1.10.2.js"></script>
-    <script language="JavaScript" type="text/javascript" src="/Scripts/jquery-1.10.2.min.js"></script>
+<script language="JavaScript" type="text/javascript" src="/Scripts/jquery-1.10.2.min.js"></script>
 
-    <script>
-
-    </script>
 </body>
