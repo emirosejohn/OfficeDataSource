@@ -93,22 +93,43 @@
                     {
                         <div class="form-group">
                             <label for="office">Office</label>
-                            @Html.TextArea(@Model.OfficeEdit.NewOfficeName, new {@class = "form-control", @rows="1", @id= "office", @style="min-width: 100%;"})
+                            @Html.TextArea(@Model.OfficeEdit.NewOfficeName, @Model.OfficeEdit.NewOfficeName, new {@placeholder="Type Office Here",
+                           @class = "form-control", @rows="1", @id= "office", @style="min-width: 100%;"})
                         </div>
 
                         <div class="form-group">
                             <label for="address">Address</label>
-                            @Html.TextArea(@Model.OfficeEdit.NewOfficeName, new {@class = "form-control", @rows="3", @id= "address", @style="min-width: 100%;"})
+                            @Html.TextArea(@Model.OfficeEdit.NewAddress, @Model.OfficeEdit.NewAddress,  new { @placeholder = "Type Address Here",
+                           @class = "form-control", @rows="3", @id= "address", @style="min-width: 100%;"})
+                           
+                            @* @Html.DropDownListFor(m => m.OfficeEdit.NewCountry, null, null, new { @class = "form-control" }))
+                            *@
+                        </div>
+
+                        <div class="form-group">
+                            <label for="switchboard">Switchboard</label>
+                            @Html.TextArea(@Model.OfficeEdit.NewSwitchboard, @Model.OfficeEdit.NewSwitchboard, new { @placeholder = "Type Switchboard Here",
+                           @class = "form-control", @rows="1", @id= "switchboard", @style="min-width: 100%;"})
+                        </div>
+
+                        <div class="form-group">
+                            <label for="fax">Fax</label>
+                            @Html.TextArea(@Model.OfficeEdit.NewFax, @Model.OfficeEdit.NewFax, new { @placeholder = "Type Fax Here",
+                           @class = "form-control", @rows="1", @id= "fax", @style="min-width: 100%;"})
+                        </div>
+
+                        <div class="form-group">
+                            <label for="timezone">timezone</label>
+                            @*  @Html.DropDownListFor(m => m.OfficeEdit.NewTimeZone, null, null, new { @class = "form-control" }))
+                                *@
+                        </div>
+
+                        <div class="form-group">
+                            <label for="operating">operating</label>        
+                            @* @Html.DropDownListFor(m => m.OfficeEdit.NewOperating, null, null, new { @class = "form-control" }))
+                            *@
                         </div>
                     }
-                    @Model.OfficeEdit.OfficeId
-                    @Model.OfficeEdit.NewOfficeName
-                    @Model.OfficeEdit.NewAddress
-                    @Model.OfficeEdit.NewCountry
-                    @Model.OfficeEdit.NewSwitchboard
-                    @Model.OfficeEdit.NewFax
-                    @Model.OfficeEdit.NewTimeZone
-                    @Model.OfficeEdit.NewOperating
                 </div>
 
                 <div class="modal-footer">
