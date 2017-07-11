@@ -5,13 +5,71 @@
 }
 
 <head>
-    <style></style>
+    <style>
+        div.card {
+            width: 320px;
+            height: 220px;
+            background: grey;
+            margin: 10px;
+            padding: 10px;
+            display: inline-table;
+        }
+        .details {
+            margin: 10px;
+
+        }
+        h4 {
+            color: black;
+            text-align: center;
+        }
+        h2 {
+            text-align: center;
+        }
+        .container {
+            position: absolute;
+            z-index: 10;
+            width: 100%;
+            align-content: center;
+        }
+        .editPanel {
+            position: relative;
+            width: 100%;
+            margin: 10px;
+            padding: 10px;
+            z-index: 100;
+            background: aquamarine;
+        }
+    </style>
 </head>
 
 <body>
-<h2>Edit</h2>
-    
-Model: 
+  
+    <h2>Office Locations</h2>
+    <div class="container">
+        @foreach (var office in Model.Offices)
+        {
+            <div class="card">
+                <h4>@office.Name</h4>
+                <div class="details">
+                    @office.Id <br />
+                    @office.Address <br />
+                    @office.Country <br />
+                    Switchboard:
+                    @office.Switchboard <br />
+                    Fax: @office.Fax <br />
+                    @office.TimeZone <br />
+                    @office.Operating
+                </div>
+
+            </div>
+        }
+
+    </div>
+       
+<div class="editPanel">
+    <h2>Edit</h2>
+
+    Model:
     @Model.OfficeEdit.OfficeId
     @Model.OfficeEdit.NewOfficeName
     @Model.OfficeEdit.NewAddress
@@ -19,10 +77,15 @@ Model:
     @Model.OfficeEdit.NewSwitchboard
     @Model.OfficeEdit.NewFax
     @Model.OfficeEdit.NewTimeZone
-    @Model.OfficeEdit.NewOperating
-    
+    @Model.OfficeEdit.NewOperating 
 
-<script>
-    
-</script>
+</div>
+
+
+<script language="JavaScript" type="text/javascript" src="/Scripts/jquery-1.10.2.js"></script>
+    <script language="JavaScript" type="text/javascript" src="/Scripts/jquery-1.10.2.min.js"></script>
+
+    <script>
+
+    </script>
 </body>

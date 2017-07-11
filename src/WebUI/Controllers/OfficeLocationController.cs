@@ -54,6 +54,7 @@ namespace OfficeLocationMicroservice.WebUi.Controllers
                 NewOperating = toEditOffice.Operating
             };
             OfficeModel model = _officeModel;
+            model.Offices = _officeLocationRepository.GetAll();
             model.OfficeEdit = officeEditModel;
             model.ShowOfficeEdit = true;
             return View(model);
