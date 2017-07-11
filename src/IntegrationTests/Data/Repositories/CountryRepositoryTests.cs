@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using FluentAssertions;
 using OfficeLocationMicroservice.Core;
 using OfficeLocationMicroservice.Core.Domain.CountryContext;
-using OfficeLocationMicroservice.IntegrationTests;
 using Xunit;
 
 namespace OfficeLocationMicroservice.IntegrationTests.Data.Repositories
@@ -23,7 +18,7 @@ namespace OfficeLocationMicroservice.IntegrationTests.Data.Repositories
         [Fact]
         public void ShouldReturnListOfCountries()
         {
-            var countries =  _countryRepository.getAllCountries();
+            var countries =  _countryRepository.GetAllCountries();
 
             countries.Should().NotBeNull();
 
@@ -33,7 +28,7 @@ namespace OfficeLocationMicroservice.IntegrationTests.Data.Repositories
         [Fact]
         public void CountriesShouldBeUnique()
         {
-            var countries = _countryRepository.getAllCountries();
+            var countries = _countryRepository.GetAllCountries();
 
             countries.Should().NotBeNull();
 
@@ -59,10 +54,10 @@ namespace OfficeLocationMicroservice.IntegrationTests.Data.Repositories
             return true;
         }
 
-        [Fact(Skip="Number of countries may change")]
+        [Fact(Skip = "Number of countries may change")]
         public void CountriesShouldBe137()
         {
-            var countries = _countryRepository.getAllCountries();
+            var countries = _countryRepository.GetAllCountries();
 
             countries.Should().NotBeNull();
 

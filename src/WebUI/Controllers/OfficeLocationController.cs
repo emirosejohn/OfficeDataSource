@@ -33,7 +33,7 @@ namespace OfficeLocationMicroservice.WebUi.Controllers
             OfficeLocationModel locationModel = new OfficeLocationModel();
 
             locationModel.Offices = _officeLocationRepository.GetAll();
-            locationModel.Countries = _countryRepository.getAllCountries();
+            locationModel.Countries = _countryRepository.GetAllCountries();
 
 
             return View(locationModel);

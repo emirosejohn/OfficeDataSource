@@ -6,7 +6,7 @@ namespace OfficeLocationMicroservice.Core.Domain.CountryContext
 {
     public class CountryRepository
     {
-        private ICountryWebApiGateway _countryWebApiGateway;
+        private readonly ICountryWebApiGateway _countryWebApiGateway;
 
 
         public CountryRepository(ICountryWebApiGateway countryWebApiGateway)
@@ -14,17 +14,17 @@ namespace OfficeLocationMicroservice.Core.Domain.CountryContext
             _countryWebApiGateway = countryWebApiGateway;
         }
 
-        public Country[] getAllCountries()
+        public Country[] GetAllCountries()
         {
-            var RegionScheme = _countryWebApiGateway.GetRegionScheme();
+            var regionScheme = _countryWebApiGateway.GetRegionScheme();
 
-            var ListOfRegions = RegionScheme.Regions;
+            var listOfRegions = regionScheme.Regions;
 
             var countries = new List<Country>();
 
-            foreach (var Region in ListOfRegions)
+            foreach (var region in listOfRegions)
             {
-                foreach (var country in Region.Countries)
+                foreach (var country in region.Countries)
                 {
                     countries.Add(new Country()
                     {
