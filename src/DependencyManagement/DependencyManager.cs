@@ -6,7 +6,6 @@ using OfficeLocationMicroservice.Core.SharedContext.OfficeLocationDatabase;
 using OfficeLocationMicroservice.Data;
 using OfficeLocationMicroservice.Data.CountryWebApi;
 using OfficeLocationMicroservice.Data.OfficeLocationDatabase;
-using OfficeLocationMicroservice.Data;
 
 namespace OfficeLocationMicroservice.DependencyManagement
 {

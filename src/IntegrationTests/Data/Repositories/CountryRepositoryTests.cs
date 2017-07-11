@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using FluentAssertions;
 using OfficeLocationMicroservice.Core;
 using OfficeLocationMicroservice.Core.Domain.CountryContext;
-using OfficeLocationMicroservice.IntegrationTests;
 using Xunit;
 
 namespace OfficeLocationMicroservice.IntegrationTests.Data.Repositories
