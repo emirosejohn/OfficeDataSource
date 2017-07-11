@@ -13,31 +13,20 @@ namespace OfficeLocationMicroservice.WebUi.Controllers
 {
     public class OfficeLocationApiController : ApiController
     {
-        private readonly IOfficeDataTableGateway _officeDataTableGateway;
         private readonly IOfficeLocationRepository _officeLocationRepository;
 
-        public OfficeLocationApiController(IOfficeDataTableGateway officeDataTableGateway, IOfficeLocationRepository officeLocationRepository)
+        public OfficeLocationApiController()
         {
-            //fill interfaces model is dependent on
-            //plus repository
-            _officeDataTableGateway = officeDataTableGateway;
-            _officeLocationRepository = officeLocationRepository;
-            //_schemegateway = new SchemeGateway(new APISettings());
+            _officeLocationRepository = MasterFactory.GetOfficeLocationRepository();
         }
         
-        private OfficeLocationModel GetModel()
+        public OfficeLocationModel Offices()
         {
-            OfficeDto[] DTOs = _officeDataTableGateway.GetAll();
             OfficeLocationModel locationModel = new OfficeLocationModel();
 
-            //need to set Offices in locationModel so can access
             locationModel.Offices = _officeLocationRepository.GetAll();
-            return locationModel;
-        }
 
-        public OfficeLocationModel GetData()
-        {
-            return GetModel();
+            return locationModel;
         }
         
     }

@@ -11,7 +11,7 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
 
             regionScheme.Regions = new List<Region>();
 
-            var Region1 = new Region()
+            var region1 = new Region()
             {
                 RegionId = 1,
                 Name = "Region1",
@@ -19,7 +19,7 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
                 Countries = new List<Country>()
             };
 
-            var Region2 = new Region()
+            var region2 = new Region()
             {
                 RegionId = 1,
                 Name = "Region2",
@@ -27,7 +27,7 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
                 Countries = new List<Country>()
             };
 
-            var Region3 = new Region()
+            var region3 = new Region()
             {
                 RegionId = 1,
                 Name = "Region3",
@@ -89,18 +89,18 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
                 DFACountryCode = "6"
             };
 
-            Region1.Countries.Add(country1);
-            Region1.Countries.Add(country2);
+            region1.Countries.Add(country1);
+            region1.Countries.Add(country2);
 
-            Region2.Countries.Add(country3);
-            Region2.Countries.Add(country4);
+            region2.Countries.Add(country3);
+            region2.Countries.Add(country4);
 
-            Region3.Countries.Add(country5);
-            Region3.Countries.Add(country6);
+            region3.Countries.Add(country5);
+            region3.Countries.Add(country6);
 
-            regionScheme.Regions.Add(Region1);
-            regionScheme.Regions.Add(Region2);
-            regionScheme.Regions.Add(Region3);
+            regionScheme.Regions.Add(region1);
+            regionScheme.Regions.Add(region2);
+            regionScheme.Regions.Add(region3);
 
             return regionScheme;
         }
