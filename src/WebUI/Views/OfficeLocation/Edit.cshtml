@@ -5,7 +5,18 @@
 }
 
 <head>
+    @*<link href="SharedOfficelocationStyles.css" rel="stylesheet" />*@
     <style>
+        .editPanel {
+            position: absolute;
+            margin: 10px;
+            padding: 10px;
+            width: 100%;
+            z-index: 100;
+            background: aquamarine;
+        }
+
+
         div.card {
             width: 320px;
             height: 230px;
@@ -15,75 +26,81 @@
             display: inline-table;
             overflow: hidden;
         }
+
         .details {
             margin: 10px;
-
         }
+
         h4 {
             color: black;
             text-align: center;
         }
+
         h2 {
             text-align: center;
         }
+
         .cardContainer {
-            position: absolute;
             z-index: 10;
-            width: 100%;
             align-content: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            display: flex;
         }
-        .editPanel {
-            position: relative;
+
+        .myContainer {
+            margin-top: 50px;
+            justify-content: center;
+            flex-wrap: wrap;
+            display: flex;
             width: 100%;
-            margin: 10px;
-            padding: 10px;
-            z-index: 100;
-            background: aquamarine;
         }
     </style>
 </head>
 
 <body>
-<div class="container">
     <h2>Office Locations</h2>
-    <div class="cardContainer">
-        @foreach (var office in Model.Offices)
-        {
-            <div class="card">
-                <h4>@office.Name</h4>
-                <div class="details">
-                    @office.Id <br/>
-                    @office.Address <br/>
-                    @office.Country <br/>
-                    Switchboard:
-                    @office.Switchboard <br/>
-                    Fax: @office.Fax <br/>
-                    @office.TimeZone <br/>
-                    @office.Operating
+    <div class="myContainer">
+
+        <div class="cardContainer">
+            @foreach (var office in Model.Offices)
+            {
+                <div class="card">
+                    <h4>@office.Name</h4>
+                    <div class="details">
+                        @office.Id <br />
+                        @office.Address <br />
+                        @office.Country <br />
+                        Switchboard:
+                        @office.Switchboard <br />
+                        Fax: @office.Fax <br />
+                        @office.TimeZone <br />
+                        @office.Operating
+                    </div>
+
                 </div>
+            }
 
-            </div>
-        }
+        </div>
 
+        <div class="editPanel">
+            <h2>Edit</h2>
+
+            Model:
+            @Model.OfficeEdit.OfficeId
+            @Model.OfficeEdit.NewOfficeName
+            @Model.OfficeEdit.NewAddress
+            @Model.OfficeEdit.NewCountry
+            @Model.OfficeEdit.NewSwitchboard
+            @Model.OfficeEdit.NewFax
+            @Model.OfficeEdit.NewTimeZone
+            @Model.OfficeEdit.NewOperating
+
+        </div>
     </div>
 
-    <div class="editPanel">
-        <h2>Edit</h2>
 
-        Model:
-        @Model.OfficeEdit.OfficeId
-        @Model.OfficeEdit.NewOfficeName
-        @Model.OfficeEdit.NewAddress
-        @Model.OfficeEdit.NewCountry
-        @Model.OfficeEdit.NewSwitchboard
-        @Model.OfficeEdit.NewFax
-        @Model.OfficeEdit.NewTimeZone
-        @Model.OfficeEdit.NewOperating
-
-    </div></div>
-
-
-<script language="JavaScript" type="text/javascript" src="/Scripts/jquery-1.10.2.js"></script>
+    <script language="JavaScript" type="text/javascript" src="/Scripts/jquery-1.10.2.js"></script>
     <script language="JavaScript" type="text/javascript" src="/Scripts/jquery-1.10.2.min.js"></script>
 
     <script>
