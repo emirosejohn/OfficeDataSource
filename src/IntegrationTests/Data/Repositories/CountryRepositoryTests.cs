@@ -18,7 +18,7 @@ namespace OfficeLocationMicroservice.IntegrationTests.Data.Repositories
         [Fact]
         public void ShouldReturnListOfCountries()
         {
-            var countries =  _countryRepository.getAllCountries();
+            var countries =  _countryRepository.GetAllCountries();
 
             countries.Should().NotBeNull();
 
@@ -28,7 +28,7 @@ namespace OfficeLocationMicroservice.IntegrationTests.Data.Repositories
         [Fact]
         public void CountriesShouldBeUnique()
         {
-            var countries = _countryRepository.getAllCountries();
+            var countries = _countryRepository.GetAllCountries();
 
             countries.Should().NotBeNull();
 
@@ -57,7 +57,7 @@ namespace OfficeLocationMicroservice.IntegrationTests.Data.Repositories
         [Fact(Skip = "Number of countries may change")]
         public void CountriesShouldBe137()
         {
-            var countries = _countryRepository.getAllCountries();
+            var countries = _countryRepository.GetAllCountries();
 
             countries.Should().NotBeNull();
 

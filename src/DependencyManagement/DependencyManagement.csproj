@@ -49,7 +49,7 @@
       <Name>Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\Data\Data.csproj">
-      <Project>{b5666d5c-30cc-429c-9620-9ecc777c3449}</Project>
+      <Project>{B5666D5C-30CC-429C-9620-9ECC777C3449}</Project>
       <Name>Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\Logging\Logging.csproj">

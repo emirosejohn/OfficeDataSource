@@ -1,7 +1,8 @@
 ﻿using System;
-using OfficeLocationMicroservice.Core.SharedContext.OfficeLocationDatabase;
+using System.Linq;
+using OfficeLocationMicroservice.Core.Services.SharedContext.OfficeLocationDatabase;
 
-namespace OfficeLocationMicroservice.Core.OfficeLocationContext
+namespace OfficeLocationMicroservice.Core.Domain.OfficeLocationContext
 {
     public class OfficeLocationRepository : IOfficeLocationRepository
     {
@@ -17,16 +18,8 @@ namespace OfficeLocationMicroservice.Core.OfficeLocationContext
             //var tz = TimeZoneInfo.GetSystemTimeZones();
             
             var officeDto = _officeDataTableGateway.GetByName(name);
-            var office = new OfficeLocation
-            {
-                Name = officeDto.Name,
-                Address = officeDto.Address,
-                Country = officeDto.Country,
-                Switchboard = officeDto.Switchboard,
-                Fax = officeDto.Fax,
-                TimeZone = officeDto.TimeZone,
-                Operating = Convert.ToBoolean(officeDto.Operating)
-            };
+
+            var office = officeDto.ExtractOfficeLocation();
 
             return office;
         }
@@ -45,6 +38,73 @@ namespace OfficeLocationMicroservice.Core.OfficeLocationContext
 
             return officeLocations;
 
+        }
+
+        public void Update(OfficeLocation editedOfficeLocation)
+        {
+            var offices = GetAll();
+
+            var officeDto = editedOfficeLocation.ExtractDto();
+
+            if (offices.All(x => x.OfficeId != editedOfficeLocation.OfficeId))
+            {
+                _officeDataTableGateway.Insert(officeDto);
+
+            }
+            else
+            {
+                _officeDataTableGateway.Update(officeDto);
+            }
+        }
+    }
+
+    public static class OfficeLocationExtensions
+    {
+        public static OfficeDto ExtractDto(this OfficeLocation officeLocation)
+        {
+            if (officeLocation == null)
+            {
+                return null;
+            }
+
+            var officeDto = new OfficeDto()
+            {
+                OfficeId = officeLocation.OfficeId,
+                Name = officeLocation.Name,
+                Address = officeLocation.Address,
+                Country = officeLocation.Country,
+                Switchboard = officeLocation.Switchboard,
+                Fax = officeLocation.Fax,
+                TimeZone = officeLocation.TimeZone,
+                Operating = Convert.ToInt16(officeLocation.Operating)
+            };
+
+            return officeDto;
+        }
+    }
+
+    public static class OfficeDtoExtensions
+    {
+        public static OfficeLocation ExtractOfficeLocation(this OfficeDto officeDto)
+        {
+            if (officeDto == null)
+            {
+                return null;
+            }
+
+            var officeLocation = new OfficeLocation()
+            {
+                OfficeId = officeDto.OfficeId,
+                Name = officeDto.Name,
+                Address = officeDto.Address,
+                Country = officeDto.Country,
+                Switchboard = officeDto.Switchboard,
+                Fax = officeDto.Fax,
+                TimeZone = officeDto.TimeZone,
+                Operating = Convert.ToBoolean(officeDto.Operating)
+            };
+
+            return officeLocation;
         }
     }
 }
