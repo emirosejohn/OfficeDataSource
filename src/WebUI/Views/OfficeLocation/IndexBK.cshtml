@@ -85,7 +85,7 @@
         @foreach (var office in Model.Offices)
         {
 
-            <div class="modal fade" id="modal_@office.OfficeId" data-backdrop="static" >
+            <div class="modal fade" id="modal_@office.OfficeId" data-backdrop="static" data-keyboard="false" >
                 <div class="modal-dialog">
                     <div class="modal-content">
 
@@ -179,8 +179,15 @@
                     if (confirm('Are you sure you want to cancel. You will lose your unsaved changes')) {
                         $('#modal_@office.OfficeId').modal('hide')
                     }
+
+                function modal_open() {
+                    $('body').css('overflow','');
+                    $('body').css('position','');
+                }
                 }
             </script>
+
+
 
         }  
     </div>
