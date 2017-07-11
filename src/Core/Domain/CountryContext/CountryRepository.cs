@@ -14,7 +14,7 @@ namespace OfficeLocationMicroservice.Core.Domain.CountryContext
             _countryWebApiGateway = countryWebApiGateway;
         }
 
-        public Country[] getAllCountries()
+        public Country[] GetAllCountries()
         {
             var RegionScheme = _countryWebApiGateway.GetRegionScheme();
 
