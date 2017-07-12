@@ -26,17 +26,16 @@
             display: none !important;
         }
 
-        .modal-backdrop.in {
-            opacity: 0 !important;
-            z-index: -1050 !important;
-        }
-
+            .modal-backdrop.in {
+                opacity: 0 !important;
+                z-index: -1050 !important;
+            }
     </style>
 </head>
 
 <body>
-<div class="myContainer">
-    <h2>Office Locations</h2>
+    <div class="myContainer">
+        <h2>Office Locations</h2>
     <div>
         <span style="clear: both;">
     <button type="submit" class="addButton">
@@ -44,57 +43,56 @@
     </button> 
         </span>
         <br/>
-    <div class="cardContainer">
-        @foreach (var office in Model.Offices)
-        {
-            <div class="card" data-toggle="modal" data-target="#modal_@office.OfficeId">
-                <h4>@office.Name</h4>
-                <div class="details">
-                    @office.OfficeId <br/>
-                    @office.Address <br/>
-                    @office.Country <br/>
-                    Switchboard:
-                    @office.Switchboard <br/>
-                    Fax: @office.Fax <br/>
-                    @office.TimeZone <br/>
-                    @office.Operating
+        <div class="cardContainer">
+            @foreach (var office in Model.Offices)
+            {
+                <div class="card" data-toggle="modal" data-target="#plain_@office.OfficeId">
+                    <h4>@office.Name</h4>
+                    <div class="details">
+                        @office.Address <br />
+                        @office.Country <br />
+                        Switchboard:
+                        @office.Switchboard <br />
+                        Fax: @office.Fax <br />
+                        @office.TimeZone <br />
+                        @office.Operating
+                    </div>
+
                 </div>
+            }
 
-            </div>
-        }
+        </div>
 
-    </div>
-    
-    <div id="modals">
-    
-        @foreach (var office in Model.Offices)
-        {
 
-            <div class="modal fade" id="modal_@office.OfficeId" data-backdrop="static" data-keyboard="false" >
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        
-                        @using (Html.BeginForm("Save", "OfficeLocation", FormMethod.Post))
-                        { 
-                            @Html.HiddenFor(m => m.OfficeEdit.OfficeId, new {value = @office.OfficeId});
+        <div id="plainModals">
+
+            @foreach (var office in Model.Offices)
+            {
+
+                <div class="modal fade" id="plain_@office.OfficeId" data-backdrop="static" data-keyboard="false">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
 
                             <div class="modal-header">
-                                <button type="button" class="close" onclick="check_@office.OfficeId ();">&times;</button>
-                                <h4 class="modal-title">Edit</h4>
+                                <button type="button" class="close" onclick="close_@office.OfficeId ();">&times;</button>
+                                <h4 class="modal-title">@office.Name</h4>
                             </div>
 
                             <div class="modal-body">
 
+                                
+                                
                                 <div class="form-group">
                                     <label for="office">Office</label>
                                     @Html.TextBoxFor(m => m.OfficeEdit.Name, new
                                     {
                                         @Value = office.Name,
                                         @placeholder = "Type Office Here",
-                                        @class = "form-control",
+                                        @class = "form-control-static",
                                         @rows = "1",
                                         @id = "Office",
-                                        @style = "min-width: 100%;"
+                                        @style = "min-width: 100%;",
+                                        @readonly = true
                                     })
                                 </div>
 
@@ -104,14 +102,16 @@
                                     {
                                         @Value = office.Address,
                                         @placeholder = "Type Address Here",
-                                        @class = "form-control",
+                                        @class = "form-control-static",
                                         @rows = "1",
                                         @id = "Address",
-                                        @style = "min-width: 100%;"
+                                        @style = "min-width: 100%;",
+                                        @readonly = true
                                     })
 
-                                    @Html.DropDownListFor(m => m.OfficeEdit.Country, Model.Countries, null, new { @class = "form-control" })
-                            
+                                    @Html.DropDownListFor(m => m.OfficeEdit.Country, Model.Countries, null, new { @class = "form-control-static",
+                                        @disabled = "disabled" })
+
                                 </div>
 
                                 <div class="form-group">
@@ -120,10 +120,11 @@
                                     {
                                         @Value = office.Switchboard,
                                         @placeholder = "Type Switchboard Here",
-                                        @class = "form-control",
+                                        @class = "form-control-static",
                                         @rows = "1",
                                         @id = "switchboard",
-                                        @style = "min-width: 100%;"
+                                        @style = "min-width: 100%;",
+                                        @readonly = true
                                     })
                                 </div>
 
@@ -133,54 +134,171 @@
                                     {
                                         @Value = office.Fax,
                                         @placeholder = "Type Fax Here",
-                                        @class = "form-control",
+                                        @class = "form-control-static",
                                         @rows = "1",
                                         @id = "Fax",
-                                        @style = "min-width: 100%;"
+                                        @style = "min-width: 100%;",
+                                        @readonly = true
                                     })
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="timezone">timezone</label>
-                                    @*  @Html.DropDownListFor(m => m.OfficeEdit.NewTimeZone, null, null, new { @class = "form-control" })
-                                *@
+                                    <label for="timezone">Timezone</label>
+                                                                        @*  @Html.DropDownListFor(m => m.OfficeEdit.NewTimeZone, null, null, new { @class = "form-control",
+        @disabled = "disabled" })
+                                                                        *@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="operating">operating</label>
-                                    @Html.DropDownListFor(m => m.OfficeEdit.Operating, Model.OperatingOptions, null, new { @class = "form-control" })
-                            
+                                    <label for="operating">Operating</label>
+                                    @Html.DropDownListFor(m => m.OfficeEdit.Operating, Model.OperatingOptions, null, new { @class = "form-control-static",
+                                   @disabled = "disabled"
+                               })
+
                                 </div>
 
-                            
+
                             </div>
 
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-default" onclick="check_@office.OfficeId ();">Close</button>
-                                <button type="submit" class="btn btn-primary">Save changes</button>
+                                <button type="button" class="btn btn-default" onclick="close_@office.OfficeId ();">Close</button>
+                                <button type="submit" class="btn btn-primary" data-toggle="modal" 
+                                        data-target="#modal_@office.OfficeId" onclick="close_@office.OfficeId ();">Edit</button>
                             </div>
 
-                        }
-                    </div> 
+
+                        </div>
+                    </div>
                 </div>
-            </div>
 
-            <script>
-                function check_@office.OfficeId () {
-                    if (confirm('Are you sure you want to cancel. You will lose your unsaved changes')) {
-                        $('#modal_@office.OfficeId').modal('hide')
+                <script>
+                    function close_@office.OfficeId () {
+
+                        $('#plain_@office.OfficeId').modal('hide')
+
                     }
-                }
-            </script>
-        }  
+                </script>
+            }
+        </div>
+
+
+
+        <div id="modals">
+
+            @foreach (var office in Model.Offices)
+            {
+
+                <div class="modal fade" id="modal_@office.OfficeId" data-backdrop="static" data-keyboard="false">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+
+                            @using (Html.BeginForm("Save", "OfficeLocation", FormMethod.Post))
+                            {
+                                @Html.HiddenFor(m => m.OfficeEdit.OfficeId, new { value = @office.OfficeId });
+
+                                <div class="modal-header">
+                                    <button type="button" class="close" onclick="check_@office.OfficeId ();">&times;</button>
+                                    <h4 class="modal-title">Edit</h4>
+                                </div>
+
+                                <div class="modal-body">
+
+                                    <div class="form-group">
+                                        <label for="office">Office</label>
+                                        @Html.TextBoxFor(m => m.OfficeEdit.Name, new
+                               {
+                                   @Value = office.Name,
+                                   @placeholder = "Type Office Here",
+                                   @class = "form-control",
+                                   @rows = "1",
+                                   @id = "Office",
+                                   @style = "min-width: 100%;"
+                               })
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="Address">Address</label>
+                                        @Html.TextAreaFor(m => m.OfficeEdit.Address, new
+                               {
+                                   @Value = office.Address,
+                                   @placeholder = "Type Address Here",
+                                   @class = "form-control",
+                                   @rows = "1",
+                                   @id = "Address",
+                                   @style = "min-width: 100%;"
+                               })
+
+                                        @Html.DropDownListFor(m => m.OfficeEdit.Country, Model.Countries, null, new { @class = "form-control" })
+
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="switchboard">Switchboard</label>
+                                        @Html.TextBoxFor(m => m.OfficeEdit.Switchboard, new
+                               {
+                                   @Value = office.Switchboard,
+                                   @placeholder = "Type Switchboard Here",
+                                   @class = "form-control",
+                                   @rows = "1",
+                                   @id = "switchboard",
+                                   @style = "min-width: 100%;"
+                               })
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="Fax">Fax</label>
+                                        @Html.TextBoxFor(m => m.OfficeEdit.Fax, new
+                               {
+                                   @Value = office.Fax,
+                                   @placeholder = "Type Fax Here",
+                                   @class = "form-control",
+                                   @rows = "1",
+                                   @id = "Fax",
+                                   @style = "min-width: 100%;"
+                               })
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="timezone">Timezone</label>
+                                        @*  @Html.DropDownListFor(m => m.OfficeEdit.NewTimeZone, null, null, new { @class = "form-control" })
+                                        *@
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="operating">Operating</label>
+                                        @Html.DropDownListFor(m => m.OfficeEdit.Operating, Model.OperatingOptions, null, new { @class = "form-control" })
+
+                                    </div>
+
+
+                                </div>
+
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" onclick="check_@office.OfficeId ();">Close</button>
+                                    <button type="submit" class="btn btn-primary">Save changes</button>
+                                </div>
+
+                            }
+                        </div>
+                    </div>
+                </div>
+
+                <script>
+                    function check_@office.OfficeId () {
+                        if (confirm('Are you sure you want to cancel. You will lose your unsaved changes')) {
+                            $('#modal_@office.OfficeId').modal('hide')
+                        }
+                    }
+                </script>
+            }
+        </div>
+
     </div>
-
-</div>
 </div>
 
 
-<script language="JavaScript" type="text/javascript" src="/Scripts/jquery-1.10.2.js"></script>
-<script language="JavaScript" type="text/javascript" src="/Scripts/jquery-1.10.2.min.js"></script>
-    
+    <script language="JavaScript" type="text/javascript" src="/Scripts/jquery-1.10.2.js"></script>
+    <script language="JavaScript" type="text/javascript" src="/Scripts/jquery-1.10.2.min.js"></script>
+
 
 </body>
