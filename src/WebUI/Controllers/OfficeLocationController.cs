@@ -65,7 +65,7 @@ namespace OfficeLocationMicroservice.WebUi.Controllers
             return View(model);
         }
         
-        [HttpPost]
+        /*[HttpPost]
         public ActionResult Save(OfficeLocationModel locationModel)
         {
             if (locationModel.EditedOffice != null)
@@ -74,7 +74,7 @@ namespace OfficeLocationMicroservice.WebUi.Controllers
             }
 
             return RedirectToAction("Index");
-         }
+         }*/
 
     }
 }
