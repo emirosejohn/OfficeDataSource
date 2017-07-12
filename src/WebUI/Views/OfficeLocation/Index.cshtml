@@ -165,9 +165,7 @@
 
                 <script>
                     function close_@office.OfficeId () {
-
-                        $('#plain_@office.OfficeId').modal('hide')
-
+                        $('#plain_@office.OfficeId').modal().hide();
                     }
                 </script>
             }
@@ -278,7 +276,7 @@
                 <script>
                     function check_@office.OfficeId () {
                         if (confirm('Are you sure you want to cancel. You will lose your unsaved changes')) {
-                            $('#modal_@office.OfficeId').modal('hide')
+                            $('#modal_@office.OfficeId').modal().hide();
                         }
                     }
                 </script>
