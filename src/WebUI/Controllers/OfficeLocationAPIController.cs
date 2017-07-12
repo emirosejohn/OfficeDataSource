@@ -14,9 +14,9 @@ namespace OfficeLocationMicroservice.WebUi.Controllers
     public class OfficeLocationApiController : ApiController
     {
         private readonly IOfficeDataTableGateway _officeDataTableGateway;
-        private readonly IOfficeLocationRepository _officeLocationRepository;
+        private readonly OfficeLocationRepository _officeLocationRepository;
 
-        public OfficeLocationApiController(IOfficeDataTableGateway officeDataTableGateway, IOfficeLocationRepository officeLocationRepository)
+        public OfficeLocationApiController(IOfficeDataTableGateway officeDataTableGateway, OfficeLocationRepository officeLocationRepository)
         {
             _officeDataTableGateway = officeDataTableGateway;
             _officeLocationRepository = officeLocationRepository;

@@ -10,7 +10,7 @@ namespace OfficeLocationMicroservice.WebUi.Controllers
 {
     public class OfficeLocationController : Controller
     {
-        private readonly IOfficeLocationRepository _officeLocationRepository;
+        private readonly OfficeLocationRepository _officeLocationRepository;
         private readonly CountryRepository _countryRepository;
 
         public OfficeLocationController()
@@ -21,7 +21,7 @@ namespace OfficeLocationMicroservice.WebUi.Controllers
 
         //for tests
         public OfficeLocationController(
-            IOfficeLocationRepository officeLocationRepository,
+            OfficeLocationRepository officeLocationRepository,
             CountryRepository countryRepository)
         {
             _officeLocationRepository = officeLocationRepository;
