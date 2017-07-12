@@ -41,34 +41,6 @@ namespace OfficeLocationMicroservice.WebUi.Controllers
 
             return View(officeModel);
         }
-
-        public ActionResult IndexBK()
-        {
-            OfficeModel officeModel = new OfficeModel();
-
-            officeModel.ShowOfficeEdit = false;
-            officeModel.Offices = _officeLocationRepository.GetAll();
-            officeModel.Countries = _countryRepository.GetAllCountries().AsEnumerable();
-            officeModel.OfficeEdit = new OfficeLocation();
-            officeModel.OperatingOptions = WebHelper.GenerateOperatingOptions();
-
-            return View(officeModel);
-        }
-
-        public ActionResult Edit(int id)
-        {
-            OfficeLocation toEditOffice = _officeLocationRepository.GetById(id);
-
-            var officeModel = new OfficeModel();
-
-            officeModel.Offices = _officeLocationRepository.GetAll();
-            officeModel.OfficeEdit = toEditOffice;
-            officeModel.ShowOfficeEdit = true;
-            officeModel.Countries = _countryRepository.GetAllCountries().AsEnumerable();
-            officeModel.OperatingOptions = WebHelper.GenerateOperatingOptions();
-
-            return View(officeModel);
-        }
         
         [HttpPost]
         public ActionResult Save(OfficeModel offcieModel)
