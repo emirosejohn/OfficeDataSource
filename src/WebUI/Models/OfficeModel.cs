@@ -13,11 +13,9 @@ namespace OfficeLocationMicroservice.WebUi.Models
     {
         public OfficeLocation[] Offices { get; set; }
         public OfficeLocation OfficeEdit { get; set; }
-        public bool ShowOfficeEdit { get; set; }
 
         public IEnumerable<SelectListItem> Countries { get; set; }
         public IEnumerable<SelectListItem> Timezones { get; set; }
         public IEnumerable<SelectListItem> OperatingOptions { get; set; }
-
     }
 }
