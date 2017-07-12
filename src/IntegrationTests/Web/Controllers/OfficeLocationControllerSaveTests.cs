@@ -111,32 +111,15 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
                     Operating = 1
                 };
 
-                //
-                //                var officeLocation = Simualete(
-                //                
-                //                new OfficeLocation()
-                //                {
-                //                    OfficeId = expectedOfficeId1,
-                //                    Name = "This is a change"
-                //                };
 
-                var expectedOfficeId1 = testHelper.InsertOfficeDto(officeDto0);
 
-                var officeDto1 = new OfficeDto()
-                {
-                    OfficeId = expectedOfficeId1,
-                    Name = "Berlin",
-                    Address = "***REMOVED*** Kurfürstendamm 194, D - 10707 Berlin",
-                    Country = "Germany",
-                    Switchboard = "***REMOVED***",
-                    Fax = "***REMOVED***",
-                    TimeZone = "Central European Timezone",
-                    Operating = 0
-                };
+                var expectedOfficeId = testHelper.InsertOfficeDto(officeDto0);
+
+                var updatedOfficeDto = SimulateUpdatingOfficeLocation(expectedOfficeId);
 
                 var controller = testHelper.CreateController();
 
-                var locationModel = officeDto1.ExtractOfficeLocation();
+                var locationModel = updatedOfficeDto.ExtractOfficeLocation();
 
                 var offcieModel = new OfficeModel()
                 { OfficeEdit =  locationModel};
@@ -149,15 +132,30 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
 
                 offices.Length.Should().Be(1);
 
-                offices[0].OfficeId.Should().Be(expectedOfficeId1);
-                offices[0].Name.Should().Be("Berlin");
-                offices[0].Address.Should().Be("***REMOVED*** Kurfürstendamm 194, D - 10707 Berlin");
-                offices[0].Country.Should().Be("Germany");
-                offices[0].Switchboard.Should().Be("***REMOVED***");
-                offices[0].Fax.Should().Be("***REMOVED***");
-                offices[0].TimeZone.Should().Be("Central European Timezone");
+                offices[0].OfficeId.Should().Be(expectedOfficeId);
+                offices[0].Name.Should().Be("Changed");
+                offices[0].Address.Should().Be("Updated");
+                offices[0].Country.Should().Be("New string");
+                offices[0].Switchboard.Should().Be("Different value here");
+                offices[0].Fax.Should().Be("This had changed");
+                offices[0].TimeZone.Should().Be("Not the same string");
                 offices[0].Operating.Should().Be("Closed");
             });
+        }
+
+        private OfficeDto SimulateUpdatingOfficeLocation(int expectedOfficeId)
+        {
+            return new OfficeDto()
+            {
+                OfficeId = expectedOfficeId,
+                Name = "Changed",
+                Address = "Updated",
+                Country = "New string",
+                Switchboard = "Different value here",
+                Fax = "This had changed",
+                TimeZone = "Not the same string",
+                Operating = 0
+            };
         }
     }
 }
