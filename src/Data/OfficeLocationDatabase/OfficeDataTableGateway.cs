@@ -88,7 +88,7 @@ namespace OfficeLocationMicroservice.Data.OfficeLocationDatabase
         public void Insert(OfficeDto dto)
         {
             const string sql = @"
-        Set Identity_insert [OfficeLocationMicroservice].[OfficeLocation].[Office] on;
+        Set Identity_insert [OfficeLocation].[Office] on;
         Insert Into [OfficeLocation].[Office]
             (
              [OfficeId]
@@ -109,7 +109,7 @@ namespace OfficeLocationMicroservice.Data.OfficeLocationDatabase
             ,@Fax
             ,@TimeZone
             ,@Operating);
-        Set Identity_insert [OfficeLocationMicroservice].[OfficeLocation].[Office] off;
+        Set Identity_insert [OfficeLocation].[Office] off;
 ";
 
             ConnectionExecuteWithLog(

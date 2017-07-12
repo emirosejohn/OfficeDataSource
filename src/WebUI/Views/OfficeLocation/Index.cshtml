@@ -5,16 +5,8 @@
 }
 
 <head>
-   
-    <link href="~/Content/SharedOfficelocationStyles.css" rel="stylesheet" />
-
     <style>
-        .card:hover {
-            box-shadow: 0 8px 10px 0 #000000, 0 8px 20px 0 #000000;
-            box-shadow: 0 8px 10px 0 rgba(0, 0, 0, 0.2), 0 8px 20px 0 rgba(0, 0, 0, 0.19);
-        }
-
-        /*div.card {
+        div.card {
             width: 320px;
             height: 230px;
             background: grey;
@@ -23,51 +15,66 @@
             display: inline-table;
             overflow: hidden;
         }
-
         .details {
             margin: 10px;
-        }
 
+        }
         h4 {
             color: black;
             text-align: center;
         }
-
         h2 {
             text-align: center;
-        }*/
-
+        }
         .cardContainer {
-            position: absolute;
             z-index: 10;
-            align-content: center;
+            width: inherit;
+            height: 100%;
             justify-content: center;
             flex-wrap: wrap;
             display: flex;
         }
-        .myContainer {
-            margin-top: 50px;
-            justify-content: center;
-            flex-wrap: wrap;
-            display: flex;
+
+        .editPanel {
+            position: fixed;
+            text-align: center;
+            top: 100px;
+            width: 70%;
+            left: 15%;
+            height: 600px;
+            margin: 10px;
+            padding: 10px;
+            z-index: 100;
+            background: aquamarine;
+        }
+
+        .container {
+            height: 100%;
             width: 100%;
         }
+
+        .modal-backdrop {
+            display: none !important;
+        }
+
+        .modal-backdrop.in {
+            opacity: 0 !important;
+            z-index: -1050 !important;
+        }
+
     </style>
-    
-    
 </head>
 
-
 <body>
-<h2>Office Locations</h2>
-<div class="myContainer">
-
+<div class="container">
+    <h2>Office Locations</h2>
     <div class="cardContainer">
         @foreach (var office in Model.Offices)
         {
-            <div class="card" id ="clickableCard" data-identifier="@office.OfficeId">
+            <div class="card" data-toggle="modal" data-target="#modal_@office.OfficeId">
                 <h4>@office.Name</h4>
                 <div class="details">
+                    @office.OfficeId <br/>
                     @office.Address <br/>
                     @office.Country <br/>
                     Switchboard:
@@ -81,24 +88,123 @@
         }
 
     </div>
+    
+    <div id="modals">
+    
+        @foreach (var office in Model.Offices)
+        {
+
+            <div class="modal fade" id="modal_@office.OfficeId" data-backdrop="static" data-keyboard="false" >
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        
+                        @using (Html.BeginForm("Save", "OfficeLocation", FormMethod.Post))
+                        { 
+                            @Html.HiddenFor(m => m.OfficeEdit.OfficeId, new {value = @office.OfficeId});
+
+                            <div class="modal-header">
+                                <button type="button" class="close" onclick="check_@office.OfficeId ();">&times;</button>
+                                <h4 class="modal-title">Edit</h4>
+                            </div>
+
+                            <div class="modal-body">
+
+                                <div class="form-group">
+                                    <label for="office">Office</label>
+                                    @Html.TextBoxFor(m => m.OfficeEdit.Name, new
+                                    {
+                                        @Value = office.Name,
+                                        @placeholder = "Type Office Here",
+                                        @class = "form-control",
+                                        @rows = "1",
+                                        @id = "Office",
+                                        @style = "min-width: 100%;"
+                                    })
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="Address">Address</label>
+                                    @Html.TextBoxFor(m => m.OfficeEdit.Address, new
+                                    {
+                                        @Value = office.Address,
+                                        @placeholder = "Type Address Here",
+                                        @class = "form-control",
+                                        @rows = "1",
+                                        @id = "Address",
+                                        @style = "min-width: 100%;"
+                                    })
+
+                                    @Html.DropDownListFor(m => m.OfficeEdit.Country, Model.Countries, null, new { @class = "form-control" })
+                            
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="switchboard">Switchboard</label>
+                                    @Html.TextBoxFor(m => m.OfficeEdit.Switchboard, new
+                                    {
+                                        @Value = office.Switchboard,
+                                        @placeholder = "Type Switchboard Here",
+                                        @class = "form-control",
+                                        @rows = "1",
+                                        @id = "switchboard",
+                                        @style = "min-width: 100%;"
+                                    })
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="Fax">Fax</label>
+                                    @Html.TextBoxFor(m => m.OfficeEdit.Fax, new
+                                    {
+                                        @Value = office.Fax,
+                                        @placeholder = "Type Fax Here",
+                                        @class = "form-control",
+                                        @rows = "1",
+                                        @id = "Fax",
+                                        @style = "min-width: 100%;"
+                                    })
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="timezone">timezone</label>
+                                    @*  @Html.DropDownListFor(m => m.OfficeEdit.NewTimeZone, null, null, new { @class = "form-control" })
+                                *@
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="operating">operating</label>
+                                    @Html.DropDownListFor(m => m.OfficeEdit.Operating, Model.OperatingOptions, null, new { @class = "form-control" })
+                            
+                                </div>
+
+                            
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" onclick="check_@office.OfficeId ();">Close</button>
+                                <button type="submit" class="btn btn-primary">Save changes</button>
+                            </div>
+
+                        }
+                    </div> 
+                </div>
+            </div>
+
+            <script>
+                function check_@office.OfficeId () {
+                    if (confirm('Are you sure you want to cancel. You will lose your unsaved changes')) {
+                        $('#modal_@office.OfficeId').modal('hide')
+                    }
+                }
+            </script>
+        }  
+    </div>
+
 </div>
 
 
 
 <script language="JavaScript" type="text/javascript" src="/Scripts/jquery-1.10.2.js"></script>
 <script language="JavaScript" type="text/javascript" src="/Scripts/jquery-1.10.2.min.js"></script>
+    
 
-
-
-<script>
-
-
-    $('.card').on('click', cardClicked);
-
-    function cardClicked() {
-        console.log(this.dataset.identifier);
-        window.location.href = 'OfficeLocation/Edit/' + this.dataset.identifier;
-    }
-
-</script>
 </body>

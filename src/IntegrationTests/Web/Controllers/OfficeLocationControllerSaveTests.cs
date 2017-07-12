@@ -23,7 +23,7 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
             {
                 var controller = testHelper.CreateController();
 
-                var actionResult = controller.Save(null);
+                var actionResult = controller.Save(new OfficeModel() { OfficeEdit = null });
 
                 var viewResult = testHelper.GetRedirectToRouteFromActionResult(actionResult);
 
@@ -68,7 +68,7 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
 
                 var locationModel = officeDto1.ExtractOfficeLocation();
 
-                var actionResult = controller.Save(locationModel);
+                var actionResult = controller.Save(new OfficeModel() { OfficeEdit = locationModel });
 
                 var officeLocationRepository = testHelper.GetOfficeLocationRepository();
                 var offices = officeLocationRepository.GetAll();
@@ -132,7 +132,7 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
 
                 var locationModel = officeDto1.ExtractOfficeLocation();
 
-                var actionResult = controller.Save(locationModel);
+                var actionResult = controller.Save(new OfficeModel() {OfficeEdit =  locationModel});
 
                 var officeLocationRepository = testHelper.GetOfficeLocationRepository();
                 var offices = officeLocationRepository.GetAll();

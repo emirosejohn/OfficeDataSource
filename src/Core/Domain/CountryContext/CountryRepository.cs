@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Web.Mvc;
 using OfficeLocationMicroservice.Core.Services.CountryFetcher.CountryWebApi;
 
 namespace OfficeLocationMicroservice.Core.Domain.CountryContext
@@ -35,5 +36,15 @@ namespace OfficeLocationMicroservice.Core.Domain.CountryContext
             }
             return countries.ToArray();
         }
+    }
+
+    public static class CountryExtensions
+    {
+        public static IEnumerable<SelectListItem> AsEnumerable(this Country[] countries)
+        {
+            return countries.Select((country, index) => 
+                new SelectListItem { Text = country.Name, Value = index.ToString() });
+        }
+
     }
 }

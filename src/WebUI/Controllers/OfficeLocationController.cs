@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System.Collections.Generic;
+using System.Diagnostics;
 using System.Web.Mvc;
 using OfficeLocationMicroservice.Core;
 using OfficeLocationMicroservice.Core.Domain.CountryContext;
@@ -33,8 +34,10 @@ namespace OfficeLocationMicroservice.WebUi.Controllers
 
             officeModel.ShowOfficeEdit = false;
             officeModel.Offices = _officeLocationRepository.GetAll();
-            officeModel.Countries = _countryRepository.GetAllCountries();
+            officeModel.Countries = _countryRepository.GetAllCountries().AsEnumerable();
+            officeModel.OperatingOptions = WebHelper.GenerateOperatingOptions();
             officeModel.OfficeEdit = new OfficeLocation();
+
 
             return View(officeModel);
         }
@@ -45,8 +48,9 @@ namespace OfficeLocationMicroservice.WebUi.Controllers
 
             officeModel.ShowOfficeEdit = false;
             officeModel.Offices = _officeLocationRepository.GetAll();
-            officeModel.Countries = _countryRepository.GetAllCountries();
+            officeModel.Countries = _countryRepository.GetAllCountries().AsEnumerable();
             officeModel.OfficeEdit = new OfficeLocation();
+            officeModel.OperatingOptions = WebHelper.GenerateOperatingOptions();
 
             return View(officeModel);
         }
@@ -60,21 +64,42 @@ namespace OfficeLocationMicroservice.WebUi.Controllers
             officeModel.Offices = _officeLocationRepository.GetAll();
             officeModel.OfficeEdit = toEditOffice;
             officeModel.ShowOfficeEdit = true;
-            officeModel.Countries = _countryRepository.GetAllCountries();
+            officeModel.Countries = _countryRepository.GetAllCountries().AsEnumerable();
+            officeModel.OperatingOptions = WebHelper.GenerateOperatingOptions();
 
             return View(officeModel);
         }
         
         [HttpPost]
-        public ActionResult Save(OfficeLocation locationModel)
+        public ActionResult Save(OfficeModel offcieModel)
         {
-            if (locationModel != null)
+            if (offcieModel.OfficeEdit != null)
             {
-                _officeLocationRepository.Update(locationModel);
+                _officeLocationRepository.Update(offcieModel.OfficeEdit);
             }
 
             return RedirectToAction("Index");
          }
+    }
+
+    public static class WebHelper
+    {
+        public static IEnumerable<SelectListItem> GenerateOperatingOptions()
+        {
+            var selectedItems = new List<SelectListItem>();
+            selectedItems.Add(new SelectListItem()
+            {
+                Value = "Active",
+                Text= "Active"
+            });
+            selectedItems.Add(new SelectListItem()
+            {
+                Value = "Closed",
+                Text = "Closed"
+            });
+
+            return selectedItems;
+        }
 
     }
 }
