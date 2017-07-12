@@ -75,7 +75,6 @@
     <Compile Include="Services\SharedContext\OfficeLocationDatabase\IOfficeDataTableGateway.cs" />
     <Compile Include="Services\SharedContext\ISystemLog.cs" />
     <Compile Include="Services\SharedContext\OfficeLocationDatabase\OfficeDto.cs" />
-    <Compile Include="Domain\OfficeLocationContext\IOfficeLocationRepository.cs" />
     <Compile Include="Domain\OfficeLocationContext\OfficeLocation.cs" />
     <Compile Include="Domain\OfficeLocationContext\OfficeLocationRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
