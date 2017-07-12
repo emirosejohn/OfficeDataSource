@@ -37,12 +37,13 @@
 <body>
 <div class="myContainer">
     <h2>Office Locations</h2>
-   <div>
-    <button type="submit" class="addButton" style="right: 15px">
+    <div>
+        <span style="clear: both;">
+    <button type="submit" class="addButton">
         <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Add Item
     </button> 
-  
-
+        </span>
+        <br/>
     <div class="cardContainer">
         @foreach (var office in Model.Offices)
         {
