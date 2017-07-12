@@ -29,22 +29,22 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
 
                 countryArray.Length.Should().Be(6);
 
-                countryArray[0].Value.Should().Be("0");
+                countryArray[0].Value.Should().Be("1");
                 countryArray[0].Text.Should().Be("Country 1");
 
-                countryArray[1].Value.Should().Be("1");
+                countryArray[1].Value.Should().Be("2");
                 countryArray[1].Text.Should().Be("Country 2");
 
-                countryArray[2].Value.Should().Be("2");
+                countryArray[2].Value.Should().Be("3");
                 countryArray[2].Text.Should().Be("Country 3");
 
-                countryArray[3].Value.Should().Be("3");
+                countryArray[3].Value.Should().Be("4");
                 countryArray[3].Text.Should().Be("Country 4");
 
-                countryArray[4].Value.Should().Be("4");
+                countryArray[4].Value.Should().Be("5");
                 countryArray[4].Text.Should().Be("Country 5");
 
-                countryArray[5].Value.Should().Be("5");
+                countryArray[5].Value.Should().Be("6");
                 countryArray[5].Text.Should().Be("Country 6");
 
 
@@ -121,22 +121,22 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
 
                 countryArray.Length.Should().Be(6);
 
-                countryArray[0].Value.Should().Be("0");
+                countryArray[0].Value.Should().Be("1");
                 countryArray[0].Text.Should().Be("Country 1");
 
-                countryArray[1].Value.Should().Be("1");
+                countryArray[1].Value.Should().Be("2");
                 countryArray[1].Text.Should().Be("Country 2");
 
-                countryArray[2].Value.Should().Be("2");
+                countryArray[2].Value.Should().Be("3");
                 countryArray[2].Text.Should().Be("Country 3");
 
-                countryArray[3].Value.Should().Be("3");
+                countryArray[3].Value.Should().Be("4");
                 countryArray[3].Text.Should().Be("Country 4");
 
-                countryArray[4].Value.Should().Be("4");
+                countryArray[4].Value.Should().Be("5");
                 countryArray[4].Text.Should().Be("Country 5");
 
-                countryArray[5].Value.Should().Be("5");
+                countryArray[5].Value.Should().Be("6");
                 countryArray[5].Text.Should().Be("Country 6");
 
             });
