@@ -1,5 +1,3 @@
-USE OfficeLocationMicroservice;
-GO
 
 UPDATE [OfficeLocation].[Office]
 SET [Address] = '***REMOVED*** 
