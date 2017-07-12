@@ -1,10 +1,8 @@
-﻿using System.Web.Mvc;
+﻿using System.Diagnostics;
+using System.Web.Mvc;
 using OfficeLocationMicroservice.Core;
-using OfficeLocationMicroservice.Core.OfficeLocationContext;
-using OfficeLocationMicroservice.Core.SharedContext.OfficeLocationDatabase;
-using OfficeLocationMicroservice.Database;
-using OfficeLocationMicroservice.Database.OfficeLocationDatabase;
-using OfficeLocationMicroservice.WebUi.Helpers;
+using OfficeLocationMicroservice.Core.Domain.CountryContext;
+using OfficeLocationMicroservice.Core.Domain.OfficeLocationContext;
 using OfficeLocationMicroservice.WebUi.Models;
 
 namespace OfficeLocationMicroservice.WebUi.Controllers
@@ -12,27 +10,33 @@ namespace OfficeLocationMicroservice.WebUi.Controllers
     public class OfficeLocationController : Controller
     {
         private readonly IOfficeLocationRepository _officeLocationRepository;
-
+        private readonly CountryRepository _countryRepository;
 
         public OfficeLocationController()
         {
             _officeLocationRepository = MasterFactory.GetOfficeLocationRepository();
+            _countryRepository = MasterFactory.GetCountryRepository();
         }
 
         //for tests
-        public OfficeLocationController(IOfficeLocationRepository officeLocationRepository)
+        public OfficeLocationController(
+            IOfficeLocationRepository officeLocationRepository,
+            CountryRepository countryRepository)
         {
             _officeLocationRepository = officeLocationRepository;
+
+            _countryRepository = countryRepository;
         }
 
         public ActionResult Index()
         {
-            OfficeModel model = new OfficeModel();
+            OfficeLocationModel locationModel = new OfficeLocationModel();
 
             model.ShowOfficeEdit = false;
-            model.Offices = _officeLocationRepository.GetAll();
-            
-            return View(model);
+            locationModel.Offices = _officeLocationRepository.GetAll();
+            locationModel.Countries = _countryRepository.GetAllCountries();
+
+
         }
 
         public ActionResult Edit(int id)

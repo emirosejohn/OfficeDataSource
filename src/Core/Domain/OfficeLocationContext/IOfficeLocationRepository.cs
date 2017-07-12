@@ -1,4 +1,4 @@
-﻿namespace OfficeLocationMicroservice.Core.OfficeLocationContext
+﻿namespace OfficeLocationMicroservice.Core.Domain.OfficeLocationContext
 {
     public interface IOfficeLocationRepository
     {

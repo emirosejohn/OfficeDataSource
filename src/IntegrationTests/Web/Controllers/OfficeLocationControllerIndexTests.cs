@@ -1,15 +1,16 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using FluentAssertions;
-using OfficeLocationMicroservice.Core.SharedContext.OfficeLocationDatabase;
+using OfficeLocationMicroservice.Core.Services.SharedContext.OfficeLocationDatabase;
 using Xunit;
 
 namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
 {
-    public class OfficeLocationControllerTests
+    public class OfficeLocationControllerIndexTests
     {
         [Fact]
         public void ShouldReturnNoOfficesWhenNoOfficesAreFound()
@@ -27,6 +28,30 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
                 var officesArray = viewResultModel.Offices.ToArray();
 
                 officesArray.Length.Should().Be(0);
+
+                var countryArray = viewResultModel.Countries;
+
+                countryArray.Length.Should().Be(6);
+
+                countryArray[0].CountryId.Should().Be(1);
+                countryArray[0].Name.Should().Be("Country 1");
+
+                countryArray[1].CountryId.Should().Be(2);
+                countryArray[1].Name.Should().Be("Country 2");
+
+                countryArray[2].CountryId.Should().Be(3);
+                countryArray[2].Name.Should().Be("Country 3");
+
+                countryArray[3].CountryId.Should().Be(4);
+                countryArray[3].Name.Should().Be("Country 4");
+
+                countryArray[4].CountryId.Should().Be(5);
+                countryArray[4].Name.Should().Be("Country 5");
+
+                countryArray[5].CountryId.Should().Be(6);
+                countryArray[5].Name.Should().Be("Country 6");
+
+
             });
         }
 
@@ -39,6 +64,7 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
             {
                 var officeDto0 = new OfficeDto()
                 {
+                    OfficeId = 1,
                     Name = "Austin",
                     Address = "Dimensional Place 6300 Bee Cave Road",
                     Country = "United States",
@@ -50,6 +76,7 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
 
                 var officeDto1 = new OfficeDto()
                 {
+                    OfficeId = 2,
                     Name = "Berlin",
                     Address = "***REMOVED*** Kurfürstendamm 194, D - 10707 Berlin",
                     Country = "Germany",
@@ -59,7 +86,11 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
                     Operating = 0
                 };
 
+                Debug.WriteLine("5");
+
                 testHelper.InsertOfficeDto(officeDto0);
+
+                Debug.WriteLine("6");
 
                 testHelper.InsertOfficeDto(officeDto1);
 
@@ -73,6 +104,7 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
 
                 officesArray.Length.Should().Be(2);
 
+                officesArray[0].OfficeId.Should().Be(1);
                 officesArray[0].Name.Should().Be("Austin");
                 officesArray[0].Address.Should().Be("Dimensional Place 6300 Bee Cave Road");
                 officesArray[0].Country.Should().Be("United States");
@@ -81,6 +113,7 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
                 officesArray[0].TimeZone.Should().Be("CST");
                 officesArray[0].Operating.Should().Be("Active");
 
+                officesArray[1].OfficeId.Should().Be(2);
                 officesArray[1].Name.Should().Be("Berlin");
                 officesArray[1].Address.Should().Be("***REMOVED*** Kurfürstendamm 194, D - 10707 Berlin");
                 officesArray[1].Country.Should().Be("Germany");
@@ -88,6 +121,28 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
                 officesArray[1].Fax.Should().Be("***REMOVED***");
                 officesArray[1].TimeZone.Should().Be("CET");
                 officesArray[1].Operating.Should().Be("Closed");
+
+                var countryArray = viewResultModel.Countries;
+
+                countryArray.Length.Should().Be(6);
+
+                countryArray[0].CountryId.Should().Be(1);
+                countryArray[0].Name.Should().Be("Country 1");
+
+                countryArray[1].CountryId.Should().Be(2);
+                countryArray[1].Name.Should().Be("Country 2");
+
+                countryArray[2].CountryId.Should().Be(3);
+                countryArray[2].Name.Should().Be("Country 3");
+
+                countryArray[3].CountryId.Should().Be(4);
+                countryArray[3].Name.Should().Be("Country 4");
+
+                countryArray[4].CountryId.Should().Be(5);
+                countryArray[4].Name.Should().Be("Country 5");
+
+                countryArray[5].CountryId.Should().Be(6);
+                countryArray[5].Name.Should().Be("Country 6");
 
             });
         }

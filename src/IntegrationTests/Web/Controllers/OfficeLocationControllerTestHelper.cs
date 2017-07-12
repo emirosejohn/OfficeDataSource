@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Web.Mvc;
 using FluentAssertions;
-using OfficeLocationMicroservice.Core.OfficeLocationContext;
-using OfficeLocationMicroservice.Core.SharedContext.OfficeLocationDatabase;
-using OfficeLocationMicroservice.Database.OfficeLocationDatabase;
+using OfficeLocationMicroservice.Core.Domain.CountryContext;
+using OfficeLocationMicroservice.Core.Domain.OfficeLocationContext;
+using OfficeLocationMicroservice.Core.Services.SharedContext.OfficeLocationDatabase;
+using OfficeLocationMicroservice.Data.CountryWebApi;
+using OfficeLocationMicroservice.Data.OfficeLocationDatabase;
 using OfficeLocationMicroservice.WebUi.Controllers;
 using OfficeLocationMicroservice.WebUi.Models;
 
@@ -13,10 +15,11 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
     {
         private readonly AllTablesDeleter _allTablesDeleter;
         private readonly OfficeDataTableGateway _officeDataTableGateway;
+        private readonly CountryWebApiGatewayStub _countryWebApiGateway;
 
         public TestHelper()
         {
-            var databaseSettings = new DatabaseSettings();
+            var databaseSettings = new DataConnectionStringsForIntegrationTests();
             var systemLogForIntegrationTests = new SystemLogForIntegrationTests();
 
             CurrentDate = new DateTime(2017, 2, 3);
@@ -24,13 +27,20 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
             _allTablesDeleter = new AllTablesDeleter();
 
             _officeDataTableGateway = new OfficeDataTableGateway(databaseSettings, systemLogForIntegrationTests);
+
+            _countryWebApiGateway = new CountryWebApiGatewayStub();
+        }
+
+        public OfficeLocationRepository GetOfficeLocationRepository()
+        {
+            return new OfficeLocationRepository(_officeDataTableGateway);
         }
 
         public OfficeLocationController CreateController()
         {
             var officeLocationRepository = new OfficeLocationRepository(_officeDataTableGateway);
-
-            return new OfficeLocationController(officeLocationRepository);
+            var countryRepository = new CountryRepository(_countryWebApiGateway);
+            return new OfficeLocationController(officeLocationRepository, countryRepository);
         }
 
         public DateTime CurrentDate { get; set; }
@@ -46,7 +56,7 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
         {
             var tablesToSkip = new AllTablesDeleter.TableInfoDto[0];
 
-            var databaseSettings = new DatabaseSettings();
+            var databaseSettings = new DataConnectionStringsForIntegrationTests();
 
             _allTablesDeleter.DeleteAllDataFromTables(
                 databaseSettings.ConnectionString,
@@ -58,18 +68,16 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
                 databaseSettings.ConnectionString, tablesToSkip);
         }
 
-        public OfficeModel GetOfficeModelModelFromActionResult(
+        public OfficeLocationModel GetOfficeModelModelFromActionResult(
             ActionResult actionResult)
         {
             actionResult.Should().BeAssignableTo<ViewResult>();
-            var viewResult = (ViewResult)actionResult;
+            var viewResult = (ViewResult) actionResult;
 
-            viewResult.Model.Should().BeAssignableTo<OfficeModel>();
-            var officeModel = (OfficeModel)viewResult.Model;
+            viewResult.Model.Should().BeAssignableTo<OfficeLocationModel>();
+            var officeModel = (OfficeLocationModel) viewResult.Model;
 
             return officeModel;
         }
-
     }
-
 }

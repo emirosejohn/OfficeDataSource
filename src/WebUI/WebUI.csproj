@@ -168,7 +168,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\OfficeModel.cs" />
+    <Compile Include="Models\OfficeLocationModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -226,10 +226,6 @@
     <ProjectReference Include="..\Core\Core.csproj">
       <Project>{D7D65602-7B00-44AC-95FF-25A6F54E41B0}</Project>
       <Name>Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Database\Database.csproj">
-      <Project>{b5666d5c-30cc-429c-9620-9ecc777c3449}</Project>
-      <Name>Database</Name>
     </ProjectReference>
     <ProjectReference Include="..\DependencyManagement\DependencyManagement.csproj">
       <Project>{10F890B4-3442-4CDA-AC75-60F3651A7249}</Project>
