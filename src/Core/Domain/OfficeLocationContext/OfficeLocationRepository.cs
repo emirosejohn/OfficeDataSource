@@ -4,7 +4,7 @@ using OfficeLocationMicroservice.Core.Services.SharedContext.OfficeLocationDatab
 
 namespace OfficeLocationMicroservice.Core.Domain.OfficeLocationContext
 {
-    public class OfficeLocationRepository : IOfficeLocationRepository
+    public class OfficeLocationRepository 
     {
         private readonly IOfficeDataTableGateway _officeDataTableGateway;
 
