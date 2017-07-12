@@ -32,7 +32,6 @@ namespace OfficeLocationMicroservice.WebUi.Controllers
         {
             OfficeModel officeModel = new OfficeModel();
 
-            officeModel.ShowOfficeEdit = false;
             officeModel.Offices = _officeLocationRepository.GetAll();
             officeModel.Countries = _countryRepository.GetAllCountries().AsEnumerable();
             officeModel.OperatingOptions = WebHelper.GenerateOperatingOptions();
@@ -47,7 +46,7 @@ namespace OfficeLocationMicroservice.WebUi.Controllers
         {
             if (offcieModel.OfficeEdit != null)
             {
-                _officeLocationRepository.Update(offcieModel.OfficeEdit);
+                var officelocation =  _officeLocationRepository.Update(offcieModel.OfficeEdit);
             }
 
             return RedirectToAction("Index");

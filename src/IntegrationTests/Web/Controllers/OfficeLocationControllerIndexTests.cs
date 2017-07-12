@@ -60,7 +60,6 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
             {
                 var officeDto0 = new OfficeDto()
                 {
-                    OfficeId = 1,
                     Name = "Austin",
                     Address = "Dimensional Place 6300 Bee Cave Road",
                     Country = "United States",
@@ -72,7 +71,6 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
 
                 var officeDto1 = new OfficeDto()
                 {
-                    OfficeId = 2,
                     Name = "Berlin",
                     Address = "***REMOVED*** Kurfürstendamm 194, D - 10707 Berlin",
                     Country = "Germany",
@@ -84,11 +82,11 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
 
                 Debug.WriteLine("5");
 
-                testHelper.InsertOfficeDto(officeDto0);
+                var expectedOfficeId1 = testHelper.InsertOfficeDto(officeDto0);
 
                 Debug.WriteLine("6");
 
-                testHelper.InsertOfficeDto(officeDto1);
+                var expectedOfficeId2 = testHelper.InsertOfficeDto(officeDto1);
 
                 var controller = testHelper.CreateController();
 
@@ -100,7 +98,7 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
 
                 officesArray.Length.Should().Be(2);
 
-                officesArray[0].OfficeId.Should().Be(1);
+                officesArray[0].OfficeId.Should().Be(expectedOfficeId1);
                 officesArray[0].Name.Should().Be("Austin");
                 officesArray[0].Address.Should().Be("Dimensional Place 6300 Bee Cave Road");
                 officesArray[0].Country.Should().Be("United States");
@@ -109,7 +107,7 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
                 officesArray[0].TimeZone.Should().Be("Central Standard Time");
                 officesArray[0].Operating.Should().Be("Active");
 
-                officesArray[1].OfficeId.Should().Be(2);
+                officesArray[1].OfficeId.Should().Be(expectedOfficeId2);
                 officesArray[1].Name.Should().Be("Berlin");
                 officesArray[1].Address.Should().Be("***REMOVED*** Kurfürstendamm 194, D - 10707 Berlin");
                 officesArray[1].Country.Should().Be("Germany");

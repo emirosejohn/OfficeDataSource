@@ -106,7 +106,6 @@
     <Compile Include="RepositoryTestsBase.cs" />
     <Compile Include="SqlDatabaseHelper.cs" />
     <Compile Include="Web\Controllers\CountryWebApiGatewayStub.cs" />
-    <Compile Include="Web\Controllers\OfficeLocationControllerEditTests.cs" />
     <Compile Include="Web\Controllers\OfficeLocationControllerSaveTests.cs" />
     <Compile Include="Web\Controllers\OfficeLocationControllerTestHelper.cs" />
     <Compile Include="Web\Controllers\OfficeLocationControllerIndexTests.cs" />

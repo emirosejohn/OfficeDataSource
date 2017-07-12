@@ -9,7 +9,7 @@ namespace OfficeLocationMicroservice.Core.Services.SharedContext.OfficeLocationD
 
         OfficeDto[] GetAll();
 
-        void Insert(OfficeDto dto);
+        int Insert(OfficeDto dto);
 
         void Update(OfficeDto dto);
 

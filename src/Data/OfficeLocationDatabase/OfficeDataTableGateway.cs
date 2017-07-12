@@ -85,14 +85,12 @@ namespace OfficeLocationMicroservice.Data.OfficeLocationDatabase
             return result;
         }
 
-        public void Insert(OfficeDto dto)
+        public int Insert(OfficeDto dto)
         {
             const string sql = @"
-        Set Identity_insert [OfficeLocation].[Office] on;
         Insert Into [OfficeLocation].[Office]
             (
-             [OfficeId]
-            ,[Name]
+             [Name]
             ,[Address]
             ,[Country]
             ,[Switchboard]
@@ -101,24 +99,27 @@ namespace OfficeLocationMicroservice.Data.OfficeLocationDatabase
             ,[Operating])
         Values
             (
-             @OfficeId
-            ,@Name
+             @Name
             ,@Address
             ,@Country
             ,@Switchboard
             ,@Fax
             ,@TimeZone
-            ,@Operating);
-        Set Identity_insert [OfficeLocation].[Office] off;
+            ,@Operating)
+
+SELECT CAST(SCOPE_IDENTITY() as int)
 ";
+            int newId = 0;
 
             ConnectionExecuteWithLog(
                 connection =>
                 {
-                    connection.Execute(sql, dto);
+                    newId = connection.Query<int>(sql, dto).Single();
                 },
                 sql,
                 dto);
+
+            return newId;
         }
 
         public void Update(OfficeDto dto)

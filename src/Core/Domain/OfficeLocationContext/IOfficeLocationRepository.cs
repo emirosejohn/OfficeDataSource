@@ -6,7 +6,7 @@
 
         OfficeLocation[] GetAll();
 
-        void Update(OfficeLocation editedOfficeLocation);
+        OfficeLocation Update(OfficeLocation editedOfficeLocation);
         OfficeLocation GetById(int id);
     }
 }

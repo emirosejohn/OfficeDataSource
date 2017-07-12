@@ -45,10 +45,10 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
 
         public DateTime CurrentDate { get; set; }
 
-        public void InsertOfficeDto(
+        public int  InsertOfficeDto(
             OfficeDto dto)
         {
-            _officeDataTableGateway.Insert(dto);
+            return _officeDataTableGateway.Insert(dto);
         }
 
         public void DatabaseDataDeleter(

@@ -38,7 +38,7 @@ namespace OfficeLocationMicroservice.Core.Domain.OfficeLocationContext
 
         }
 
-        public void Update(OfficeLocation editedOfficeLocation)
+        public OfficeLocation Update(OfficeLocation editedOfficeLocation)
         {
             var offices = GetAll();
 
@@ -46,13 +46,17 @@ namespace OfficeLocationMicroservice.Core.Domain.OfficeLocationContext
 
             if (offices.All(x => x.OfficeId != editedOfficeLocation.OfficeId))
             {
-                _officeDataTableGateway.Insert(officeDto);
+                var id = _officeDataTableGateway.Insert(officeDto);
+
+                editedOfficeLocation.OfficeId = id;
+                 
 
             }
             else
             {
                 _officeDataTableGateway.Update(officeDto);
             }
+            return editedOfficeLocation;
         }
 
         public OfficeLocation GetById(int id)

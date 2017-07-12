@@ -40,7 +40,6 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
             {
                 var officeDto0 = new OfficeDto()
                 {
-                    OfficeId = 1,
                     Name = "Austin",
                     Address = "Dimensional Place 6300 Bee Cave Road",
                     Country = "United States",
@@ -52,7 +51,6 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
 
                 var officeDto1 = new OfficeDto()
                 {
-                    OfficeId = 2,
                     Name = "Berlin",
                     Address = "***REMOVED*** Kurfürstendamm 194, D - 10707 Berlin",
                     Country = "Germany",
@@ -62,7 +60,7 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
                     Operating = 0
                 };
 
-                testHelper.InsertOfficeDto(officeDto0);
+                var expectedOfficeId1 = testHelper.InsertOfficeDto(officeDto0);
 
                 var controller = testHelper.CreateController();
 
@@ -75,7 +73,7 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
 
                 offices.Length.Should().Be(2);
                     
-                offices[0].OfficeId.Should().Be(1);
+                offices[0].OfficeId.Should().Be(expectedOfficeId1);
                 offices[0].Name.Should().Be("Austin");
                 offices[0].Address.Should().Be("Dimensional Place 6300 Bee Cave Road");
                 offices[0].Country.Should().Be("United States");
@@ -84,7 +82,7 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
                 offices[0].TimeZone.Should().Be("Central Standard Time");
                 offices[0].Operating.Should().Be("Active");
 
-                offices[1].OfficeId.Should().Be(2);
+                offices[1].OfficeId.Should().BeGreaterThan(0);
                 offices[1].Name.Should().Be("Berlin");
                 offices[1].Address.Should().Be("***REMOVED*** Kurfürstendamm 194, D - 10707 Berlin");
                 offices[1].Country.Should().Be("Germany");
@@ -104,7 +102,6 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
             {
                 var officeDto0 = new OfficeDto()
                 {
-                    OfficeId = 1,
                     Name = "Austin",
                     Address = "Dimensional Place 6300 Bee Cave Road",
                     Country = "United States",
@@ -114,9 +111,20 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
                     Operating = 1
                 };
 
+                //
+                //                var officeLocation = Simualete(
+                //                
+                //                new OfficeLocation()
+                //                {
+                //                    OfficeId = expectedOfficeId1,
+                //                    Name = "This is a change"
+                //                };
+
+                var expectedOfficeId1 = testHelper.InsertOfficeDto(officeDto0);
+
                 var officeDto1 = new OfficeDto()
                 {
-                    OfficeId = 1,
+                    OfficeId = expectedOfficeId1,
                     Name = "Berlin",
                     Address = "***REMOVED*** Kurfürstendamm 194, D - 10707 Berlin",
                     Country = "Germany",
@@ -126,20 +134,22 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
                     Operating = 0
                 };
 
-                testHelper.InsertOfficeDto(officeDto0);
-
                 var controller = testHelper.CreateController();
 
                 var locationModel = officeDto1.ExtractOfficeLocation();
 
-                var actionResult = controller.Save(new OfficeModel() {OfficeEdit =  locationModel});
+                var offcieModel = new OfficeModel()
+                { OfficeEdit =  locationModel};
+
+                var actionResult = controller.Save(offcieModel);
 
                 var officeLocationRepository = testHelper.GetOfficeLocationRepository();
+
                 var offices = officeLocationRepository.GetAll();
 
                 offices.Length.Should().Be(1);
 
-                offices[0].OfficeId.Should().Be(1);
+                offices[0].OfficeId.Should().Be(expectedOfficeId1);
                 offices[0].Name.Should().Be("Berlin");
                 offices[0].Address.Should().Be("***REMOVED*** Kurfürstendamm 194, D - 10707 Berlin");
                 offices[0].Country.Should().Be("Germany");
