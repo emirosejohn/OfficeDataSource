@@ -15,17 +15,15 @@ namespace OfficeLocationMicroservice.Core.Domain.OfficeLocationContext
 
         public OfficeLocation GetByName(string name)
         {
-            //var tz = TimeZoneInfo.GetSystemTimeZones();
-            
             var officeDto = _officeDataTableGateway.GetByName(name);
 
             var office = officeDto.ExtractOfficeLocation();
 
             return office;
         }
+
         public OfficeLocation[] GetAll()
         {
-            //want to use OfficeDataTableGateway.GetAll
             OfficeDto[] officeDtos = _officeDataTableGateway.GetAll();
 
             OfficeLocation[] officeLocations = new OfficeLocation[officeDtos.Length];
@@ -40,7 +38,7 @@ namespace OfficeLocationMicroservice.Core.Domain.OfficeLocationContext
 
         }
 
-        public void Update(OfficeLocation editedOfficeLocation)
+        public OfficeLocation Update(OfficeLocation editedOfficeLocation)
         {
             var offices = GetAll();
 
@@ -48,13 +46,26 @@ namespace OfficeLocationMicroservice.Core.Domain.OfficeLocationContext
 
             if (offices.All(x => x.OfficeId != editedOfficeLocation.OfficeId))
             {
-                _officeDataTableGateway.Insert(officeDto);
+                var id = _officeDataTableGateway.Insert(officeDto);
+
+                editedOfficeLocation.OfficeId = id;
+                 
 
             }
             else
             {
                 _officeDataTableGateway.Update(officeDto);
             }
+            return editedOfficeLocation;
+        }
+
+        public OfficeLocation GetById(int id)
+        {
+            OfficeDto officeDto = _officeDataTableGateway.GetById(id);
+
+            var office = officeDto.ExtractOfficeLocation();
+                
+            return office;
         }
     }
 
@@ -75,9 +86,20 @@ namespace OfficeLocationMicroservice.Core.Domain.OfficeLocationContext
                 Country = officeLocation.Country,
                 Switchboard = officeLocation.Switchboard,
                 Fax = officeLocation.Fax,
-                TimeZone = officeLocation.TimeZone,
-                Operating = Convert.ToInt16(officeLocation.Operating)
+                TimeZone = officeLocation.TimeZone,  
             };
+
+            switch (officeLocation.Operating)
+            {
+                case "Active":
+                    officeDto.Operating = 1;
+                    break;
+                case "Closed":
+                    officeDto.Operating = 0;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
 
             return officeDto;
         }
@@ -101,8 +123,35 @@ namespace OfficeLocationMicroservice.Core.Domain.OfficeLocationContext
                 Switchboard = officeDto.Switchboard,
                 Fax = officeDto.Fax,
                 TimeZone = officeDto.TimeZone,
-                Operating = Convert.ToBoolean(officeDto.Operating)
             };
+
+            if (officeLocation.Address == null)
+            {
+                officeLocation.Address = " ";
+            }
+            if (officeLocation.Switchboard == null)
+            {
+                officeLocation.Switchboard = " ";
+            }
+            if (officeLocation.Fax == null)
+            {
+                officeLocation.Fax = " ";
+            }
+            if (officeLocation.TimeZone == null)
+            {
+                officeLocation.TimeZone = " ";
+            }
+            switch (officeDto.Operating)
+            {
+                case 1:
+                    officeLocation.Operating = "Active";
+                    break;
+                case 0:
+                    officeLocation.Operating = "Closed";
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
 
             return officeLocation;
         }

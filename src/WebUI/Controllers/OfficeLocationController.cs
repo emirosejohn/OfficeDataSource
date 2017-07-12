@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System.Collections.Generic;
+using System.Diagnostics;
 using System.Web.Mvc;
 using OfficeLocationMicroservice.Core;
 using OfficeLocationMicroservice.Core.Domain.CountryContext;
@@ -24,33 +25,53 @@ namespace OfficeLocationMicroservice.WebUi.Controllers
             CountryRepository countryRepository)
         {
             _officeLocationRepository = officeLocationRepository;
-
             _countryRepository = countryRepository;
         }
 
         public ActionResult Index()
         {
-            OfficeLocationModel locationModel = new OfficeLocationModel();
+            OfficeModel officeModel = new OfficeModel();
 
-            locationModel.Offices = _officeLocationRepository.GetAll();
-            locationModel.Countries = _countryRepository.GetAllCountries();
+            officeModel.Offices = _officeLocationRepository.GetAll();
+            officeModel.Countries = _countryRepository.GetAllCountries().AsEnumerable();
+            officeModel.OperatingOptions = WebHelper.GenerateOperatingOptions();
+            officeModel.OfficeEdit = new OfficeLocation();
 
 
-            return View(locationModel);
+            return View(officeModel);
         }
-
+        
         [HttpPost]
-        public ActionResult Edit(OfficeLocationModel locationModel)
+        public ActionResult Save(OfficeModel offcieModel)
         {
-            if (locationModel.EditedOffice != null)
+            if (offcieModel.OfficeEdit != null)
             {
-                Debug.WriteLine("edit : " + locationModel.EditedOffice.OfficeId);
-
-                _officeLocationRepository.Update(locationModel.EditedOffice);
+                var officelocation =  _officeLocationRepository.Update(offcieModel.OfficeEdit);
             }
 
-            return View(locationModel);
+            return RedirectToAction("Index");
+         }
+    }
+
+    public static class WebHelper
+    {
+        public static IEnumerable<SelectListItem> GenerateOperatingOptions()
+        {
+            var selectedItems = new List<SelectListItem>();
+            selectedItems.Add(new SelectListItem()
+            {
+                Value = "Active",
+                Text= "Active"
+            });
+            selectedItems.Add(new SelectListItem()
+            {
+                Value = "Closed",
+                Text = "Closed"
+            });
+
+            return selectedItems;
         }
+
     }
 }
  

@@ -28,7 +28,7 @@ INSERT INTO [OfficeLocation].[Office] ([Name], [Address],
 
 INSERT INTO [OfficeLocation].[Office] ([Name], [Address], 
 	[Country], [Switchboard], [Fax], [TimeZone], 
-	[Operating]) VALUES ('Berlin','***REMOVED*** Kurfürstendamm 194, 
+	[Operating]) VALUES ('Berlin','***REMOVED*** ***REMOVED***
 	***REMOVED***','Germany','***REMOVED***','***REMOVED***','Central European Time Zone', 1);
 
 INSERT INTO [OfficeLocation].[Office] ([Name], [Address], 

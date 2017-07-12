@@ -45,10 +45,10 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
 
         public DateTime CurrentDate { get; set; }
 
-        public void InsertOfficeDto(
+        public int  InsertOfficeDto(
             OfficeDto dto)
         {
-            _officeDataTableGateway.Insert(dto);
+            return _officeDataTableGateway.Insert(dto);
         }
 
         public void DatabaseDataDeleter(
@@ -68,16 +68,24 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
                 databaseSettings.ConnectionString, tablesToSkip);
         }
 
-        public OfficeLocationModel GetOfficeModelModelFromActionResult(
+        public OfficeModel GetOfficeModelFromActionResult(
             ActionResult actionResult)
         {
             actionResult.Should().BeAssignableTo<ViewResult>();
             var viewResult = (ViewResult) actionResult;
 
-            viewResult.Model.Should().BeAssignableTo<OfficeLocationModel>();
-            var officeModel = (OfficeLocationModel) viewResult.Model;
+            viewResult.Model.Should().BeAssignableTo<OfficeModel>();
+            var officeModel = (OfficeModel) viewResult.Model;
 
             return officeModel;
+        }
+
+        public RedirectToRouteResult GetRedirectToRouteFromActionResult(
+            ActionResult actionResult)
+        {
+            actionResult.Should().BeAssignableTo<RedirectToRouteResult>();
+            var viewResult = (RedirectToRouteResult)actionResult;
+            return viewResult;
         }
     }
 }
