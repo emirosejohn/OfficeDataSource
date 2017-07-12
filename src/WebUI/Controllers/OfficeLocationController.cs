@@ -11,11 +11,14 @@ namespace OfficeLocationMicroservice.WebUi.Controllers
     {
         private readonly IOfficeLocationRepository _officeLocationRepository;
         private readonly CountryRepository _countryRepository;
+        private OfficeModel _officeModel;
+
 
         public OfficeLocationController()
         {
             _officeLocationRepository = MasterFactory.GetOfficeLocationRepository();
             _countryRepository = MasterFactory.GetCountryRepository();
+            _officeModel = new OfficeModel();
         }
 
         //for tests
@@ -24,27 +27,28 @@ namespace OfficeLocationMicroservice.WebUi.Controllers
             CountryRepository countryRepository)
         {
             _officeLocationRepository = officeLocationRepository;
-
+            _officeModel = new OfficeModel();
             _countryRepository = countryRepository;
         }
 
         public ActionResult Index()
         {
-            OfficeLocationModel locationModel = new OfficeLocationModel();
+            OfficeModel officeModel = new OfficeModel();
 
-            model.ShowOfficeEdit = false;
-            locationModel.Offices = _officeLocationRepository.GetAll();
-            locationModel.Countries = _countryRepository.GetAllCountries();
+            officeModel.ShowOfficeEdit = false;
+            officeModel.Offices = _officeLocationRepository.GetAll();
+            officeModel.Countries = _countryRepository.GetAllCountries();
+            _officeModel = officeModel;
 
-
+            return View(officeModel);
         }
-
+	
         public ActionResult Edit(int id)
         {
             OfficeLocation toEditOffice = _officeLocationRepository.GetById(id);
             OfficeEditModel officeEditModel = new OfficeEditModel
             {
-                OfficeId = toEditOffice.Id,
+                OfficeId = toEditOffice.OfficeId,
                 NewOfficeName = toEditOffice.Name,
                 NewAddress = toEditOffice.Address,
                 NewCountry = toEditOffice.Country,
@@ -53,8 +57,25 @@ namespace OfficeLocationMicroservice.WebUi.Controllers
                 NewTimeZone = toEditOffice.TimeZone,
                 NewOperating = toEditOffice.Operating
             };
-            return View(officeEditModel);
+            OfficeModel model = _officeModel;
+            model.Offices = _officeLocationRepository.GetAll();
+            model.OfficeEdit = officeEditModel;
+            model.ShowOfficeEdit = true;
+            // _officeLocationRepository.Update(locationModel.EditedOffice);
+            return View(model);
         }
+        
+        [HttpPost]
+        public ActionResult Save(OfficeLocationModel locationModel)
+        {
+            if (locationModel.EditedOffice != null)
+            {
+                _officeLocationRepository.Update(locationModel.EditedOffice);
+            }
+
+            return RedirectToAction("Index");
+         }
+
     }
 }
  

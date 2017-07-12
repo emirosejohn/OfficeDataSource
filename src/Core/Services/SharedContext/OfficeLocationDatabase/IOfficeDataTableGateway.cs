@@ -12,5 +12,8 @@ namespace OfficeLocationMicroservice.Core.Services.SharedContext.OfficeLocationD
         void Insert(OfficeDto dto);
 
         void Update(OfficeDto dto);
+
+        OfficeDto GetById(int id);
+
     }
 }

@@ -1,81 +1,103 @@
-﻿@model OfficeLocationMicroservice.WebUi.Models.OfficeLocationModel
+﻿@model OfficeLocationMicroservice.WebUi.Models.OfficeModel
 
 @{
     ViewBag.Title = "Index";
 }
 
 <head>
+   
+    <link href="~/Content/SharedOfficelocationStyles.css" rel="stylesheet" />
+
     <style>
-        div.card {
+        .card:hover {
+            box-shadow: 0 8px 10px 0 #000000, 0 8px 20px 0 #000000;
+            box-shadow: 0 8px 10px 0 rgba(0, 0, 0, 0.2), 0 8px 20px 0 rgba(0, 0, 0, 0.19);
+        }
+
+        /*div.card {
             width: 320px;
-            height: 220px;
+            height: 230px;
             background: grey;
             margin: 10px;
             padding: 10px;
             display: inline-table;
-
+            overflow: hidden;
         }
+
         .details {
             margin: 10px;
-
         }
 
-         .card:hover {
-             box-shadow:0 8px 10px 0 #000000, 0 8px 20px 0 #000000;
-             box-shadow:0 8px 10px 0 rgba(0, 0, 0, 0.2), 0 8px 20px 0 rgba(0, 0, 0, 0.19);
-         }
-         h4 {
-             color: black;
-             text-align: center;
-         }
-         h2 {
-             text-align: center;
-         }
+        h4 {
+            color: black;
+            text-align: center;
+        }
+
+        h2 {
+            text-align: center;
+        }*/
+
+        .cardContainer {
+            position: absolute;
+            z-index: 10;
+            align-content: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            display: flex;
+        }
+        .myContainer {
+            margin-top: 50px;
+            justify-content: center;
+            flex-wrap: wrap;
+            display: flex;
+            width: 100%;
+        }
     </style>
+    
+    
 </head>
 
 
 <body>
+    <h2>Office Locations</h2>
+<div class="myContainer">
 
-<h2>Office Locations</h2>
-<div class="container">
-    @foreach (var office in Model.Offices)
-    {
-        <div class="card" id ="clickableCard" data-identifier="@office.Id">
-            <h4>@office.Name</h4>
-            <div class="details">
-                @office.Id <br/>
-                @office.Address <br/>
-                @office.Country <br/>
-                Switchboard:
-                @office.Switchboard <br/>
-                Fax: @office.Fax <br/>
-                @office.TimeZone <br/>
-                @office.Operating
+    <div class="cardContainer">
+        @foreach (var office in Model.Offices)
+        {
+        <div class="card" id ="clickableCard" data-identifier="@office.OfficeId">
+                <h4>@office.Name</h4>
+                <div class="details">
+                    @office.Address <br/>
+                    @office.Country <br/>
+                    Switchboard:
+                    @office.Switchboard <br/>
+                    Fax: @office.Fax <br/>
+                    @office.TimeZone <br/>
+                    @office.Operating
+                </div>
+
             </div>
+        }
 
-        </div>
-    }
-
+    </div>
 </div>
-    
-    
-    
+
+
+
 <script language="JavaScript" type="text/javascript" src="/Scripts/jquery-1.10.2.js"></script>
 <script language="JavaScript" type="text/javascript" src="/Scripts/jquery-1.10.2.min.js"></script>
-    
-    
+
+
 
 <script>
 
-    var clickedCard = $("#clickableCard")[0];
-    //console.log(clickedCard.dataset.identifier);
-    //console.log(clickedCard);
-    clickedCard.onclick = function() {
-        console.log(clickedCard.dataset.identifier);
-        console.log(clickedCard);
-        
-        window.location.href = `OfficeLocation/Edit/${clickedCard.dataset.identifier}`;
+
+    $('.card').on('click', cardClicked);
+
+    function cardClicked() {
+        console.log(this.dataset.identifier);
+        window.location.href = 'OfficeLocation/Edit/' + this.dataset.identifier;
     }
 
 </script>

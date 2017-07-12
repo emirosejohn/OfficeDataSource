@@ -1,9 +1,5 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using FluentAssertions;
 using OfficeLocationMicroservice.Core.Services.SharedContext.OfficeLocationDatabase;
 using Xunit;
@@ -55,7 +51,7 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
             });
         }
 
-       // [Fact]
+        [Fact]
         public void ShouldReturnOfficesWhenOfficesAreFound()
         {
             var testHelper = new TestHelper();
@@ -70,7 +66,7 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
                     Country = "United States",
                     Switchboard = "***REMOVED***",
                     Fax = "+***REMOVED***",
-                    TimeZone = "CST",
+                    TimeZone = "Central Standard Time",
                     Operating = 1
                 };
 
@@ -82,7 +78,7 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
                     Country = "Germany",
                     Switchboard = "***REMOVED***",
                     Fax = "***REMOVED***",
-                    TimeZone = "CET",
+                    TimeZone = "Central European Timezone",
                     Operating = 0
                 };
 
@@ -110,7 +106,7 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
                 officesArray[0].Country.Should().Be("United States");
                 officesArray[0].Switchboard.Should().Be("***REMOVED***");
                 officesArray[0].Fax.Should().Be("+***REMOVED***");
-                officesArray[0].TimeZone.Should().Be("CST");
+                officesArray[0].TimeZone.Should().Be("Central Standard Time");
                 officesArray[0].Operating.Should().Be("Active");
 
                 officesArray[1].OfficeId.Should().Be(2);
@@ -119,7 +115,8 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
                 officesArray[1].Country.Should().Be("Germany");
                 officesArray[1].Switchboard.Should().Be("***REMOVED***");
                 officesArray[1].Fax.Should().Be("***REMOVED***");
-                officesArray[1].TimeZone.Should().Be("CET");
+                officesArray[1].TimeZone.Should().Be("Central European Timezone");
+
                 officesArray[1].Operating.Should().Be("Closed");
 
                 var countryArray = viewResultModel.Countries;

@@ -68,14 +68,14 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
                 databaseSettings.ConnectionString, tablesToSkip);
         }
 
-        public OfficeLocationModel GetOfficeModelModelFromActionResult(
+        public OfficeModel GetOfficeModelModelFromActionResult(
             ActionResult actionResult)
         {
             actionResult.Should().BeAssignableTo<ViewResult>();
             var viewResult = (ViewResult) actionResult;
 
-            viewResult.Model.Should().BeAssignableTo<OfficeLocationModel>();
-            var officeModel = (OfficeLocationModel) viewResult.Model;
+            viewResult.Model.Should().BeAssignableTo<OfficeModel>();
+            var officeModel = (OfficeModel) viewResult.Model;
 
             return officeModel;
         }
