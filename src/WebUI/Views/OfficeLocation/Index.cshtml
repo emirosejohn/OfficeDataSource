@@ -5,27 +5,13 @@
 }
 
 <head>
+    <link href="~/Content/SharedOfficelocationStyles.css" rel="stylesheet" />
     <style>
-        div.card {
-            width: 320px;
-            height: 230px;
-            background: grey;
-            margin: 10px;
-            padding: 10px;
-            display: inline-table;
-            overflow: hidden;
+        .card:hover {
+            box-shadow: 0 8px 10px 0 #000000, 0 8px 20px 0 #000000;
+            box-shadow: 0 8px 10px 0 rgba(0, 0, 0, 0.2), 0 8px 20px 0 rgba(0, 0, 0, 0.19);
         }
-        .details {
-            margin: 10px;
 
-        }
-        h4 {
-            color: black;
-            text-align: center;
-        }
-        h2 {
-            text-align: center;
-        }
         .cardContainer {
             z-index: 10;
             width: inherit;
@@ -33,24 +19,6 @@
             justify-content: center;
             flex-wrap: wrap;
             display: flex;
-        }
-
-        .editPanel {
-            position: fixed;
-            text-align: center;
-            top: 100px;
-            width: 70%;
-            left: 15%;
-            height: 600px;
-            margin: 10px;
-            padding: 10px;
-            z-index: 100;
-            background: aquamarine;
-        }
-
-        .container {
-            height: 100%;
-            width: 100%;
         }
 
         .modal-backdrop {
@@ -66,7 +34,7 @@
 </head>
 
 <body>
-<div class="container">
+<div class="myContainer">
     <h2>Office Locations</h2>
     <div class="cardContainer">
         @foreach (var office in Model.Offices)

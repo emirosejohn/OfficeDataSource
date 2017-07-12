@@ -22,3 +22,11 @@ h4 {
 h2 {
     text-align: center;
 }
+
+.myContainer {
+    margin-top: 50px;
+    justify-content: center;
+    flex-wrap: wrap;
+    display: flex;
+    width: 100%;
+}
