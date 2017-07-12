@@ -21,24 +21,24 @@
             display: flex;
         }
 
-        .modal-backdrop {
-            display: none !important;
+        .modal {
+            overflow-y: hidden ;
         }
 
-            .modal-backdrop.in {
-                opacity: 0 !important;
-                z-index: -1050 !important;
-            }
+/*            .modal-backdrop.in {*/
+/*                opacity: 0 !important;*/
+/*                z-index: -1050 !important;*/
+/*            }*/
     </style>
 </head>
-
-<body>
+@*style="overflow-y:hidden"*@
+<body id="body" >
     <div class="myContainer">
         <h2>Office Locations</h2>
         <div class="cardContainer">
             @foreach (var office in Model.Offices)
             {
-                <div class="card" data-toggle="modal" data-target="#plain_@office.OfficeId">
+                <div class="card" data-toggle="modal" data-target="#plain_@office.OfficeId" >
                     <h4>@office.Name</h4>
                     <div class="details">
                         @office.Address <br />
@@ -66,7 +66,7 @@
                         <div class="modal-content">
 
                             <div class="modal-header">
-                                <button type="button" class="close" onclick="close_@office.OfficeId ();">&times;</button>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
                                 <h4 class="modal-title">@office.Name</h4>
                             </div>
 
@@ -153,21 +153,18 @@
                             </div>
 
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-default" onclick="close_@office.OfficeId ();">Close</button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                 <button type="submit" class="btn btn-primary" data-toggle="modal" 
-                                        data-target="#modal_@office.OfficeId" onclick="close_@office.OfficeId ();">Edit</button>
+                                        data-dismiss="modal" data-target="#modal_@office.OfficeId" >Edit</button>
                             </div>
+                            
+
 
 
                         </div>
                     </div>
                 </div>
 
-                <script>
-                    function close_@office.OfficeId () {
-                        $('#plain_@office.OfficeId').modal().hide();
-                    }
-                </script>
             }
         </div>
 
@@ -178,7 +175,8 @@
             @foreach (var office in Model.Offices)
             {
 
-                <div class="modal fade" id="modal_@office.OfficeId" data-backdrop="static" data-keyboard="false">
+                <div class="modal fade" id="modal_@office.OfficeId" data-backdrop="static" data-keyboard="false"
+                     style="overflow-y: hidden;">
                     <div class="modal-dialog">
                         <div class="modal-content">
 
@@ -187,7 +185,7 @@
                                 @Html.HiddenFor(m => m.OfficeEdit.OfficeId, new { value = @office.OfficeId });
 
                                 <div class="modal-header">
-                                    <button type="button" class="close" onclick="check_@office.OfficeId ();">&times;</button>
+                                    <button type="button" class="close" data-dismiss="modal" onclick="enablebody();">&times;</button>
                                     <h4 class="modal-title">Edit</h4>
                                 </div>
 
@@ -264,7 +262,7 @@
                                 </div>
 
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" onclick="check_@office.OfficeId ();">Close</button>
+                                    <button type="button" class="btn btn-default" data-dismiss="modal" onclick="enablebody();">Close</button>
                                     <button type="submit" class="btn btn-primary">Save changes</button>
                                 </div>
 
@@ -272,14 +270,6 @@
                         </div>
                     </div>
                 </div>
-
-                <script>
-                    function check_@office.OfficeId () {
-                        if (confirm('Are you sure you want to cancel. You will lose your unsaved changes')) {
-                            $('#modal_@office.OfficeId').modal().hide();
-                        }
-                    }
-                </script>
             }
         </div>
 
@@ -290,5 +280,11 @@
     <script language="JavaScript" type="text/javascript" src="/Scripts/jquery-1.10.2.js"></script>
     <script language="JavaScript" type="text/javascript" src="/Scripts/jquery-1.10.2.min.js"></script>
 
+<script>
+
+
+</script>
+
+    
 
 </body>
