@@ -72,6 +72,84 @@
 
                             <div class="modal-body">
 
+                                
+                                
+                                <div class="form-group">
+                                    <label for="office">Office</label>
+                                    @Html.TextBoxFor(m => m.OfficeEdit.Name, new
+                                    {
+                                        @Value = office.Name,
+                                        @placeholder = "Type Office Here",
+                                        @class = "form-control-static",
+                                        @rows = "1",
+                                        @id = "Office",
+                                        @style = "min-width: 100%;",
+                                        @readonly = true
+                                    })
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="Address">Address</label>
+                                    @Html.TextAreaFor(m => m.OfficeEdit.Address, new
+                                    {
+                                        @Value = office.Address,
+                                        @placeholder = "Type Address Here",
+                                        @class = "form-control-static",
+                                        @rows = "1",
+                                        @id = "Address",
+                                        @style = "min-width: 100%;",
+                                        @readonly = true
+                                    })
+
+                                    @Html.DropDownListFor(m => m.OfficeEdit.Country, Model.Countries, null, new { @class = "form-control-static",
+                                        @disabled = "disabled" })
+
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="switchboard">Switchboard</label>
+                                    @Html.TextBoxFor(m => m.OfficeEdit.Switchboard, new
+                                    {
+                                        @Value = office.Switchboard,
+                                        @placeholder = "Type Switchboard Here",
+                                        @class = "form-control-static",
+                                        @rows = "1",
+                                        @id = "switchboard",
+                                        @style = "min-width: 100%;",
+                                        @readonly = true
+                                    })
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="Fax">Fax</label>
+                                    @Html.TextBoxFor(m => m.OfficeEdit.Fax, new
+                                    {
+                                        @Value = office.Fax,
+                                        @placeholder = "Type Fax Here",
+                                        @class = "form-control-static",
+                                        @rows = "1",
+                                        @id = "Fax",
+                                        @style = "min-width: 100%;",
+                                        @readonly = true
+                                    })
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="timezone">Timezone</label>
+                                                                        @*  @Html.DropDownListFor(m => m.OfficeEdit.NewTimeZone, null, null, new { @class = "form-control",
+        @disabled = "disabled" })
+                                                                        *@
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="operating">Operating</label>
+                                    @Html.DropDownListFor(m => m.OfficeEdit.Operating, Model.OperatingOptions, null, new { @class = "form-control-static",
+                                   @disabled = "disabled"
+                               })
+
+                                </div>
+
+
                             </div>
 
                             <div class="modal-footer">
