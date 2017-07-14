@@ -304,3 +304,4 @@ UpgradeLog*.XML
 src/packages/
 .idea
 *.swp
+src/IntegrationTests/Web/Controllers/Global Education Assistance Policy - March 2016.pdf
