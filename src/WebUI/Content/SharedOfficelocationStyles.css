@@ -30,3 +30,10 @@ h2 {
     display: flex;
     width: 100%;
 }
+
+.addButtonSpan {
+    position: relative;
+    float: right;
+    right: 120px;
+    top: -15px;
+}
