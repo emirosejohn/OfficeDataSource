@@ -30,7 +30,7 @@ namespace OfficeLocationMicroservice.Core.Domain.OfficeLocationContext
 
             for (int k = 0; k < officeDtos.Length; k++)
             {
-                OfficeLocation office = GetByName(officeDtos[k].Name);
+                OfficeLocation office = GetById(officeDtos[k].OfficeId);
                 officeLocations[k] = office;
             }
 
@@ -125,22 +125,6 @@ namespace OfficeLocationMicroservice.Core.Domain.OfficeLocationContext
                 TimeZone = officeDto.TimeZone,
             };
 
-            if (officeLocation.Address == null)
-            {
-                officeLocation.Address = " ";
-            }
-            if (officeLocation.Switchboard == null)
-            {
-                officeLocation.Switchboard = " ";
-            }
-            if (officeLocation.Fax == null)
-            {
-                officeLocation.Fax = " ";
-            }
-            if (officeLocation.TimeZone == null)
-            {
-                officeLocation.TimeZone = " ";
-            }
             switch (officeDto.Operating)
             {
                 case 1:

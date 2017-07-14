@@ -4,6 +4,7 @@ using System.Web.Mvc;
 using OfficeLocationMicroservice.Core;
 using OfficeLocationMicroservice.Core.Domain.CountryContext;
 using OfficeLocationMicroservice.Core.Domain.OfficeLocationContext;
+using OfficeLocationMicroservice.Core.Services.OfficeWithEnumeration;
 using OfficeLocationMicroservice.WebUi.Models;
 
 namespace OfficeLocationMicroservice.WebUi.Controllers
@@ -32,21 +33,35 @@ namespace OfficeLocationMicroservice.WebUi.Controllers
         {
             OfficeModel officeModel = new OfficeModel();
 
-            officeModel.Offices = _officeLocationRepository.GetAll();
-            officeModel.Countries = _countryRepository.GetAllCountries().AsEnumerable();
-            officeModel.OperatingOptions = WebHelper.GenerateOperatingOptions();
-            officeModel.OfficeEdit = new OfficeLocation();
+            var officeWithEnumerationGenerator = new OfficeWithEnumerationGenerator(
+                _officeLocationRepository,
+                _countryRepository);
+
+            officeModel.Offices = officeWithEnumerationGenerator.GetAll();
+
+            officeModel.NewOffice = officeWithEnumerationGenerator.NewOffice(new OfficeLocation());
 
 
             return View(officeModel);
         }
         
         [HttpPost]
-        public ActionResult Save(OfficeModel offcieModel)
+        public ActionResult Save(OfficeModel officeModel)
         {
-            if (offcieModel.OfficeEdit != null)
+            if (officeModel.Offices != null )
             {
-                var officelocation =  _officeLocationRepository.Update(offcieModel.OfficeEdit);
+                foreach (var office in officeModel.Offices)
+                {
+                    if (office.Office != null)
+                    {
+                        var officelocation = _officeLocationRepository.Update(office.Office);
+                    }
+                }
+            }
+
+            if (officeModel.NewOffice?.Office != null)
+            {
+                var officelocation =  _officeLocationRepository.Update(officeModel.NewOffice.Office);
             }
 
             return RedirectToAction("Index");
@@ -55,23 +70,6 @@ namespace OfficeLocationMicroservice.WebUi.Controllers
 
     public static class WebHelper
     {
-        public static IEnumerable<SelectListItem> GenerateOperatingOptions()
-        {
-            var selectedItems = new List<SelectListItem>();
-            selectedItems.Add(new SelectListItem()
-            {
-                Value = "Active",
-                Text= "Active"
-            });
-            selectedItems.Add(new SelectListItem()
-            {
-                Value = "Closed",
-                Text = "Closed"
-            });
-
-            return selectedItems;
-        }
-
     }
 }
  

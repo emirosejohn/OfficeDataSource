@@ -71,6 +71,8 @@
     <Compile Include="Services\CountryFetcher\CountryWebApi\ICountryWebApiGateway.cs" />
     <Compile Include="Services\CountryFetcher\CountryWebApi\ICountryWebApiSettings.cs" />
     <Compile Include="Services\CountryFetcher\CountryWebApi\RegionSchemeResponseJson.cs" />
+    <Compile Include="Services\OfficeWithEnumeration\OfficeWithEnumeration.cs" />
+    <Compile Include="Services\OfficeWithEnumeration\OfficeWithEnumerationGenerator.cs" />
     <Compile Include="Services\SharedContext\OfficeLocationDatabase\IOfficeLocationDatabaseSettings.cs" />
     <Compile Include="Services\SharedContext\OfficeLocationDatabase\IOfficeDataTableGateway.cs" />
     <Compile Include="Services\SharedContext\ISystemLog.cs" />
