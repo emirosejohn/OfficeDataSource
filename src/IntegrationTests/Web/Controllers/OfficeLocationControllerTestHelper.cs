@@ -33,7 +33,15 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
 
         public OfficeLocationRepository GetOfficeLocationRepository()
         {
+            
+
             return new OfficeLocationRepository(_officeDataTableGateway);
+        }
+
+        public Country[] GetAllCountries()
+        {
+            var countryRepository = new CountryRepository(_countryWebApiGateway);
+            return countryRepository.GetAllCountries();
         }
 
         public OfficeLocationController CreateController()

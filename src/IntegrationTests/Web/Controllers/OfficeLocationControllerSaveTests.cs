@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using FluentAssertions;
 using OfficeLocationMicroservice.Core.Domain.OfficeLocationContext;
+using OfficeLocationMicroservice.Core.Services.OfficeWithEnumeration;
 using OfficeLocationMicroservice.Core.Services.SharedContext.OfficeLocationDatabase;
 using OfficeLocationMicroservice.WebUi.Models;
 using Xunit;
@@ -23,7 +24,11 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
             {
                 var controller = testHelper.CreateController();
 
-                var actionResult = controller.Save(new OfficeModel() { OfficeEdit = null });
+
+
+                var emptyOffice = new OfficeModel();
+
+                var actionResult = controller.Save(emptyOffice);
 
                 var viewResult = testHelper.GetRedirectToRouteFromActionResult(actionResult);
 
@@ -66,7 +71,16 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
 
                 var locationModel = officeDto1.ExtractOfficeLocation();
 
-                var actionResult = controller.Save(new OfficeModel() { OfficeEdit = locationModel });
+                var locationOffice = new OfficeModel()
+                {
+                    Offices = new OfficeWithEnumeration[]
+                    {
+                        new OfficeWithEnumeration(locationModel, testHelper.GetAllCountries(), null)
+                    }
+                    
+                };
+
+                var actionResult = controller.Save(locationOffice);
 
                 var officeLocationRepository = testHelper.GetOfficeLocationRepository();
                 var offices = officeLocationRepository.GetAll();
@@ -121,10 +135,15 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
 
                 var locationModel = updatedOfficeDto.ExtractOfficeLocation();
 
-                var offcieModel = new OfficeModel()
-                { OfficeEdit =  locationModel};
+                var locationOffice = new OfficeModel()
+                {
+                    Offices = new OfficeWithEnumeration[]
+                    {
+                        new OfficeWithEnumeration(locationModel, testHelper.GetAllCountries(), null)
+                    }
+                };
 
-                var actionResult = controller.Save(offcieModel);
+                var actionResult = controller.Save(locationOffice);
 
                 var officeLocationRepository = testHelper.GetOfficeLocationRepository();
 

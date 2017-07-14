@@ -27,8 +27,8 @@ namespace OfficeLocationMicroservice.WebUi.Controllers
             OfficeModel officeModel = new OfficeModel();
 
             //need to set Offices in locationModel so can access
-            officeModel.Offices = _officeLocationRepository.GetAll();
-            return officeModel;
+            //officeModel.Offices = _officeLocationRepository.GetAll();
+            return null;
         }
 
         public OfficeModel GetData()

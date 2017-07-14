@@ -30,7 +30,7 @@ namespace OfficeLocationMicroservice.Core.Domain.OfficeLocationContext
 
             for (int k = 0; k < officeDtos.Length; k++)
             {
-                OfficeLocation office = GetByName(officeDtos[k].Name);
+                OfficeLocation office = GetById(officeDtos[k].OfficeId);
                 officeLocations[k] = office;
             }
 
