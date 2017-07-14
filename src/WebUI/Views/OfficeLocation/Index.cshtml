@@ -147,7 +147,8 @@
 
                                 <div class="form-group">
                                     <label for="operating">Operating</label>
-                                    @Html.DropDownListFor(m => m.Offices[i].Office.Operating, Model.Offices[i].OperatingOptions, null, new { @class = "form-control-static",
+                                    @Html.DropDownListFor(m => m.Offices[i].Office.Operating, Model.Offices[i].OperatingOptions, null, 
+                                   new { @class = "form-control-static",
                                    @disabled = "disabled"
                                })
 

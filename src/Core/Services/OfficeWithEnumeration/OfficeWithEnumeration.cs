@@ -13,6 +13,15 @@ namespace OfficeLocationMicroservice.Core.Services.OfficeWithEnumeration
         public IEnumerable<SelectListItem> Timezones { get; set; }
         public IEnumerable<SelectListItem> OperatingOptions { get; set; }
 
+        public OfficeWithEnumeration()
+        {
+            Office = new OfficeLocation();
+            Countries = new List<SelectListItem>();
+            OperatingOptions = new List<SelectListItem>();
+            Timezones = null;
+        }
+
+
         public OfficeWithEnumeration(
             OfficeLocation office,
             Country[] countries,

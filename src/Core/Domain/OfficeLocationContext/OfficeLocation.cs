@@ -20,10 +20,5 @@ namespace OfficeLocationMicroservice.Core.Domain.OfficeLocationContext
         public string TimeZone { get; set; }
 
         public string Operating { get; set; }
-
-        public IEnumerable<SelectListItem> Countries { get; set; }
-        public IEnumerable<SelectListItem> Timezones { get; set; }
-        public IEnumerable<SelectListItem> OperatingOptions { get; set; }
-
     }
 }
