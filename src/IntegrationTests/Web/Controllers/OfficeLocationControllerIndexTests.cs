@@ -25,27 +25,9 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
 
                 officesArray.Length.Should().Be(0);
 
-                var countryArray = viewResultModel.Countries.ToArray();
+                //var countryArray = viewResultModel.Offices[0].Countries.ToArray();
 
-                countryArray.Length.Should().Be(6);
 
-                countryArray[0].Value.Should().Be("1");
-                countryArray[0].Text.Should().Be("Country 1");
-
-                countryArray[1].Value.Should().Be("2");
-                countryArray[1].Text.Should().Be("Country 2");
-
-                countryArray[2].Value.Should().Be("3");
-                countryArray[2].Text.Should().Be("Country 3");
-
-                countryArray[3].Value.Should().Be("4");
-                countryArray[3].Text.Should().Be("Country 4");
-
-                countryArray[4].Value.Should().Be("5");
-                countryArray[4].Text.Should().Be("Country 5");
-
-                countryArray[5].Value.Should().Be("6");
-                countryArray[5].Text.Should().Be("Country 6");
 
 
             });
@@ -73,7 +55,7 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
                 {
                     Name = "Berlin",
                     Address = "***REMOVED*** Kurfürstendamm 194, D - 10707 Berlin",
-                    Country = "Germany",
+                    Country = "Country 2",
                     Switchboard = "***REMOVED***",
                     Fax = "***REMOVED***",
                     TimeZone = "Central European Timezone",
@@ -98,46 +80,83 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
 
                 officesArray.Length.Should().Be(2);
 
-                officesArray[0].OfficeId.Should().Be(expectedOfficeId1);
-                officesArray[0].Name.Should().Be("Austin");
-                officesArray[0].Address.Should().Be("Dimensional Place 6300 Bee Cave Road");
-                officesArray[0].Country.Should().Be("United States");
-                officesArray[0].Switchboard.Should().Be("***REMOVED***");
-                officesArray[0].Fax.Should().Be("+***REMOVED***");
-                officesArray[0].TimeZone.Should().Be("Central Standard Time");
-                officesArray[0].Operating.Should().Be("Active");
+                officesArray[0].Office.OfficeId.Should().Be(expectedOfficeId1);
+                officesArray[0].Office.Name.Should().Be("Austin");
+                officesArray[0].Office.Address.Should().Be("Dimensional Place 6300 Bee Cave Road");
+                officesArray[0].Office.Country.Should().Be("United States");
+                officesArray[0].Office.Switchboard.Should().Be("***REMOVED***");
+                officesArray[0].Office.Fax.Should().Be("+***REMOVED***");
+                officesArray[0].Office.TimeZone.Should().Be("Central Standard Time");
 
-                officesArray[1].OfficeId.Should().Be(expectedOfficeId2);
-                officesArray[1].Name.Should().Be("Berlin");
-                officesArray[1].Address.Should().Be("***REMOVED*** Kurfürstendamm 194, D - 10707 Berlin");
-                officesArray[1].Country.Should().Be("Germany");
-                officesArray[1].Switchboard.Should().Be("***REMOVED***");
-                officesArray[1].Fax.Should().Be("***REMOVED***");
-                officesArray[1].TimeZone.Should().Be("Central European Timezone");
+                officesArray[0].Office.Operating.Should().Be("Active");
 
-                officesArray[1].Operating.Should().Be("Closed");
+                officesArray[1].Office.OfficeId.Should().Be(expectedOfficeId2);
+                officesArray[1].Office.Name.Should().Be("Berlin");
+                officesArray[1].Office.Address.Should().Be("***REMOVED*** Kurfürstendamm 194, D - 10707 Berlin");
+                officesArray[1].Office.Country.Should().Be("Country 2");
+                officesArray[1].Office.Switchboard.Should().Be("***REMOVED***");
+                officesArray[1].Office.Fax.Should().Be("***REMOVED***");
+                officesArray[1].Office.TimeZone.Should().Be("Central European Timezone");
 
-                var countryArray = viewResultModel.Countries.ToArray();
+                officesArray[1].Office.Operating.Should().Be("Closed");
 
-                countryArray.Length.Should().Be(6);
+                var countryArray1 = viewResultModel.Offices[0].Countries.ToArray();
+                var countryArray2 = viewResultModel.Offices[1].Countries.ToArray();
 
-                countryArray[0].Value.Should().Be("1");
-                countryArray[0].Text.Should().Be("Country 1");
 
-                countryArray[1].Value.Should().Be("2");
-                countryArray[1].Text.Should().Be("Country 2");
+                countryArray1.Length.Should().Be(6);
 
-                countryArray[2].Value.Should().Be("3");
-                countryArray[2].Text.Should().Be("Country 3");
+                countryArray1[0].Value.Should().Be("Country 1");
+                countryArray1[0].Text.Should().Be("Country 1");
+                countryArray1[0].Selected.Should().Be(false);
 
-                countryArray[3].Value.Should().Be("4");
-                countryArray[3].Text.Should().Be("Country 4");
+                countryArray1[1].Value.Should().Be("Country 2");
+                countryArray1[1].Text.Should().Be("Country 2");
+                countryArray1[1].Selected.Should().Be(false);
 
-                countryArray[4].Value.Should().Be("5");
-                countryArray[4].Text.Should().Be("Country 5");
+                countryArray1[2].Value.Should().Be("Country 3");
+                countryArray1[2].Text.Should().Be("Country 3");
+                countryArray1[2].Selected.Should().Be(false);
 
-                countryArray[5].Value.Should().Be("6");
-                countryArray[5].Text.Should().Be("Country 6");
+                countryArray1[3].Value.Should().Be("Country 4");
+                countryArray1[3].Text.Should().Be("Country 4");
+                countryArray1[3].Selected.Should().Be(false);
+
+                countryArray1[4].Value.Should().Be("Country 5");
+                countryArray1[4].Text.Should().Be("Country 5");
+                countryArray1[4].Selected.Should().Be(false);
+
+                countryArray1[5].Value.Should().Be("Country 6");
+                countryArray1[5].Text.Should().Be("Country 6");
+                countryArray1[5].Selected.Should().Be(false);
+
+                countryArray2.Length.Should().Be(6);
+
+                countryArray2[0].Value.Should().Be("Country 1");
+                countryArray2[0].Text.Should().Be("Country 1");
+                countryArray2[0].Selected.Should().Be(false);
+
+                countryArray2[1].Value.Should().Be("Country 2");
+                countryArray2[1].Text.Should().Be("Country 2");
+                countryArray2[1].Selected.Should().Be(true);
+
+                countryArray2[2].Value.Should().Be("Country 3");
+                countryArray2[2].Text.Should().Be("Country 3");
+                countryArray2[2].Selected.Should().Be(false);
+
+                countryArray2[3].Value.Should().Be("Country 4");
+                countryArray2[3].Text.Should().Be("Country 4");
+                countryArray2[3].Selected.Should().Be(false);
+
+                countryArray2[4].Value.Should().Be("Country 5");
+                countryArray2[4].Text.Should().Be("Country 5");
+                countryArray2[4].Selected.Should().Be(false);
+
+                countryArray2[5].Value.Should().Be("Country 6");
+                countryArray2[5].Text.Should().Be("Country 6");
+                countryArray2[5].Selected.Should().Be(false);
+
+
 
             });
         }
