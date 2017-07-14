@@ -1,4 +1,7 @@
-﻿namespace OfficeLocationMicroservice.Core.Domain.OfficeLocationContext
+﻿using System.Collections.Generic;
+using System.Web.Mvc;
+
+namespace OfficeLocationMicroservice.Core.Domain.OfficeLocationContext
 {
     public class OfficeLocation
     {
@@ -15,7 +18,12 @@
         public string Fax { get; set; }
 
         public string TimeZone { get; set; }
+
         public string Operating { get; set; }
+
+        public IEnumerable<SelectListItem> Countries { get; set; }
+        public IEnumerable<SelectListItem> Timezones { get; set; }
+        public IEnumerable<SelectListItem> OperatingOptions { get; set; }
 
     }
 }

@@ -43,7 +43,7 @@ namespace OfficeLocationMicroservice.Core.Domain.CountryContext
         public static IEnumerable<SelectListItem> AsEnumerable(this Country[] countries)
         {
             return countries.Select((country) => 
-                new SelectListItem { Text = country.Name, Value = country.CountryId.ToString() });
+                new SelectListItem { Text = country.Name, Value = country.Name });
         }
 
     }

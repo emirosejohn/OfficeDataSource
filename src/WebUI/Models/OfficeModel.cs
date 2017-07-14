@@ -12,7 +12,7 @@ namespace OfficeLocationMicroservice.WebUi.Models
     public class OfficeModel
     {
         public OfficeLocation[] Offices { get; set; }
-        public OfficeLocation OfficeEdit { get; set; }
+        public OfficeLocation NewOffice { get; set; }
 
         public IEnumerable<SelectListItem> Countries { get; set; }
         public IEnumerable<SelectListItem> Timezones { get; set; }

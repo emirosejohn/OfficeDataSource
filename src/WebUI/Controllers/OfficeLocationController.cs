@@ -35,7 +35,7 @@ namespace OfficeLocationMicroservice.WebUi.Controllers
             officeModel.Offices = _officeLocationRepository.GetAll();
             officeModel.Countries = _countryRepository.GetAllCountries().AsEnumerable();
             officeModel.OperatingOptions = WebHelper.GenerateOperatingOptions();
-            officeModel.OfficeEdit = new OfficeLocation();
+            officeModel.NewOffice = new OfficeLocation();
 
 
             return View(officeModel);
@@ -44,9 +44,9 @@ namespace OfficeLocationMicroservice.WebUi.Controllers
         [HttpPost]
         public ActionResult Save(OfficeModel offcieModel)
         {
-            if (offcieModel.OfficeEdit != null)
+            if (offcieModel.NewOffice != null)
             {
-                var officelocation =  _officeLocationRepository.Update(offcieModel.OfficeEdit);
+                var officelocation =  _officeLocationRepository.Update(offcieModel.NewOffice);
             }
 
             return RedirectToAction("Index");
