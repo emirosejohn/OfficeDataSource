@@ -317,7 +317,7 @@
                                 <label for="Address">Address</label>
                                 @Html.TextArea("OfficeAddress", "", new { @class = "form-control" })
 
-                                @Html.DropDownListFor(m => m.OfficeEdit.Country, Model.Countries, "", new { @class = "form-control" })
+                                @Html.DropDownListFor(m => m.Offices[0].Countries, Model.Offices[0].Countries, "", new { @class = "form-control" })
 
                             </div>
 
@@ -340,7 +340,7 @@
 
                             <div class="form-group">
                                 <label for="operating">Operating</label>
-                                @Html.DropDownListFor(m => m.OfficeEdit.Operating, Model.OperatingOptions, null, new { @class = "form-control-static"
+                                @Html.DropDownListFor(m => m.Offices[0].OperatingOptions, Model.Offices[0].OperatingOptions, null, new { @class = "form-control-static"
                                 })
 
                             </div>
