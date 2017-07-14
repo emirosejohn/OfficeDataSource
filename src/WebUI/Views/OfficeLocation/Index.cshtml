@@ -201,79 +201,90 @@
                             </div>
 
                             <div class="modal-body">
+                                <form action>
 
-                                <div class="form-group">
-                                    <label for="office">Office</label>
+                                    <div class="form-group">
+                                        <label for="office">Office</label>
                                         @Html.TextBoxFor(m => m.Offices[i].Office.Name, new
-                                        {
-                                            @placeholder = "Type Office Here",
-                                            @class = "form-control",
-                                            @rows = "1",
-                                            @id = "Office",
-                                            @style = "min-width: 100%;"
-                                        })
-                                </div>
+                                   {
+                                       @placeholder = "Type Office Here",
+                                       @class = "form-control",
+                                       @rows = "1",
+                                       @id = "Office" + Model.Offices[i].Office.OfficeId,
+                                       @style = "min-width: 100%;"
+                                   })
+                                    </div>
 
-                                <div class="form-group">
-                                    <label for="Address">Address</label>
+                                    <div class="form-group">
+                                        <label for="Address">Address</label>
                                         @Html.TextAreaFor(m => m.Offices[i].Office.Address, 3, 100, new
-                                        {
-                                            @placeholder = "Type Address Here",
-                                            @class = "form-control",
-                                            @id = "Address",
-                                            @style = "min-width: 100%;"
-                                        })
+                                   {
+                                       @placeholder = "Type Address Here",
+                                       @class = "form-control",
+                                       @id = "Address" + Model.Offices[i].Office.OfficeId,
+                                       @style = "min-width: 100%;"
+                                   })
 
                                         @Html.DropDownListFor(m => m.Offices[i].Office.Country, Model.Offices[i].Countries, null, new
-                                        {
-                                            @class = "form-control"
-                                        })
+                                   {
+                                       @class = "form-control",
+                                       @id = "Country" + Model.Offices[i].Office.OfficeId
+                                   })
 
-                                </div>
+                                    </div>
 
-                                <div class="form-group">
-                                    <label for="switchboard">Switchboard</label>
+                                    <div class="form-group">
+                                        <label for="switchboard">Switchboard</label>
                                         @Html.TextBoxFor(m => m.Offices[i].Office.Switchboard, new
-                                        {
-                                            @placeholder = "Type Switchboard Here",
-                                            @class = "form-control",
-                                            @rows = "1",
-                                            @id = "switchboard",
-                                            @style = "min-width: 100%;"
-                                        })
-                                </div>
+                                   {
+                                       @placeholder = "Type Switchboard Here",
+                                       @class = "form-control",
+                                       @rows = "1",
+                                       @id = "Switchboard",
+                                       @style = "min-width: 100%;"
+                                   })
+                                    </div>
 
-                                <div class="form-group">
-                                    <label for="Fax">Fax</label>
+                                    <div class="form-group">
+                                        <label for="Fax">Fax</label>
                                         @Html.TextBoxFor(m => m.Offices[i].Office.Fax, new
-                                        {
-                                            @placeholder = "Type Fax Here",
-                                            @class = "form-control",
-                                            @rows = "1",
-                                            @id = "Fax",
-                                            @style = "min-width: 100%;"
+                                   {
+                                       @placeholder = "Type Fax Here",
+                                       @class = "form-control",
+                                       @rows = "1",
+                                       @id = "Fax",
+                                       @style = "min-width: 100%;"
+                                   })
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="timezone">Timezone</label>
+                                        @*  @Html.DropDownListFor(m => m.OfficeEdit.NewTimeZone, null, null, new {
+                                                @class = "form-control",
+                                                @id = "Timezone" + Model.Offices[i].Office.OfficeId
                                         })
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="timezone">Timezone</label>
-                                    @*  @Html.DropDownListFor(m => m.OfficeEdit.NewTimeZone, null, null, new { @class = "form-control" })
                                         *@
-                                </div>
+                                    </div>
 
-                                <div class="form-group">
-                                    <label for="operating">Operating</label>
-                                        @Html.DropDownListFor(m => m.Offices[i].Office.Operating, Model.Offices[i].OperatingOptions, null, 
-                                       new { @class = "form-control" })
+                                    <div class="form-group">
+                                        <label for="operating">Operating</label>
+                                        @Html.DropDownListFor(m => m.Offices[i].Office.Operating, Model.Offices[i].OperatingOptions, null,
+                                        new
+                                        {
+                                            @class = "form-control",
+                                            @id = "Operating" + Model.Offices[i].Office.OfficeId,
+                                        })
 
-                                </div>
+                                    </div>
 
+                                </form>
 
                             </div>
-
+                            
                             <div class="modal-footer">
                                     <button type="button" class="btn btn-default" onclick="modalCheck(@Model.Offices[i].Office.OfficeId);">Close</button>
                                 <button type="submit" class="btn btn-primary">Save changes</button>
+                                <button type="submit" onclick="checkAll(@Model.Offices[i].Office.OfficeId)"> Test</button>
                             </div>
 
                         }
@@ -390,6 +401,37 @@
         if (confirm('Are you sure you want to cancel. You will lose your unsaved changes')) {
             $('#modal_' + x).modal('hide')
         }
+    }
+
+    function highlight(x) {
+        try {
+            if (x.value != x.defaultValue) {
+                x.style.color = "red";
+            }
+        } catch (e) {
+            alert(x);
+        } 
+    }
+
+    function checkAll(id) {
+        var name = document.getElementById('Office' + id);
+        var address = document.getElementById('Address' + id);
+        var country = document.getElementById('Country' + id);
+        console.log("country Value: " + country + "Default: " + country);
+        var switchboard = document.getElementById('Switchboard' + id);
+        var fax = document.getElementById('Fax' + id);
+        //var zone = document.getElementById('Timezone' + id);
+        var operating = document.getElementById('Operating' + id);
+        console.log("operating Value: " + operating + "Default: " + operating);
+
+        console.log(operating);
+        highlight(name);
+        highlight(address);
+        highlight(country);
+        highlight(switchboard);
+        highlight(fax);
+        //highlight(zone);
+        highlight(operating);
     }
     function toggleModal(x) {
         $('#plain_' + x).modal('show');
