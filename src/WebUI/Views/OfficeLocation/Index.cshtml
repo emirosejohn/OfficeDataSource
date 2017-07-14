@@ -227,6 +227,7 @@
 
                                         @Html.DropDownListFor(m => m.Offices[i].Office.Country, Model.Offices[i].Countries, null, new
                                    {
+                                       @selected = Model.Offices[i].Office.Country,
                                        @class = "form-control",
                                        @id = "Country" + Model.Offices[i].Office.OfficeId
                                    })
