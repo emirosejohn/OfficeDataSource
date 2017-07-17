@@ -38,7 +38,7 @@ task CopyTempToSiteLocation -depends ConfigureWeb{
 
     If (Test-Path "$siteLocation") {
 	    Write-Host "Deleting contents: $siteLocation"
-	    Get-ChildItem $siteLocation -Recurse | Remove-Item -Force  
+	    Get-ChildItem $siteLocation -Recurse -Force | Remove-Item -Force  
     }
 	    Write-Host "Creating folder: $siteLocation"
 	    New-Item -ItemType directory -Path $siteLocation
