@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using Email;
 using OfficeLocationMicroservice.Core.Services.SharedContext.OfficeLocationDatabase;
 
 namespace OfficeLocationMicroservice.Core.Domain.OfficeLocationContext
@@ -40,6 +42,8 @@ namespace OfficeLocationMicroservice.Core.Domain.OfficeLocationContext
 
         public OfficeLocation Update(OfficeLocation editedOfficeLocation)
         {
+            SendEmail();
+
             var offices = GetAll();
 
             var officeDto = editedOfficeLocation.ExtractDto();
@@ -57,6 +61,19 @@ namespace OfficeLocationMicroservice.Core.Domain.OfficeLocationContext
                 _officeDataTableGateway.Update(officeDto);
             }
             return editedOfficeLocation;
+        }
+
+        private void SendEmail()
+        {
+            var client = new EmailClient("***REMOVED***");
+
+            var toList = new List<string>()
+            {
+                "***REMOVED***",
+                "***REMOVED***"
+            };
+            
+            client.SendEmailMessage(toList, "***REMOVED***", "test body", "test");
         }
 
         public OfficeLocation GetById(int id)
