@@ -156,8 +156,6 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
                 countryArray2[5].Text.Should().Be("Country 6");
                 countryArray2[5].Selected.Should().Be(false);
 
-
-
             });
         }
     }

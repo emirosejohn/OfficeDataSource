@@ -72,7 +72,9 @@ namespace OfficeLocationMicroservice.Data.OfficeLocationDatabase
             ,[TimeZone]
             ,[Operating]
         FROM
-            [OfficeLocation].[Office]";
+            [OfficeLocation].[Office]
+        ORDER BY
+            [Name]";
 
             OfficeDto[] result = null;
             ConnectionExecuteWithLog(
