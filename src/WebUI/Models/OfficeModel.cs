@@ -6,5 +6,6 @@ namespace OfficeLocationMicroservice.WebUi.Models
     {
         public OfficeWithEnumeration[] Offices { get; set; }
         public OfficeWithEnumeration NewOffice { get; set; }
+        public bool? NotificationFlag { get; set; }
     }
 }
