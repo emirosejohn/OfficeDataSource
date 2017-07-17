@@ -1,4 +1,6 @@
-﻿properties {
+﻿include "configfile.ps1"
+
+properties {
 	$baseDir = resolve-path .
     $siteLocation = "C:\UtilityApps\$ProjectName"
 
