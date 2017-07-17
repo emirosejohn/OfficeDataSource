@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
+using System.Security.Policy;
 using System.Web.Mvc;
 using OfficeLocationMicroservice.Core;
 using OfficeLocationMicroservice.Core.Domain.CountryContext;
@@ -29,7 +30,7 @@ namespace OfficeLocationMicroservice.WebUi.Controllers
             _countryRepository = countryRepository;
         }
 
-        public ActionResult Index()
+        public ActionResult Index(bool? notificationFlag = null)
         {
             OfficeModel officeModel = new OfficeModel();
 
@@ -41,6 +42,7 @@ namespace OfficeLocationMicroservice.WebUi.Controllers
 
             officeModel.NewOffice = officeWithEnumerationGenerator.NewOffice(new OfficeLocation());
 
+            officeModel.NotificationFlag = notificationFlag;
 
             return View(officeModel);
         }
@@ -52,7 +54,7 @@ namespace OfficeLocationMicroservice.WebUi.Controllers
             {
                 foreach (var office in officeModel.Offices)
                 {
-                    if (office.Office != null)
+                    if (office?.Office != null)
                     {
                         var officelocation = _officeLocationRepository.Update(office.Office);
                     }
@@ -64,7 +66,7 @@ namespace OfficeLocationMicroservice.WebUi.Controllers
                 var officelocation =  _officeLocationRepository.Update(officeModel.NewOffice.Office);
             }
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", new {notificationFlag = true});
          }
     }
 

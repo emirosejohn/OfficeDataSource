@@ -21,7 +21,6 @@ namespace OfficeLocationMicroservice.Core.Services.OfficeWithEnumeration
             Timezones = null;
         }
 
-
         public OfficeWithEnumeration(
             OfficeLocation office,
             Country[] countries,

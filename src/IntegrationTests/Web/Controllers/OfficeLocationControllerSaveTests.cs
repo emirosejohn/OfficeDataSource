@@ -107,8 +107,62 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
             });
         }
 
-        [Fact]
-        public void ShouldUpdateExistingDtoWithNewInfo()
+        [Fact(DisplayName= "Make sure that update works with offices array")]
+        public void ShouldUpdateOfficesDtoWithNewInfo()
+        {
+            var testHelper = new TestHelper();
+
+            testHelper.DatabaseDataDeleter(() =>
+            {
+                var officeDto0 = new OfficeDto()
+                {
+                    Name = "Austin",
+                    Address = "Dimensional Place 6300 Bee Cave Road",
+                    Country = "United States",
+                    Switchboard = "***REMOVED***",
+                    Fax = "+***REMOVED***",
+                    TimeZone = "Central Standard Time",
+                    Operating = 1
+                };
+
+                var expectedOfficeId = testHelper.InsertOfficeDto(officeDto0);
+
+                var updatedOfficeDto = SimulateUpdatingOfficeLocation(expectedOfficeId);
+
+                var controller = testHelper.CreateController();
+
+                var locationModel = updatedOfficeDto.ExtractOfficeLocation();
+
+                var locationOffice = new OfficeModel()
+                {
+                    Offices = new OfficeWithEnumeration[]
+                    {   null,
+                        null,
+                        new OfficeWithEnumeration(locationModel, testHelper.GetAllCountries(), null)
+                    }
+                };
+
+                var actionResult = controller.Save(locationOffice);
+
+                var officeLocationRepository = testHelper.GetOfficeLocationRepository();
+
+                var offices = officeLocationRepository.GetAll();
+
+                offices.Length.Should().Be(1);
+
+                offices[0].OfficeId.Should().Be(expectedOfficeId);
+                offices[0].Name.Should().Be("Changed");
+                offices[0].Address.Should().Be("Updated");
+                offices[0].Country.Should().Be("New string");
+                offices[0].Switchboard.Should().Be("Different value here");
+                offices[0].Fax.Should().Be("This had changed");
+                offices[0].TimeZone.Should().Be("Not the same string");
+                offices[0].Operating.Should().Be("Closed");
+            });
+        }
+
+        [Fact(DisplayName = "Make sure that update works with newoffice")]
+        public void ShouldUpdateNewOfficeWithNewInfo()
         {
             var testHelper = new TestHelper();
 
@@ -126,7 +180,6 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
                 };
 
 
-
                 var expectedOfficeId = testHelper.InsertOfficeDto(officeDto0);
 
                 var updatedOfficeDto = SimulateUpdatingOfficeLocation(expectedOfficeId);
@@ -137,10 +190,8 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
 
                 var locationOffice = new OfficeModel()
                 {
-                    Offices = new OfficeWithEnumeration[]
-                    {
-                        new OfficeWithEnumeration(locationModel, testHelper.GetAllCountries(), null)
-                    }
+                    NewOffice = new OfficeWithEnumeration(locationModel, testHelper.GetAllCountries(), null)
+                  
                 };
 
                 var actionResult = controller.Save(locationOffice);
