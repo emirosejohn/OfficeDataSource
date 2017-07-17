@@ -65,7 +65,7 @@ task RebuildDatabase{
 
 Function OfficeLocationMicroserviceConnectionString([string] $env)
 {
-	return "Initial Catalog=Characteristic;Data Source=OfficeLocationMicroserviceDB-$env;Integrated Security=SSPI;"
+	return "Initial Catalog=OfficeLocationMicroservice;Data Source=OfficeLocationMicroserviceDB-$env;Integrated Security=SSPI;"
 }
 
 
