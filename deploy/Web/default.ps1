@@ -38,12 +38,13 @@ task CopyTempToSiteLocation -depends ConfigureWeb{
 
     If (Test-Path "$siteLocation") {
 	    Write-Host "Deleting contents: $siteLocation"
-	    Remove-Item "$siteLocation" -Recurse -Force 
+	    Remove-Item "$siteLocation\*" -Recurse -Force 
         # Get-ChildItem $siteLocation -Recurse -Force | Remove-Item -Force  
     }
+    else{
 	    Write-Host "Creating folder: $siteLocation"
 	    New-Item -ItemType directory -Path $siteLocation
-    
+    }
 
     #Move from temp to the site folder.
     Write-Host "copying from $tempLocation\* to  $siteLocation"
