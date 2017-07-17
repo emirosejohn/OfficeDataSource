@@ -11,7 +11,7 @@
 
     $tempLocation = "C:\temp\$ProjectName"
 
-    $webConfigFile = "$tempLocation\Release\_PublishedWebsites\WebUI\Web.confi"
+    $webConfigFile = "$tempLocation\Release\_PublishedWebsites\WebUI\Web.config"
 }
 
 task default -depends ConfigureWeb, CopyTempToSiteLocation
@@ -22,9 +22,9 @@ formatTaskName {
 }
 
 
-task ConfigureWeb -requiredVariables OfficeLocationDatabase, CountryWebApiUrl {
+task ConfigureWeb -requiredVariables enviornment, CountryWebApiUrl {
 
-ChangeConnectionString $webConfigFile "OfficeLocationDatabase" $OfficeLocationDatabase
+ChangeConnectionString $webConfigFile "OfficeLocationDatabase" (OfficeLocationMicroserviceConnectionString "$enviornment")
 ChangeAppSetting $webConfigFile "CountryWebApiUrl" $CountryWebApiUrl
 
 }
