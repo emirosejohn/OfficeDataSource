@@ -54,7 +54,7 @@ namespace OfficeLocationMicroservice.WebUi.Controllers
             {
                 foreach (var office in officeModel.Offices)
                 {
-                    if (office.Office != null)
+                    if (office?.Office != null)
                     {
                         var officelocation = _officeLocationRepository.Update(office.Office);
                     }
