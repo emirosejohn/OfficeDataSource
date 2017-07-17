@@ -18,6 +18,7 @@ Invoke-psake -buildFile .\deploy\Web\default.ps1 `
 				 "enviornment" = "PRD"
                  "databaseServer" = "***REMOVED***"
                  "projectName" = "$projectName"
+                 "CountryWebApiUrl" = "***REMOVED***/"
 				}
 
 Write-Host "Build exit code:" $LastExitCode
