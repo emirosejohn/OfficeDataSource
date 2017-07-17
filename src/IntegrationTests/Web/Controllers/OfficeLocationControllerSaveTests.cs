@@ -213,6 +213,78 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
             });
         }
 
+        [Fact(DisplayName="Should Reorder Offices by Name")]
+        public void ShouldReturnOfficesInAlphabeticalOrder()
+        {
+            var testHelper = new TestHelper();
+
+            testHelper.DatabaseDataDeleter(() =>
+            {
+
+                var officeDto0 = new OfficeDto()
+                {
+                    Name = "Berlin",
+                    Address = "***REMOVED*** Kurfürstendamm 194, D - 10707 Berlin",
+                    Country = "Germany",
+                    Switchboard = "***REMOVED***",
+                    Fax = "***REMOVED***",
+                    TimeZone = "Central European Timezone",
+                    Operating = 0
+                };
+
+                var officeDto1 = new OfficeDto()
+                {
+                    Name = "Austin",
+                    Address = "Dimensional Place 6300 Bee Cave Road",
+                    Country = "United States",
+                    Switchboard = "***REMOVED***",
+                    Fax = "+***REMOVED***",
+                    TimeZone = "Central Standard Time",
+                    Operating = 1
+                };
+
+                var expectedOfficeId1 = testHelper.InsertOfficeDto(officeDto0);
+
+                var controller = testHelper.CreateController();
+
+                var locationModel = officeDto1.ExtractOfficeLocation();
+
+                var locationOffice = new OfficeModel()
+                {
+                    Offices = new OfficeWithEnumeration[]
+                    {
+                        new OfficeWithEnumeration(locationModel, testHelper.GetAllCountries(), null)
+                    }
+
+                };
+
+                var actionResult = controller.Save(locationOffice);
+
+                var officeLocationRepository = testHelper.GetOfficeLocationRepository();
+                var offices = officeLocationRepository.GetAll();
+
+                offices.Length.Should().Be(2);
+
+                offices[0].OfficeId.Should().BeGreaterThan(0);
+                offices[0].Name.Should().Be("Austin");
+                offices[0].Address.Should().Be("Dimensional Place 6300 Bee Cave Road");
+                offices[0].Country.Should().Be("United States");
+                offices[0].Switchboard.Should().Be("***REMOVED***");
+                offices[0].Fax.Should().Be("+***REMOVED***");
+                offices[0].TimeZone.Should().Be("Central Standard Time");
+                offices[0].Operating.Should().Be("Active");
+
+                offices[1].OfficeId.Should(). Be(expectedOfficeId1);
+                offices[1].Name.Should().Be("Berlin");
+                offices[1].Address.Should().Be("***REMOVED*** Kurfürstendamm 194, D - 10707 Berlin");
+                offices[1].Country.Should().Be("Germany");
+                offices[1].Switchboard.Should().Be("***REMOVED***");
+                offices[1].Fax.Should().Be("***REMOVED***");
+                offices[1].TimeZone.Should().Be("Central European Timezone");
+                offices[1].Operating.Should().Be("Closed");
+            });
+        }
+
         private OfficeDto SimulateUpdatingOfficeLocation(int expectedOfficeId)
         {
             return new OfficeDto()
