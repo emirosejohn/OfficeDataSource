@@ -1,5 +1,5 @@
-﻿using OfficeLocationMicroservice.Core.Services.SharedContext.OfficeLocationDatabase;
-using OfficeLocationMicroservice.Core.SharedContext;
+﻿using OfficeLocationMicroservice.Core.Services.SharedContext;
+using OfficeLocationMicroservice.Core.Services.SharedContext.OfficeLocationDatabase;
 
 namespace OfficeLocationMicroservice.Data.OfficeLocationDatabase
 {

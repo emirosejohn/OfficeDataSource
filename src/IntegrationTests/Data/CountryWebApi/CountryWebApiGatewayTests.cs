@@ -15,7 +15,7 @@ namespace OfficeLocationMicroservice.IntegrationTests.Data.CountryWebApi
 
             var systemLog = new SystemLogForIntegrationTests();
 
-            DependencyManager.BootstrapForTests(systemLog, dataConnectionStrings, dataConnectionStrings);
+            DependencyManager.BootstrapForTests(systemLog, dataConnectionStrings, dataConnectionStrings, dataConnectionStrings);
 
             var countryWebApiGateway = MasterFactory.CountryWebApiGateway;
 

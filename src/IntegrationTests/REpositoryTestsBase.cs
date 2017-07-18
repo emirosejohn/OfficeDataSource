@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using OfficeLocationMicroservice.Core;
-using OfficeLocationMicroservice.Core.SharedContext;
+using OfficeLocationMicroservice.Core.Services.SharedContext;
 using OfficeLocationMicroservice.DependencyManagement;
 
 namespace OfficeLocationMicroservice.IntegrationTests
@@ -26,7 +26,7 @@ namespace OfficeLocationMicroservice.IntegrationTests
             {
                 SystemLog = new SystemLogForIntegrationTests();
 
-                DependencyManager.BootstrapForTests(SystemLog, _dataConnectionStrings, _dataConnectionStrings);
+                DependencyManager.BootstrapForTests(SystemLog, _dataConnectionStrings, _dataConnectionStrings, _dataConnectionStrings);
 
                 AlreadyInit = true;
             }

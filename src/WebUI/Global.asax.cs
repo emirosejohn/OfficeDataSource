@@ -13,7 +13,7 @@ namespace OfficeLocationMicroservice.WebUi
         protected void Application_Start()
         {
             var websiteSettings = new WebSiteSettings();
-            DependencyManager.BootstrapForSystem("Web Site", websiteSettings, websiteSettings);
+            DependencyManager.BootstrapForSystem("Web Site", websiteSettings, websiteSettings, websiteSettings);
 
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);

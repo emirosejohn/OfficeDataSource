@@ -25,11 +25,6 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
 
                 officesArray.Length.Should().Be(0);
 
-                //var countryArray = viewResultModel.Offices[0].Countries.ToArray();
-
-
-
-
             });
         }
 

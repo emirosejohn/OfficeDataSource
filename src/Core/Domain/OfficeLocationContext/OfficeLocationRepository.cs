@@ -1,21 +1,36 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using OfficeLocationMicroservice.Core.Services.Email;
 using OfficeLocationMicroservice.Core.Services.SharedContext.OfficeLocationDatabase;
 
 namespace OfficeLocationMicroservice.Core.Domain.OfficeLocationContext
 {
-    public class OfficeLocationRepository 
+    public class OfficeLocationRepository
     {
         private readonly IOfficeDataTableGateway _officeDataTableGateway;
+        private IEmailClient _client;
 
-        public OfficeLocationRepository(IOfficeDataTableGateway officeGateway)
+        public OfficeLocationRepository(
+            IOfficeDataTableGateway officeGateway,
+            IEmailClient client)
         {
             _officeDataTableGateway = officeGateway;
+            _client = client;
         }
 
         public OfficeLocation GetByName(string name)
         {
             var officeDto = _officeDataTableGateway.GetByName(name);
+
+            var office = officeDto.ExtractOfficeLocation();
+
+            return office;
+        }
+
+        public OfficeLocation GetById(int id)
+        {
+            OfficeDto officeDto = _officeDataTableGateway.GetById(id);
 
             var office = officeDto.ExtractOfficeLocation();
 
@@ -38,106 +53,53 @@ namespace OfficeLocationMicroservice.Core.Domain.OfficeLocationContext
 
         }
 
-        public OfficeLocation Update(OfficeLocation editedOfficeLocation)
+        public OfficeLocation Update(OfficeLocation changedOfficeLocation)
         {
+
             var offices = GetAll();
 
-            var officeDto = editedOfficeLocation.ExtractDto();
+            var officeDto = changedOfficeLocation.ExtractDto();
 
-            if (offices.All(x => x.OfficeId != editedOfficeLocation.OfficeId))
+            if (offices.All(x => x.OfficeId != changedOfficeLocation.OfficeId))
             {
                 var id = _officeDataTableGateway.Insert(officeDto);
 
-                editedOfficeLocation.OfficeId = id;
-                 
+                changedOfficeLocation.OfficeId = id;
+                SendInsertEmail(changedOfficeLocation);
 
             }
             else
             {
+                var originalOfficeLocation = GetById(officeDto.OfficeId);
                 _officeDataTableGateway.Update(officeDto);
+                SendUpdateEmail(changedOfficeLocation, originalOfficeLocation);
             }
-            return editedOfficeLocation;
+            return changedOfficeLocation;
         }
 
-        public OfficeLocation GetById(int id)
+        private void SendInsertEmail(
+            OfficeLocation changedOfficeLocation)
         {
-            OfficeDto officeDto = _officeDataTableGateway.GetById(id);
+            var body = OfficeLocationRepositoryHelper.GenerateInsertEmailBody(
+                changedOfficeLocation);
 
-            var office = officeDto.ExtractOfficeLocation();
-                
-            return office;
+            var subject = OfficeLocationRepositoryHelper.GenerateInsertEmailSubject(
+                changedOfficeLocation);
+
+            _client.SendEmailMessage(body, subject);
         }
-    }
 
-    public static class OfficeLocationExtensions
-    {
-        public static OfficeDto ExtractDto(this OfficeLocation officeLocation)
+        private void SendUpdateEmail(
+            OfficeLocation changedOfficeLocation,
+            OfficeLocation originalOfficeLocation)
         {
-            if (officeLocation == null)
-            {
-                return null;
-            }
+            var body = OfficeLocationRepositoryHelper.GenerateUpdateEmailBody(
+                changedOfficeLocation, originalOfficeLocation);
 
-            var officeDto = new OfficeDto()
-            {
-                OfficeId = officeLocation.OfficeId,
-                Name = officeLocation.Name,
-                Address = officeLocation.Address,
-                Country = officeLocation.Country,
-                Switchboard = officeLocation.Switchboard,
-                Fax = officeLocation.Fax,
-                TimeZone = officeLocation.TimeZone,  
-            };
+            var subject = OfficeLocationRepositoryHelper.GenerateUpdateEmailSubject(
+                changedOfficeLocation);
 
-            switch (officeLocation.Operating)
-            {
-                case "Active":
-                    officeDto.Operating = 1;
-                    break;
-                case "Closed":
-                    officeDto.Operating = 0;
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-
-            return officeDto;
-        }
-    }
-
-    public static class OfficeDtoExtensions
-    {
-        public static OfficeLocation ExtractOfficeLocation(this OfficeDto officeDto)
-        {
-            if (officeDto == null)
-            {
-                return null;
-            }
-
-            var officeLocation = new OfficeLocation()
-            {
-                OfficeId = officeDto.OfficeId,
-                Name = officeDto.Name,
-                Address = officeDto.Address,
-                Country = officeDto.Country,
-                Switchboard = officeDto.Switchboard,
-                Fax = officeDto.Fax,
-                TimeZone = officeDto.TimeZone,
-            };
-
-            switch (officeDto.Operating)
-            {
-                case 1:
-                    officeLocation.Operating = "Active";
-                    break;
-                case 0:
-                    officeLocation.Operating = "Closed";
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-
-            return officeLocation;
+            _client.SendEmailMessage(body, subject);
         }
     }
 }

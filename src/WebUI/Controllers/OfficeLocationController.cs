@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Security.Policy;
 using System.Web.Mvc;
@@ -50,20 +51,26 @@ namespace OfficeLocationMicroservice.WebUi.Controllers
         [HttpPost]
         public ActionResult Save(OfficeModel officeModel)
         {
-            if (officeModel.Offices != null )
+            if (officeModel.Offices != null)
             {
                 foreach (var office in officeModel.Offices)
                 {
-                    if (office?.Office != null)
+                    if (office?.Office != null && office.HasChanged!=null)
                     {
-                        var officelocation = _officeLocationRepository.Update(office.Office);
+                        if (Boolean.Parse(office.HasChanged))
+                        {
+                            var officelocation = _officeLocationRepository.Update(office.Office);
+                        }
                     }
                 }
             }
 
-            if (officeModel.NewOffice?.Office != null)
+            if (officeModel.NewOffice?.Office != null && officeModel.NewOffice.HasChanged != null)
             {
-                var officelocation =  _officeLocationRepository.Update(officeModel.NewOffice.Office);
+                if (Boolean.Parse(officeModel.NewOffice.HasChanged))
+                {
+                    var officelocation = _officeLocationRepository.Update(officeModel.NewOffice.Office);
+                }             
             }
 
             return RedirectToAction("Index", new {notificationFlag = true});
