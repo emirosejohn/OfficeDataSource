@@ -17,9 +17,21 @@ namespace OfficeLocationMicroservice.IntegrationTests
             get { return ConfigurationManager.AppSettings["CountryWebApiUrl"];  }
         }
 
-        public string EmailSubject { get; }
-        public string EmailServerName { get; }
-        public string EmailTo { get; }
-        public string EmailFrom { get; }
+        public string EmailSubject
+        {
+            get { return ConfigurationManager.AppSettings["EmailSubject"]; }
+        }
+        public string EmailServerName
+        {
+            get { return ConfigurationManager.AppSettings["EmailServerName"]; }
+        }
+        public string EmailTo
+        {
+            get { return ConfigurationManager.AppSettings["EmailTo"]; }
+        }
+        public string EmailFrom
+        {
+            get { return ConfigurationManager.AppSettings["EmailFrom"]; }
+        }
     }
 }

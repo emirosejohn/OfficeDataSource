@@ -9,10 +9,14 @@ namespace OfficeLocationMicroservice.Core.Domain.OfficeLocationContext
     public class OfficeLocationRepository 
     {
         private readonly IOfficeDataTableGateway _officeDataTableGateway;
+        private IEmailClient _client;
 
-        public OfficeLocationRepository(IOfficeDataTableGateway officeGateway)
+        public OfficeLocationRepository(
+            IOfficeDataTableGateway officeGateway, 
+            IEmailClient client)
         {
             _officeDataTableGateway = officeGateway;
+            _client = client;
         }
 
         public OfficeLocation GetByName(string name)
@@ -65,23 +69,19 @@ namespace OfficeLocationMicroservice.Core.Domain.OfficeLocationContext
 
         private void SendEmail()
         {
-            var client = MasterFactory.EmailClient;
-
-            client.SendEmailMessage("test body", "test");
+            _client.SendEmailMessage("test body", "test");
         }
 
 
         private void SendEmailTest()
         {
-            var client = MasterFactory.EmailClient;
-
             var toList = new List<string>()
             {
                 "***REMOVED***",
                 "***REMOVED***"
             };
             
-            client.SendEmailMessage(toList, "***REMOVED***", "test body", "test");
+            _client.SendEmailMessage(toList, "***REMOVED***", "test body", "test");
         }
 
         public OfficeLocation GetById(int id)

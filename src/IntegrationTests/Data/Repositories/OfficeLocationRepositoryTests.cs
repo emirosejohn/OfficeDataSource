@@ -20,7 +20,7 @@ namespace OfficeLocationMicroservice.IntegrationTests.Data.Repositories
             officeLocations.Should().NotBeNull();
 
             officeLocations.Length.Should().BeGreaterThan(0);
-
         }
+
     }
 }

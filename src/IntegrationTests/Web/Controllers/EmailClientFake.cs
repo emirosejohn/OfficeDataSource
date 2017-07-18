@@ -1,31 +1,24 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Net;
 using System.Net.Mail;
-using System.Text;
-using System.Threading.Tasks;
+using Email;
 
-namespace Email
+namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
 {
-    public class EmailClient : IEmailClient
+    public class EmailClientFake : IEmailClient
     {
-        private readonly string _serverName;
         private readonly string _to;
         private readonly string _from;
 
-        public EmailClient(IEmailSettings emailSettings)
+        public EmailClientFake(IEmailSettings emailSettings)
         {
-            _serverName = emailSettings.EmailServerName;
             _to = emailSettings.EmailTo;
             _from = emailSettings.EmailFrom;
         }
 
         public MailMessage SendEmailMessage(string body, string subject)
         {
-            var client = new SmtpClient(_serverName);
-
             MailMessage message = new MailMessage();
 
             message.From = new MailAddress(_from);
@@ -33,24 +26,11 @@ namespace Email
             message.Body = body;
             message.Subject = subject;
 
-            client.UseDefaultCredentials = true;
-
-            try
-            {
-                client.Send(message);
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex);
-            }
-
             return message;
         }
 
         public MailMessage SendEmailMessage(List<string> to, string from, string body, string subject)
         {
-            var client = new SmtpClient(_serverName);
-
             MailMessage message = new MailMessage();
 
             message.From = new MailAddress(from);
@@ -61,23 +41,7 @@ namespace Email
             message.Body = body;
             message.Subject = subject;
 
-            client.UseDefaultCredentials = true;
-
-            try
-            {
-                client.Send(message);
-            }
-            catch(Exception ex)
-            {
-                Debug.WriteLine(ex);
-            }
-
             return message;
         }
-
-
-
-
-
     }
 }

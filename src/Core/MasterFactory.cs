@@ -16,7 +16,7 @@ namespace OfficeLocationMicroservice.Core
 
         public static OfficeLocationRepository GetOfficeLocationRepository()
         {
-            return new OfficeLocationRepository(OfficeDataTableGateway);
+            return new OfficeLocationRepository(OfficeDataTableGateway, EmailClient);
         }
 
         public static CountryRepository GetCountryRepository()
