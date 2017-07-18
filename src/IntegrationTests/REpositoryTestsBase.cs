@@ -26,7 +26,7 @@ namespace OfficeLocationMicroservice.IntegrationTests
             {
                 SystemLog = new SystemLogForIntegrationTests();
 
-                DependencyManager.BootstrapForTests(SystemLog, _dataConnectionStrings, _dataConnectionStrings);
+                DependencyManager.BootstrapForTests(SystemLog, _dataConnectionStrings, _dataConnectionStrings, _dataConnectionStrings);
 
                 AlreadyInit = true;
             }

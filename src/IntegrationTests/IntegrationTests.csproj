@@ -131,6 +131,10 @@
       <Project>{10f890b4-3442-4cda-ac75-60f3651a7249}</Project>
       <Name>DependencyManagement</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Email\Email.csproj">
+      <Project>{6B31E772-ED15-43CF-98E6-5D7BEEB297EA}</Project>
+      <Name>Email</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WebUI\WebUI.csproj">
       <Project>{20F89AD6-42AA-4DAB-AEBC-26992EB239AD}</Project>
       <Name>WebUI</Name>

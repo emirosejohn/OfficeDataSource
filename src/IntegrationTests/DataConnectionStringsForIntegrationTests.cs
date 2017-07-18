@@ -1,10 +1,11 @@
 ﻿using System.Configuration;
+using Email;
 using OfficeLocationMicroservice.Core.Services.CountryFetcher.CountryWebApi;
 using OfficeLocationMicroservice.Core.Services.SharedContext.OfficeLocationDatabase;
 
 namespace OfficeLocationMicroservice.IntegrationTests
 {
-    class DataConnectionStringsForIntegrationTests : IOfficeLocationDatabaseSettings, ICountryWebApiSettings
+    class DataConnectionStringsForIntegrationTests : IOfficeLocationDatabaseSettings, ICountryWebApiSettings, IEmailSettings
     {
         public string ConnectionString
         {
@@ -15,5 +16,10 @@ namespace OfficeLocationMicroservice.IntegrationTests
         {
             get { return ConfigurationManager.AppSettings["CountryWebApiUrl"];  }
         }
+
+        public string EmailSubject { get; }
+        public string EmailServerName { get; }
+        public string EmailTo { get; }
+        public string EmailFrom { get; }
     }
 }

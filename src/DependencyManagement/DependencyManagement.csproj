@@ -52,6 +52,10 @@
       <Project>{B5666D5C-30CC-429C-9620-9ECC777C3449}</Project>
       <Name>Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Email\Email.csproj">
+      <Project>{6B31E772-ED15-43CF-98E6-5D7BEEB297EA}</Project>
+      <Name>Email</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Logging\Logging.csproj">
       <Project>{275A7880-6916-4BA9-9252-26BD0B43D10A}</Project>
       <Name>Logging</Name>

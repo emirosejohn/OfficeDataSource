@@ -12,23 +12,47 @@ namespace Email
     public class EmailClient
     {
         private readonly string _serverName;
-        private readonly int _port;
-        private readonly string _host;
+        private readonly string _to;
+        private readonly string _from;
 
-        public EmailClient(string serverName)
+        public EmailClient(IEmailSettings emailSettings)
         {
-            _serverName = serverName;
-            _host = "smtp-mail.outlook.com";
-            _port = 587;
+            _serverName = emailSettings.EmailServerName;
+            _to = emailSettings.EmailTo;
+            _from = emailSettings.EmailFrom;
+        }
+
+        public void SendEmailMessage(string body, string subject)
+        {
+            var client = new SmtpClient(_serverName);
+
+            MailMessage message = new MailMessage();
+
+            message.From = new MailAddress(_from);
+
+            message.To.Add(_to);
+
+            message.Body = body;
+
+            message.Subject = subject;
+
+            client.UseDefaultCredentials = true;
+
+            try
+            {
+                client.Send(message);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+            }
+
+            message.Dispose();
         }
 
         public void SendEmailMessage(List<string> to, string from, string body, string subject)
         {
-            var client = new SmtpClient(_serverName)
-            {
-                Host = _host,
-                Port = _port
-            };
+            var client = new SmtpClient(_serverName);
 
             MailMessage message = new MailMessage();
 
@@ -44,6 +68,8 @@ namespace Email
 
             message.Subject = subject;
 
+            client.UseDefaultCredentials = true;
+
             try
             {
                 client.Send(message);
@@ -52,7 +78,6 @@ namespace Email
             {
                 Debug.WriteLine(ex);
             }
-           
 
             message.Dispose();
         }

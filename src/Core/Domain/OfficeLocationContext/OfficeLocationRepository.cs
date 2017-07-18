@@ -65,7 +65,15 @@ namespace OfficeLocationMicroservice.Core.Domain.OfficeLocationContext
 
         private void SendEmail()
         {
-            var client = new EmailClient("***REMOVED***");
+            var client = MasterFactory.EmailClient;
+
+            client.SendEmailMessage("test body", "test");
+        }
+
+
+        private void SendEmailTest()
+        {
+            var client = MasterFactory.EmailClient;
 
             var toList = new List<string>()
             {
