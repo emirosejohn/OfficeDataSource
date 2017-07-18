@@ -2,10 +2,8 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Net;
 using System.Net.Mail;
-using System.Text;
-using System.Threading.Tasks;
+using OfficeLocationMicroservice.Core.Services.Email;
 
 namespace Email
 {
@@ -28,9 +26,16 @@ namespace Email
 
             MailMessage message = new MailMessage();
 
-            message.From = new MailAddress(_from);
-            message.To.Add(_to);
+            message.From = new MailAddress(_from, "Office Data Source" );
+
+            var toList = _to.Split(',').ToList();
+
+            foreach (var to in toList)
+            {
+                message.To.Add(to);
+            }
             message.Body = body;
+            message.IsBodyHtml = true;
             message.Subject = subject;
 
             client.UseDefaultCredentials = true;
@@ -46,38 +51,6 @@ namespace Email
 
             return message;
         }
-
-        public MailMessage SendEmailMessage(List<string> to, string from, string body, string subject)
-        {
-            var client = new SmtpClient(_serverName);
-
-            MailMessage message = new MailMessage();
-
-            message.From = new MailAddress(from);
-            foreach (var mailto in to)
-            {
-                message.To.Add(mailto);
-            }
-            message.Body = body;
-            message.Subject = subject;
-
-            client.UseDefaultCredentials = true;
-
-            try
-            {
-                client.Send(message);
-            }
-            catch(Exception ex)
-            {
-                Debug.WriteLine(ex);
-            }
-
-            return message;
-        }
-
-
-
-
 
     }
 }

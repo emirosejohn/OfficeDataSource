@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Data.SqlClient;
 using System.Text;
-using OfficeLocationMicroservice.Core.SharedContext;
+using OfficeLocationMicroservice.Core.Services.SharedContext;
 
 namespace OfficeLocationMicroservice.IntegrationTests
 {

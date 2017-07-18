@@ -2,7 +2,7 @@
 using System.IO;
 using System.Net;
 using System.Web.Script.Serialization;
-using OfficeLocationMicroservice.Core.SharedContext;
+using OfficeLocationMicroservice.Core.Services.SharedContext;
 
 namespace OfficeLocationMicroservice.Data
 {

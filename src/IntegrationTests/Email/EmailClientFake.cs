@@ -1,20 +1,20 @@
-using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Net.Mail;
-using Email;
+using OfficeLocationMicroservice.Core.Services.Email;
 
-namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
+namespace OfficeLocationMicroservice.IntegrationTests.Email
 {
     public class EmailClientFake : IEmailClient
     {
         private readonly string _to;
         private readonly string _from;
+        private readonly List<MailMessage> _sentMessages;
 
         public EmailClientFake(IEmailSettings emailSettings)
         {
             _to = emailSettings.EmailTo;
             _from = emailSettings.EmailFrom;
+            _sentMessages = new List<MailMessage>();
         }
 
         public MailMessage SendEmailMessage(string body, string subject)
@@ -26,22 +26,14 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
             message.Body = body;
             message.Subject = subject;
 
+            _sentMessages.Add(message);
+
             return message;
         }
 
-        public MailMessage SendEmailMessage(List<string> to, string from, string body, string subject)
+        public List<MailMessage> GetSentMessage()
         {
-            MailMessage message = new MailMessage();
-
-            message.From = new MailAddress(from);
-            foreach (var mailto in to)
-            {
-                message.To.Add(mailto);
-            }
-            message.Body = body;
-            message.Subject = subject;
-
-            return message;
+            return _sentMessages;
         }
     }
 }

@@ -6,6 +6,7 @@ using OfficeLocationMicroservice.Core.Domain.OfficeLocationContext;
 using OfficeLocationMicroservice.Core.Services.SharedContext.OfficeLocationDatabase;
 using OfficeLocationMicroservice.Data.CountryWebApi;
 using OfficeLocationMicroservice.Data.OfficeLocationDatabase;
+using OfficeLocationMicroservice.IntegrationTests.Email;
 using OfficeLocationMicroservice.WebUi.Controllers;
 using OfficeLocationMicroservice.WebUi.Models;
 
@@ -95,6 +96,11 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
             actionResult.Should().BeAssignableTo<RedirectToRouteResult>();
             var viewResult = (RedirectToRouteResult)actionResult;
             return viewResult;
+        }
+
+        public EmailClientFake GetEmailClient()
+        {
+            return _emailClient;
         }
     }
 }

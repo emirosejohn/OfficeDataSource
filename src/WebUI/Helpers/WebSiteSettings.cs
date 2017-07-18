@@ -1,6 +1,7 @@
 ﻿using System.Configuration;
 using Email;
 using OfficeLocationMicroservice.Core.Services.CountryFetcher.CountryWebApi;
+using OfficeLocationMicroservice.Core.Services.Email;
 using OfficeLocationMicroservice.Core.Services.SharedContext;
 using OfficeLocationMicroservice.Core.Services.SharedContext.OfficeLocationDatabase;
 

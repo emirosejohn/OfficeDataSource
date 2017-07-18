@@ -2,9 +2,9 @@
 using Logging;
 using OfficeLocationMicroservice.Core;
 using OfficeLocationMicroservice.Core.Services.CountryFetcher.CountryWebApi;
+using OfficeLocationMicroservice.Core.Services.Email;
 using OfficeLocationMicroservice.Core.Services.SharedContext;
 using OfficeLocationMicroservice.Core.Services.SharedContext.OfficeLocationDatabase;
-using OfficeLocationMicroservice.Core.SharedContext;
 using OfficeLocationMicroservice.Data;
 using OfficeLocationMicroservice.Data.CountryWebApi;
 using OfficeLocationMicroservice.Data.OfficeLocationDatabase;
