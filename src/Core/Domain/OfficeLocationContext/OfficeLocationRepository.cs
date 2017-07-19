@@ -97,7 +97,7 @@ namespace OfficeLocationMicroservice.Core.Domain.OfficeLocationContext
                 changedOfficeLocation, originalOfficeLocation);
 
             var subject = OfficeLocationRepositoryHelper.GenerateUpdateEmailSubject(
-                changedOfficeLocation);
+                originalOfficeLocation);
 
             _client.SendEmailMessage(body, subject);
         }

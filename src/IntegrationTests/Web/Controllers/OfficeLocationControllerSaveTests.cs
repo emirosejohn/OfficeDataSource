@@ -197,7 +197,7 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
                 var message = messages.First();
 
                 var expectedSubject = OfficeLocationRepositoryHelper.GenerateUpdateEmailSubject(
-                    locationModel);
+                    officeDto0.ExtractOfficeLocation());
 
                 var expectedBody = OfficeLocationRepositoryHelper.GenerateUpdateEmailBody(
                     locationModel, officeDto0.ExtractOfficeLocation());
