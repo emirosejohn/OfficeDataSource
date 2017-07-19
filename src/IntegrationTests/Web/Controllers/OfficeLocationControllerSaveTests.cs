@@ -24,8 +24,6 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
             {
                 var controller = testHelper.CreateController();
 
-
-
                 var emptyOffice = new OfficeModel();
 
                 var actionResult = controller.Save(emptyOffice);
@@ -33,11 +31,15 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
                 var viewResult = testHelper.GetRedirectToRouteFromActionResult(actionResult);
 
                 viewResult.Should().NotBeNull();
+
+                var messages = testHelper.GetEmailClient().GetSentMessage();
+
+                messages.Should().BeEmpty();
             });
         }
 
         [Fact]
-        public void ShouldInsertDtoIntoDatabase()
+        public void ShouldInsertIntoDatabase()
         {
             var testHelper = new TestHelper();
 
@@ -75,12 +77,13 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
                 {
                     Offices = new OfficeWithEnumeration[]
                     {
-                        new OfficeWithEnumeration(locationModel, testHelper.GetAllCountries(), null)
-                    }
-                    
+                        new OfficeWithEnumeration(locationModel, testHelper.GetAllCountries(), null, "True")
+                    }       
                 };
 
                 var actionResult = controller.Save(locationOffice);
+
+                //**************************** 
 
                 var officeLocationRepository = testHelper.GetOfficeLocationRepository();
                 var offices = officeLocationRepository.GetAll();
@@ -104,11 +107,37 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
                 offices[1].Fax.Should().Be("***REMOVED***");
                 offices[1].TimeZone.Should().Be("Central European Timezone");
                 offices[1].Operating.Should().Be("Closed");
+
+                //**************************** 
+
+                var messages = testHelper.GetEmailClient().GetSentMessage();
+
+                messages.Count.Should().Be(1);
+
+                var message = messages.First();
+
+                var expectedSubject = OfficeLocationRepositoryHelper.GenerateInsertEmailSubject(
+                    locationModel);
+
+                var expectedBody = OfficeLocationRepositoryHelper.GenerateInsertEmailBody(
+                    locationModel);
+
+                message.Body.Should().Be(expectedBody);
+                message.Subject.Should().Be(expectedSubject);
+
+                message.To.Count.Should().Be(2);
+                var toArray = message.To.ToArray();
+
+                toArray[0].Should().Be("testTo1@dimensional.com");
+                toArray[1].Should().Be("testTo2@dimensional.com");
+
+                message.From.Should().Be("testFrom@dimensional.com");
+
             });
         }
 
         [Fact(DisplayName= "Make sure that update works with offices array")]
-        public void ShouldUpdateOfficesDtoWithNewInfo()
+        public void ShouldUpdateOfficesWithNewInfo()
         {
             var testHelper = new TestHelper();
 
@@ -137,13 +166,19 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
                 {
                     Offices = new OfficeWithEnumeration[]
                     {   null,
-                        null,
+                        new OfficeWithEnumeration(locationModel, testHelper.GetAllCountries(), null),
                         new OfficeWithEnumeration(locationModel, testHelper.GetAllCountries(), null)
                     }
                 };
 
+                locationOffice.Offices[1].HasChanged = "false";
+
+                locationOffice.Offices[2].HasChanged = "true";
+
                 var actionResult = controller.Save(locationOffice);
 
+
+                //************************
                 var officeLocationRepository = testHelper.GetOfficeLocationRepository();
 
                 var offices = officeLocationRepository.GetAll();
@@ -158,6 +193,31 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
                 offices[0].Fax.Should().Be("This had changed");
                 offices[0].TimeZone.Should().Be("Not the same string");
                 offices[0].Operating.Should().Be("Closed");
+
+                //**************************** 
+
+                var messages = testHelper.GetEmailClient().GetSentMessage();
+
+                messages.Count.Should().Be(1);
+
+                var message = messages.First();
+
+                var expectedSubject = OfficeLocationRepositoryHelper.GenerateUpdateEmailSubject(
+                    locationModel);
+
+                var expectedBody = OfficeLocationRepositoryHelper.GenerateUpdateEmailBody(
+                    locationModel, officeDto0.ExtractOfficeLocation());
+
+                message.Body.Should().Be(expectedBody);
+                message.Subject.Should().Be(expectedSubject);
+
+                message.To.Count.Should().Be(2);
+                var toArray = message.To.ToArray();
+
+                toArray[0].Should().Be("testTo1@dimensional.com");
+                toArray[1].Should().Be("testTo2@dimensional.com");
+
+                message.From.Should().Be("testFrom@dimensional.com");
             });
         }
 
@@ -190,15 +250,20 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
 
                 var locationOffice = new OfficeModel()
                 {
-                    NewOffice = new OfficeWithEnumeration(locationModel, testHelper.GetAllCountries(), null)
+                    NewOffice = new OfficeWithEnumeration(locationModel, 
+                    testHelper.GetAllCountries(), null)
                   
                 };
+
+                locationOffice.NewOffice.HasChanged = "true";
 
                 var actionResult = controller.Save(locationOffice);
 
                 var officeLocationRepository = testHelper.GetOfficeLocationRepository();
 
                 var offices = officeLocationRepository.GetAll();
+
+                //***************************
 
                 offices.Length.Should().Be(1);
 
@@ -210,6 +275,7 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
                 offices[0].Fax.Should().Be("This had changed");
                 offices[0].TimeZone.Should().Be("Not the same string");
                 offices[0].Operating.Should().Be("Closed");
+                
             });
         }
 
@@ -253,15 +319,17 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
                 {
                     Offices = new OfficeWithEnumeration[]
                     {
-                        new OfficeWithEnumeration(locationModel, testHelper.GetAllCountries(), null)
+                        new OfficeWithEnumeration(locationModel, testHelper.GetAllCountries(),
+                        null, "True")
                     }
-
                 };
 
                 var actionResult = controller.Save(locationOffice);
 
                 var officeLocationRepository = testHelper.GetOfficeLocationRepository();
                 var offices = officeLocationRepository.GetAll();
+
+                //*********************************
 
                 offices.Length.Should().Be(2);
 
@@ -282,8 +350,11 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
                 offices[1].Fax.Should().Be("***REMOVED***");
                 offices[1].TimeZone.Should().Be("Central European Timezone");
                 offices[1].Operating.Should().Be("Closed");
+
             });
         }
+
+
 
         private OfficeDto SimulateUpdatingOfficeLocation(int expectedOfficeId)
         {

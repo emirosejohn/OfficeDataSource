@@ -1,5 +1,5 @@
 ﻿using System;
-using OfficeLocationMicroservice.Core.SharedContext;
+using OfficeLocationMicroservice.Core.Services.SharedContext;
 
 namespace OfficeLocationMicroservice.IntegrationTests
 {

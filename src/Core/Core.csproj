@@ -67,10 +67,13 @@
   <ItemGroup>
     <Compile Include="Domain\CountryContext\Country.cs" />
     <Compile Include="Domain\CountryContext\CountryRepository.cs" />
+    <Compile Include="Domain\OfficeLocationContext\OfficeLocationRepositoryHelper.cs" />
     <Compile Include="MasterFactory.cs" />
     <Compile Include="Services\CountryFetcher\CountryWebApi\ICountryWebApiGateway.cs" />
     <Compile Include="Services\CountryFetcher\CountryWebApi\ICountryWebApiSettings.cs" />
     <Compile Include="Services\CountryFetcher\CountryWebApi\RegionSchemeResponseJson.cs" />
+    <Compile Include="Services\Email\IEmailClient.cs" />
+    <Compile Include="Services\Email\IEmailSettings.cs" />
     <Compile Include="Services\OfficeWithEnumeration\OfficeWithEnumeration.cs" />
     <Compile Include="Services\OfficeWithEnumeration\OfficeWithEnumerationGenerator.cs" />
     <Compile Include="Services\SharedContext\OfficeLocationDatabase\IOfficeLocationDatabaseSettings.cs" />
@@ -83,12 +86,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Email\Email.csproj">
-      <Project>{6B31E772-ED15-43CF-98E6-5D7BEEB297EA}</Project>
-      <Name>Email</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

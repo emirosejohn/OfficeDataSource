@@ -12,7 +12,7 @@ namespace OfficeLocationMicroservice.Core.Services.OfficeWithEnumeration
         public IEnumerable<SelectListItem> Countries { get; set; }
         public IEnumerable<SelectListItem> Timezones { get; set; }
         public IEnumerable<SelectListItem> OperatingOptions { get; set; }
-        public bool HasChanged { get; set; }
+        public string HasChanged { get; set; }
 
         public OfficeWithEnumeration()
         {
@@ -20,7 +20,7 @@ namespace OfficeLocationMicroservice.Core.Services.OfficeWithEnumeration
             Countries = new List<SelectListItem>();
             OperatingOptions = new List<SelectListItem>();
             Timezones = null;
-            HasChanged = false;
+            HasChanged = "false";
         }
 
         public OfficeWithEnumeration(
@@ -34,6 +34,21 @@ namespace OfficeLocationMicroservice.Core.Services.OfficeWithEnumeration
             OperatingOptions = GenerateOperatingOptions(office.Operating);
             Timezones = null;
         }
+
+        public OfficeWithEnumeration(
+            OfficeLocation office,
+            Country[] countries,
+            TimeZone[] timezones, 
+            string hasChanged
+        )
+        {
+            Office = office;
+            Countries = new SelectList(countries, "Name", "Name", office.Country);
+            OperatingOptions = GenerateOperatingOptions(office.Operating);
+            Timezones = null;
+            HasChanged = hasChanged;
+        }
+
 
         public static IEnumerable<SelectListItem> GenerateOperatingOptions(string operating)
         {
@@ -52,6 +67,11 @@ namespace OfficeLocationMicroservice.Core.Services.OfficeWithEnumeration
             });
 
             return selectedItems;
+        }
+
+        public void SetHasChanged(string hasChanged)
+        {
+            HasChanged = hasChanged;
         }
     }
 }

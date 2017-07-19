@@ -6,6 +6,7 @@ using OfficeLocationMicroservice.Core.Domain.OfficeLocationContext;
 using OfficeLocationMicroservice.Core.Services.SharedContext.OfficeLocationDatabase;
 using OfficeLocationMicroservice.Data.CountryWebApi;
 using OfficeLocationMicroservice.Data.OfficeLocationDatabase;
+using OfficeLocationMicroservice.IntegrationTests.Email;
 using OfficeLocationMicroservice.WebUi.Controllers;
 using OfficeLocationMicroservice.WebUi.Models;
 
@@ -16,6 +17,7 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
         private readonly AllTablesDeleter _allTablesDeleter;
         private readonly OfficeDataTableGateway _officeDataTableGateway;
         private readonly CountryWebApiGatewayStub _countryWebApiGateway;
+        private readonly EmailClientFake _emailClient;
 
         public TestHelper()
         {
@@ -29,13 +31,13 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
             _officeDataTableGateway = new OfficeDataTableGateway(databaseSettings, systemLogForIntegrationTests);
 
             _countryWebApiGateway = new CountryWebApiGatewayStub();
+
+            _emailClient = new EmailClientFake(databaseSettings);
         }
 
         public OfficeLocationRepository GetOfficeLocationRepository()
         {
-            
-
-            return new OfficeLocationRepository(_officeDataTableGateway);
+            return new OfficeLocationRepository(_officeDataTableGateway, _emailClient);
         }
 
         public Country[] GetAllCountries()
@@ -46,7 +48,7 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
 
         public OfficeLocationController CreateController()
         {
-            var officeLocationRepository = new OfficeLocationRepository(_officeDataTableGateway);
+            var officeLocationRepository = new OfficeLocationRepository(_officeDataTableGateway, _emailClient);
             var countryRepository = new CountryRepository(_countryWebApiGateway);
             return new OfficeLocationController(officeLocationRepository, countryRepository);
         }
@@ -94,6 +96,11 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
             actionResult.Should().BeAssignableTo<RedirectToRouteResult>();
             var viewResult = (RedirectToRouteResult)actionResult;
             return viewResult;
+        }
+
+        public EmailClientFake GetEmailClient()
+        {
+            return _emailClient;
         }
     }
 }
