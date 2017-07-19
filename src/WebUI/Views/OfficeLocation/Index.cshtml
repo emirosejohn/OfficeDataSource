@@ -1,12 +1,17 @@
 ﻿@model OfficeLocationMicroservice.WebUi.Models.OfficeModel
 
+
 @{
     ViewBag.Title = "Index";
 }
 <!DOCTYPE HTML>
 <head>
-    <link href="~/Content/buttonStyle.css" rel="stylesheet" />
-    <link href="~/Content/SharedOfficelocationStyles.css" rel="stylesheet" />
+    
+    <link href="~/Content/buttonStyle.css" rel="stylesheet"/>
+    <link href="~/Content/SharedOfficelocationStyles.css" rel="stylesheet"/>
+    <title>Dimensional Investing | Dimensional Fund Advisors</title>
+    <link href="/Assets/images/favicon.ico" rel="shortcut icon" type="image/x-icon"/>
+
     <style>
         .card:hover {
             box-shadow: 0 8px 10px 0 #000000, 0 8px 20px 0 #000000;
@@ -64,7 +69,7 @@
 <div class="myContainer">
 <div class="" style="clear: both; width: 80%; ">
 
-<h2>Office Locations</h2>
+<h1 class="headline">Office Locations</h1>
 
 
     <button type="submit" class="addButton pull-right" data-toggle="modal" data-target="#emptyModals">
@@ -122,7 +127,7 @@
                         <div class="modal-body">
 
                             <div class="form-group">
-                                <label for="Name_@Model.Offices[i].Office.OfficeId"
+                                <label for="Name_@Model.Offices[i].Office.OfficeId" 
                                        id="NameLabel_@Model.Offices[i].Office.OfficeId">Office</label>
                                 @Html.TextBoxFor(m => m.Offices[i].Office.Name, new
                                 {
@@ -139,14 +144,15 @@
                             <div class="form-group">
                                 <label for="Address_@Model.Offices[i].Office.OfficeId">Address</label>
                                 @Html.TextAreaFor(m => m.Offices[i].Office.Address, 3, 100, new
-                                {
-                                    @placeholder = "Type Address Here",
-                                    @class = "form-control",
-                                    @id = "Address_" + @Model.Offices[i].Office.OfficeId,
-                                    @data_original_value = @Model.Offices[i].Office.Address,
-                                    @style = "min-width: 100%;",
-                                    @readonly="True"
-                                })
+                           {
+                               @placeholder = "Type Address Here",
+                               @class = "form-control",
+                               @id = "Address_" + @Model.Offices[i].Office.OfficeId,
+                               @data_original_value = @Model.Offices[i].Office.Address,
+                               @style = "min-width: 100%;",
+                               @readonly="True",
+                               @required = "True"
+                           })
 
                                 @Html.DropDownListFor(m => m.Offices[i].Office.Country, Model.Offices[i].Countries, null, new
                                 {
@@ -202,11 +208,11 @@
                         </div>
 
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default" onclick="modalCheck(@Model.Offices[i].Office.OfficeId);">Close</button>
-                            <button type="button" class="btn btn-primary" id="SaveBtn_@Model.Offices[i].Office.OfficeId"
+                            <button type="button" class="btn btn-close" onclick="modalCheck(@Model.Offices[i].Office.OfficeId);">Close</button>
+                            <button type="button" class="btn btn-office" id="SaveBtn_@Model.Offices[i].Office.OfficeId"
                                     onclick="HasChanged(@Model.Offices[i].Office.OfficeId, OfficesForm)"
                                     style="display: none;">Save changes</button>           
-                            <button type="button" class="btn btn-primary"  id="EditBtn_@Model.Offices[i].Office.OfficeId"
+                            <button type="button" class="btn btn-office"  id="EditBtn_@Model.Offices[i].Office.OfficeId"
                                     onclick="editmodal(@Model.Offices[i].Office.OfficeId);">
                                 Edit
                             </button>
@@ -260,13 +266,14 @@
                         <div class="form-group">
                             <label for="Address_newOffice">Address</label>
                             @Html.TextAreaFor(m => m.NewOffice.Office.Address, 3, 100, new
-                            {
-                                @placeholder = "Type Address Here",
-                                @class = "form-control",
-                                @id = "Address_newOffice",
-                                @data_original_value = @Model.NewOffice.Office.Address,
-                                @style = "min-width: 100%;"
-                            })
+                       {
+                           @placeholder = "Type Address Here",
+                           @class = "form-control",
+                           @id = "Address_newOffice",
+                           @data_original_value = @Model.NewOffice.Office.Address,
+                           @style = "min-width: 100%;",
+                           @required = "True"
+                       })
 
                             @Html.DropDownListFor(m => m.NewOffice.Office.Country, Model.NewOffice.Countries, null, new
                             {
@@ -320,7 +327,7 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" onclick="check_newModal();">Close</button>
                         <button onclick = "javascript: HasChanged( 'newOffice' , newOfficeForm);"
-                                type="button" class="btn btn-primary">Save changes</button>
+                                type="button" class="btn btn-office">Save changes</button>
                     </div>
 
 
