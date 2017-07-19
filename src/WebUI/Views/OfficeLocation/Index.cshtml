@@ -3,7 +3,7 @@
 @{
     ViewBag.Title = "Index";
 }
-
+<!DOCTYPE HTML>
 <head>
     <link href="~/Content/buttonStyle.css" rel="stylesheet" />
     <link href="~/Content/SharedOfficelocationStyles.css" rel="stylesheet" />
@@ -15,7 +15,7 @@
 
         .cardContainer {
             z-index: 10;
-            width: inherit;
+            width: 100%;
             height: 100%;
             justify-content: center;
             flex-wrap: wrap;
@@ -45,7 +45,7 @@
 </head>
 
 @*style="overflow-y:hidden"*@
-<body id="body">
+<body id="body" style="width: 100%;">
 
     <script>
         $(document).ready(function () {
@@ -65,7 +65,7 @@
 
         <h2>Office Locations</h2>
 
-        <div>
+        <div style="width: inherit;">
             <span class="addButtonSpan" style="clear: both;">
                 <button type="submit" class="addButton" data-toggle="modal" data-target="#emptyModals">
                     <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Add Item
