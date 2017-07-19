@@ -52,7 +52,6 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
                     Country = "United States",
                     Switchboard = "***REMOVED***",
                     Fax = "+***REMOVED***",
-                    TimeZone = "Central Standard Time",
                     Operating = 1
                 };
 
@@ -63,7 +62,6 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
                     Country = "Germany",
                     Switchboard = "***REMOVED***",
                     Fax = "***REMOVED***",
-                    TimeZone = "Central European Timezone",
                     Operating = 0
                 };
 
@@ -96,7 +94,6 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
                 offices[0].Country.Should().Be("United States");
                 offices[0].Switchboard.Should().Be("***REMOVED***");
                 offices[0].Fax.Should().Be("+***REMOVED***");
-                offices[0].TimeZone.Should().Be("Central Standard Time");
                 offices[0].Operating.Should().Be("Active");
 
                 offices[1].OfficeId.Should().BeGreaterThan(0);
@@ -105,7 +102,6 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
                 offices[1].Country.Should().Be("Germany");
                 offices[1].Switchboard.Should().Be("***REMOVED***");
                 offices[1].Fax.Should().Be("***REMOVED***");
-                offices[1].TimeZone.Should().Be("Central European Timezone");
                 offices[1].Operating.Should().Be("Closed");
 
                 //**************************** 
@@ -150,7 +146,6 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
                     Country = "United States",
                     Switchboard = "***REMOVED***",
                     Fax = "+***REMOVED***",
-                    TimeZone = "Central Standard Time",
                     Operating = 1
                 };
 
@@ -191,7 +186,6 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
                 offices[0].Country.Should().Be("New string");
                 offices[0].Switchboard.Should().Be("Different value here");
                 offices[0].Fax.Should().Be("This had changed");
-                offices[0].TimeZone.Should().Be("Not the same string");
                 offices[0].Operating.Should().Be("Closed");
 
                 //**************************** 
@@ -235,7 +229,6 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
                     Country = "United States",
                     Switchboard = "***REMOVED***",
                     Fax = "+***REMOVED***",
-                    TimeZone = "Central Standard Time",
                     Operating = 1
                 };
 
@@ -273,7 +266,6 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
                 offices[0].Country.Should().Be("New string");
                 offices[0].Switchboard.Should().Be("Different value here");
                 offices[0].Fax.Should().Be("This had changed");
-                offices[0].TimeZone.Should().Be("Not the same string");
                 offices[0].Operating.Should().Be("Closed");
                 
             });
@@ -294,7 +286,6 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
                     Country = "Germany",
                     Switchboard = "***REMOVED***",
                     Fax = "***REMOVED***",
-                    TimeZone = "Central European Timezone",
                     Operating = 0
                 };
 
@@ -305,7 +296,6 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
                     Country = "United States",
                     Switchboard = "***REMOVED***",
                     Fax = "+***REMOVED***",
-                    TimeZone = "Central Standard Time",
                     Operating = 1
                 };
 
@@ -339,7 +329,6 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
                 offices[0].Country.Should().Be("United States");
                 offices[0].Switchboard.Should().Be("***REMOVED***");
                 offices[0].Fax.Should().Be("+***REMOVED***");
-                offices[0].TimeZone.Should().Be("Central Standard Time");
                 offices[0].Operating.Should().Be("Active");
 
                 offices[1].OfficeId.Should(). Be(expectedOfficeId1);
@@ -348,7 +337,6 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
                 offices[1].Country.Should().Be("Germany");
                 offices[1].Switchboard.Should().Be("***REMOVED***");
                 offices[1].Fax.Should().Be("***REMOVED***");
-                offices[1].TimeZone.Should().Be("Central European Timezone");
                 offices[1].Operating.Should().Be("Closed");
 
             });
@@ -366,7 +354,6 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
                 Country = "New string",
                 Switchboard = "Different value here",
                 Fax = "This had changed",
-                TimeZone = "Not the same string",
                 Operating = 0
             };
         }

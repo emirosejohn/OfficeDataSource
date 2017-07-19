@@ -17,8 +17,6 @@ namespace OfficeLocationMicroservice.Core.Domain.OfficeLocationContext
 
         public string Fax { get; set; }
 
-        public string TimeZone { get; set; }
-
         public string Operating { get; set; }
     }
 }

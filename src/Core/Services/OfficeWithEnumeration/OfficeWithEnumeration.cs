@@ -11,7 +11,6 @@ namespace OfficeLocationMicroservice.Core.Services.OfficeWithEnumeration
     {
         public OfficeLocation Office { get; set; }
         public IEnumerable<SelectListItem> Countries { get; set; }
-        public IEnumerable<SelectListItem> Timezones { get; set; }
         public IEnumerable<SelectListItem> OperatingOptions { get; set; }
         public string HasChanged { get; set; }
 
@@ -20,7 +19,6 @@ namespace OfficeLocationMicroservice.Core.Services.OfficeWithEnumeration
             Office = new OfficeLocation();
             Countries = new List<SelectListItem>();
             OperatingOptions = new List<SelectListItem>();
-            Timezones = new List<SelectListItem>();
             HasChanged = "false";
         }
 
@@ -31,7 +29,6 @@ namespace OfficeLocationMicroservice.Core.Services.OfficeWithEnumeration
             Office = office;
             Countries = new SelectList(countries, "Name", "Name", office.Country);
             OperatingOptions = GenerateOperatingOptions(office.Operating);
-            Timezones = GenerateTimezones(office.TimeZone);
         }
 
         public OfficeWithEnumeration(
@@ -43,7 +40,6 @@ namespace OfficeLocationMicroservice.Core.Services.OfficeWithEnumeration
             Office = office;
             Countries = new SelectList(countries, "Name", "Name", office.Country);
             OperatingOptions = GenerateOperatingOptions(office.Operating);
-            Timezones = GenerateTimezones(office.TimeZone);
             HasChanged = hasChanged;
         }
 
@@ -65,20 +61,6 @@ namespace OfficeLocationMicroservice.Core.Services.OfficeWithEnumeration
             });
 
             return selectedItems;
-        }
-
-        public static IEnumerable<SelectListItem> GenerateTimezones(string timezone)
-        {
-            var timeZones = TimeZoneInfo.GetSystemTimeZones();
-
-            var timeZoneEnumerable = timeZones.Select(x => new SelectListItem()
-            {
-                Text = x.DisplayName,
-                Value = x.Id,
-                Selected = (x.DisplayName == timezone)
-            });
-
-            return timeZoneEnumerable;
         }
 
         public void SetHasChanged(string hasChanged)

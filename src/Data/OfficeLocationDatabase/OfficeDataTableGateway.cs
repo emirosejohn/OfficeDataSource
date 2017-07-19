@@ -30,7 +30,6 @@ namespace OfficeLocationMicroservice.Data.OfficeLocationDatabase
                 ,[Country]
                 ,[Switchboard]
                 ,[Fax]
-                ,[TimeZone]
                 ,[Operating]
             FROM
                 [OfficeLocation].[Office]
@@ -49,7 +48,6 @@ namespace OfficeLocationMicroservice.Data.OfficeLocationDatabase
                 ,[Country]
                 ,[Switchboard]
                 ,[Fax]
-                ,[TimeZone]
                 ,[Operating]
             FROM
                 [OfficeLocation].[Office]
@@ -69,7 +67,6 @@ namespace OfficeLocationMicroservice.Data.OfficeLocationDatabase
             ,[Country]
             ,[Switchboard]
             ,[Fax]
-            ,[TimeZone]
             ,[Operating]
         FROM
             [OfficeLocation].[Office]
@@ -97,7 +94,6 @@ namespace OfficeLocationMicroservice.Data.OfficeLocationDatabase
             ,[Country]
             ,[Switchboard]
             ,[Fax]
-            ,[TimeZone]
             ,[Operating])
         Values
             (
@@ -106,7 +102,6 @@ namespace OfficeLocationMicroservice.Data.OfficeLocationDatabase
             ,@Country
             ,@Switchboard
             ,@Fax
-            ,@TimeZone
             ,@Operating)
 
 SELECT CAST(SCOPE_IDENTITY() as int)
@@ -134,7 +129,6 @@ SELECT CAST(SCOPE_IDENTITY() as int)
             ,[Country] = @Country
             ,[Switchboard] = @Switchboard
             ,[Fax] = @Fax
-            ,[TimeZone] = @TimeZone
             ,[Operating] = @Operating
         where
             [OfficeId] = @OfficeId
