@@ -120,7 +120,6 @@ namespace OfficeLocationMicroservice.Core.Domain.OfficeLocationContext
                 Country = officeLocation.Country,
                 Switchboard = officeLocation.Switchboard,
                 Fax = officeLocation.Fax,
-                TimeZone = officeLocation.TimeZone,
             };
 
             switch (officeLocation.Operating)
@@ -156,7 +155,6 @@ namespace OfficeLocationMicroservice.Core.Domain.OfficeLocationContext
                 Country = officeDto.Country,
                 Switchboard = officeDto.Switchboard,
                 Fax = officeDto.Fax,
-                TimeZone = officeDto.TimeZone,
             };
 
             switch (officeDto.Operating)

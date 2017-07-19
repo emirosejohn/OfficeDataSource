@@ -32,7 +32,7 @@ namespace OfficeLocationMicroservice.Core.Services.OfficeWithEnumeration
 
             foreach (var office in offices)
             {
-                var officeWithEnumeration = new OfficeWithEnumeration(office, countries, null);
+                var officeWithEnumeration = new OfficeWithEnumeration(office, countries);
                 officeWithEnumerations.Add(officeWithEnumeration);
             }
 
@@ -43,7 +43,7 @@ namespace OfficeLocationMicroservice.Core.Services.OfficeWithEnumeration
         {
             var countries = _countryRepository.GetAllCountries();
 
-            return new OfficeWithEnumeration(office, countries, null);
+            return new OfficeWithEnumeration(office, countries);
         }
     }
 }

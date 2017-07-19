@@ -14,8 +14,6 @@ namespace OfficeLocationMicroservice.Core.Services.SharedContext.OfficeLocationD
 
         public string Fax { get; set; }
 
-        public string TimeZone { get; set; }
-
         public int Operating { get; set; }
     }
 }
