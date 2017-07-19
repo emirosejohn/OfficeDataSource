@@ -446,8 +446,8 @@
 
         var required = function  () {
             var input = $(this);
-            var is_name = input.val();
-            if (is_name) { input.removeClass("invalid").addClass("valid"); }
+            var is_empty = input.val();
+            if (is_empty) { input.removeClass("invalid").addClass("valid"); }
             else { input.removeClass("valid").addClass("invalid"); }
         };
 
@@ -460,11 +460,6 @@
 
         var SaveBtn = $('#SaveBtn_' + x.toString());
         var EditBtn = $('#EditBtn_' + x.toString());
-
-//        Name[0].addEventListener('change', checkForEmpty(Name));
-//        Address[0].addEventListener('change', checkForEmpty(Address));
-//        Country[0].addEventListener('change', checkForEmpty(Country));
-//        Operating[0].addEventListener('change', checkForEmpty(Operating));
 
         Name.on('input', required);
         Address.on('input', required);
