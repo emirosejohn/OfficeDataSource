@@ -67,8 +67,8 @@ namespace OfficeLocationMicroservice.Core.Domain.OfficeLocationContext
                     <table cellpadding='10'>
                         <tr>
                             <th></th>
-                            <th><u>old</u></th>
-                            <th><u>updated</u></th>
+                            <th><u>Old</u></th>
+                            <th><u>Updated</u></th>
                         </tr>
                         <tr>
                             <td>Office Name:</td>
