@@ -76,7 +76,7 @@
 <h1 class="headline">Office Locations</h1>
 
 
-    <button type="submit" class="addButton pull-right" data-toggle="modal" data-target="#emptyModals">
+    <button type="submit" class="addButton pull-right" onclick="toggleNewModal();">
         <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Add Item
     </button>
 </div>
@@ -433,6 +433,45 @@
         highlight(switchboard);
         highlight(fax);
         highlight(operating);
+    }
+
+    function toggleNewModal() {
+        var x = "newModal";
+        var required = function () {
+            var input = $(this);
+            var is_empty = input.val();
+            if (is_empty) { input.removeClass("invalid").addClass("valid"); }
+            else { input.removeClass("valid").addClass("invalid"); }
+        };
+
+        var Name = $('#Name_' + x.toString());
+        var Address = $('#Address_' + x.toString());
+        var Country = $('#Country_' + x.toString());
+        var Switchboard = $('#Switchboard_' + x.toString());
+        var Fax = $('#Fax_' + x.toString());
+        var Operating = $('#Operating_' + x.toString());
+
+        Name.on('input', required);
+        Address.on('input', required);
+        Country.on('input', required);
+        Operating.on('input', required);
+
+        Name.attr('readonly', false);
+
+        Address.attr('readonly', false);
+
+
+        Country.attr('disabled', false);
+
+        Switchboard.attr('readonly', false);
+
+        Fax.attr('readonly', false);
+
+        Operating.attr('disabled', false);
+
+        $('#emptyModals').modal('show');
+
+        enablebody();
     }
 
     function toggleModal(x) {
