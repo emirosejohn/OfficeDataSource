@@ -22,7 +22,6 @@
             display: flex;
         }
 
-
         .modal {
             overflow-y: auto;
             padding-right: 0px !important;
@@ -54,7 +53,8 @@
             if (x === "True") {
                 alert("Notifications Sent");
                 var url = document.location.href;
-                window.history.replaceState({}, "", url.split("?")[0]); //gets rid of notificationflag parameter, so
+                window.history.replaceState({}, "", url.split("?")[0]);
+                //gets rid of notificationflag parameter, so
                 //that the alert won't appear on reloads of page.
             }
         });
@@ -75,24 +75,26 @@
 <br />
 
 <div class="cardContainer">
+    @{
+        var CRLF = @"
+";
+    }
     @foreach (var office in Model.Offices)
     {
         <div class="card" onclick="toggleModal(@office.Office.OfficeId);">
             <h4>@office.Office.Name</h4>
             <div class="details">
-                @office.Office.Address <br />
-                @office.Office.Country <br />
+                @Html.Raw(office.Office.Address.Replace(CRLF, "<br/>"))<br/>
+                @office.Office.Country <br/>
                 Switchboard:
-                @office.Office.Switchboard <br />
-                Fax: @office.Office.Fax <br />
+                @office.Office.Switchboard <br/>
+                Fax: @office.Office.Fax <br/>
                 @office.Office.Operating
             </div>
 
         </div>
     }
 </div>
-
-
 
 <div id="modals">
 
