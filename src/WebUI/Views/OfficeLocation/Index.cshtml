@@ -338,8 +338,22 @@
     
     function HasChanged(x, form) {
         console.log('#HasChanged_' + x.toString());
-        $('#HasChanged_' + x).val("True");
-        $(form).submit();
+        console.log(form);
+        var Name = $('#Name_' + x.toString());
+        console.log(Name[0].checkValidity());
+        if (!form.checkValidity() && Name[0].checkValidity()) {
+            console.log(!form.checkValidity());
+            $('#HasChanged_' + x).val("True");
+           // $(form).submit();
+        } else {
+            form.focus();
+            Name[0].append()
+
+        }
+
+        $(form).validate();
+
+
     }
 
     function check_newModal() {
@@ -364,6 +378,7 @@
     function modalCheck(x) {
         if (confirm('Are you sure you want to cancel. You will lose your unsaved changes')) {
             $('#modal_' + x).modal('hide');
+
             resetForm(x);
         }
     }
@@ -402,7 +417,17 @@
         enablebody();
     }
 
+    function checkForEmpty(x) {
+        console.log(x);
+        if (x[0].value === "" || x.value == null) {
+            x[0].setCustomValidity('this field cannot be empty');
+        } else {
+            x[0].setCustomValidity("");
+        }
+    }
+
     function editmodal(x) {
+
         var Name = $('#Name_' + x.toString());
         var Address = $('#Address_' + x.toString());
         var Country = $('#Country_' + x.toString());
@@ -413,9 +438,16 @@
         var SaveBtn = $('#SaveBtn_' + x.toString());
         var EditBtn = $('#EditBtn_' + x.toString());
 
+        Name[0].addEventListener('change', checkForEmpty(Name));
+        Address[0].addEventListener('change', checkForEmpty(Address));
+        Country[0].addEventListener('change', checkForEmpty(Country));
+        Operating[0].addEventListener('change', checkForEmpty(Operating));
+
         Name.attr('readonly', false);
+        Name.attr('required', true);
 
         Address.attr('readonly', false);
+
 
         Country.attr('disabled', false);
 
@@ -468,6 +500,10 @@
 
         Operating.attr('disabled', true);
 
+        Name[0].removeEventListener('change', checkForEmpty(Name));
+        Address[0].removeEventListener('change', checkForEmpty(Address));
+        Country[0].removeEventListener('change', checkForEmpty(Country));
+        Operating[0].removeEventListener('change', checkForEmpty(Operating));
 
         SaveBtn.hide();
 

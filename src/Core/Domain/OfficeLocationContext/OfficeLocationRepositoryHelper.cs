@@ -32,10 +32,11 @@ namespace OfficeLocationMicroservice.Core.Domain.OfficeLocationContext
                 changedName = "<span style='color:red;font-weight:bold;'>" + newOfficeLocation.Name + "</span>";
             }
 
-            string changedAddress = newOfficeLocation.Address;
+            string changedAddress = newOfficeLocation.Address + "<br/>" + newOfficeLocation.Country;
             if (newOfficeLocation.Address != originalOfficeLocation.Address)
             {
-                changedAddress = "<span style='color:red;font-weight:bold;'>" + newOfficeLocation.Address + "</span>";
+                changedAddress = "<span style='color:red;font-weight:bold;'>" + newOfficeLocation.Address 
+                    + "<br/>" + newOfficeLocation.Country + "</span>";
             }
 
             string changedSwitchboard = newOfficeLocation.Switchboard;
@@ -63,7 +64,7 @@ namespace OfficeLocationMicroservice.Core.Domain.OfficeLocationContext
                        <br />
                 Office: {0} <br />
 
-                    <table>
+                    <table cellpadding='10'>
                         <tr>
                             <th></th>
                             <th><u>old</u></th>
@@ -104,10 +105,12 @@ namespace OfficeLocationMicroservice.Core.Domain.OfficeLocationContext
                 ODS Team
              ";
 
-            body = string.Format(
-                body, originalOfficeLocation.Name,
+            var originalOfficeAddress = originalOfficeLocation.Address + "<br/>" + originalOfficeLocation.Country;
+
+            body = string.Format(body,
+                originalOfficeLocation.Name,
                 originalOfficeLocation.Name, changedName,
-                originalOfficeLocation.Address, changedAddress,
+                originalOfficeAddress, changedAddress,
                 originalOfficeLocation.Switchboard, changedSwitchboard,
                 originalOfficeLocation.Fax, changedFax,
                 originalOfficeLocation.Operating, changedOperating);
@@ -125,39 +128,28 @@ namespace OfficeLocationMicroservice.Core.Domain.OfficeLocationContext
                 Office: {0} <br />
                         <br />
 
-                    <table>
-                        <tr>
-                            <th></th>
-                            <th><u>old</u></th>
-                            <th><u>updated</u></th>
-                        </tr>
+                    <table cellpadding='10'>
                         <tr>
                             <td>Office Name:</td>
-                            <td>{1}</td>
-                            <td>{2}</td>
+                            <td style='color:red;font-weight:bold;'>{1}</td>
                         </tr>
                         <tr>
                             <td>Address: </td>
-                            <td>{3}</td>
-                            <td>{4}</td>
+                            <td style='color:red;font-weight:bold;'>{2}</td>
                         </tr>
                         <tr>
                             <td>Phone: </td>
-                            <td>{5}</td>
-                            <td>{6}</td>
+                            <td style='color:red;font-weight:bold;'>{3}</td>
                         </tr>
                         <tr>
                             <td>Fax: </td>
-                            <td>{7}</td>
-                            <td>{8}</td>
+                            <td style='color:red;font-weight:bold;'>{4}</td>
                         </tr>
                         <tr>
                             <td>Operating Status: </td>
-                            <td>{9}</td>
-                            <td>{10}</td>
+                            <td style='color:red;font-weight:bold;'>{5}</td>
                         </tr>
                     </table>
-
                         <br /><br />
                 Please make sure that your system reflects this change, and that the proper employees are notified of the change. If you have any questions regarding this change, please reach out to the Corporate Services/Technology team for help.
                         <br /><br />
@@ -166,8 +158,12 @@ namespace OfficeLocationMicroservice.Core.Domain.OfficeLocationContext
                 ODS Team
              ";
 
-            body = string.Format(body, officeLocation.Name, officeLocation.Name,
-                officeLocation.Name, officeLocation.Name, officeLocation);
+            var officeAddress = officeLocation.Address + "<br/>" + officeLocation.Country;
+
+            body = string.Format(body,
+                officeLocation.Name, officeLocation.Name,
+                officeAddress, officeLocation.Switchboard,
+                officeLocation.Fax, officeLocation.Operating);
 
             return body;
         }
