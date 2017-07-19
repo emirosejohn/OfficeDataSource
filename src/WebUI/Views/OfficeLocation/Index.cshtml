@@ -42,6 +42,10 @@
             padding-right: 0px !important;
             margin-right: 0px !important;
         }
+
+        .invalid {
+            border: 2px solid red;
+        }
     </style>
 
     <script language="JavaScript" type="text/javascript" src="/Scripts/jquery-1.10.2.js"></script>
@@ -344,9 +348,35 @@
 <script>
     
     function HasChanged(x, form) {
-        console.log('#HasChanged_' + x.toString());
+        var Name = $('#Name_' + x.toString());
+        var Address = $('#Address_' + x.toString());
+        var Country = $('#Country_' + x.toString());
+        var Operating = $('#Operating_' + x.toString());
+
+        if (Name.hasClass("invalid")) {
+            alert("Office Name cannot be empty.");
+            return;
+        }
+
+        if (Address.hasClass("invalid")) {
+            alert("Office Address cannot be empty.");
+            return;
+        }
+
+        if (Country.hasClass("invalid")) {
+            alert("Country Name cannot be empty.");
+            return;
+        }
+
+        if (Operating.hasClass("invalid")) {
+            alert("Operating Name cannot be empty.");
+            return;
+        }
+
         $('#HasChanged_' + x).val("True");
         $(form).submit();
+        
+
     }
 
     function check_newModal() {
@@ -371,6 +401,7 @@
     function modalCheck(x) {
         if (confirm('Are you sure you want to cancel. You will lose your unsaved changes')) {
             $('#modal_' + x).modal('hide');
+
             resetForm(x);
         }
     }
@@ -409,7 +440,24 @@
         enablebody();
     }
 
+    function checkForEmpty(x) {
+        console.log(x);
+        if (x[0].value === "" || x.value == null) {
+            x[0].setCustomValidity('this field cannot be empty');
+        } else {
+            x[0].setCustomValidity("");
+        }
+    }
+
     function editmodal(x) {
+
+        var required = function  () {
+            var input = $(this);
+            var is_empty = input.val();
+            if (is_empty) { input.removeClass("invalid").addClass("valid"); }
+            else { input.removeClass("valid").addClass("invalid"); }
+        };
+
         var Name = $('#Name_' + x.toString());
         var Address = $('#Address_' + x.toString());
         var Country = $('#Country_' + x.toString());
@@ -420,9 +468,15 @@
         var SaveBtn = $('#SaveBtn_' + x.toString());
         var EditBtn = $('#EditBtn_' + x.toString());
 
+        Name.on('input', required);
+        Address.on('input', required);
+        Country.on('input', required);
+        Operating.on('input', required);
+
         Name.attr('readonly', false);
 
         Address.attr('readonly', false);
+
 
         Country.attr('disabled', false);
 
@@ -435,6 +489,7 @@
         SaveBtn.show();
 
         EditBtn.hide();
+
 
 
     }
@@ -475,6 +530,10 @@
 
         Operating.attr('disabled', true);
 
+        Name.removeClass('invalid');
+        Address.removeClass('invalid');
+        Country.removeClass('invalid');
+        Operating.removeClass('invalid');
 
         SaveBtn.hide();
 
