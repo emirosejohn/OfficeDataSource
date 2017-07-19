@@ -3,7 +3,8 @@
 div.card {
     width: 320px;
     height: 230px;
-    background: #4f85a9;
+    background: #4eafb7;
+    background: rgba(78, 175, 183, 0.63);
     margin: 10px;
     padding: 10px;
     display: inline-table;
@@ -19,8 +20,8 @@ div.card {
 h4 {
     color: black;
     text-align: center;
-    font-family:"Avenir LT Book";
-    font-weight: 900;
+    font-family:"Sentinel A","Sentinel B";
+    font-weight: 600;
 }
 
 h1 {
@@ -39,4 +40,21 @@ h1 {
     right: 120px;
     top: -15px;
     width: inherit;
+}
+.btn-office {
+    background: #f3a6d1;
+}
+
+.btn-office:hover {
+    background: #b64785;
+    color: black;
+}
+
+.btn-close {
+    background: #E5E4E2;
+}
+
+.btn-close:hover {
+    background: #81898C ;
+    color: black;
 }

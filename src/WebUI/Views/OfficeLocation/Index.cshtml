@@ -208,11 +208,11 @@
                         </div>
 
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default" onclick="modalCheck(@Model.Offices[i].Office.OfficeId);">Close</button>
-                            <button type="button" class="btn btn-primary" id="SaveBtn_@Model.Offices[i].Office.OfficeId"
+                            <button type="button" class="btn btn-close" onclick="modalCheck(@Model.Offices[i].Office.OfficeId);">Close</button>
+                            <button type="button" class="btn btn-office" id="SaveBtn_@Model.Offices[i].Office.OfficeId"
                                     onclick="HasChanged(@Model.Offices[i].Office.OfficeId, OfficesForm)"
                                     style="display: none;">Save changes</button>           
-                            <button type="button" class="btn btn-primary"  id="EditBtn_@Model.Offices[i].Office.OfficeId"
+                            <button type="button" class="btn btn-office"  id="EditBtn_@Model.Offices[i].Office.OfficeId"
                                     onclick="editmodal(@Model.Offices[i].Office.OfficeId);">
                                 Edit
                             </button>
@@ -327,7 +327,7 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" onclick="check_newModal();">Close</button>
                         <button onclick = "javascript: HasChanged( 'newOffice' , newOfficeForm);"
-                                type="button" class="btn btn-primary">Save changes</button>
+                                type="button" class="btn btn-office">Save changes</button>
                     </div>
 
 
