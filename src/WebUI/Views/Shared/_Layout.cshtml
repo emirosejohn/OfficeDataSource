@@ -1,33 +1,44 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8" />
+    <link rel="stylesheet" href="/Content/global.min.css?v=0.17" />
+    <link href="/Content/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dimensional Investing | Dimensional Fund Advisors</title>
-    <link href="/Assets/images/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <link href="/Content/favicon.ico" rel="shortcut icon" type="image/x-icon"/>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Application name", "Index", "OfficeLocation", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "OfficeLocation")</li>
-                </ul>
-                <p class="nav navbar-text navbar-right">Hello, @User.Identity.Name!</p>
-            </div>
+    
+<nav class="global-header trackable " id="global-header" data-component-name="Header" data-content-name="Global Header" style="position: fixed; top: 0px;">
+    <div class="container">
+        <a id="nav-mobile-menu" class="nav-mobile-menu">
+            <img src="/Assets/images/menu.png" alt="open menu" class="hamburger-menu">
+            <img src="/Assets/images/close-white.png" alt="close menu" class="close-menu">
+        </a>
+
+        <a href="/" class="logo"><img src="/-/media/Dimensional/Images/Global/logo.png?h=50&amp;w=156&amp;la=en&amp;hash=4CA0A363A7B1D101271B14EFC2DE82BE34A89C11" alt="Dimensional Logo"></a>            <div class="nav-links">
+            <ul class="nav-links-main">
+                                            
+
+                <li>
+                    <a href="/funds" class="isfinratrue">
+                        Mutual Funds                                                                            </a>
+                </li>
+                            
+                                        
+            </ul>
         </div>
     </div>
-    <div class="container body-content">
+</nav>
+    
+    
+    
+
+<div class="container body-content">
         @RenderBody()
         <hr />
         <footer>
