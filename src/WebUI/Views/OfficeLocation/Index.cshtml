@@ -69,7 +69,7 @@
 <div class="myContainer">
 <div class="" style="clear: both; width: 80%; ">
 
-<h2>Office Locations</h2>
+<h1 class="headline">Office Locations</h1>
 
 
     <button type="submit" class="addButton pull-right" data-toggle="modal" data-target="#emptyModals">
@@ -127,7 +127,7 @@
                         <div class="modal-body">
 
                             <div class="form-group">
-                                <label for="Name_@Model.Offices[i].Office.OfficeId"
+                                <label for="Name_@Model.Offices[i].Office.OfficeId" 
                                        id="NameLabel_@Model.Offices[i].Office.OfficeId">Office</label>
                                 @Html.TextBoxFor(m => m.Offices[i].Office.Name, new
                                 {
@@ -144,14 +144,15 @@
                             <div class="form-group">
                                 <label for="Address_@Model.Offices[i].Office.OfficeId">Address</label>
                                 @Html.TextAreaFor(m => m.Offices[i].Office.Address, 3, 100, new
-                                {
-                                    @placeholder = "Type Address Here",
-                                    @class = "form-control",
-                                    @id = "Address_" + @Model.Offices[i].Office.OfficeId,
-                                    @data_original_value = @Model.Offices[i].Office.Address,
-                                    @style = "min-width: 100%;",
-                                    @readonly="True"
-                                })
+                           {
+                               @placeholder = "Type Address Here",
+                               @class = "form-control",
+                               @id = "Address_" + @Model.Offices[i].Office.OfficeId,
+                               @data_original_value = @Model.Offices[i].Office.Address,
+                               @style = "min-width: 100%;",
+                               @readonly="True",
+                               @required = "True"
+                           })
 
                                 @Html.DropDownListFor(m => m.Offices[i].Office.Country, Model.Offices[i].Countries, null, new
                                 {
@@ -265,13 +266,14 @@
                         <div class="form-group">
                             <label for="Address_newOffice">Address</label>
                             @Html.TextAreaFor(m => m.NewOffice.Office.Address, 3, 100, new
-                            {
-                                @placeholder = "Type Address Here",
-                                @class = "form-control",
-                                @id = "Address_newOffice",
-                                @data_original_value = @Model.NewOffice.Office.Address,
-                                @style = "min-width: 100%;"
-                            })
+                       {
+                           @placeholder = "Type Address Here",
+                           @class = "form-control",
+                           @id = "Address_newOffice",
+                           @data_original_value = @Model.NewOffice.Office.Address,
+                           @style = "min-width: 100%;",
+                           @required = "True"
+                       })
 
                             @Html.DropDownListFor(m => m.NewOffice.Office.Country, Model.NewOffice.Countries, null, new
                             {

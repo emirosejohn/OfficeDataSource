@@ -13,20 +13,20 @@
 </head>
 <body>
     
-<nav class="global-header trackable " id="global-header" data-component-name="Header" data-content-name="Global Header" style="position: fixed; top: 0px;">
+<nav class="global-header trackable" id="global-header" data-component-name="Header" data-content-name="Global Header" style="position: fixed; top: 0px;">
     <div class="container">
         <a id="nav-mobile-menu" class="nav-mobile-menu">
-            <img src="/Assets/images/menu.png" alt="open menu" class="hamburger-menu">
-            <img src="/Assets/images/close-white.png" alt="close menu" class="close-menu">
+            <img src="/Content/menu.png" alt="open menu" class="hamburger-menu">
+            <img src="/Content/close-white.png" alt="close menu" class="close-menu">
         </a>
 
-        <a href="/" class="logo"><img src="/-/media/Dimensional/Images/Global/logo.png?h=50&amp;w=156&amp;la=en&amp;hash=4CA0A363A7B1D101271B14EFC2DE82BE34A89C11" alt="Dimensional Logo"></a>            <div class="nav-links">
+        <a href="/" class="logo"><img src="/Content/logo.png" alt="Dimensional Logo"></a>            <div class="nav-links">
             <ul class="nav-links-main">
                                             
 
                 <li>
-                    <a href="/funds" class="isfinratrue">
-                        Mutual Funds                                                                            </a>
+                    <a href="" class="">
+                                                                                                 </a>
                 </li>
                             
                                         
@@ -41,13 +41,30 @@
 <div class="container body-content">
         @RenderBody()
         <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
+        
+    
     </div>
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+    
+    
+<footer id="global-footer" class="global-footer trackable" data-component-name="Footer" data-content-name="Global Footer">
+    <div class="container">
+        <div id="footer-main" style="width: 100%">
+            <div id="footer-links">
+                <ul id="footer-links-main">
+                    <li>
+                        <a href='http://us.dimensional.com'>US Public Site</a>
+                    </li>
+
+                </ul>
+                                
+            </div>
+        </div>
+    </div>
+</footer>
+
 </body>
 </html>

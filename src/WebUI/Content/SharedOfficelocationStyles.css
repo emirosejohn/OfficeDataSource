@@ -3,11 +3,13 @@
 div.card {
     width: 320px;
     height: 230px;
-    background: grey;
+    background: #4EAFB7;
     margin: 10px;
     padding: 10px;
     display: inline-table;
     overflow: hidden;
+    font-family:"Avenir LT Black";
+    text-rendering:optimizeLegibility;
 }
 
 .details {
@@ -17,9 +19,11 @@ div.card {
 h4 {
     color: black;
     text-align: center;
+    font-family:"Avenir LT Book";
+    font-weight: 900;
 }
 
-h2 {
+h1 {
     text-align: center;
 }
 
