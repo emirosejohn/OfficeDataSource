@@ -37,6 +37,10 @@
             padding-right: 0px !important;
             margin-right: 0px !important;
         }
+
+        .invalid {
+            border: 2px solid red;
+        }
     </style>
 
     <script language="JavaScript" type="text/javascript" src="/Scripts/jquery-1.10.2.js"></script>
@@ -337,22 +341,34 @@
 <script>
     
     function HasChanged(x, form) {
-        console.log('#HasChanged_' + x.toString());
-        console.log(form);
         var Name = $('#Name_' + x.toString());
-        console.log(Name[0].checkValidity());
-        if (!form.checkValidity() && Name[0].checkValidity()) {
-            console.log(!form.checkValidity());
-            $('#HasChanged_' + x).val("True");
-           // $(form).submit();
-        } else {
-            form.focus();
-            Name[0].append()
+        var Address = $('#Address_' + x.toString());
+        var Country = $('#Country_' + x.toString());
+        var Operating = $('#Operating_' + x.toString());
 
+        if (Name.hasClass("invalid")) {
+            alert("Office Name cannot be empty.");
+            return;
         }
 
-        $(form).validate();
+        if (Address.hasClass("invalid")) {
+            alert("Office Address cannot be empty.");
+            return;
+        }
 
+        if (Country.hasClass("invalid")) {
+            alert("Country Name cannot be empty.");
+            return;
+        }
+
+        if (Operating.hasClass("invalid")) {
+            alert("Operating Name cannot be empty.");
+            return;
+        }
+
+        $('#HasChanged_' + x).val("True");
+        $(form).submit();
+        
 
     }
 
@@ -428,6 +444,13 @@
 
     function editmodal(x) {
 
+        var required = function  () {
+            var input = $(this);
+            var is_name = input.val();
+            if (is_name) { input.removeClass("invalid").addClass("valid"); }
+            else { input.removeClass("valid").addClass("invalid"); }
+        };
+
         var Name = $('#Name_' + x.toString());
         var Address = $('#Address_' + x.toString());
         var Country = $('#Country_' + x.toString());
@@ -438,13 +461,17 @@
         var SaveBtn = $('#SaveBtn_' + x.toString());
         var EditBtn = $('#EditBtn_' + x.toString());
 
-        Name[0].addEventListener('change', checkForEmpty(Name));
-        Address[0].addEventListener('change', checkForEmpty(Address));
-        Country[0].addEventListener('change', checkForEmpty(Country));
-        Operating[0].addEventListener('change', checkForEmpty(Operating));
+//        Name[0].addEventListener('change', checkForEmpty(Name));
+//        Address[0].addEventListener('change', checkForEmpty(Address));
+//        Country[0].addEventListener('change', checkForEmpty(Country));
+//        Operating[0].addEventListener('change', checkForEmpty(Operating));
+
+        Name.on('input', required);
+        Address.on('input', required);
+        Country.on('input', required);
+        Operating.on('input', required);
 
         Name.attr('readonly', false);
-        Name.attr('required', true);
 
         Address.attr('readonly', false);
 
@@ -460,6 +487,7 @@
         SaveBtn.show();
 
         EditBtn.hide();
+
 
 
     }
@@ -500,10 +528,10 @@
 
         Operating.attr('disabled', true);
 
-        Name[0].removeEventListener('change', checkForEmpty(Name));
-        Address[0].removeEventListener('change', checkForEmpty(Address));
-        Country[0].removeEventListener('change', checkForEmpty(Country));
-        Operating[0].removeEventListener('change', checkForEmpty(Operating));
+        Name.removeClass('invalid');
+        Address.removeClass('invalid');
+        Country.removeClass('invalid');
+        Operating.removeClass('invalid');
 
         SaveBtn.hide();
 
