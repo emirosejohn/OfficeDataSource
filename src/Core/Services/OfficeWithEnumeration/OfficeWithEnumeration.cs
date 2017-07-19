@@ -12,6 +12,7 @@ namespace OfficeLocationMicroservice.Core.Services.OfficeWithEnumeration
         public IEnumerable<SelectListItem> Countries { get; set; }
         public IEnumerable<SelectListItem> Timezones { get; set; }
         public IEnumerable<SelectListItem> OperatingOptions { get; set; }
+        public bool HasChanged { get; set; }
 
         public OfficeWithEnumeration()
         {
@@ -19,6 +20,7 @@ namespace OfficeLocationMicroservice.Core.Services.OfficeWithEnumeration
             Countries = new List<SelectListItem>();
             OperatingOptions = new List<SelectListItem>();
             Timezones = null;
+            HasChanged = false;
         }
 
         public OfficeWithEnumeration(

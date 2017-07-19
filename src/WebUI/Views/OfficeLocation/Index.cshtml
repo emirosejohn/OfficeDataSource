@@ -1,5 +1,6 @@
 ﻿@model OfficeLocationMicroservice.WebUi.Models.OfficeModel
 
+
 @{
     ViewBag.Title = "Index";
 }
@@ -7,6 +8,9 @@
 <head>
     <link href="~/Content/buttonStyle.css" rel="stylesheet" />
     <link href="~/Content/SharedOfficelocationStyles.css" rel="stylesheet" />
+    <title>Dimensional Investing | Dimensional Fund Advisors</title>
+    <link href="/Assets/images/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+
     <style>
         .card:hover {
             box-shadow: 0 8px 10px 0 #000000, 0 8px 20px 0 #000000;
@@ -221,6 +225,7 @@
             <div class="modal-content">
 
                 @Html.HiddenFor(m => m.Offices[i].Office.OfficeId, new {value = @Model.Offices[i].Office.OfficeId});
+                @Html.HiddenFor(m => m.Offices[i].HasChanged, new {id = "hasChanged_"+ @Model.Offices[i].Office.OfficeId});
 
                 <div class="modal-header">
                     <button type="button" class="close" onclick="modalCheck(@Model.Offices[i].Office.OfficeId);">&times;</button>
@@ -314,8 +319,7 @@
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" onclick="modalCheck(@Model.Offices[i].Office.OfficeId);">Close</button>
-                    <button type="submit" class="btn btn-primary">Save changes</button>
-                    @*                                <button type="submit" onclick="checkAll(@Model.Offices[i].Office.OfficeId)"> Test</button>*@
+                    <button type="submit" class="btn btn-primary" onclick="hasChanges(@Model.Offices[i].Office.OfficeId);">Save changes</button>
                 </div>
 
 
@@ -445,12 +449,12 @@
     </div>
 
     <script>
-            function check_newModal() {
-                if (confirm('Are you sure you want to cancel. You will lose your unsaved changes')) {
-                    $('#emptyModals').modal('hide');
-                    resetForm("newOffice");
-                }
+        function check_newModal() {
+            if (confirm('Are you sure you want to cancel. You will lose your unsaved changes')) {
+                $('#emptyModals').modal('hide');
+                resetForm("newOffice");
             }
+        }
     </script>
     }
             </div>
@@ -459,90 +463,91 @@
 
     </div>
 
-    <script>
+<script>
 
-        function enablebody() {
-            $('#body').css({
-                'overflow-y': 'auto'
-            });
+
+    function enablebody() {
+        $('#body').css({
+            'overflow-y': 'auto'
+        });
+    }
+
+    function disablebody() {
+        $('#body').css({
+            'overflow-y': 'hidden'
+        });
+    }
+
+    function modalCheck(x) {
+        if (confirm('Are you sure you want to cancel. You will lose your unsaved changes')) {
+            $('#modal_' + x).modal('hide');
+            resetForm(x);
         }
+    }
 
-        function disablebody() {
-            $('#body').css({
-                'overflow-y': 'hidden'
-            });
-        }
-
-        function modalCheck(x) {
-            if (confirm('Are you sure you want to cancel. You will lose your unsaved changes')) {
-                $('#modal_' + x).modal('hide');
-                resetForm(x);
+    function highlight(x) {
+        try {
+            if (x.value != x.defaultValue) {
+                x.style.color = "red";
             }
+        } catch (e) {
+            alert(x);
         }
+    }
 
-        function highlight(x) {
-            try {
-                if (x.value != x.defaultValue) {
-                    x.style.color = "red";
-                }
-            } catch (e) {
-                alert(x);
-            }
-        }
+    function checkAll(id) {
+        var name = document.getElementById('Office' + id);
+        var address = document.getElementById('Address' + id);
+        var country = document.getElementById('Country' + id);
+        console.log("country Value: " + country + "Default: " + country);
+        var switchboard = document.getElementById('Switchboard' + id);
+        var fax = document.getElementById('Fax' + id);
+        //var zone = document.getElementById('Timezone' + id);
+        var operating = document.getElementById('Operating' + id);
+        console.log("operating Value: " + operating + "Default: " + operating);
 
-        function checkAll(id) {
-            var name = document.getElementById('Office' + id);
-            var address = document.getElementById('Address' + id);
-            var country = document.getElementById('Country' + id);
-            console.log("country Value: " + country + "Default: " + country);
-            var switchboard = document.getElementById('Switchboard' + id);
-            var fax = document.getElementById('Fax' + id);
-            //var zone = document.getElementById('Timezone' + id);
-            var operating = document.getElementById('Operating' + id);
-            console.log("operating Value: " + operating + "Default: " + operating);
+        console.log(operating);
+        highlight(name);
+        highlight(address);
+        highlight(country);
+        highlight(switchboard);
+        highlight(fax);
+        //highlight(zone);
+        highlight(operating);
+    }
 
-            console.log(operating);
-            highlight(name);
-            highlight(address);
-            highlight(country);
-            highlight(switchboard);
-            highlight(fax);
-            //highlight(zone);
-            highlight(operating);
-        }
-
-        function toggleModal(x) {
-            $('#plain_' + x).modal('show');
-            enablebody();
-        }
+    function toggleModal(x) {
+        $('#plain_' + x).modal('show');
+        enablebody();
+    }
 
 
-        function resetForm(x) {
+    function resetForm(x) {
 
-            console.log("I was called : " + x);
-            var Name = $('#Name_' + x.toString());
-            var Address = $('#Address_' + x.toString());
-            var Country = $('#Country_' + x.toString());
-            var Switchboard = $('#Switchboard_' + x.toString());
-            var Fax = $('#Fax_' + x.toString());
-            var TimeZone = $('#TimeZone_' + x.toString());
-            var Operating = $('#Operating_' + x.toString());
+        console.log("I was called : " + x);
+        var Name = $('#Name_' + x.toString());
+        var Address = $('#Address_' + x.toString());
+        var Country = $('#Country_' + x.toString());
+        var Switchboard = $('#Switchboard_' + x.toString());
+        var Fax = $('#Fax_' + x.toString());
+        var TimeZone = $('#TimeZone_' + x.toString());
+        var Operating = $('#Operating_' + x.toString());
 
-            Name.val(Name.data("original-value"));
+        Name.val(Name.data("original-value"));
 
-            Address.val(Address.data("original-value"));
+        Address.val(Address.data("original-value"));
 
-            Country.val(Country.data("original-value"));
+        Country.val(Country.data("original-value"));
 
-            Switchboard.val(Switchboard.data("original-value"));
+        Switchboard.val(Switchboard.data("original-value"));
 
-            Fax.val(Fax.data("original-value"));
+        Fax.val(Fax.data("original-value"));
 
-            //TimeZone.val(TimeZone.data("value", "original-value"));
+        //TimeZone.val(TimeZone.data("value", "original-value"));
 
-            Operating.val(Operating.data("original-value"));
-        }
+        Operating.val(Operating.data("original-value"));
+    }
 
-    </script>
+</script>
 
 </body>
