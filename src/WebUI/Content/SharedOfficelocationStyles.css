@@ -32,8 +32,7 @@ h2 {
 }
 
 .addButtonSpan {
-    position: relative;
-    float: right;
     right: 120px;
     top: -15px;
+    width: inherit;
 }

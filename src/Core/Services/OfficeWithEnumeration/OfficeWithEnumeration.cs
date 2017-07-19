@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 using OfficeLocationMicroservice.Core.Domain.CountryContext;
 using OfficeLocationMicroservice.Core.Domain.OfficeLocationContext;
@@ -10,7 +11,6 @@ namespace OfficeLocationMicroservice.Core.Services.OfficeWithEnumeration
     {
         public OfficeLocation Office { get; set; }
         public IEnumerable<SelectListItem> Countries { get; set; }
-        public IEnumerable<SelectListItem> Timezones { get; set; }
         public IEnumerable<SelectListItem> OperatingOptions { get; set; }
         public string HasChanged { get; set; }
 
@@ -19,33 +19,27 @@ namespace OfficeLocationMicroservice.Core.Services.OfficeWithEnumeration
             Office = new OfficeLocation();
             Countries = new List<SelectListItem>();
             OperatingOptions = new List<SelectListItem>();
-            Timezones = null;
             HasChanged = "false";
         }
 
         public OfficeWithEnumeration(
             OfficeLocation office,
-            Country[] countries,
-            TimeZone[] timezones 
-            )
+            Country[] countries)
         {
             Office = office;
             Countries = new SelectList(countries, "Name", "Name", office.Country);
             OperatingOptions = GenerateOperatingOptions(office.Operating);
-            Timezones = null;
         }
 
         public OfficeWithEnumeration(
             OfficeLocation office,
             Country[] countries,
-            TimeZone[] timezones, 
             string hasChanged
         )
         {
             Office = office;
             Countries = new SelectList(countries, "Name", "Name", office.Country);
             OperatingOptions = GenerateOperatingOptions(office.Operating);
-            Timezones = null;
             HasChanged = hasChanged;
         }
 
