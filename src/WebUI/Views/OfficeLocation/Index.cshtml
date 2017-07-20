@@ -465,26 +465,6 @@
             }
         }
 
-
-        function checkAll(id) {
-            var name = document.getElementById('Office' + id);
-            var address = document.getElementById('Address' + id);
-            var country = document.getElementById('Country' + id);
-            console.log("country Value: " + country + "Default: " + country);
-            var switchboard = document.getElementById('Switchboard' + id);
-            var fax = document.getElementById('Fax' + id);
-            var operating = document.getElementById('Operating' + id);
-            console.log("operating Value: " + operating + "Default: " + operating);
-
-            console.log(operating);
-            highlight(name);
-            highlight(address);
-            highlight(country);
-            highlight(switchboard);
-            highlight(fax);
-            highlight(operating);
-        }
-
         var required = function () {
             var input = $(this);
             var is_empty = input.val();
