@@ -15,7 +15,7 @@
     -moz-box-shadow: rgba(255,255,255,0.4) 0 0px 0, inset rgba(255,255,255,0.4) 0 1px 0;
     box-shadow: rgba(255,255,255,0.4) 0 0px 0, inset rgba(255,255,255,0.4) 0 1px 0;
     text-shadow: #7ea4bd 0 1px 0;
-    color: #363d43;
+    color: whitesmoke;
     font-size: 15px;
     font-family: "Chronicle Text G2 A", "Chronicle Text G2 B";
     text-decoration: none;
@@ -34,8 +34,10 @@
     background: -o-linear-gradient(top, #65a9d7, #3e779d);
     background-image: -ms-linear-gradient(top, #65a9d7 0%, #3e779d 100%);
     color: #fff;
+    box-shadow: 0 5px 10px 0 #000000, 0 5px 10px 0 #000000;
+    box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.2), 0 5px 10px 0 rgba(0, 0, 0, 0.19);
 }
-.addButton:active {
+/*.addButton:active {
     text-shadow: #1e4158 0 1px 0;
     border: 1px solid #0a3c59;
     background: #65a9d7;
@@ -46,4 +48,4 @@
     background: -o-linear-gradient(top, #3e779d, #65a9d7);
     background-image: -ms-linear-gradient(top, #3e779d 0%, #65a9d7 100%);
     color: #fff;
-}
+}*/

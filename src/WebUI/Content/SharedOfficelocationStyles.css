@@ -1,4 +1,6 @@
-﻿
+﻿body {
+    background: whitesmoke;
+}
 
 div.card {
     width: 320px;
@@ -11,6 +13,7 @@ div.card {
     overflow: hidden;
     font-family:"Avenir LT Black";
     text-rendering:optimizeLegibility;
+    border-radius: 5px
 }
 
 .details {
@@ -23,10 +26,16 @@ h4 {
     font-family:"Sentinel A","Sentinel B";
     font-weight: 600;
 }
-
+.headingDiv{
+    display: table;
+    margin: 0 auto;
+    width: 150px;
+    border-bottom:3px solid #b1bf2a;
+}
 h1 {
     text-align: center;
 }
+
 
 .myContainer {
     margin-top: 50px;
