@@ -11,6 +11,9 @@
     <link href="~/Content/SharedOfficelocationStyles.css" rel="stylesheet"/>
     <title>Dimensional Investing | Dimensional Fund Advisors</title>
     <link href="/Assets/images/favicon.ico" rel="shortcut icon" type="image/x-icon"/>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <style>
         .card:hover {
@@ -343,8 +346,6 @@
 
 </div>
 
-
-
 <script>
     
     function HasChanged(x, form) {
@@ -354,7 +355,6 @@
             if (is_empty) { x.removeClass("invalid").addClass("valid"); }
             else { x.removeClass("valid").addClass("invalid"); }
         };
-
 
         var Name = $('#Name_' + x.toString());
         var Address = $('#Address_' + x.toString());
