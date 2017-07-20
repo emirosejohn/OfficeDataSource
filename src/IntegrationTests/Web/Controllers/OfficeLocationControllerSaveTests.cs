@@ -406,6 +406,14 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
 
                 offices.Length.Should().Be(1);
 
+                offices[0].OfficeId.Should().Be(expectedOfficeId1);
+                offices[0].Name.Should().Be("Berlin");
+                offices[0].Address.Should().Be("***REMOVED*** Kurfürstendamm 194, D - 10707 Berlin");
+                offices[0].Country.Should().Be("Germany");
+                offices[0].Switchboard.Should().Be("***REMOVED***");
+                offices[0].Fax.Should().Be("***REMOVED***");
+                offices[0].Operating.Should().Be("Closed");
+
             });
 
         }
