@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Runtime.CompilerServices;
-using System.Web.Mvc;
 
 namespace OfficeLocationMicroservice.Core.Domain.OfficeLocationContext
 {
@@ -19,5 +18,7 @@ namespace OfficeLocationMicroservice.Core.Domain.OfficeLocationContext
         public string Fax { get; set; }
 
         public string Operating { get; set; }
+
+        public string HasChanged { get; set; }
     }
 }

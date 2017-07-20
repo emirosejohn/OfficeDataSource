@@ -88,15 +88,15 @@
     }
     @foreach (var office in Model.Offices)
     {
-        <div class="card" onclick="toggleModal(@office.Office.OfficeId);">
-            <h4>@office.Office.Name</h4>
+        <div class="card" onclick="toggleModal(@office.OfficeId);">
+            <h4>@office.Name</h4>
             <div class="details">
-                @Html.Raw(office.Office.Address.Replace(CRLF, "<br/>"))<br/>
-                @office.Office.Country <br/>
+                @Html.Raw(office.Address.Replace(CRLF, "<br/>"))<br/>
+                @office.Country <br/>
                 Switchboard:
-                @office.Office.Switchboard <br/>
-                Fax: @office.Office.Fax <br/>
-                @office.Office.Operating
+                @office.Switchboard <br/>
+                Fax: @office.Fax <br/>
+                @office.Operating
             </div>
 
         </div>
@@ -111,97 +111,101 @@
         for (var i = 0; i < Model.Offices.Length; i++)
         {
 
-            <div class="modal fade" id="modal_@Model.Offices[i].Office.OfficeId" data-backdrop="static" data-keyboard="false">
+            <div class="modal fade" id="modal_@Model.Offices[i].OfficeId" data-backdrop="static" data-keyboard="false">
                 <div class="modal-dialog">
                     <div class="modal-content">
 
-                        @Html.HiddenFor(m => m.Offices[i].Office.OfficeId, new {value = @Model.Offices[i].Office.OfficeId})
+                        @Html.HiddenFor(m => m.Offices[i].OfficeId, new {value = @Model.Offices[i].OfficeId})
                         @Html.HiddenFor(m => m.Offices[i].HasChanged, 
                             new
                             {
-                                id = "HasChanged_" + Model.Offices[i].Office.OfficeId, 
+                                id = "HasChanged_" + Model.Offices[i].OfficeId, 
                             })
                         <div class="modal-header">
-                            <button type="button" class="close" onclick="modalCheck(@Model.Offices[i].Office.OfficeId);">&times;</button>
+                            <button type="button" class="close" onclick="modalCheck(@Model.Offices[i].OfficeId);">&times;</button>
                             <h4 class="modal-title">Edit</h4>
                         </div>
 
                         <div class="modal-body">
 
                             <div class="form-group">
-                                <label for="Name_@Model.Offices[i].Office.OfficeId" 
-                                       id="NameLabel_@Model.Offices[i].Office.OfficeId">Office</label>
-                                @Html.TextBoxFor(m => m.Offices[i].Office.Name, new
+                                <label for="Name_@Model.Offices[i].OfficeId" 
+                                       id="NameLabel_@Model.Offices[i].OfficeId">Office</label>
+                                @Html.TextBoxFor(m => m.Offices[i].Name, new
                                 {
                                     @placeholder = "Type Office Here",
                                     @class = "form-control",
                                     @rows = "1",
-                                    @id = "Name_" + @Model.Offices[i].Office.OfficeId,
-                                    @data_original_value = @Model.Offices[i].Office.Name,
+                                    @id = "Name_" + @Model.Offices[i].OfficeId,
+                                    @data_original_value = @Model.Offices[i].Name,
                                     @style = "min-width: 100%;",
                                     @readonly="True"
                                 })
                             </div>
 
                             <div class="form-group">
-                                <label for="Address_@Model.Offices[i].Office.OfficeId">Address</label>
-                                @Html.TextAreaFor(m => m.Offices[i].Office.Address, 3, 100, new
+                                <label for="Address_@Model.Offices[i].OfficeId">Address</label>
+                                @Html.TextAreaFor(m => m.Offices[i].Address, 3, 100, new
                            {
                                @placeholder = "Type Address Here",
                                @class = "form-control",
-                               @id = "Address_" + @Model.Offices[i].Office.OfficeId,
-                               @data_original_value = @Model.Offices[i].Office.Address,
+                               @id = "Address_" + @Model.Offices[i].OfficeId,
+                               @data_original_value = @Model.Offices[i].Address,
                                @style = "min-width: 100%;",
                                @readonly="True",
                                @required = "True"
                            })
 
-                                @Html.DropDownListFor(m => m.Offices[i].Office.Country, Model.Offices[i].Countries, null, new
+                                @Html.DropDownListFor(m => m.Offices[i].Country,
+                                    new SelectList(Model.Countries, "Name", "Name", Model.Offices[i].Country)
+                                    , null, new
                                 {
                                     @class = "form-control",
-                                    @id = "Country_" + @Model.Offices[i].Office.OfficeId,
-                                    @data_original_value = @Model.Offices[i].Office.Country,
+                                    @id = "Country_" + @Model.Offices[i].OfficeId,
+                                    @data_original_value = @Model.Offices[i].Country,
                                     @disabled="True"
                                 })
 
                             </div>
 
                             <div class="form-group">
-                                <label for="Switchboard_@Model.Offices[i].Office.OfficeId">Switchboard</label>
-                                @Html.TextBoxFor(m => m.Offices[i].Office.Switchboard, new
+                                <label for="Switchboard_@Model.Offices[i].OfficeId">Switchboard</label>
+                                @Html.TextBoxFor(m => m.Offices[i].Switchboard, new
                                 {
                                     @placeholder = "Type Switchboard Here",
                                     @class = "form-control",
                                     @rows = "1",
-                                    @id = "Switchboard_" + @Model.Offices[i].Office.OfficeId,
-                                    @data_original_value = @Model.Offices[i].Office.Switchboard,
+                                    @id = "Switchboard_" + @Model.Offices[i].OfficeId,
+                                    @data_original_value = @Model.Offices[i].Switchboard,
                                     @style = "min-width: 100%;", 
                                     @readonly="True"
                                 })
                             </div>
 
                             <div class="form-group">
-                                <label for="Fax_@Model.Offices[i].Office.OfficeId">Fax</label>
-                                @Html.TextBoxFor(m => m.Offices[i].Office.Fax, new
+                                <label for="Fax_@Model.Offices[i].OfficeId">Fax</label>
+                                @Html.TextBoxFor(m => m.Offices[i].Fax, new
                                 {
                                     @placeholder = "Type Fax Here",
                                     @class = "form-control",
                                     @rows = "1",
-                                    @id = "Fax_" + @Model.Offices[i].Office.OfficeId,
-                                    @data_original_value = @Model.Offices[i].Office.Fax,
+                                    @id = "Fax_" + @Model.Offices[i].OfficeId,
+                                    @data_original_value = @Model.Offices[i].Fax,
                                     @style = "min-width: 100%;", 
                                     @readonly="True"
                                 })
                             </div>
 
                             <div class="form-group">
-                                <label for="Operating_@Model.Offices[i].Office.OfficeId">Operating</label>
-                                @Html.DropDownListFor(m => m.Offices[i].Office.Operating, Model.Offices[i].OperatingOptions, null,
+                                <label for="Operating_@Model.Offices[i].OfficeId">Operating</label>
+                                @Html.DropDownListFor(m => m.Offices[i].Operating,
+                               new SelectList(Model.OperatingOptions, "Name", "Name", Model.Offices[i].Operating),
+                               null,
                                     new
                                     {
                                         @class = "form-control",
-                                        @id = "Operating_" + @Model.Offices[i].Office.OfficeId,
-                                        @data_original_value = @Model.Offices[i].Office.Operating,
+                                        @id = "Operating_" + @Model.Offices[i].OfficeId,
+                                        @data_original_value = @Model.Offices[i].Operating,
                                         @disabled="True"
                                     })
 
@@ -210,12 +214,12 @@
                         </div>
 
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-close" onclick="modalCheck(@Model.Offices[i].Office.OfficeId);">Close</button>
-                            <button type="button" class="btn btn-office" id="SaveBtn_@Model.Offices[i].Office.OfficeId"
-                                    onclick="HasChanged(@Model.Offices[i].Office.OfficeId, OfficesForm)"
+                            <button type="button" class="btn btn-close" onclick="modalCheck(@Model.Offices[i].OfficeId);">Close</button>
+                            <button type="button" class="btn btn-office" id="SaveBtn_@Model.Offices[i].OfficeId"
+                                    onclick="HasChanged(@Model.Offices[i].OfficeId, OfficesForm)"
                                     style="display: none;">Save changes</button>           
-                            <button type="button" class="btn btn-office"  id="EditBtn_@Model.Offices[i].Office.OfficeId"
-                                    onclick="editmodal(@Model.Offices[i].Office.OfficeId);">
+                            <button type="button" class="btn btn-office"  id="EditBtn_@Model.Offices[i].OfficeId"
+                                    onclick="editmodal(@Model.Offices[i].OfficeId);">
                                 Edit
                             </button>
                         </div>
@@ -253,13 +257,13 @@
 
                         <div class="form-group">
                             <label for="Name_newOffice">Office</label>
-                            @Html.TextBoxFor(m => m.NewOffice.Office.Name, new
+                            @Html.TextBoxFor(m => m.NewOffice.Name, new
                             {
                                 @placeholder = "Type Office Here",
                                 @class = "form-control",
                                 @rows = "1",
                                 @id = "Name_newOffice",
-                                @data_original_value = @Model.NewOffice.Office.Name,
+                                @data_original_value = @Model.NewOffice.Name,
                                 @style = "min-width: 100%;",
                             })
                         </div>
@@ -267,59 +271,63 @@
 
                         <div class="form-group">
                             <label for="Address_newOffice">Address</label>
-                            @Html.TextAreaFor(m => m.NewOffice.Office.Address, 3, 100, new
+                            @Html.TextAreaFor(m => m.NewOffice.Address, 3, 100, new
                        {
                            @placeholder = "Type Address Here",
                            @class = "form-control",
                            @id = "Address_newOffice",
-                           @data_original_value = @Model.NewOffice.Office.Address,
+                           @data_original_value = @Model.NewOffice.Address,
                            @style = "min-width: 100%;",
                            @required = "True"
                        })
 
-                            @Html.DropDownListFor(m => m.NewOffice.Office.Country, Model.NewOffice.Countries, null, new
-                            {
-                                @class = "form-control",
-                                @id = "Country_newOffice",
-                                @data_original_value = @Model.NewOffice.Office.Country,
-                            })
+                            @Html.DropDownListFor(m => m.NewOffice.Country,
+                                new SelectList(Model.Countries, "Name", "Name", Model.NewOffice.Country)
+                                , null, new
+                           {
+                               @class = "form-control",
+                               @id = "Country_newOffice",
+                               @data_original_value = @Model.NewOffice.Country,
+                           })
 
                         </div>
 
                         <div class="form-group">
                             <label for="Switchboard_newOffice">Switchboard</label>
-                            @Html.TextBoxFor(m => m.NewOffice.Office.Switchboard, new
+                            @Html.TextBoxFor(m => m.NewOffice.Switchboard, new
                             {
                                 @placeholder = "Type Switchboard Here",
                                 @class = "form-control",
                                 @rows = "1",
                                 @id = "Switchboard_newOffice",
-                                @data_original_value = @Model.NewOffice.Office.Switchboard,
+                                @data_original_value = @Model.NewOffice.Switchboard,
                                 @style = "min-width: 100%;"
                             })
                         </div>
 
                         <div class="form-group">
                             <label for="Fax_newOffice">Fax</label>
-                            @Html.TextBoxFor(m => m.NewOffice.Office.Fax, new
+                            @Html.TextBoxFor(m => m.NewOffice.Fax, new
                             {
                                 @placeholder = "Type Fax Here",
                                 @class = "form-control",
                                 @rows = "1",
                                 @id = "Fax_newOffice",
-                                @data_original_value = @Model.NewOffice.Office.Fax,
+                                @data_original_value = @Model.NewOffice.Fax,
                                 @style = "min-width: 100%;"
                             })
                         </div>
 
                         <div class="form-group">
                             <label for="Operating_newOffice">Operating</label>
-                            @Html.DropDownListFor(m => m.NewOffice.Office.Operating, Model.NewOffice.OperatingOptions, null,
+                            @Html.DropDownListFor(m => m.NewOffice.Operating,
+                                new SelectList(Model.OperatingOptions, "Name", "Name", Model.NewOffice.Operating),
+                           null,
                                 new
                                 {
                                     @class = "form-control",
                                     @id = "Operating_newOffice",
-                                    @data_original_value = @Model.NewOffice.Office.Operating,
+                                    @data_original_value = @Model.NewOffice.Operating,
                                 })
 
                         </div>

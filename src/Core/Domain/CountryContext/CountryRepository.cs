@@ -45,6 +45,5 @@ namespace OfficeLocationMicroservice.Core.Domain.CountryContext
             return countries.Select((country) => 
                 new SelectListItem { Text = country.Name, Value = country.Name });
         }
-
     }
 }

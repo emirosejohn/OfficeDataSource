@@ -1,9 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
 using OfficeLocationMicroservice.Core;
 using OfficeLocationMicroservice.Core.Domain.CountryContext;
 using OfficeLocationMicroservice.Core.Domain.OfficeLocationContext;
-using OfficeLocationMicroservice.Core.Services.OfficeWithEnumeration;
+using OfficeLocationMicroservice.Core.Services;
 using OfficeLocationMicroservice.WebUi.Models;
 
 namespace OfficeLocationMicroservice.WebUi.Controllers
@@ -32,13 +33,13 @@ namespace OfficeLocationMicroservice.WebUi.Controllers
         {
             OfficeModel officeModel = new OfficeModel();
 
-            var officeWithEnumerationGenerator = new OfficeWithEnumerationGenerator(
-                _officeLocationRepository,
-                _countryRepository);
+            officeModel.Offices = _officeLocationRepository.GetAll();
 
-            officeModel.Offices = officeWithEnumerationGenerator.GetAll();
+            officeModel.NewOffice = new OfficeLocation();
 
-            officeModel.NewOffice = officeWithEnumerationGenerator.NewOffice(new OfficeLocation());
+            officeModel.Countries = _countryRepository.GetAllCountries();
+
+            officeModel.OperatingOptions = WebHelper.GenerateOperatingOptions();
 
             officeModel.NotificationFlag = notificationFlag;
 
@@ -48,25 +49,27 @@ namespace OfficeLocationMicroservice.WebUi.Controllers
         [HttpPost]
         public ActionResult Save(OfficeModel officeModel)
         {
+
+
             if (officeModel.Offices != null)
             {
                 foreach (var office in officeModel.Offices)
                 {
-                    if (office?.Office != null && office.HasChanged!=null)
+                    if (office != null && office.HasChanged!=null)
                     {
                         if (Boolean.Parse(office.HasChanged))
                         {
-                            var officelocation = _officeLocationRepository.Update(office.Office);
+                            var officelocation = _officeLocationRepository.Update(office);
                         }
                     }
                 }
             }
 
-            if (officeModel.NewOffice?.Office != null && officeModel.NewOffice.HasChanged != null)
+            if (officeModel.NewOffice != null && officeModel.NewOffice.HasChanged != null)
             {
                 if (Boolean.Parse(officeModel.NewOffice.HasChanged))
                 {
-                    var officelocation = _officeLocationRepository.Update(officeModel.NewOffice.Office);
+                    var officelocation = _officeLocationRepository.Update(officeModel.NewOffice);
                 }             
             }
 
@@ -76,6 +79,22 @@ namespace OfficeLocationMicroservice.WebUi.Controllers
 
     public static class WebHelper
     {
+        public static OperatingOption[] GenerateOperatingOptions()
+        {
+            var operatingOptions = new List<OperatingOption>();
+            operatingOptions.Add(new OperatingOption()
+            {
+                Id = "Active",
+                Name = "Active",
+            });
+            operatingOptions.Add(new OperatingOption()
+            {
+                Id = "Closed",
+                Name = "Closed",
+            });
+
+            return operatingOptions.ToArray();
+        }
     }
 }
  

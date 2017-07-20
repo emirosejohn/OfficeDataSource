@@ -6,7 +6,6 @@ using System.Text;
 using System.Threading.Tasks;
 using FluentAssertions;
 using OfficeLocationMicroservice.Core.Domain.OfficeLocationContext;
-using OfficeLocationMicroservice.Core.Services.OfficeWithEnumeration;
 using OfficeLocationMicroservice.Core.Services.SharedContext.OfficeLocationDatabase;
 using OfficeLocationMicroservice.WebUi.Models;
 using Xunit;
@@ -71,12 +70,14 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
 
                 var locationModel = officeDto1.ExtractOfficeLocation();
 
+                locationModel.HasChanged = "True";
+
                 var locationOffice = new OfficeModel()
                 {
-                    Offices = new OfficeWithEnumeration[]
+                    Offices = new []
                     {
-                        new OfficeWithEnumeration(locationModel, testHelper.GetAllCountries(), "True")
-                    }       
+                        locationModel
+                    },                     
                 };
 
                 var actionResult = controller.Save(locationOffice);
@@ -157,18 +158,15 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
 
                 var locationModel = updatedOfficeDto.ExtractOfficeLocation();
 
+                locationModel.HasChanged = "True";
+
                 var locationOffice = new OfficeModel()
                 {
-                    Offices = new OfficeWithEnumeration[]
-                    {   null,
-                        new OfficeWithEnumeration(locationModel, testHelper.GetAllCountries()),
-                        new OfficeWithEnumeration(locationModel, testHelper.GetAllCountries())
-                    }
+                    Offices = new[]
+                    {
+                        locationModel, null, new OfficeLocation()
+                    },
                 };
-
-                locationOffice.Offices[1].HasChanged = "false";
-
-                locationOffice.Offices[2].HasChanged = "true";
 
                 var actionResult = controller.Save(locationOffice);
 
@@ -241,11 +239,11 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
 
                 var locationModel = updatedOfficeDto.ExtractOfficeLocation();
 
+                locationModel.HasChanged = "True";
+
                 var locationOffice = new OfficeModel()
                 {
-                    NewOffice = new OfficeWithEnumeration(locationModel,
-                        testHelper.GetAllCountries())
-
+                    NewOffice = locationModel      
                 };
 
                 locationOffice.NewOffice.HasChanged = "true";
@@ -305,14 +303,16 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
 
                 var locationModel = officeDto1.ExtractOfficeLocation();
 
+                locationModel.HasChanged = "True";
+
                 var locationOffice = new OfficeModel()
                 {
-                    Offices = new OfficeWithEnumeration[]
+                    Offices = new[]
                     {
-                        new OfficeWithEnumeration(locationModel, testHelper.GetAllCountries(),
-"True")
-                    }
+                        locationModel
+                    },
                 };
+
 
                 var actionResult = controller.Save(locationOffice);
 
