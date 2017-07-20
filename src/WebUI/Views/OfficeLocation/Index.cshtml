@@ -357,8 +357,8 @@
             var Name = $('#Name_' + x.toString());
             var Address = $('#Address_' + x.toString());
             var Country = $('#Country_' + x.toString());
-            var Switchboard = $('#Switchboard' + x.toString());
-            var Fax = $('#Fax' + x.toString());
+            var Switchboard = $('#Switchboard_' + x.toString());
+            var Fax = $('#Fax_' + x.toString());
             var Operating = $('#Operating_' + x.toString());
 
             validate(Name);
@@ -428,12 +428,27 @@
                 1000);
         }
         function highlight(x) {
-            try {
+            if (x.nodeName == "INPUT" || x.nodeName == "TEXTAREA") {
                 if (x.value != x.defaultValue) {
                     x.style.color = "red";
                 }
-            } catch (e) {//because drop down
-                alert("highlighting: " + x);
+            } else if (x.nodeName == "SELECT") {
+                console.log(x.value);
+                console.log(x.innerHTML);
+                var html = x.innerHTML;
+                var start = html.search("selected");
+                var newHtml = html.substring(start, html.length);
+                var narrowStart = newHtml.search("value=");
+                var narrowEnd = newHtml.search(">");
+                var oldValue = newHtml.substring(narrowStart + 7, narrowEnd-1);
+                console.log(oldValue);
+
+                if (x.value != oldValue) {
+                    x.style.color = "red";
+                }
+                
+            } else {
+                x.style.color = "green";
             }
         }
 
