@@ -1,4 +1,6 @@
-﻿
+﻿body {
+    background: whitesmoke;
+}
 
 div.card {
     width: 320px;
@@ -11,7 +13,9 @@ div.card {
     overflow: hidden;
     font-family:"Avenir LT Black";
     text-rendering:optimizeLegibility;
+    border-radius: 6px
 }
+
 
 .details {
     margin: 10px;
@@ -23,10 +27,16 @@ h4 {
     font-family:"Sentinel A","Sentinel B";
     font-weight: 600;
 }
-
+.headingDiv{
+    display: table;
+    margin: 0 auto;
+    width: 150px;
+    border-bottom:3px solid #005E74;
+}
 h1 {
     text-align: center;
 }
+
 
 .myContainer {
     margin-top: 50px;
@@ -42,12 +52,12 @@ h1 {
     width: inherit;
 }
 .btn-office {
-    background: #f3a6d1;
+    background: #8e9aa4;
 }
 
 .btn-office:hover {
-    background: #b64785;
-    color: black;
+    background: #363d43;
+    color: whitesmoke;
 }
 
 .btn-close {
