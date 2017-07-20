@@ -38,7 +38,7 @@ namespace OfficeLocationMicroservice.Core.Domain.OfficeLocationContext
             string changedAddress = newOfficeLocation.Address.Replace(CRLF, "<br/>") + "<br/>" + newOfficeLocation.Country;
             if (newOfficeLocation.Address != originalOfficeLocation.Address)
             {
-                changedAddress = "<span style='color:red;font-weight:bold;'>" + newOfficeLocation.Address 
+                changedAddress = "<span style='color:red;font-weight:bold;'>" + newOfficeLocation.Address.Replace(CRLF, "<br/>")
                     + "<br/>" + newOfficeLocation.Country + "</span>";
             }
 
