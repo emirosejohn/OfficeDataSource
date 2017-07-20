@@ -66,6 +66,9 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
 
                 var expectedOfficeId1 = testHelper.InsertOfficeDto(officeDto0);
 
+                var userWrapper = testHelper.GetUserWrapper();
+                userWrapper.MakeUserPartOfGroup(userWrapper.GroupNameConstants.AdminGroup);
+
                 var controller = testHelper.CreateController();
 
                 var locationModel = officeDto1.ExtractOfficeLocation();
@@ -154,6 +157,9 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
 
                 var updatedOfficeDto = SimulateUpdatingOfficeLocation(expectedOfficeId);
 
+                var userWrapper = testHelper.GetUserWrapper();
+                userWrapper.MakeUserPartOfGroup(userWrapper.GroupNameConstants.AdminGroup);
+
                 var controller = testHelper.CreateController();
 
                 var locationModel = updatedOfficeDto.ExtractOfficeLocation();
@@ -235,6 +241,9 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
 
                 var updatedOfficeDto = SimulateUpdatingOfficeLocation(expectedOfficeId);
 
+                var userWrapper = testHelper.GetUserWrapper();
+                userWrapper.MakeUserPartOfGroup(userWrapper.GroupNameConstants.AdminGroup);
+
                 var controller = testHelper.CreateController();
 
                 var locationModel = updatedOfficeDto.ExtractOfficeLocation();
@@ -299,6 +308,9 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
 
                 var expectedOfficeId1 = testHelper.InsertOfficeDto(officeDto0);
 
+                var userWrapper = testHelper.GetUserWrapper();
+                userWrapper.MakeUserPartOfGroup(userWrapper.GroupNameConstants.AdminGroup);
+
                 var controller = testHelper.CreateController();
 
                 var locationModel = officeDto1.ExtractOfficeLocation();
@@ -312,7 +324,6 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
                         locationModel
                     },
                 };
-
 
                 var actionResult = controller.Save(locationOffice);
 
@@ -340,9 +351,64 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
                 offices[1].Operating.Should().Be("Closed");
 
             });
+        }      
+
+        [Fact(DisplayName = "Should deny users with invalid permissions the ability to save.")]
+        public void ShouldNotAllowInvalidUsersToSave()
+        {
+
+            var testHelper = new TestHelper();
+
+            testHelper.DatabaseDataDeleter(() =>
+            {
+
+                var officeDto0 = new OfficeDto()
+                {
+                    Name = "Berlin",
+                    Address = "***REMOVED*** Kurfürstendamm 194, D - 10707 Berlin",
+                    Country = "Germany",
+                    Switchboard = "***REMOVED***",
+                    Fax = "***REMOVED***",
+                    Operating = 0
+                };
+
+                var officeDto1 = new OfficeDto()
+                {
+                    Name = "Austin",
+                    Address = "Dimensional Place 6300 Bee Cave Road",
+                    Country = "United States",
+                    Switchboard = "***REMOVED***",
+                    Fax = "+***REMOVED***",
+                    Operating = 1
+                };
+
+                var expectedOfficeId1 = testHelper.InsertOfficeDto(officeDto0);
+
+                var controller = testHelper.CreateController();
+
+                var locationModel = officeDto1.ExtractOfficeLocation();
+                locationModel.HasChanged = "True";
+
+                var locationOffice = new OfficeModel()
+                {
+                    Offices = new[]
+                    {
+                        locationModel
+                    },
+                };
+
+                var actionResult = controller.Save(locationOffice);
+
+                var officeLocationRepository = testHelper.GetOfficeLocationRepository();
+                var offices = officeLocationRepository.GetAll();
+
+                //*********************************
+
+                offices.Length.Should().Be(1);
+
+            });
+
         }
-
-
 
         private OfficeDto SimulateUpdatingOfficeLocation(int expectedOfficeId)
         {

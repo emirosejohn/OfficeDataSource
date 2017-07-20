@@ -8,13 +8,4 @@
 
         IGroupNameConstants GroupNameConstants { get; }
     }
-
-    public static class UserWrapperExtensions
-    {
-        public static bool IsInAdminGroup(
-            this IUserWrapper user)
-        {
-            return user.IsInGroup(user.GroupNameConstants.AdminGroup);
-        }
-    }
 }

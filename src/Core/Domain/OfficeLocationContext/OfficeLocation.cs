@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-
-namespace OfficeLocationMicroservice.Core.Domain.OfficeLocationContext
+﻿namespace OfficeLocationMicroservice.Core.Domain.OfficeLocationContext
 {
     public class OfficeLocation
     {

@@ -12,9 +12,9 @@ namespace OfficeLocationMicroservice.WebUi.Models
         public OfficeLocation NewOffice { get; set; }
         public bool? NotificationFlag { get; set; }
 
-        public OfficeLocation Office { get; set; }
         public Country[] Countries { get; set; }
         public OperatingOption[] OperatingOptions { get; set; }
 
+        public IUserWrapper User { get; set; }
     }
 }
