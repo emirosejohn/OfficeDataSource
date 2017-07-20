@@ -13,8 +13,9 @@ div.card {
     overflow: hidden;
     font-family:"Avenir LT Black";
     text-rendering:optimizeLegibility;
-    border-radius: 5px
+    border-radius: 6px
 }
+
 
 .details {
     margin: 10px;
