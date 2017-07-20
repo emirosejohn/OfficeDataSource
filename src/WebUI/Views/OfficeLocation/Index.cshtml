@@ -348,28 +348,49 @@
 <script>
     
     function HasChanged(x, form) {
+
+        function validate(x) {
+            var is_empty = x.val();
+            if (is_empty) { x.removeClass("invalid").addClass("valid"); }
+            else { x.removeClass("valid").addClass("invalid"); }
+        };
+
+
         var Name = $('#Name_' + x.toString());
         var Address = $('#Address_' + x.toString());
         var Country = $('#Country_' + x.toString());
         var Operating = $('#Operating_' + x.toString());
 
+        validate(Name);
+        validate(Address);
+        validate(Country);
+        validate(Operating);
+
+        var errorStr = "";
+        var hasError = false;
+
         if (Name.hasClass("invalid")) {
-            alert("Office Name cannot be empty.");
-            return;
+            errorStr += "Office Name cannot be empty.\n";
+            hasError = true;
         }
 
         if (Address.hasClass("invalid")) {
-            alert("Office Address cannot be empty.");
-            return;
+            errorStr += "Office Address cannot be empty.\n";
+            hasError = true;
         }
 
         if (Country.hasClass("invalid")) {
-            alert("Country Name cannot be empty.");
-            return;
+            errorStr += "Office Country cannot be empty.\n";
+            hasError = true;
         }
 
         if (Operating.hasClass("invalid")) {
-            alert("Operating Name cannot be empty.");
+            errorStr += "Office Operating cannot be empty.\n";
+            hasError = true;
+        }
+
+        if (hasError) {
+            alert(errorStr);
             return;
         }
 
@@ -377,13 +398,6 @@
         $(form).submit();
         
 
-    }
-
-    function check_newModal() {
-        if (confirm('Are you sure you want to cancel. You will lose your unsaved changes')) {
-            $('#emptyModals').modal('hide');
-            resetForm("newOffice");
-        }
     }
 
     function enablebody() {
@@ -396,6 +410,14 @@
         $('#body').css({
             'overflow-y': 'hidden'
         });
+    }
+
+    function check_newModal() {
+        if (confirm('Are you sure you want to cancel. You will lose your unsaved changes')) {
+            $('#emptyModals').modal('hide');
+
+            resetForm("newOffice");
+        }
     }
 
     function modalCheck(x) {
@@ -435,14 +457,15 @@
         highlight(operating);
     }
 
+    var required = function () {
+        var input = $(this);
+        var is_empty = input.val();
+        if (is_empty) { input.removeClass("invalid").addClass("valid"); }
+        else { input.removeClass("valid").addClass("invalid"); }
+    };
+
     function toggleNewModal() {
-        var x = "newModal";
-        var required = function () {
-            var input = $(this);
-            var is_empty = input.val();
-            if (is_empty) { input.removeClass("invalid").addClass("valid"); }
-            else { input.removeClass("valid").addClass("invalid"); }
-        };
+        var x = "newOffice";
 
         var Name = $('#Name_' + x.toString());
         var Address = $('#Address_' + x.toString());
@@ -455,6 +478,11 @@
         Address.on('input', required);
         Country.on('input', required);
         Operating.on('input', required);
+
+        Name.on('submit', required);
+        Address.on('submit', required);
+        Country.on('submit', required);
+        Operating.on('submit', required);
 
         Name.attr('readonly', false);
 
@@ -490,13 +518,6 @@
 
     function editmodal(x) {
 
-        var required = function  () {
-            var input = $(this);
-            var is_empty = input.val();
-            if (is_empty) { input.removeClass("invalid").addClass("valid"); }
-            else { input.removeClass("valid").addClass("invalid"); }
-        };
-
         var Name = $('#Name_' + x.toString());
         var Address = $('#Address_' + x.toString());
         var Country = $('#Country_' + x.toString());
@@ -528,10 +549,9 @@
         SaveBtn.show();
 
         EditBtn.hide();
-
-
-
     }
+
+
 
     function resetForm(x) {
         console.log("I was called : " + x);
