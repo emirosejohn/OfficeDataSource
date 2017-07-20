@@ -9,16 +9,19 @@ namespace OfficeLocationMicroservice.Core.Domain.OfficeLocationContext
 {
     public static class OfficeLocationRepositoryHelper
     {
+        private const string CRLF = @"
+";
+
         public static string GenerateInsertEmailSubject(OfficeLocation officeLocation)
         {
-            var subject = "ACTION REQUIRED: New Office Data Source Created for the "
+            var subject = "ACTION REQUIRED: Office Data Source Created for the "
                           + officeLocation.Name + " Office";
             return subject;
         }
 
         public static string GenerateUpdateEmailSubject(OfficeLocation officeLocation)
         {
-            var subject = "ACTION REQUIRED: New Office Data Source Update for the "
+            var subject = "ACTION REQUIRED: Office Data Source Update for the "
                           + officeLocation.Name + " Office";
             return subject;
         }
@@ -32,7 +35,7 @@ namespace OfficeLocationMicroservice.Core.Domain.OfficeLocationContext
                 changedName = "<span style='color:red;font-weight:bold;'>" + newOfficeLocation.Name + "</span>";
             }
 
-            string changedAddress = newOfficeLocation.Address + "<br/>" + newOfficeLocation.Country;
+            string changedAddress = newOfficeLocation.Address.Replace(CRLF, "<br/>") + "<br/>" + newOfficeLocation.Country;
             if (newOfficeLocation.Address != originalOfficeLocation.Address)
             {
                 changedAddress = "<span style='color:red;font-weight:bold;'>" + newOfficeLocation.Address 
@@ -105,7 +108,7 @@ namespace OfficeLocationMicroservice.Core.Domain.OfficeLocationContext
                 ODS Team
              ";
 
-            var originalOfficeAddress = originalOfficeLocation.Address + "<br/>" + originalOfficeLocation.Country;
+            var originalOfficeAddress = originalOfficeLocation.Address.Replace(CRLF, "<br/>") + "<br/>" + originalOfficeLocation.Country;
 
             body = string.Format(body,
                 originalOfficeLocation.Name,
@@ -158,7 +161,7 @@ namespace OfficeLocationMicroservice.Core.Domain.OfficeLocationContext
                 ODS Team
              ";
 
-            var officeAddress = officeLocation.Address + "<br/>" + officeLocation.Country;
+            var officeAddress = officeLocation.Address.Replace(CRLF, "<br/>") + "<br/>" + officeLocation.Country;
 
             body = string.Format(body,
                 officeLocation.Name, officeLocation.Name,
