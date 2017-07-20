@@ -18,8 +18,14 @@ Invoke-psake -buildFile .\deploy\Web\default.ps1 `
 				 "enviornment" = "STG"
                  "databaseServer" = "***REMOVED***"
                  "projectName" = "$projectName"
-                 "CountryWebApiUrl" = "***REMOVED***/"
-				}
+                 "CountryWebApiUrl" = "***REMOVED***swagger/ui/index"
+
+                 "EmailServerName" = "***REMOVED***"
+                 "EmailTo"= "***REMOVED***,***REMOVED***,***REMOVED***"
+                 "EmailFrom" = "***REMOVED***"
+                 "Emailsubject" = "Subject"
+
+                 }
 
 Write-Host "Build exit code:" $LastExitCode
 
