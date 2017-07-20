@@ -14,8 +14,8 @@ namespace OfficeLocationMicroservice.Core.Domain.OfficeLocationContext
 
         public static string GenerateInsertEmailSubject(OfficeLocation officeLocation)
         {
-            var subject = "ACTION REQUIRED: Office Data Source Created for the "
-                          + officeLocation.Name + " Office";
+            var subject = "ACTION REQUIRED: New Office - "
+                          + officeLocation.Name;
             return subject;
         }
 

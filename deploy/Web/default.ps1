@@ -38,6 +38,7 @@ task CopyTempToSiteLocation -depends ConfigureWeb{
 
     If (Test-Path "$siteLocation") {
 	    Write-Host "Deleting contents: $siteLocation"
+        Get-ChildItem $siteLocation -Recurse | Unblock-File  
 	     Remove-Item "$siteLocation\*" -Recurse -Force 
         # & cmd.exe /c rd /S /Q $siteLocation
         # Get-ChildItem $siteLocation -Recurse -Force | Remove-Item -Force  
