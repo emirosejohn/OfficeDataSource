@@ -30,7 +30,7 @@ h4 {
     display: table;
     margin: 0 auto;
     width: 150px;
-    border-bottom:3px solid #b1bf2a;
+    border-bottom:3px solid #005E74;
 }
 h1 {
     text-align: center;
@@ -51,12 +51,12 @@ h1 {
     width: inherit;
 }
 .btn-office {
-    background: #f3a6d1;
+    background: #8e9aa4;
 }
 
 .btn-office:hover {
-    background: #b64785;
-    color: black;
+    background: #363d43;
+    color: whitesmoke;
 }
 
 .btn-close {
