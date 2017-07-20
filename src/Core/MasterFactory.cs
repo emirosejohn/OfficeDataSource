@@ -26,6 +26,7 @@ namespace OfficeLocationMicroservice.Core
         {
             return new CountryRepository(CountryWebApiGateway);
         }
+
     }
 }
 
