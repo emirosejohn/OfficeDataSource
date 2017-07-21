@@ -1,5 +1,6 @@
 ﻿using OfficeLocationMicroservice.Core.Domain.CountryContext;
 using OfficeLocationMicroservice.Core.Domain.OfficeLocationContext;
+using OfficeLocationMicroservice.Core.Services;
 using OfficeLocationMicroservice.Core.Services.CountryFetcher.CountryWebApi;
 using OfficeLocationMicroservice.Core.Services.Email;
 using OfficeLocationMicroservice.Core.Services.SharedContext;
@@ -13,6 +14,8 @@ namespace OfficeLocationMicroservice.Core
         public static IOfficeDataTableGateway OfficeDataTableGateway { get; set; }
         public static ICountryWebApiGateway CountryWebApiGateway { get; set; }
         public static IEmailClient EmailClient { get; set; }
+        public static IGroupNameConstants GroupNameConstants { get; set; }
+
 
         public static OfficeLocationRepository GetOfficeLocationRepository()
         {
@@ -23,5 +26,7 @@ namespace OfficeLocationMicroservice.Core
         {
             return new CountryRepository(CountryWebApiGateway);
         }
+
     }
 }
+

@@ -23,6 +23,8 @@ namespace OfficeLocationMicroservice.Core.Domain.CountryContext
 
             var countries = new List<Country>();
 
+            countries.Add(new Country());
+
             foreach (var region in listOfRegions)
             {
                 foreach (var country in region.Countries)
@@ -34,7 +36,7 @@ namespace OfficeLocationMicroservice.Core.Domain.CountryContext
                     });
                 }
             }
-            return countries.ToArray();
+            return countries.OrderBy(x => x.Name).ToArray();
         }
     }
 
@@ -45,6 +47,5 @@ namespace OfficeLocationMicroservice.Core.Domain.CountryContext
             return countries.Select((country) => 
                 new SelectListItem { Text = country.Name, Value = country.Name });
         }
-
     }
 }

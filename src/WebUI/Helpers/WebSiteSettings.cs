@@ -1,5 +1,6 @@
 ﻿using System.Configuration;
 using Email;
+using OfficeLocationMicroservice.Core.Services;
 using OfficeLocationMicroservice.Core.Services.CountryFetcher.CountryWebApi;
 using OfficeLocationMicroservice.Core.Services.Email;
 using OfficeLocationMicroservice.Core.Services.SharedContext;
@@ -10,7 +11,8 @@ namespace OfficeLocationMicroservice.WebUi.Helpers
     public class WebSiteSettings
         : IOfficeLocationDatabaseSettings,
             ICountryWebApiSettings,
-                IEmailSettings
+            IEmailSettings,
+            IGroupNameConstants
     {
         public string ConnectionString
         {
@@ -24,7 +26,7 @@ namespace OfficeLocationMicroservice.WebUi.Helpers
 
         public string EmailSubject
         {
-            get {return ConfigurationManager.AppSettings["EmailSubject"]; }
+            get { return ConfigurationManager.AppSettings["EmailSubject"]; }
         }
 
         public string EmailServerName
@@ -40,6 +42,11 @@ namespace OfficeLocationMicroservice.WebUi.Helpers
         public string EmailFrom
         {
             get { return ConfigurationManager.AppSettings["EmailFrom"]; }
+        }
+
+        public string AdminGroup
+        {
+            get { return ConfigurationManager.AppSettings["AdminGroup"]; }
         }
     }
 }
