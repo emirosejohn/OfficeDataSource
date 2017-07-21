@@ -9,7 +9,7 @@ $teamCityFileLocation = "$baseDir\temp\$ProjectName"
 
 cd $teamCityFileLocation
 
-Write-Host .
+Get-Location
 
 $nugetExe = (get-childItem (".\lib\nuget\NuGet.exe")).FullName
 &$nugetExe "restore" ".\src\build\packages.config" "-outputDirectory" ".\src\packages"

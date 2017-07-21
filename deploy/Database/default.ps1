@@ -21,7 +21,7 @@ formatTaskName {
 
 task RebuildDatabase{
 
-    Write-Host .
+    Get-Location
     #databaseServer and environment are both passed in.
     &$roundhouseExec /d=$databaseName /f=$dbFileDir /s=$databaseServer /vf=$versionFile /vx='//buildInfo/version' /env=$enviornment /simple /silent
 
