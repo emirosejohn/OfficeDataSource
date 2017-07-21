@@ -179,7 +179,7 @@
                                 <div class="form-group">
                                     <label for="Name_@Model.Offices[i].OfficeId"
                                            id="NameLabel_@Model.Offices[i].OfficeId">
-                                        Office <span style='color: red;'>*</span></label>
+                                        Office <span style='color: red;' class="redIndicator">*</span></label>
                                     @Html.TextBoxFor(m => m.Offices[i].Name, new
                                     {
                                         @placeholder = "Type Office Here",
@@ -194,7 +194,7 @@
 
                                 <div class="form-group">
                                     <label for="Address_@Model.Offices[i].OfficeId">Address
-                                        <span style='color: red;'>*</span></label>
+                                        <span style='color: red;' class="redIndicator">*</span></label>
                                     @Html.TextAreaFor(m => m.Offices[i].Address, 3, 100, new
                                     {
                                         @placeholder = "Type Address Here",
@@ -220,7 +220,7 @@
 
                                 <div class="form-group">
                                     <label for="Switchboard_@Model.Offices[i].OfficeId">Switchboard
-                                        <span style='color: red;'>*</span></label>
+                                        <span style='color: red;' class="redIndicator">*</span></label>
                                     @Html.TextBoxFor(m => m.Offices[i].Switchboard, new
                                     {
                                         @placeholder = "Type Switchboard Here",
@@ -249,7 +249,7 @@
 
                                 <div class="form-group">
                                     <label for="Operating_@Model.Offices[i].OfficeId">Operating
-                                        <span style='color: red;'>*</span></label>
+                                        <span style='color: red;' class="redIndicator">*</span></label>
                                     @Html.DropDownListFor(m => m.Offices[i].Operating,
                                         new SelectList(Model.OperatingOptions, "Name", "Name", Model.Offices[i].Operating),
                                         null,
@@ -264,7 +264,7 @@
                                 </div>
 
                                 <br/>
-                                <span style='color: red;'>* required</span>
+                                <span style='color: red;' class="redIndicator">* required</span>
                             </div>
 
                             <div class="modal-footer">
@@ -311,7 +311,7 @@
 
                             <div class="form-group">
                                 <label for="Name_newOffice">Office
-                                    <span style='color: red;'>*</span></label>
+                                    <span style='color: red;' class="redIndicator">*</span></label>
                                 @Html.TextBoxFor(m => m.NewOffice.Name, new
                                 {
                                     @placeholder = "Type Office Here",
@@ -326,7 +326,7 @@
 
                             <div class="form-group">
                                 <label for="Address_newOffice">Address
-                                    <span style='color: red;'>*</span></label>
+                                    <span style='color: red;' class="redIndicator">*</span></label>
                                 @Html.TextAreaFor(m => m.NewOffice.Address, 3, 100, new
                                 {
                                     @placeholder = "Type Address Here",
@@ -351,7 +351,7 @@
 
                             <div class="form-group">
                                 <label for="Switchboard_newOffice">Switchboard
-                                    <span style='color: red;'>*</span></label>
+                                    <span style='color: red;' class="redIndicator">*</span></label>
                                 @Html.TextBoxFor(m => m.NewOffice.Switchboard, new
                                 {
                                     @placeholder = "Type Switchboard Here",
@@ -378,7 +378,7 @@
 
                             <div class="form-group">
                                 <label for="Operating_newOffice">Operating
-                                    <span style='color: red;'>*</span></label>
+                                    <span style='color: red;' class="redIndicator">*</span></label>
                                 @Html.DropDownListFor(m => m.NewOffice.Operating,
                                     new SelectList(Model.OperatingOptions, "Name", "Name", string.Empty),
                                     null,
@@ -392,7 +392,7 @@
 
                             <br/>
 
-                            <span style='color: red;'>* required</span>
+                            <span style='color: red;' class="redIndicator">* Required</span>
 
                         </div>
 
@@ -598,6 +598,8 @@
 
             Address.attr('readonly', false);
 
+            $('.redIndicator').show();
+
 
             Country.attr('disabled', false);
 
@@ -614,6 +616,7 @@
 
         function toggleModal(x) {
             $('#modal_' + x).modal('show');
+            $('.redIndicator').hide();
             enablebody();
         }
 
@@ -643,6 +646,8 @@
             Country.on('input', required);
             Operating.on('input', required);
             Switchboard.on('input', required);
+
+            $('.redIndicator').show();
 
             Name.attr('readonly', false);
 
@@ -703,6 +708,8 @@
             Country.removeClass('invalid');
             Operating.removeClass('invalid');
             Switchboard.removeClass('invalid');
+
+            $('.redIndicator').hide();
 
             SaveBtn.hide();
 
