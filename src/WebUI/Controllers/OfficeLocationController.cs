@@ -85,6 +85,9 @@ namespace OfficeLocationMicroservice.WebUi.Controllers
         public static OperatingOption[] GenerateOperatingOptions()
         {
             var operatingOptions = new List<OperatingOption>();
+
+            operatingOptions.Add(new OperatingOption());
+
             operatingOptions.Add(new OperatingOption()
             {
                 Id = "Active",

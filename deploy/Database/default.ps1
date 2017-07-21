@@ -5,7 +5,7 @@
     $dataFolder = "$teamCityFileLocation\data"
 
 
-    $roundhouseExec = "$teamCityFileLocation\lib\roundhouse\rh.exe"
+    $roundhouseExec = "$baseDir\lib\roundhouse\rh.exe"
 
     $databaseName = $projectName
     $dbFileDir = "$dataFolder\mssql\$ProjectName"
@@ -21,6 +21,9 @@ formatTaskName {
 
 task RebuildDatabase{
 
+    Write-Host $baseDir
+    Write-Host $roundhouseExec
+    Get-ChildItem "$baseDir\lib\roundhouse"
     #databaseServer and environment are both passed in.
     &$roundhouseExec /d=$databaseName /f=$dbFileDir /s=$databaseServer /vf=$versionFile /vx='//buildInfo/version' /env=$enviornment /simple /silent
 

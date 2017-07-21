@@ -41,9 +41,7 @@
             margin-right: 0px !important;
         }
 
-        .invalid {
-            border: 2px solid red;
-        }
+        .invalid { border: 2px solid red; }
     </style>
 
     <script language="JavaScript" type="text/javascript" src="/Scripts/jquery-1.10.2.js"></script>
@@ -53,33 +51,33 @@
 @*style="overflow-y:hidden"*@
 <body id="body" style="width: 100%;">
 
-    <script>
-        $(document).ready(function () {
-            var x = "@Model.NotificationFlag";
+<script>
+    $(document).ready(function() {
+        var x = "@Model.NotificationFlag";
 
-            if (x === "True") {
-                alert("Notifications Sent");
-                var url = document.location.href;
-                window.history.replaceState({}, "", url.split("?")[0]);
-                //gets rid of notificationflag parameter, so
-                //that the alert won't appear on reloads of page.
-            }
-        });
+        if (x === "True") {
+            alert("Notifications Sent");
+            var url = document.location.href;
+            window.history.replaceState({}, "", url.split("?")[0]);
+            //gets rid of notificationflag parameter, so
+            //that the alert won't appear on reloads of page.
+        }
+    });
 
-    </script>
+</script>
 
 <div class="myContainer">
-    <div class="" style="clear: both; width: 80%; ">
-        
-        <h1 class="headline">Office Locations</h1>
-        <div class="headingDiv"></div>
+<div class="" style="clear: both; width: 80%;">
 
-                <button type="submit" class="addButton pull-right" onclick="toggleNewModal();">
-                    <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Add Item
-                </button>
-    </div>
+    <h1 class="headline">Office Locations</h1>
+    <div class="headingDiv"></div>
 
-<br />
+    <button type="submit" class="addButton pull-right" onclick="toggleNewModal();">
+        <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Add Office
+    </button>
+</div>
+
+<br/>
 
 <div class="cardContainer">
     @{
@@ -107,19 +105,17 @@
 
     @using (Html.BeginForm("Save", "OfficeLocation", FormMethod.Post, new {id = "OfficesForm"}))
     {
-
         for (var i = 0; i < Model.Offices.Length; i++)
         {
-
             <div class="modal fade" id="modal_@Model.Offices[i].OfficeId" data-backdrop="static" data-keyboard="false">
                 <div class="modal-dialog">
                     <div class="modal-content">
 
                         @Html.HiddenFor(m => m.Offices[i].OfficeId, new {value = @Model.Offices[i].OfficeId})
-                        @Html.HiddenFor(m => m.Offices[i].HasChanged, 
+                        @Html.HiddenFor(m => m.Offices[i].HasChanged,
                             new
                             {
-                                id = "HasChanged_" + Model.Offices[i].OfficeId, 
+                                id = "HasChanged_" + Model.Offices[i].OfficeId,
                             })
                         <div class="modal-header">
                             <button type="button" class="close" onclick="modalCheck(@Model.Offices[i].OfficeId);">&times;</button>
@@ -129,8 +125,9 @@
                         <div class="modal-body">
 
                             <div class="form-group">
-                                <label for="Name_@Model.Offices[i].OfficeId" 
-                                       id="NameLabel_@Model.Offices[i].OfficeId">Office</label>
+                                <label for="Name_@Model.Offices[i].OfficeId"
+                                       id="NameLabel_@Model.Offices[i].OfficeId">
+                                    Office <span style='color:red;'>*</span></label>
                                 @Html.TextBoxFor(m => m.Offices[i].Name, new
                                 {
                                     @placeholder = "Type Office Here",
@@ -139,37 +136,39 @@
                                     @id = "Name_" + @Model.Offices[i].OfficeId,
                                     @data_original_value = @Model.Offices[i].Name,
                                     @style = "min-width: 100%;",
-                                    @readonly="True"
+                                    @readonly = "True"
                                 })
                             </div>
 
                             <div class="form-group">
-                                <label for="Address_@Model.Offices[i].OfficeId">Address</label>
+                                <label for="Address_@Model.Offices[i].OfficeId">Address
+                                    <span style='color:red;'>*</span></label>
                                 @Html.TextAreaFor(m => m.Offices[i].Address, 3, 100, new
-                           {
-                               @placeholder = "Type Address Here",
-                               @class = "form-control",
-                               @id = "Address_" + @Model.Offices[i].OfficeId,
-                               @data_original_value = @Model.Offices[i].Address,
-                               @style = "min-width: 100%;",
-                               @readonly="True",
-                               @required = "True"
-                           })
+                                {
+                                    @placeholder = "Type Address Here",
+                                    @class = "form-control",
+                                    @id = "Address_" + @Model.Offices[i].OfficeId,
+                                    @data_original_value = @Model.Offices[i].Address,
+                                    @style = "min-width: 100%;",
+                                    @readonly = "True",
+                                    @required = "True"
+                                })
 
                                 @Html.DropDownListFor(m => m.Offices[i].Country,
                                     new SelectList(Model.Countries, "Name", "Name", Model.Offices[i].Country)
                                     , null, new
-                                {
-                                    @class = "form-control",
-                                    @id = "Country_" + @Model.Offices[i].OfficeId,
-                                    @data_original_value = @Model.Offices[i].Country,
-                                    @disabled="True"
-                                })
+                                    {
+                                        @class = "form-control",
+                                        @id = "Country_" + @Model.Offices[i].OfficeId,
+                                        @data_original_value = @Model.Offices[i].Country,
+                                        @disabled = "True"
+                                    })
 
                             </div>
 
                             <div class="form-group">
-                                <label for="Switchboard_@Model.Offices[i].OfficeId">Switchboard</label>
+                                <label for="Switchboard_@Model.Offices[i].OfficeId">Switchboard
+                                    <span style='color:red;'>*</span></label>
                                 @Html.TextBoxFor(m => m.Offices[i].Switchboard, new
                                 {
                                     @placeholder = "Type Switchboard Here",
@@ -177,8 +176,8 @@
                                     @rows = "1",
                                     @id = "Switchboard_" + @Model.Offices[i].OfficeId,
                                     @data_original_value = @Model.Offices[i].Switchboard,
-                                    @style = "min-width: 100%;", 
-                                    @readonly="True"
+                                    @style = "min-width: 100%;",
+                                    @readonly = "True"
                                 })
                             </div>
 
@@ -191,34 +190,39 @@
                                     @rows = "1",
                                     @id = "Fax_" + @Model.Offices[i].OfficeId,
                                     @data_original_value = @Model.Offices[i].Fax,
-                                    @style = "min-width: 100%;", 
-                                    @readonly="True"
+                                    @style = "min-width: 100%;",
+                                    @readonly = "True"
                                 })
                             </div>
 
                             <div class="form-group">
-                                <label for="Operating_@Model.Offices[i].OfficeId">Operating</label>
+                                <label for="Operating_@Model.Offices[i].OfficeId">Operating
+                                    <span style='color:red;'>*</span></label>
                                 @Html.DropDownListFor(m => m.Offices[i].Operating,
-                               new SelectList(Model.OperatingOptions, "Name", "Name", Model.Offices[i].Operating),
-                               null,
+                                    new SelectList(Model.OperatingOptions, "Name", "Name", Model.Offices[i].Operating),
+                                    null,
                                     new
                                     {
                                         @class = "form-control",
                                         @id = "Operating_" + @Model.Offices[i].OfficeId,
                                         @data_original_value = @Model.Offices[i].Operating,
-                                        @disabled="True"
+                                        @disabled = "True"
                                     })
 
                             </div>
 
+                            <br/>
+                            <span style='color: red;'>* required</span>
                         </div>
 
                         <div class="modal-footer">
                             <button type="button" class="btn btn-close" onclick="modalCheck(@Model.Offices[i].OfficeId);">Close</button>
                             <button type="button" class="btn btn-office" id="SaveBtn_@Model.Offices[i].OfficeId"
                                     onclick="HasChanged(@Model.Offices[i].OfficeId, OfficesForm)"
-                                    style="display: none;">Save changes</button>           
-                            <button type="button" class="btn btn-office"  id="EditBtn_@Model.Offices[i].OfficeId"
+                                    style="display: none;">
+                                Save Changes
+                            </button>
+                            <button type="button" class="btn btn-office" id="EditBtn_@Model.Offices[i].OfficeId"
                                     onclick="editmodal(@Model.Offices[i].OfficeId);">
                                 Edit
                             </button>
@@ -235,13 +239,12 @@
 
 <div id="newModal">
 
-    @using (Html.BeginForm("Save", "OfficeLocation", FormMethod.Post, new {id= "newOfficeForm" }))
+    @using (Html.BeginForm("Save", "OfficeLocation", FormMethod.Post, new {id = "newOfficeForm"}))
     {
-
         <div class="modal fade" id="emptyModals" data-backdrop="static" data-keyboard="false">
             <div class="modal-dialog">
                 <div class="modal-content">
-                
+
                     @Html.HiddenFor(m => m.NewOffice.HasChanged, new
                     {
                         id = "HasChanged_newOffice",
@@ -256,7 +259,8 @@
                     <div class="modal-body">
 
                         <div class="form-group">
-                            <label for="Name_newOffice">Office</label>
+                            <label for="Name_newOffice">Office
+                                <span style='color:red;'>*</span></label>
                             @Html.TextBoxFor(m => m.NewOffice.Name, new
                             {
                                 @placeholder = "Type Office Here",
@@ -270,30 +274,32 @@
 
 
                         <div class="form-group">
-                            <label for="Address_newOffice">Address</label>
+                            <label for="Address_newOffice">Address
+                                <span style='color:red;'>*</span></label>
                             @Html.TextAreaFor(m => m.NewOffice.Address, 3, 100, new
-                       {
-                           @placeholder = "Type Address Here",
-                           @class = "form-control",
-                           @id = "Address_newOffice",
-                           @data_original_value = @Model.NewOffice.Address,
-                           @style = "min-width: 100%;",
-                           @required = "True"
-                       })
+                            {
+                                @placeholder = "Type Address Here",
+                                @class = "form-control",
+                                @id = "Address_newOffice",
+                                @data_original_value = @Model.NewOffice.Address,
+                                @style = "min-width: 100%;",
+                                @required = "True"
+                            })
 
                             @Html.DropDownListFor(m => m.NewOffice.Country,
-                                new SelectList(Model.Countries, "Name", "Name", Model.NewOffice.Country)
+                                new SelectList(Model.Countries, "Name", "Name", string.Empty)
                                 , null, new
-                           {
-                               @class = "form-control",
-                               @id = "Country_newOffice",
-                               @data_original_value = @Model.NewOffice.Country,
-                           })
+                                {
+                                    @class = "form-control",
+                                    @id = "Country_newOffice",
+                                    @data_original_value = @Model.NewOffice.Country,
+                                })
 
                         </div>
 
                         <div class="form-group">
-                            <label for="Switchboard_newOffice">Switchboard</label>
+                            <label for="Switchboard_newOffice">Switchboard
+                            <span style='color:red;'>*</span></label>
                             @Html.TextBoxFor(m => m.NewOffice.Switchboard, new
                             {
                                 @placeholder = "Type Switchboard Here",
@@ -319,25 +325,31 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="Operating_newOffice">Operating</label>
+                            <label for="Operating_newOffice">Operating
+                                <span style='color:red;'>*</span></label>
                             @Html.DropDownListFor(m => m.NewOffice.Operating,
-                                new SelectList(Model.OperatingOptions, "Name", "Name", Model.NewOffice.Operating),
-                           null,
+                                new SelectList(Model.OperatingOptions, "Name", "Name", string.Empty),
+                                null,
                                 new
                                 {
                                     @class = "form-control",
                                     @id = "Operating_newOffice",
                                     @data_original_value = @Model.NewOffice.Operating,
                                 })
-
                         </div>
+
+                        <br/>
+
+                        <span style='color: red;'>* required</span>
 
                     </div>
 
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" onclick="check_newModal();">Close</button>
-                        <button onclick = "javascript: HasChanged( 'newOffice' , newOfficeForm);"
-                                type="button" class="btn btn-office">Save changes</button>
+                        <button onclick="javascript: HasChanged('newOffice', newOfficeForm);"
+                                type="button" class="btn btn-office">
+                            Save changes
+                        </button>
                     </div>
 
 
@@ -350,24 +362,29 @@
 </div>
 
 <script>
-    
-    function HasChanged(x, form) {
 
+    function HasChanged(x, form) {
         function validate(x) {
             var is_empty = x.val();
-            if (is_empty) { x.removeClass("invalid").addClass("valid"); }
-            else { x.removeClass("valid").addClass("invalid"); }
+            if (is_empty) {
+                x.removeClass("invalid").addClass("valid");
+            } else {
+                x.removeClass("valid").addClass("invalid");
+            }
         };
 
         var Name = $('#Name_' + x.toString());
         var Address = $('#Address_' + x.toString());
         var Country = $('#Country_' + x.toString());
+        var Switchboard = $('#Switchboard_' + x.toString());
+        var Fax = $('#Fax_' + x.toString());
         var Operating = $('#Operating_' + x.toString());
 
         validate(Name);
         validate(Address);
         validate(Country);
         validate(Operating);
+        validate(Switchboard);
 
         var errorStr = "";
         var hasError = false;
@@ -392,15 +409,73 @@
             hasError = true;
         }
 
+        if (Switchboard.hasClass("invalid")) {
+            errorStr += "Office Switchboard cannot be empty.\n";
+            hasError = true;
+        }
+
         if (hasError) {
             alert(errorStr);
             return;
         }
 
         $('#HasChanged_' + x).val("True");
-        $(form).submit();
-        
 
+        //Name[0].value is new value
+        //Name[0].defaultValue is original
+        var contentArray = [Name[0], Address[0], Country[0], Switchboard[0], Fax[0], Operating[0]];
+        highlightChanges(contentArray);
+        checkIt(x, form);
+    }
+
+    function highlightChanges(myArray) {
+        for (var i = 0; i < myArray.length; i++) {
+            highlight(myArray[i]);
+        }
+    }
+
+    function checkIt(x, form) {
+        setTimeout(function() {
+                if (confirm('Are you sure you want to save the highlighted changes?')) {
+                    $(form).submit();
+                } else {
+                    if (x == "newOffice") {
+                        $('#emptyModals').modal('hide');
+
+                        resetForm("newOffice");
+                    } else {
+                        $('#modal_' + x).modal('hide');
+
+                        resetForm(x);
+                    }
+                }
+            },
+            1000);
+    }
+
+    function highlight(x) {
+        if (x.nodeName == "INPUT" || x.nodeName == "TEXTAREA") {
+            if (x.value != x.defaultValue) {
+                x.style.color = "red";
+            }
+        } else if (x.nodeName == "SELECT") {
+            console.log(x.value);
+            console.log(x.innerHTML);
+            var html = x.innerHTML;
+            var start = html.search("selected");
+            var newHtml = html.substring(start, html.length);
+            var narrowStart = newHtml.search("value=");
+            var narrowEnd = newHtml.search(">");
+            var oldValue = newHtml.substring(narrowStart + 7, narrowEnd - 1);
+            console.log(oldValue);
+
+            if (x.value != oldValue) {
+                x.style.color = "red";
+            }
+
+        } else {
+            x.style.color = "green";
+        }
     }
 
     function enablebody() {
@@ -431,40 +506,14 @@
         }
     }
 
-    function highlight(x) {
-        try {
-            if (x.value != x.defaultValue) {
-                x.style.color = "red";
-            }
-        } catch (e) {
-            alert(x);
-        }
-    }
-
-    function checkAll(id) {
-        var name = document.getElementById('Office' + id);
-        var address = document.getElementById('Address' + id);
-        var country = document.getElementById('Country' + id);
-        console.log("country Value: " + country + "Default: " + country);
-        var switchboard = document.getElementById('Switchboard' + id);
-        var fax = document.getElementById('Fax' + id);
-        var operating = document.getElementById('Operating' + id);
-        console.log("operating Value: " + operating + "Default: " + operating);
-
-        console.log(operating);
-        highlight(name);
-        highlight(address);
-        highlight(country);
-        highlight(switchboard);
-        highlight(fax);
-        highlight(operating);
-    }
-
-    var required = function () {
+    var required = function() {
         var input = $(this);
         var is_empty = input.val();
-        if (is_empty) { input.removeClass("invalid").addClass("valid"); }
-        else { input.removeClass("valid").addClass("invalid"); }
+        if (is_empty) {
+            input.removeClass("invalid").addClass("valid");
+        } else {
+            input.removeClass("valid").addClass("invalid");
+        }
     };
 
     function toggleNewModal() {
@@ -481,11 +530,13 @@
         Address.on('input', required);
         Country.on('input', required);
         Operating.on('input', required);
+        Switchboard.on('input', required);
 
         Name.on('submit', required);
         Address.on('submit', required);
         Country.on('submit', required);
         Operating.on('submit', required);
+        Switchboard.on('input', required);
 
         Name.attr('readonly', false);
 
@@ -535,6 +586,7 @@
         Address.on('input', required);
         Country.on('input', required);
         Operating.on('input', required);
+        Switchboard.on('input', required);
 
         Name.attr('readonly', false);
 
@@ -553,7 +605,6 @@
 
         EditBtn.hide();
     }
-
 
 
     function resetForm(x) {
@@ -596,6 +647,7 @@
         Address.removeClass('invalid');
         Country.removeClass('invalid');
         Operating.removeClass('invalid');
+        Switchboard.removeClass('invalid');
 
         SaveBtn.hide();
 

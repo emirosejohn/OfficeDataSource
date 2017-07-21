@@ -23,6 +23,8 @@ namespace OfficeLocationMicroservice.Core.Domain.CountryContext
 
             var countries = new List<Country>();
 
+            countries.Add(new Country());
+
             foreach (var region in listOfRegions)
             {
                 foreach (var country in region.Countries)
