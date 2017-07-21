@@ -71,7 +71,8 @@ namespace OfficeLocationMicroservice.Data.OfficeLocationDatabase
         FROM
             [OfficeLocation].[Office]
         ORDER BY
-            [Name]";
+            [Operating] DESC,
+			[Name]";
 
             OfficeDto[] result = null;
             ConnectionExecuteWithLog(
