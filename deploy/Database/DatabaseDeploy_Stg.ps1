@@ -3,7 +3,11 @@
 )
 cls
 
-$nugetExe = (get-childItem (".\src\.NuGet\NuGet.exe")).FullName
+
+$baseDir = (resolve-path .)
+$teamCityFileLocation = "$baseDir\temp\$ProjectName" 
+
+$nugetExe = (get-childItem ("$teamCityFileLocation\lib\nuget\NuGet.exe")).FullName
 &$nugetExe "restore" ".\src\build\packages.config" "-outputDirectory" ".\src\packages"
 
 # '[p]sake' is the same as 'psake' but $Error is not polluted
