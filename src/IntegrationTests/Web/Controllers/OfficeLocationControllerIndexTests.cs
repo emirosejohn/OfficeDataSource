@@ -92,25 +92,28 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
                 officesArray[1].Operating.Should().Be("Closed");
                 var countryArray = viewResultModel.Countries.ToArray();
 
-                countryArray.Length.Should().Be(6);
+                countryArray.Length.Should().Be(7);
 
-                countryArray[0].CountryId.Should().Be(1);
-                countryArray[0].Name.Should().Be("Country 1");
+                countryArray[0].CountryId.Should().Be(0);
+                countryArray[0].Name.Should().Be(null);
 
-                countryArray[1].CountryId.Should().Be(2);
-                countryArray[1].Name.Should().Be("Country 2");
+                countryArray[1].CountryId.Should().Be(1);
+                countryArray[1].Name.Should().Be("Country 1");
 
-                countryArray[2].CountryId.Should().Be(3);
-                countryArray[2].Name.Should().Be("Country 3");
+                countryArray[2].CountryId.Should().Be(2);
+                countryArray[2].Name.Should().Be("Country 2");
 
-                countryArray[3].CountryId.Should().Be(4);
-                countryArray[3].Name.Should().Be("Country 4");
+                countryArray[3].CountryId.Should().Be(3);
+                countryArray[3].Name.Should().Be("Country 3");
 
-                countryArray[4].CountryId.Should().Be(5);
-                countryArray[4].Name.Should().Be("Country 5");
+                countryArray[4].CountryId.Should().Be(4);
+                countryArray[4].Name.Should().Be("Country 4");
 
-                countryArray[5].CountryId.Should().Be(6);
-                countryArray[5].Name.Should().Be("Country 6");
+                countryArray[5].CountryId.Should().Be(5);
+                countryArray[5].Name.Should().Be("Country 5");
+
+                countryArray[6].CountryId.Should().Be(6);
+                countryArray[6].Name.Should().Be("Country 6");
             });
         }
     }
