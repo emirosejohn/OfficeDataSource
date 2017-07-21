@@ -70,7 +70,12 @@ namespace OfficeLocationMicroservice.Core.Domain.OfficeLocationContext
             {
                 var originalOfficeLocation = GetById(officeDto.OfficeId);
                 _officeDataTableGateway.Update(officeDto);
-                SendUpdateEmail(changedOfficeLocation, originalOfficeLocation);
+
+                if (originalOfficeLocation != changedOfficeLocation)
+                {
+                    SendUpdateEmail(changedOfficeLocation, originalOfficeLocation);
+                }
+                
             }
             return changedOfficeLocation;
         }
