@@ -293,7 +293,7 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
                     Country = "Germany",
                     Switchboard = "***REMOVED***",
                     Fax = "***REMOVED***",
-                    Operating = 0
+                    Operating = 1
                 };
 
                 var officeDto1 = new OfficeDto()
@@ -348,10 +348,104 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
                 offices[1].Country.Should().Be("Germany");
                 offices[1].Switchboard.Should().Be("***REMOVED***");
                 offices[1].Fax.Should().Be("***REMOVED***");
-                offices[1].Operating.Should().Be("Closed");
+                offices[1].Operating.Should().Be("Active");
 
             });
-        }      
+        }
+
+        [Fact(DisplayName = "Should Reorder Offices by Operating status then Country")]
+        public void ShouldReturnOfficesActiveFirst()
+        {
+            var testHelper = new TestHelper();
+
+            testHelper.DatabaseDataDeleter(() =>
+            {
+
+                var officeDto0 = new OfficeDto()
+                {
+                    Name = "Office A",
+                    Address = "Office A addr",
+                    Country = "Office A country",
+                    Switchboard = "Office A switchboard",
+                    Fax = "Office A fax",
+                    Operating = 0
+                };
+                //A should follow B, since A is closed while B is open
+                var officeDto1 = new OfficeDto()
+                {
+                    Name = "Office B",
+                    Address = "Office B addr",
+                    Country = "Office B country",
+                    Switchboard = "Office B switchboard",
+                    Fax = "Office B fax",
+                    Operating = 1
+                };
+                //C should follow A since they are both closed but A is first alphabetically.
+                var officeDto2 = new OfficeDto()
+                {
+                    Name = "Office C",
+                    Address = "Office C addr",
+                    Country = "Office C country",
+                    Switchboard = "Office C switchboard",
+                    Fax = "Office C fax",
+                    Operating = 0
+                };
+
+                var expectedOfficeId1 = testHelper.InsertOfficeDto(officeDto0);
+
+                var expectedOfficeId2 = testHelper.InsertOfficeDto(officeDto2);
+
+                var userWrapper = testHelper.GetUserWrapper();
+                userWrapper.MakeUserPartOfGroup(userWrapper.GroupNameConstants.AdminGroup);
+
+                var controller = testHelper.CreateController();
+
+                var locationModel = officeDto1.ExtractOfficeLocation();
+
+                locationModel.HasChanged = "True";
+
+                var locationOffice = new OfficeModel()
+                {
+                    Offices = new[]
+                    {
+                        locationModel
+                    },
+                };
+
+                var actionResult = controller.Save(locationOffice);
+
+                var officeLocationRepository = testHelper.GetOfficeLocationRepository();
+                var offices = officeLocationRepository.GetAll();
+
+                //*********************************
+
+                offices.Length.Should().Be(3);
+
+                offices[0].OfficeId.Should().BeGreaterThan(0);
+                offices[0].Name.Should().Be("Office B");
+                offices[0].Address.Should().Be("Office B addr");
+                offices[0].Country.Should().Be("Office B country");
+                offices[0].Switchboard.Should().Be("Office B switchboard");
+                offices[0].Fax.Should().Be("Office B fax");
+                offices[0].Operating.Should().Be("Active");
+
+                offices[1].OfficeId.Should().Be(expectedOfficeId1);
+                offices[1].Name.Should().Be("Office A");
+                offices[1].Address.Should().Be("Office A addr");
+                offices[1].Country.Should().Be("Office A country");
+                offices[1].Switchboard.Should().Be("Office A switchboard");
+                offices[1].Fax.Should().Be("Office A fax");
+                offices[1].Operating.Should().Be("Closed");
+
+                offices[2].OfficeId.Should().Be(expectedOfficeId2);
+                offices[2].Name.Should().Be("Office C");
+                offices[2].Address.Should().Be("Office C addr");
+                offices[2].Country.Should().Be("Office C country");
+                offices[2].Switchboard.Should().Be("Office C switchboard");
+                offices[2].Fax.Should().Be("Office C fax");
+                offices[2].Operating.Should().Be("Closed");
+            });
+        }
 
         [Fact(DisplayName = "Should deny users with invalid permissions the ability to save.")]
         public void ShouldNotAllowInvalidUsersToSave()
