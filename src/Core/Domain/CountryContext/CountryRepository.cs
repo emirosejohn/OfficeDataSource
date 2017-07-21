@@ -36,7 +36,7 @@ namespace OfficeLocationMicroservice.Core.Domain.CountryContext
                     });
                 }
             }
-            return countries.ToArray();
+            return countries.OrderBy(x => x.Name).ToArray();
         }
     }
 

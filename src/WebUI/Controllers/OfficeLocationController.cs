@@ -36,6 +36,7 @@ namespace OfficeLocationMicroservice.WebUi.Controllers
 
         public ActionResult Index(bool? notificationFlag = null)
         {
+
             OfficeModel officeModel = new OfficeModel();
 
             officeModel.User = _userWrapper;

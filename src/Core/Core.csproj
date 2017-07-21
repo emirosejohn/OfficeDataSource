@@ -54,7 +54,7 @@
     <Compile Include="Services\CountryFetcher\CountryWebApi\RegionSchemeResponseJson.cs" />
     <Compile Include="Services\Email\IEmailClient.cs" />
     <Compile Include="Services\Email\IEmailSettings.cs" />
-    <Compile Include="Services\GroupNameConstants.cs" />
+    <Compile Include="Services\IGroupNameConstants.cs" />
     <Compile Include="Services\IUserWrapper.cs" />
     <Compile Include="Services\OperatingOption.cs" />
     <Compile Include="Services\SharedContext\OfficeLocationDatabase\IOfficeLocationDatabaseSettings.cs" />
