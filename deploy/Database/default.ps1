@@ -5,7 +5,7 @@
     $dataFolder = "$teamCityFileLocation\data"
 
 
-    $roundhouseExec = "$teamCityFileLocation\lib\roundhouse\rh.exe"
+    $roundhouseExec = "$.\lib\roundhouse\rh.exe"
 
     $databaseName = $projectName
     $dbFileDir = "$dataFolder\mssql\$ProjectName"
