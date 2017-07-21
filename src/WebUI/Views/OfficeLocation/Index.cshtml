@@ -130,7 +130,8 @@
 
                     <div class="form-group">
                         <label for="Name_@Model.Offices[i].Office.OfficeId"
-                               id="NameLabel_@Model.Offices[i].Office.OfficeId">Office</label>
+                               id="NameLabel_@Model.Offices[i].Office.OfficeId">Office
+                            <span style='color:red;'>*</span></label>
                         @Html.TextBoxFor(m => m.Offices[i].Office.Name, new
                                 {
                                     @placeholder = "Type Office Here",
@@ -144,7 +145,8 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="Address_@Model.Offices[i].Office.OfficeId">Address</label>
+                        <label for="Address_@Model.Offices[i].Office.OfficeId">Address
+                            <span style='color:red;'>*</span></label>
                         @Html.TextAreaFor(m => m.Offices[i].Office.Address, 3, 100, new
                            {
                                @placeholder = "Type Address Here",
@@ -167,7 +169,8 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="Switchboard_@Model.Offices[i].Office.OfficeId">Switchboard</label>
+                        <label for="Switchboard_@Model.Offices[i].Office.OfficeId">Switchboard
+                            <span style='color:red;'>*</span></label>
                         @Html.TextBoxFor(m => m.Offices[i].Office.Switchboard, new
                                 {
                                     @placeholder = "Type Switchboard Here",
@@ -195,7 +198,8 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="Operating_@Model.Offices[i].Office.OfficeId">Operating</label>
+                        <label for="Operating_@Model.Offices[i].Office.OfficeId">Operating
+                            <span style='color:red;'>*</span></label>
                         @Html.DropDownListFor(m => m.Offices[i].Office.Operating, Model.Offices[i].OperatingOptions, null,
                                     new
                                     {
@@ -206,7 +210,9 @@
                                     })
 
                     </div>
-
+                    
+                    <br/>
+                    <span style='color:red;'>* required</span>
                 </div>
 
                 <div class="modal-footer">
@@ -254,7 +260,8 @@
                 <div class="modal-body">
 
                     <div class="form-group">
-                        <label for="Name_newOffice">Office</label>
+                        <label for="Name_newOffice">Office
+                            <span style='color:red;'>*</span></label>
                         @Html.TextBoxFor(m => m.NewOffice.Office.Name, new
                             {
                                 @placeholder = "Type Office Here",
@@ -268,7 +275,8 @@
 
 
                     <div class="form-group">
-                        <label for="Address_newOffice">Address</label>
+                        <label for="Address_newOffice">Address
+                            <span style='color:red;'>*</span></label>
                         @Html.TextAreaFor(m => m.NewOffice.Office.Address, 3, 100, new
                        {
                            @placeholder = "Type Address Here",
@@ -289,7 +297,8 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="Switchboard_newOffice">Switchboard</label>
+                        <label for="Switchboard_newOffice">Switchboard
+                            <span style='color:red;'>*</span></label>
                         @Html.TextBoxFor(m => m.NewOffice.Office.Switchboard, new
                             {
                                 @placeholder = "Type Switchboard Here",
@@ -315,16 +324,20 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="Operating_newOffice">Operating</label>
+                        <label for="Operating_newOffice">Operating
+                            <span style='color:red;'>*</span></label>
                         @Html.DropDownListFor(m => m.NewOffice.Office.Operating, Model.NewOffice.OperatingOptions, null,
-                                new
-                                {
-                                    @class = "form-control",
-                                    @id = "Operating_newOffice",
-                                    @data_original_value = @Model.NewOffice.Office.Operating,
-                                })
-
+                            new
+                            {
+                                @class = "form-control",
+                                @id = "Operating_newOffice",
+                                @data_original_value = @Model.NewOffice.Office.Operating,
+                            })
                     </div>
+                    
+                    <br />
+                    
+                    <span style='color:red;'>* required</span>
 
                 </div>
 
