@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using OfficeLocationMicroservice.Core.Services.Email;
 using OfficeLocationMicroservice.Core.Services.SharedContext.OfficeLocationDatabase;
 

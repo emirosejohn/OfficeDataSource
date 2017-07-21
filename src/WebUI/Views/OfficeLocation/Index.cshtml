@@ -92,24 +92,62 @@
         var CRLF = @"
 ";
     }
-    @foreach (var office in Model.Offices)
+    @if (Model.User.IsInAdminGroup())
     {
-        <div class="card" onclick="toggleModal(@office.OfficeId);"
-            @if (!Model.User.IsInAdminGroup())
-            {
-                @Html.Raw("style=pointer-events:none;");
-            }>
-            <h4>@office.Name</h4>
-            <div class="details">
-                @Html.Raw(office.Address.Replace(CRLF, "<br/>"))<br/>
-                @office.Country <br/>
-                Switchboard:
-                @office.Switchboard <br/>
-                Fax: @office.Fax <br/>
-                @office.Operating
-            </div>
 
-        </div>
+        foreach (var office in Model.Offices)
+        {
+
+            if (office.Operating != "Closed")
+            {
+                <div class="card" onclick="toggleModal(@office.OfficeId);">
+                    <h4>@office.Name</h4>
+                    <div class="details">
+                        @Html.Raw(office.Address.Replace(CRLF, "<br/>"))<br/>
+                        @office.Country <br/>
+                        Switchboard:
+                        @office.Switchboard <br/>
+                        Fax: @office.Fax <br/>
+                        @office.Operating
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="card" onclick="toggleModal(@office.OfficeId);"
+                     style="background: #4b7eb0;">
+                    <h4>@office.Name</h4>
+                    <div class="details">
+                        @Html.Raw(office.Address.Replace(CRLF, "<br/>"))<br/>
+                        @office.Country <br/>
+                        Switchboard:
+                        @office.Switchboard <br/>
+                        Fax: @office.Fax <br/>
+                        @office.Operating
+                    </div>
+                </div>
+            }
+        }
+    }
+    else
+    {
+        foreach (var office in Model.Offices)
+        {
+            if (office.Operating != "Closed")
+            {
+                <div class="card" onclick="toggleModal(@office.OfficeId);" style="pointer-events: none;">
+                    <h4>@office.Name</h4>
+                    <div class="details">
+                        @Html.Raw(office.Address.Replace(CRLF, "<br/>"))<br/>
+                        @office.Country <br/>
+                        Switchboard:
+                        @office.Switchboard <br/>
+                        Fax: @office.Fax <br/>
+                        @office.Operating
+                    </div>
+                </div>
+            }
+        }
     }
 </div>
 
@@ -306,6 +344,7 @@
                                         @class = "form-control",
                                         @id = "Country_newOffice",
                                         @data_original_value = @Model.NewOffice.Country,
+                                        @placeholder = "Country",
                                     })
 
                             </div>
