@@ -18,7 +18,7 @@ Invoke-psake -buildFile .\deploy\Web\default.ps1 `
 				 "enviornment" = "STG"
                  "databaseServer" = "***REMOVED***"
                  "projectName" = "$projectName"
-                 "CountryWebApiUrl" = "***REMOVED***swagger/ui/index"
+                 "CountryWebApiUrl" = "***REMOVED***"
 
                  "EmailServerName" = "***REMOVED***"
                  "EmailTo"= "***REMOVED***,***REMOVED***,***REMOVED***"
