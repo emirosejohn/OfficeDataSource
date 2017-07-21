@@ -7,14 +7,16 @@ cls
 $baseDir = (resolve-path .)
 $teamCityFileLocation = "$baseDir\temp\$ProjectName" 
 
-$nugetExe = (get-childItem ("$teamCityFileLocation\lib\nuget\NuGet.exe")).FullName
+cd $teamCityFileLocation
+
+$nugetExe = (get-childItem (".\lib\nuget\NuGet.exe")).FullName
 &$nugetExe "restore" ".\src\build\packages.config" "-outputDirectory" ".\src\packages"
 
 # '[p]sake' is the same as 'psake' but $Error is not polluted
 remove-module [p]sake
 
 # find psake's path
-$psakeModule = (Get-ChildItem ("$teamCityFileLocation\lib\psake\psake.psm1")).FullName | Sort-Object $_ | select -last 1
+$psakeModule = (Get-ChildItem (".\lib\psake\psake.psm1")).FullName | Sort-Object $_ | select -last 1
  
 Import-Module $psakeModule
 
