@@ -14,7 +14,7 @@ $nugetExe = (get-childItem ("$teamCityFileLocation\lib\nuget\NuGet.exe")).FullNa
 remove-module [p]sake
 
 # find psake's path
-$psakeModule = (Get-ChildItem (".\src\Packages\psake*\tools\psake.psm1")).FullName | Sort-Object $_ | select -last 1
+$psakeModule = (Get-ChildItem ("$teamCityFileLocation\lib\psake\psake.psm1")).FullName | Sort-Object $_ | select -last 1
  
 Import-Module $psakeModule
 
