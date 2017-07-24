@@ -11,6 +11,7 @@ namespace OfficeLocationMicroservice.WebUi.Models
         public OfficeLocation[] Offices { get; set; }
         public OfficeLocation NewOffice { get; set; }
         public bool? NotificationFlag { get; set; }
+        public bool RegularView { get; set; }
 
         public Country[] Countries { get; set; }
         public OperatingOption[] OperatingOptions { get; set; }

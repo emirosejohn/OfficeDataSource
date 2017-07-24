@@ -4,16 +4,16 @@ using OfficeLocationMicroservice.Core.Domain.OfficeLocationContext;
 
 namespace OfficeLocationMicroservice.WebUi.Controllers
 {
-    public class OfficeController : ApiController
+    public class OfficeApiController : ApiController
     {
         private readonly OfficeLocationRepository _officeLocationRepository;
 
-        public OfficeController()
+        public OfficeApiController()
         {
             _officeLocationRepository = MasterFactory.GetOfficeLocationRepository();
         }
 
-        public OfficeController(OfficeLocationRepository officeLocationRepository)
+        public OfficeApiController(OfficeLocationRepository officeLocationRepository)
         {
             _officeLocationRepository = officeLocationRepository;
         }

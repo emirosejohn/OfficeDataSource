@@ -162,7 +162,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Controllers\OfficeController.cs" />
+    <Compile Include="Controllers\OfficeApiController.cs" />
     <Compile Include="Controllers\OfficeLocationController.cs" />
     <Compile Include="Helpers\UserWrapper.cs" />
     <Compile Include="Helpers\WebSiteSettings.cs" />
@@ -217,8 +217,8 @@
     </Content>
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\OfficeApi\Error.cshtml" />
+    <Content Include="Views\OfficeApi\_Layout.cshtml" />
     <Content Include="Views\OfficeLocation\Index.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>

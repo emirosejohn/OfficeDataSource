@@ -34,17 +34,21 @@ namespace OfficeLocationMicroservice.WebUi.Controllers
             _userWrapper = userWrapper;
         }
 
-        public ActionResult Index(bool? notificationFlag = null)
+        public ActionResult Index(bool? notificationFlag = null, bool regularView = false)
         {
 
             OfficeModel officeModel = new OfficeModel();
 
             officeModel.User = _userWrapper;
+
+
             officeModel.Offices = _officeLocationRepository.GetAll();
             officeModel.NewOffice = new OfficeLocation();
             officeModel.Countries = _countryRepository.GetAllCountries();
             officeModel.OperatingOptions = WebHelper.GenerateOperatingOptions();
+
             officeModel.NotificationFlag = notificationFlag;
+            officeModel.RegularView = regularView;
 
             return View(officeModel);
         }

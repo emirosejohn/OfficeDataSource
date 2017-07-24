@@ -70,21 +70,28 @@
 </script>
 
 <div class="myContainer">
+    
+<div class="" style="clear: both; width: 80%;">
 
-@if (Model.User.IsInAdminGroup())
-{
+    <h1 class="headline">Office Locations</h1>
+    <div class="headingDiv"></div>
 
-    <div class="" style="clear: both; width: 80%;">
+    @if (Model.User.IsInAdminGroup() && !Model.RegularView)
+    {
+       
+        using (Html.BeginForm("Index", "OfficeLocation", FormMethod.Post, new {id = "OfficesForm"}))
+         {
 
-        <h1 class="headline">Office Locations</h1>
-        <div class="headingDiv"></div>
-
+             @Html.ActionLink("Switch Views", "Index", "OfficeLocation",
+                 new {regularView = true}, new {@class = "btn addButton pull-right"} ) 
+         }
         <button type="submit" class="addButton pull-right" onclick="toggleNewModal();">
             <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Add Office
         </button>
-    </div>
 
-}
+    }
+</div>
+
 <br/>
 
 <div class="cardContainer">
@@ -92,14 +99,14 @@
         var CRLF = @"
 ";
     }
-    @if (Model.User.IsInAdminGroup())
+    @if (Model.User.IsInAdminGroup() && !Model.RegularView)
     {
 
-        foreach (var office in Model.Offices)
-        {
+                    foreach (var office in Model.Offices)
+                    {
 
-            if (office.Operating != "Closed")
-            {
+                        if (office.Operating != "Closed")
+                        {
                 <div class="card" onclick="toggleModal(@office.OfficeId);">
                     <h4>@office.Name</h4>
                     <div class="details">
@@ -151,7 +158,7 @@
     }
 </div>   
 
-@if (Model.User.IsInAdminGroup())
+@if (Model.User.IsInAdminGroup() && !Model.RegularView)
 {
     <div id="modals">
 
@@ -414,7 +421,7 @@
 }
 </div>
     
-@if (Model.User.IsInAdminGroup())
+@if (Model.User.IsInAdminGroup() && !Model.RegularView)
 {
 
     <script>
