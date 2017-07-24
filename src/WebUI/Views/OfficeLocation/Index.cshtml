@@ -15,14 +15,17 @@
         .switchHelp:hover .tooltiptext {
             visibility: visible;
         }
+
         .switchHelp .tooltiptext {
-            left: 45%; 
+            left: 45%;
         }
+
         .faxHelp:hover .tooltiptext {
             visibility: visible;
         }
+
         .faxHelp .tooltiptext {
-            left: 45%; 
+            left: 45%;
         }
 
         .tooltiptext {
@@ -37,10 +40,10 @@
             z-index: 900;
         }
 
-         .card:hover {
-             box-shadow: 0 8px 10px 0 #000000, 0 8px 20px 0 #000000;
-             box-shadow: 0 8px 10px 0 rgba(0, 0, 0, 0.2), 0 8px 20px 0 rgba(0, 0, 0, 0.19);
-         }
+        .card:hover {
+            box-shadow: 0 8px 10px 0 #000000, 0 8px 20px 0 #000000;
+            box-shadow: 0 8px 10px 0 rgba(0, 0, 0, 0.2), 0 8px 20px 0 rgba(0, 0, 0, 0.19);
+        }
 
 
         .cardContainer {
@@ -115,7 +118,7 @@
 
         <div class="cardContainer">
             @{
-                var CRLF = @"
+    var CRLF = @"
 ";
             }
             @if (Model.User.IsInAdminGroup())
@@ -256,7 +259,7 @@
                                                 <span id="switchHelp_@Model.Offices[i].OfficeId" class="switchHelp" style='color: red; visibility: hidden;'>
                                                     Incorrect Number Format
                                                     <span class="tooltiptext">
-                                                        Match International Format: <br/> XXX-XXX-XXXX
+                                                        Match International Format: <br /> XXX-XXX-XXXX
                                                         <br /> No Letters
                                                     </span>
                                                 </span>
@@ -276,7 +279,7 @@
                                         <div class="form-group">
                                             <label for="Fax_@Model.Offices[i].OfficeId">Fax</label>
                                             <span id="faxHelp_@Model.Offices[i].OfficeId" class="faxHelp" style='color: red; visibility: hidden;'>
-                                                 Incorrect Number Format
+                                                Incorrect Number Format
                                                 <span class="tooltiptext">
                                                     Match International Format: <br /> XXX-XXX-XXXX
                                                     <br /> No Letters
@@ -409,7 +412,7 @@
                                                 <span style='color: red;' class="redIndicator">*</span>
                                             </label>
                                             <span id="switchHelp_newOffice" class="switchHelp" style='color: red; visibility: hidden;'>
-                                                 Incorrect Number Format
+                                                Incorrect Number Format
                                                 <span class="tooltiptext">
                                                     Match International Format: <br /> XXX-XXX-XXXX
                                                     <br /> No Letters
@@ -431,9 +434,9 @@
                                         <span style="display: inline-block">
                                             <label for="Fax_newOffice">Fax</label>
                                             <span id="faxHelp_newOffice" class="faxHelp" style='color: red; visibility: hidden;'>
-                                                 Incorrect Number Format
+                                                Incorrect Number Format
                                                 <span class="tooltiptext">
-                                                    Match International Format: <br/> XXX-XXX-XXXX
+                                                    Match International Format: <br /> XXX-XXX-XXXX
                                                     <br /> No Letters
                                                 </span>
                                             </span>
@@ -510,93 +513,101 @@
             function testPhoneNumber(id, x, number) {
                 var textbox = document.getElementById(id);
                 var result = phonenumber(textbox);
-                var str = number+"Help_" + x;
+                var str = number + "Help_" + x;
                 if (!result) {
                     var incorrect = document.getElementById(str);
                     incorrect.style.visibility = "visible";
+                    return false;
                 } else {
                     var incorrect = document.getElementById(str);
                     incorrect.style.visibility = "hidden";
+                    return true;
                 }
-                console.log(result);
             }
 
             function HasChanged(x, form) {
-                 function validate(x) {
-                     var is_empty = x.val();
-                     if (is_empty) {
-                         x.removeClass("invalid").addClass("valid");
-                     } else {
-                         x.removeClass("valid").addClass("invalid");
-                     }
-                 };
+                function validate(x) {
+                    var is_empty = x.val();
+                    if (is_empty) {
+                        x.removeClass("invalid").addClass("valid");
+                    } else {
+                        x.removeClass("valid").addClass("invalid");
+                    }
+                };
 
-                 var Name = $('#Name_' + x.toString());
-                 var Address = $('#Address_' + x.toString());
-                 var Country = $('#Country_' + x.toString());
-                 var Switchboard = $('#Switchboard_' + x.toString());
-                 var Fax = $('#Fax_' + x.toString());
-                 var Operating = $('#Operating_' + x.toString());
+                var Name = $('#Name_' + x.toString());
+                var Address = $('#Address_' + x.toString());
+                var Country = $('#Country_' + x.toString());
+                var Switchboard = $('#Switchboard_' + x.toString());
+                var Fax = $('#Fax_' + x.toString());
+                var Operating = $('#Operating_' + x.toString());
 
-                 validate(Name);
-                 validate(Address);
-                 validate(Country);
-                 validate(Operating);
-                 validate(Switchboard);
+                validate(Name);
+                validate(Address);
+                validate(Country);
+                validate(Operating);
+                validate(Switchboard);
 
-                 var errorStr = "";
-                 var hasError = false;
+                var errorStr = "";
+                var hasError = false;
 
-                 if (Name.hasClass("invalid")) {
-                     errorStr += "Office Name cannot be empty.\n";
-                     hasError = true;
-                 }
+                if (Name.hasClass("invalid")) {
+                    errorStr += "Office Name cannot be empty.\n";
+                    hasError = true;
+                }
 
-                 if (Address.hasClass("invalid")) {
-                     errorStr += "Office Address cannot be empty.\n";
-                     hasError = true;
-                 }
+                if (Address.hasClass("invalid")) {
+                    errorStr += "Office Address cannot be empty.\n";
+                    hasError = true;
+                }
 
-                 if (Country.hasClass("invalid")) {
-                     errorStr += "Office Country cannot be empty.\n";
-                     hasError = true;
-                 }
+                if (Country.hasClass("invalid")) {
+                    errorStr += "Office Country cannot be empty.\n";
+                    hasError = true;
+                }
 
-                 if (Operating.hasClass("invalid")) {
-                     errorStr += "Office Operating cannot be empty.\n";
-                     hasError = true;
-                 }
+                if (Operating.hasClass("invalid")) {
+                    errorStr += "Office Operating cannot be empty.\n";
+                    hasError = true;
+                }
 
-                 if (Switchboard.hasClass("invalid")) {
-                     errorStr += "Office Switchboard cannot be empty.\n";
-                     hasError = true;
-                 }
+                if (Switchboard.hasClass("invalid")) {
+                    errorStr += "Office Switchboard cannot be empty.\n";
+                    hasError = true;
+                }
 
-                 if (hasError) {
-                     alert(errorStr);
-                     return;
-                 }
+                if (hasError) {
+                    alert(errorStr);
+                    return;
+                }
 
-                 $('#HasChanged_' + x).val("True");
+                $('#HasChanged_' + x).val("True");
 
-                 var contentArray = [Name[0], Address[0], Country[0], Switchboard[0], Fax[0], Operating[0]];
-                 highlightChanges(contentArray);
-                 checkIt(x, form);
                 var switchboard = "Switchboard_" + x;
                 var fax = "Fax_" + x;
-                testPhoneNumber(switchboard, x, "switch");
-                testPhoneNumber(fax, x, "fax");
+                var switchCorrect = testPhoneNumber(switchboard, x, "switch");
+                var faxCorrect = testPhoneNumber(fax, x, "fax");
+                
+                var contentArray = [Name[0], Address[0], Country[0], Switchboard[0], Fax[0], Operating[0]];
+                if (switchCorrect && faxCorrect) {
+                    highlightChanges(contentArray, true);
+                    checkIt(x, form, contentArray);
+                }
+                
             }
 
-            function highlightChanges(myArray) {
+            function highlightChanges(myArray, bool) {
+                
                 for (var i = 0; i < myArray.length; i++) {
-                    highlight(myArray[i]);
+                    highlight(myArray[i], bool);
                 }
             }
 
-            function checkIt(x, form) {
+
+            function checkIt(x, form, contentArray) {
                 setTimeout(function () {
                     if (confirm('Are you sure you want to save the highlighted changes?')) {
+                        highlightChanges(contentArray, false);
                         $(form).submit();
                     } else {
                         if (x == "newOffice") {
@@ -613,14 +624,19 @@
                 1000);
             }
 
-            function highlight(x) {
+            function highlight(x, bool) {
+                var color;
+                if (bool) {
+                    color = "red";
+                } else {
+                    color = "black";
+                }
                 if (x.nodeName == "INPUT" || x.nodeName == "TEXTAREA") {
                     if (x.value != x.defaultValue) {
-                        x.style.color = "red";
+                        x.style.color = color;
                     }
                 } else if (x.nodeName == "SELECT") {
-                    console.log(x.value);
-                    console.log(x.innerHTML);
+                    //string manipulation
                     var html = x.innerHTML;
                     var start = html.search("selected");
                     var newHtml = html.substring(start, html.length);
@@ -630,7 +646,7 @@
                     console.log(oldValue);
 
                     if (x.value != oldValue) {
-                        x.style.color = "red";
+                        x.style.color = color;
                     }
 
                 }
