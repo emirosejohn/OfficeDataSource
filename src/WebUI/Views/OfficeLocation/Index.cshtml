@@ -83,7 +83,8 @@
          {
 
              @Html.ActionLink("Switch Views", "Index", "OfficeLocation",
-                 new {regularView = true}, new {@class = "btn addButton pull-right"} ) 
+                 new {regularView = true}, new {@class = "btn addButton pull-right", style="margin:0 0 0 5px"
+             } ) 
          }
         <button type="submit" class="addButton pull-right" onclick="toggleNewModal();">
             <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Add Office
