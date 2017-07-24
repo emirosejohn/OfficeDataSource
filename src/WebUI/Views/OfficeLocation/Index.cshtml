@@ -99,44 +99,47 @@
     </script>
 
     <div class="myContainer">
-    
-<div class="" style="clear: both; width: 80%;">
 
-    <h1 class="headline">Office Locations</h1>
-    <div class="headingDiv"></div>
+        <div class="" style="clear: both; width: 80%;">
 
-    @if (Model.User.IsInAdminGroup() && !Model.RegularView)
-    {
-       
-        using (Html.BeginForm("Index", "OfficeLocation", FormMethod.Post, new {id = "SwitchViewsForm"}))
-         {
+            <h1 class="headline">Office Locations</h1>
+            <div class="headingDiv"></div>
 
-             @Html.ActionLink("Switch Views", "Index", "OfficeLocation",
-                 new {regularView = true}, new {@class = "btn addButton pull-right", style="margin:0 0 0 5px"
-             } ) 
-         }
+            @if (Model.User.IsInAdminGroup() && !Model.RegularView)
+            {
+
+                using (Html.BeginForm("Index", "OfficeLocation", FormMethod.Post, new { id = "SwitchViewsForm" }))
+                {
+
+                    @Html.ActionLink("Switch Views", "Index", "OfficeLocation",
+                 new { regularView = true }, new
+                 {
+                     @class = "btn addButton pull-right",
+                     style = "margin:0 0 0 5px"
+                 })
+                }
                 <button type="submit" class="addButton pull-right" onclick="toggleNewModal();">
                     <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Add Office
                 </button>
 
-    }
-</div>
+            }
+        </div>
 
         <br />
 
         <div class="cardContainer">
             @{
-    var CRLF = @"
+                var CRLF = @"
 ";
             }
-    @if (Model.User.IsInAdminGroup() && !Model.RegularView)
+            @if (Model.User.IsInAdminGroup() && !Model.RegularView)
             {
 
-                    foreach (var office in Model.Offices)
-                    {
+                foreach (var office in Model.Offices)
+                {
 
-                        if (office.Operating != "Closed")
-                        {
+                    if (office.Operating != "Closed")
+                    {
                         <div class="card" onclick="toggleModal(@office.OfficeId);">
                             <h4>@office.Name</h4>
                             <div class="details">
@@ -187,7 +190,7 @@
             }
         </div>
 
-@if (Model.User.IsInAdminGroup() && !Model.RegularView)
+        @if (Model.User.IsInAdminGroup() && !Model.RegularView)
         {
             <div id="modals">
 
@@ -501,7 +504,7 @@
         }
     </div>
 
-@if (Model.User.IsInAdminGroup() && !Model.RegularView)
+    @if (Model.User.IsInAdminGroup() && !Model.RegularView)
     {
 
         <script>
@@ -594,22 +597,27 @@
                 var fax = "Fax_" + x;
                 var switchCorrect = testPhoneNumber(switchboard, x, "switch");
                 var faxCorrect = testPhoneNumber(fax, x, "fax");
-                
+
                 var contentArray = [Name[0], Address[0], Country[0], Switchboard[0], Fax[0], Operating[0]];
                 if (switchCorrect && faxCorrect) {
                     highlightChanges(contentArray, true);
                     checkIt(x, form, contentArray);
                 }
-                
+
             }
 
             function highlightChanges(myArray, bool) {
-                
+
                 for (var i = 0; i < myArray.length; i++) {
                     highlight(myArray[i], bool);
                 }
             }
 
+            function resetHighlight(myArray) {
+                for (var i = 0; i < myArray.length; i++) {
+                    unHighlight(myArray[i]);
+                }
+            }
 
             function checkIt(x, form, contentArray) {
                 setTimeout(function () {
@@ -657,6 +665,11 @@
                     }
 
                 }
+            }
+
+            function unHighlight(x) {
+                var color = "black";
+                x.style.color = color;
             }
 
             function enablebody() {
@@ -839,6 +852,8 @@
                 SaveBtn.hide();
 
                 EditBtn.show();
+                var contentArray = [Name[0], Address[0], Country[0], Switchboard[0], Fax[0], Operating[0]];
+                resetHighlight(contentArray);
             }
 
         </script>
