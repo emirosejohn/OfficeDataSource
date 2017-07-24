@@ -24,12 +24,16 @@ formatTaskName {
 }
 
 
-task ConfigureWeb -requiredVariables enviornment, CountryWebApiUrl {
+task ConfigureWeb -requiredVariables enviornment, CountryWebApiUrl, EmailServerName, EmailTo, EmailFrom {
 
 ChangeConnectionString $webConfigFile "OfficeLocationDatabase" (OfficeLocationMicroserviceConnectionString "$enviornment")
 ChangeAppSetting $webConfigFile "CountryWebApiUrl" $CountryWebApiUrl
 
-}
+ChangeAppSetting $webConfigFile "EmailServerName" $EmailServerName
+ChangeAppSetting $webConfigFile "EmailTo" $EmailTo
+ChangeAppSetting $webConfigFile "EmailFrom" $EmailFrom
+
+} 
 
 
 task CopyTempToSiteLocation -depends ConfigureWeb{

@@ -21,9 +21,9 @@ Invoke-psake -buildFile .\deploy\Web\default.ps1 `
                  "CountryWebApiUrl" = "***REMOVED***"
 
                  "EmailServerName" = "***REMOVED***"
-                 "EmailTo"= "***REMOVED***,***REMOVED***,***REMOVED***"
+                 #"EmailTo"= "***REMOVED***,***REMOVED***"
+                 "EmailTo"= "***REMOVED***"
                  "EmailFrom" = "***REMOVED***"
-                 "Emailsubject" = "Subject"
                  }
 
 Write-Host "Build exit code:" $LastExitCode

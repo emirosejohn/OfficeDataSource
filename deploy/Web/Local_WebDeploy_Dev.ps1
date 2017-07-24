@@ -23,7 +23,6 @@ Invoke-psake -buildFile .\deploy\Web\default.ps1 `
                  "EmailServerName" = "***REMOVED***"
                  "EmailTo"= "***REMOVED***,***REMOVED***,***REMOVED***"
                  "EmailFrom" = "***REMOVED***"
-                 "Emailsubject" = "Subject"
 				}
 
 Write-Host "Build exit code:" $LastExitCode
