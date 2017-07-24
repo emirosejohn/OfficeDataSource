@@ -79,7 +79,7 @@
     @if (Model.User.IsInAdminGroup() && !Model.RegularView)
     {
        
-        using (Html.BeginForm("Index", "OfficeLocation", FormMethod.Post, new {id = "OfficesForm"}))
+        using (Html.BeginForm("Index", "OfficeLocation", FormMethod.Post, new {id = "SwitchViewsForm"}))
          {
 
              @Html.ActionLink("Switch Views", "Index", "OfficeLocation",
