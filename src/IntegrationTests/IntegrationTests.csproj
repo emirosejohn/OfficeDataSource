@@ -111,6 +111,7 @@
     <Compile Include="Web\Controllers\OfficeLocationControllerTestHelper.cs" />
     <Compile Include="Web\Controllers\OfficeLocationControllerIndexTests.cs" />
     <Compile Include="SystemLogForIntegrationTests.cs" />
+    <Compile Include="Web\Controllers\UserWrapperFake.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

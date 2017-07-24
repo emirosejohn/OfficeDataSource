@@ -1,12 +1,17 @@
 ﻿using System.Configuration;
 using Email;
+using OfficeLocationMicroservice.Core.Services;
 using OfficeLocationMicroservice.Core.Services.CountryFetcher.CountryWebApi;
 using OfficeLocationMicroservice.Core.Services.Email;
 using OfficeLocationMicroservice.Core.Services.SharedContext.OfficeLocationDatabase;
 
 namespace OfficeLocationMicroservice.IntegrationTests
 {
-    class DataConnectionStringsForIntegrationTests : IOfficeLocationDatabaseSettings, ICountryWebApiSettings, IEmailSettings
+    class DataConnectionStringsForIntegrationTests : 
+        IOfficeLocationDatabaseSettings, 
+        ICountryWebApiSettings,
+        IEmailSettings,
+        IGroupNameConstants
     {
         public string ConnectionString
         {
@@ -33,6 +38,11 @@ namespace OfficeLocationMicroservice.IntegrationTests
         public string EmailFrom
         {
             get { return ConfigurationManager.AppSettings["EmailFrom"]; }
+        }
+
+        public string AdminGroup
+        {
+            get { return ConfigurationManager.AppSettings["AdminGroup"]; }
         }
     }
 }

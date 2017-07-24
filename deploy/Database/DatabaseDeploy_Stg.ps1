@@ -11,8 +11,8 @@ cd $teamCityFileLocation
 
 Get-Location
 
-$nugetExe = (get-childItem (".\lib\nuget\NuGet.exe")).FullName
-&$nugetExe "restore" ".\src\build\packages.config" "-outputDirectory" ".\src\packages"
+#$nugetExe = (get-childItem (".\lib\nuget\NuGet.exe")).FullName
+#&$nugetExe "restore" ".\src\build\packages.config" "-outputDirectory" ".\src\packages"
 
 # '[p]sake' is the same as 'psake' but $Error is not polluted
 remove-module [p]sake

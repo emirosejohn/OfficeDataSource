@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using OfficeLocationMicroservice.Core.Services.SharedContext.OfficeLocationDatabase;
 
 namespace OfficeLocationMicroservice.Core.Domain.OfficeLocationContext
@@ -36,7 +32,8 @@ namespace OfficeLocationMicroservice.Core.Domain.OfficeLocationContext
             }
 
             string changedAddress = newOfficeLocation.Address.Replace(CRLF, "<br/>") + "<br/>" + newOfficeLocation.Country;
-            if (newOfficeLocation.Address != originalOfficeLocation.Address)
+            if (newOfficeLocation.Address != originalOfficeLocation.Address ||
+                newOfficeLocation.Country != originalOfficeLocation.Country)
             {
                 changedAddress = "<span style='color:red;font-weight:bold;'>" + newOfficeLocation.Address.Replace(CRLF, "<br/>")
                     + "<br/>" + newOfficeLocation.Country + "</span>";

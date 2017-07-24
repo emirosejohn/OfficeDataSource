@@ -18,6 +18,7 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
         private readonly OfficeDataTableGateway _officeDataTableGateway;
         private readonly CountryWebApiGatewayStub _countryWebApiGateway;
         private readonly EmailClientFake _emailClient;
+        private readonly UserWrapperFake _userWrapperFake;
 
         public TestHelper()
         {
@@ -33,6 +34,10 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
             _countryWebApiGateway = new CountryWebApiGatewayStub();
 
             _emailClient = new EmailClientFake(databaseSettings);
+            
+
+            _userWrapperFake = new UserWrapperFake("user");
+            _userWrapperFake.GroupNameConstants = databaseSettings;
         }
 
         public OfficeLocationRepository GetOfficeLocationRepository()
@@ -50,7 +55,8 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
         {
             var officeLocationRepository = new OfficeLocationRepository(_officeDataTableGateway, _emailClient);
             var countryRepository = new CountryRepository(_countryWebApiGateway);
-            return new OfficeLocationController(officeLocationRepository, countryRepository);
+
+            return new OfficeLocationController(officeLocationRepository, countryRepository, _userWrapperFake);
         }
 
         public DateTime CurrentDate { get; set; }
@@ -101,6 +107,11 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
         public EmailClientFake GetEmailClient()
         {
             return _emailClient;
+        }
+
+        public UserWrapperFake GetUserWrapper()
+        {
+            return _userWrapperFake;
         }
     }
 }

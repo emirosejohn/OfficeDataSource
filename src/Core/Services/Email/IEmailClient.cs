@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Net.Mail;
+﻿using System.Net.Mail;
 
 namespace OfficeLocationMicroservice.Core.Services.Email
 {

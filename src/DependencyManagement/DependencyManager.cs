@@ -1,6 +1,7 @@
 ﻿using Email;
 using Logging;
 using OfficeLocationMicroservice.Core;
+using OfficeLocationMicroservice.Core.Services;
 using OfficeLocationMicroservice.Core.Services.CountryFetcher.CountryWebApi;
 using OfficeLocationMicroservice.Core.Services.Email;
 using OfficeLocationMicroservice.Core.Services.SharedContext;
@@ -18,19 +19,22 @@ namespace OfficeLocationMicroservice.DependencyManagement
             ISystemLog systemLog,
             IOfficeLocationDatabaseSettings officeLocationDatabaseSettings, 
             ICountryWebApiSettings countryWebApiSettings, 
-            IEmailSettings emailSettings)
+            IEmailSettings emailSettings,
+            IGroupNameConstants groupNameConstants)
         {
             BootstrapAll(systemLog,
                 officeLocationDatabaseSettings,
                 countryWebApiSettings,
-                emailSettings);
+                emailSettings, 
+                groupNameConstants);
         }
 
         public static void BootstrapForSystem(
             string logName,
             IOfficeLocationDatabaseSettings officeLocationDatabaseSettings,
             ICountryWebApiSettings countryWebApiSettings,
-            IEmailSettings emailSettings)
+            IEmailSettings emailSettings, 
+            IGroupNameConstants groupNameConstants)
         {
             LoggingBootstrapper.StartupLog(logName);
 
@@ -39,14 +43,16 @@ namespace OfficeLocationMicroservice.DependencyManagement
             BootstrapAll(logForNetSystemLog,
                 officeLocationDatabaseSettings,
                 countryWebApiSettings, 
-                emailSettings);
+                emailSettings, 
+                groupNameConstants);
         }
 
         private static void BootstrapAll(
             ISystemLog logForNetSystemLog,
             IOfficeLocationDatabaseSettings officeLocationDatabaseSettings, 
             ICountryWebApiSettings countryWebApiSettings,
-            IEmailSettings emailSettings)
+            IEmailSettings emailSettings,
+            IGroupNameConstants groupNameConstants)
         {
             var webServiceCaller = new WebApiServiceCaller(logForNetSystemLog);
 
@@ -55,7 +61,7 @@ namespace OfficeLocationMicroservice.DependencyManagement
             MasterFactory.CountryWebApiGateway=
                 new CountryWebApiGateway(countryWebApiSettings, webServiceCaller);
             MasterFactory.EmailClient = new EmailClient(emailSettings);
-
+            MasterFactory.GroupNameConstants = groupNameConstants;
         }
     }
 }
