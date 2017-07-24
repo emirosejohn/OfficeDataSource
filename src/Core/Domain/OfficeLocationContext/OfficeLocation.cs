@@ -26,7 +26,7 @@ namespace OfficeLocationMicroservice.Core.Domain.OfficeLocationContext
         {
             if ((object)x==null && (object)y == null) //checks for nulls
             {
-                return true
+                return true;
             }
             else if ((object) x == null || (object) y == null)
             {
