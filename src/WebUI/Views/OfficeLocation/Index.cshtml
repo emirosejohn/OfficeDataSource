@@ -171,7 +171,6 @@
                         @Html.TextBoxFor(m => m.Offices[i].Office.Switchboard, new
                                 {
                                     @placeholder = "Type Switchboard Here",
-                                    @class = "form-control",
                                     @rows = "1",
                                     @id = "Switchboard_" + @Model.Offices[i].Office.OfficeId,
                                     @data_original_value = @Model.Offices[i].Office.Switchboard,
@@ -185,7 +184,6 @@
                         @Html.TextBoxFor(m => m.Offices[i].Office.Fax, new
                                 {
                                     @placeholder = "Type Fax Here",
-                                    @class = "form-control",
                                     @rows = "1",
                                     @id = "Fax_" + @Model.Offices[i].Office.OfficeId,
                                     @data_original_value = @Model.Offices[i].Office.Fax,
@@ -293,7 +291,6 @@
                         @Html.TextBoxFor(m => m.NewOffice.Office.Switchboard, new
                             {
                                 @placeholder = "Type Switchboard Here",
-                                @class = "form-control",
                                 @rows = "1",
                                 @id = "Switchboard_newOffice",
                                 @data_original_value = @Model.NewOffice.Office.Switchboard,
@@ -302,16 +299,21 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="Fax_newOffice">Fax</label>
+                        <span style="display: inline-block">
+                            <label for="Fax_newOffice">Fax</label>
+                            <small id="newOfficeAlert" style="color:red;" hidden>Invalid Symbol</small> 
+                        </span>
+                        
                         @Html.TextBoxFor(m => m.NewOffice.Office.Fax, new
-                            {
-                                @placeholder = "Type Fax Here",
-                                @class = "form-control",
-                                @rows = "1",
-                                @id = "Fax_newOffice",
-                                @data_original_value = @Model.NewOffice.Office.Fax,
-                                @style = "min-width: 100%;"
-                            })
+                   {
+                       @placeholder = "Type Fax Here",
+                       @class = "form-control numbers newOffice", //@Model.Offices[i].Office.OfficeId
+                       @rows = "1",
+                       @id = "Fax_newOffice",
+                       @data_original_value = @Model.NewOffice.Office.Fax,
+                       @style = "min-width: 100%;",
+                       @onkeydown = "testFunction(id, newOfficeAlert);"
+                   })
                     </div>
 
                     <div class="form-group">
@@ -345,72 +347,115 @@
 
     </div>
 
-    <script>
+<script>
+    
+    function genCharArray(charA, charZ) {
+        var a = [], i = charA.charCodeAt(0), j = charZ.charCodeAt(0);
+        for (; i <= j; ++i) {
+            a.push(String.fromCharCode(i));
+        }
+        return a;
+    }
 
-        function HasChanged(x, form) {
-            function validate(x) {
-                var is_empty = x.val();
-                if (is_empty) { x.removeClass("invalid").addClass("valid"); }
-                else { x.removeClass("valid").addClass("invalid"); }
-            };
-
-            var Name = $('#Name_' + x.toString());
-            var Address = $('#Address_' + x.toString());
-            var Country = $('#Country_' + x.toString());
-            var Switchboard = $('#Switchboard_' + x.toString());
-            var Fax = $('#Fax_' + x.toString());
-            var Operating = $('#Operating_' + x.toString());
-
-            validate(Name);
-            validate(Address);
-            validate(Country);
-            validate(Operating);
-
-            var errorStr = "";
-            var hasError = false;
-
-            if (Name.hasClass("invalid")) {
-                errorStr += "Office Name cannot be empty.\n";
-                hasError = true;
+    function testFunction(id, warningLabel) {
+        var textbox = document.getElementById(id);
+        var lastChar = textbox.value.substr(textbox.value.length - 1);
+        /*var acceptableNumbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+        if ((lastChar in acceptableNumbers) || (lastChar === '-') || (lastChar === '(')
+            || (lastChar === ')') || (lastChar === ' ') || (lastChar === '+')) {
+            console.log("boo");
+        } else {
+            console.log("lastChar: " + lastChar);
+            textbox.value = textbox.value.substring(0, textbox.value.length - 1);
+            if (warningLabel.hasAttribute("hidden")) {
+                warningLabel.removeAttribute("hidden");
             }
+        }*/
+        var unacceptable = genCharArray('a', 'z');
+        console.log(unacceptable);
+    }
+    /* function onkeyupevent() {
+         $(".form-control.numbers.id").each(function() {
+             var elem = $(this);
+             elem.data('oldVal', elem.val());
+             elem.on("click", function(event){
+                 // If value has changed...
+                 if (elem.data('oldVal') != elem.val()) {
+                     // Updated stored value
+                     elem.data('oldVal', elem.val());
+                     console.log("made it");
+                     // Do action
+                 }
+             });
+         });
+     }
+ 
+     onkeyupevent();*/
 
-            if (Address.hasClass("invalid")) {
-                errorStr += "Office Address cannot be empty.\n";
-                hasError = true;
-            }
+    function HasChanged(x, form) {
+        function validate(x) {
+            var is_empty = x.val();
+            if (is_empty) { x.removeClass("invalid").addClass("valid"); }
+            else { x.removeClass("valid").addClass("invalid"); }
+        };
 
-            if (Country.hasClass("invalid")) {
-                errorStr += "Office Country cannot be empty.\n";
-                hasError = true;
-            }
+        var Name = $('#Name_' + x.toString());
+        var Address = $('#Address_' + x.toString());
+        var Country = $('#Country_' + x.toString());
+        var Switchboard = $('#Switchboard_' + x.toString());
+        var Fax = $('#Fax_' + x.toString());
+        var Operating = $('#Operating_' + x.toString());
 
-            if (Operating.hasClass("invalid")) {
-                errorStr += "Office Operating cannot be empty.\n";
-                hasError = true;
-            }
+        validate(Name);
+        validate(Address);
+        validate(Country);
+        validate(Operating);
 
-            if (hasError) {
-                alert(errorStr);
-                return;
-            }
+        var errorStr = "";
+        var hasError = false;
 
-            $('#HasChanged_' + x).val("True");
-
-            //Name[0].value is new value
-            //Name[0].defaultValue is original
-            var contentArray = [Name[0], Address[0], Country[0], Switchboard[0], Fax[0], Operating[0]];
-            highlightChanges(contentArray);
-            checkIt(x, form);
+        if (Name.hasClass("invalid")) {
+            errorStr += "Office Name cannot be empty.\n";
+            hasError = true;
         }
 
-        function highlightChanges(myArray) {
-            for (var i = 0; i < myArray.length; i++) {
-                highlight(myArray[i]);
-            }
+        if (Address.hasClass("invalid")) {
+            errorStr += "Office Address cannot be empty.\n";
+            hasError = true;
         }
 
-        function checkIt(x, form) {
-            setTimeout(function () {
+        if (Country.hasClass("invalid")) {
+            errorStr += "Office Country cannot be empty.\n";
+            hasError = true;
+        }
+
+        if (Operating.hasClass("invalid")) {
+            errorStr += "Office Operating cannot be empty.\n";
+            hasError = true;
+        }
+
+        if (hasError) {
+            alert(errorStr);
+            return;
+        }
+
+        $('#HasChanged_' + x).val("True");
+
+        //Name[0].value is new value
+        //Name[0].defaultValue is original
+        var contentArray = [Name[0], Address[0], Country[0], Switchboard[0], Fax[0], Operating[0]];
+        highlightChanges(contentArray);
+        checkIt(x, form);
+    }
+
+    function highlightChanges(myArray) {
+        for (var i = 0; i < myArray.length; i++) {
+            highlight(myArray[i]);
+        }
+    }
+
+    function checkIt(x, form) {
+        setTimeout(function () {
                 if (confirm('Are you sure you want to save the highlighted changes?')) {
                     $(form).submit();
                 } else {
@@ -425,203 +470,200 @@
                     }
                 }
             },
-                1000);
-        }
-        function highlight(x) {
-            if (x.nodeName == "INPUT" || x.nodeName == "TEXTAREA") {
-                if (x.value != x.defaultValue) {
-                    x.style.color = "red";
-                }
-            } else if (x.nodeName == "SELECT") {
-                console.log(x.value);
-                console.log(x.innerHTML);
-                var html = x.innerHTML;
-                var start = html.search("selected");
-                var newHtml = html.substring(start, html.length);
-                var narrowStart = newHtml.search("value=");
-                var narrowEnd = newHtml.search(">");
-                var oldValue = newHtml.substring(narrowStart + 7, narrowEnd-1);
-                console.log(oldValue);
-
-                if (x.value != oldValue) {
-                    x.style.color = "red";
-                }
-                
-            } else {
-                x.style.color = "green";
+            1000);
+    }
+    function highlight(x) {
+        if (x.nodeName == "INPUT" || x.nodeName == "TEXTAREA") {
+            if (x.value != x.defaultValue) {
+                x.style.color = "red";
             }
-        }
+        } else if (x.nodeName == "SELECT") {
+            console.log(x.value);
+            console.log(x.innerHTML);
+            var html = x.innerHTML;
+            var start = html.search("selected");
+            var newHtml = html.substring(start, html.length);
+            var narrowStart = newHtml.search("value=");
+            var narrowEnd = newHtml.search(">");
+            var oldValue = newHtml.substring(narrowStart + 7, narrowEnd-1);
+            console.log(oldValue);
 
-        function enablebody() {
-            $('#body').css({
-                'overflow-y': 'auto'
-            });
-        }
-
-        function disablebody() {
-            $('#body').css({
-                'overflow-y': 'hidden'
-            });
-        }
-
-        function check_newModal() {
-            if (confirm('Are you sure you want to cancel. You will lose your unsaved changes')) {
-                $('#emptyModals').modal('hide');
-
-                resetForm("newOffice");
+            if (x.value != oldValue) {
+                x.style.color = "red";
             }
+        } 
+    }
+
+    function enablebody() {
+        $('#body').css({
+            'overflow-y': 'auto'
+        });
+    }
+
+    function disablebody() {
+        $('#body').css({
+            'overflow-y': 'hidden'
+        });
+    }
+
+    function check_newModal() {
+        if (confirm('Are you sure you want to cancel. You will lose your unsaved changes')) {
+            $('#emptyModals').modal('hide');
+
+            resetForm("newOffice");
         }
+    }
 
-        function modalCheck(x) {
-            if (confirm('Are you sure you want to cancel. You will lose your unsaved changes')) {
-                $('#modal_' + x).modal('hide');
+    function modalCheck(x) {
+        if (confirm('Are you sure you want to cancel. You will lose your unsaved changes')) {
+            $('#modal_' + x).modal('hide');
 
-                resetForm(x);
-            }
+            resetForm(x);
         }
+    }
 
-        var required = function () {
-            var input = $(this);
-            var is_empty = input.val();
-            if (is_empty) { input.removeClass("invalid").addClass("valid"); }
-            else { input.removeClass("valid").addClass("invalid"); }
-        };
+    var required = function () {
+        var input = $(this);
+        var is_empty = input.val();
+        if (is_empty) { input.removeClass("invalid").addClass("valid"); }
+        else { input.removeClass("valid").addClass("invalid"); }
+    };
 
-        function toggleNewModal() {
-            var x = "newOffice";
+    function toggleNewModal() {
+        var x = "newOffice";
 
-            var Name = $('#Name_' + x.toString());
-            var Address = $('#Address_' + x.toString());
-            var Country = $('#Country_' + x.toString());
-            var Switchboard = $('#Switchboard_' + x.toString());
-            var Fax = $('#Fax_' + x.toString());
-            var Operating = $('#Operating_' + x.toString());
+        var Name = $('#Name_' + x.toString());
+        var Address = $('#Address_' + x.toString());
+        var Country = $('#Country_' + x.toString());
+        var Switchboard = $('#Switchboard_' + x.toString());
+        var Fax = $('#Fax_' + x.toString());
+        var Operating = $('#Operating_' + x.toString());
 
-            Name.on('input', required);
-            Address.on('input', required);
-            Country.on('input', required);
-            Operating.on('input', required);
+        Name.on('input', required);
+        Address.on('input', required);
+        Country.on('input', required);
+        Operating.on('input', required);
 
-            Name.on('submit', required);
-            Address.on('submit', required);
-            Country.on('submit', required);
-            Operating.on('submit', required);
+        Name.on('submit', required);
+        Address.on('submit', required);
+        Country.on('submit', required);
+        Operating.on('submit', required);
 
-            Name.attr('readonly', false);
+        Name.attr('readonly', false);
 
-            Address.attr('readonly', false);
+        Address.attr('readonly', false);
 
 
-            Country.attr('disabled', false);
+        Country.attr('disabled', false);
 
-            Switchboard.attr('readonly', false);
+        Switchboard.attr('readonly', false);
 
-            Fax.attr('readonly', false);
+        Fax.attr('readonly', false);
 
-            Operating.attr('disabled', false);
+        Operating.attr('disabled', false);
 
-            $('#emptyModals').modal('show');
+        $('#emptyModals').modal('show');
 
-            enablebody();
+        enablebody();
+    }
+
+    function toggleModal(x) {
+        $('#modal_' + x).modal('show');
+        enablebody();
+    }
+
+    function checkForEmpty(x) {
+        console.log(x);
+        if (x[0].value === "" || x.value == null) {
+            x[0].setCustomValidity('this field cannot be empty');
+        } else {
+            x[0].setCustomValidity("");
         }
+    }
 
-        function toggleModal(x) {
-            $('#modal_' + x).modal('show');
-            enablebody();
-        }
+    function editmodal(x) {
 
-        function checkForEmpty(x) {
-            console.log(x);
-            if (x[0].value === "" || x.value == null) {
-                x[0].setCustomValidity('this field cannot be empty');
-            } else {
-                x[0].setCustomValidity("");
-            }
-        }
+        var Name = $('#Name_' + x.toString());
+        var Address = $('#Address_' + x.toString());
+        var Country = $('#Country_' + x.toString());
+        var Switchboard = $('#Switchboard_' + x.toString());
+        var Fax = $('#Fax_' + x.toString());
+        var Operating = $('#Operating_' + x.toString());
 
-        function editmodal(x) {
+        var SaveBtn = $('#SaveBtn_' + x.toString());
+        var EditBtn = $('#EditBtn_' + x.toString());
 
-            var Name = $('#Name_' + x.toString());
-            var Address = $('#Address_' + x.toString());
-            var Country = $('#Country_' + x.toString());
-            var Switchboard = $('#Switchboard_' + x.toString());
-            var Fax = $('#Fax_' + x.toString());
-            var Operating = $('#Operating_' + x.toString());
+        Name.on('input', required);
+        Address.on('input', required);
+        Country.on('input', required);
+        Operating.on('input', required);
 
-            var SaveBtn = $('#SaveBtn_' + x.toString());
-            var EditBtn = $('#EditBtn_' + x.toString());
+        Name.attr('readonly', false);
 
-            Name.on('input', required);
-            Address.on('input', required);
-            Country.on('input', required);
-            Operating.on('input', required);
-
-            Name.attr('readonly', false);
-
-            Address.attr('readonly', false);
+        Address.attr('readonly', false);
 
 
-            Country.attr('disabled', false);
+        Country.attr('disabled', false);
 
-            Switchboard.attr('readonly', false);
+        Switchboard.attr('readonly', false);
 
-            Fax.attr('readonly', false);
+        Fax.attr('readonly', false);
 
-            Operating.attr('disabled', false);
+        Operating.attr('disabled', false);
 
-            SaveBtn.show();
+        SaveBtn.show();
 
-            EditBtn.hide();
-        }
+        EditBtn.hide();
+    }
 
 
 
-        function resetForm(x) {
-            console.log("I was called : " + x);
-            var Name = $('#Name_' + x.toString());
-            var Address = $('#Address_' + x.toString());
-            var Country = $('#Country_' + x.toString());
-            var Switchboard = $('#Switchboard_' + x.toString());
-            var Fax = $('#Fax_' + x.toString());
-            var Operating = $('#Operating_' + x.toString());
+    function resetForm(x) {
+        console.log("I was called : " + x);
+        var Name = $('#Name_' + x.toString());
+        var Address = $('#Address_' + x.toString());
+        var Country = $('#Country_' + x.toString());
+        var Switchboard = $('#Switchboard_' + x.toString());
+        var Fax = $('#Fax_' + x.toString());
+        var Operating = $('#Operating_' + x.toString());
 
-            var SaveBtn = $('#SaveBtn_' + x.toString());
-            var EditBtn = $('#EditBtn_' + x.toString());
+        var SaveBtn = $('#SaveBtn_' + x.toString());
+        var EditBtn = $('#EditBtn_' + x.toString());
 
-            Name.val(Name.data("original-value"));
+        Name.val(Name.data("original-value"));
 
-            Address.val(Address.data("original-value"));
+        Address.val(Address.data("original-value"));
 
-            Country.val(Country.data("original-value"));
+        Country.val(Country.data("original-value"));
 
-            Switchboard.val(Switchboard.data("original-value"));
+        Switchboard.val(Switchboard.data("original-value"));
 
-            Fax.val(Fax.data("original-value"));
+        Fax.val(Fax.data("original-value"));
 
-            Operating.val(Operating.data("original-value"));
+        Operating.val(Operating.data("original-value"));
 
-            Name.attr('readonly', true);
+        Name.attr('readonly', true);
 
-            Address.attr('readonly', true);
+        Address.attr('readonly', true);
 
-            Country.attr('disabled', true);
+        Country.attr('disabled', true);
 
-            Switchboard.attr('readonly', true);
+        Switchboard.attr('readonly', true);
 
-            Fax.attr('readonly', true);
+        Fax.attr('readonly', true);
 
-            Operating.attr('disabled', true);
+        Operating.attr('disabled', true);
 
-            Name.removeClass('invalid');
-            Address.removeClass('invalid');
-            Country.removeClass('invalid');
-            Operating.removeClass('invalid');
+        Name.removeClass('invalid');
+        Address.removeClass('invalid');
+        Country.removeClass('invalid');
+        Operating.removeClass('invalid');
 
-            SaveBtn.hide();
+        SaveBtn.hide();
 
-            EditBtn.show();
-        }
+        EditBtn.show();
+    }
 
-    </script>
+</script>
 
 </body>
