@@ -1,4 +1,5 @@
-﻿using System.Web.Http;
+﻿using System.Linq;
+using System.Web.Http;
 using OfficeLocationMicroservice.Core;
 using OfficeLocationMicroservice.Core.Domain.OfficeLocationContext;
 
@@ -24,12 +25,28 @@ namespace OfficeLocationMicroservice.WebUi.Controllers
              return _officeLocationRepository.GetAll();
          }
 
-        [Route("api/OfficeById")]
-        public OfficeLocation GetOffice(int id)
+        [Route("api/GetOffice")]
+        public OfficeLocation[] GetOffice(string operating = null, int? id = null)
         {
-            return _officeLocationRepository.GetById(id);
+            var officeLocations = _officeLocationRepository.GetAll();
+            if (id != null)
+            {
+                officeLocations = officeLocations.Where(x => x.OfficeId == id).ToArray();
+            }
+
+            if (operating != null)
+            {
+                officeLocations = officeLocations.Where(x => x.Operating == operating).ToArray();
+            }
+
+            return officeLocations;
+        }
+
+        [Route("api/GetOfficeName")]
+        public string[] GetOfficeName(string operating = null, int? id = null)
+        {
+            var officeLocations = GetOffice(operating, id);
+            return officeLocations.Select(x => x.Name).ToArray();
         }
     }
-
-
 }

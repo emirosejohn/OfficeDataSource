@@ -36,11 +36,9 @@ namespace OfficeLocationMicroservice.WebUi.Controllers
 
         public ActionResult Index(bool? notificationFlag = null, bool regularView = false)
         {
-
             OfficeModel officeModel = new OfficeModel();
 
             officeModel.User = _userWrapper;
-
 
             officeModel.Offices = _officeLocationRepository.GetAll();
             officeModel.NewOffice = new OfficeLocation();

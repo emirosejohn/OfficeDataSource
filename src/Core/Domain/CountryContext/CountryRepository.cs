@@ -33,6 +33,7 @@ namespace OfficeLocationMicroservice.Core.Domain.CountryContext
                     {
                         CountryId = country.CountryId,
                         Name = country.Name,
+                        Slug = country.Slug
                     });
                 }
             }

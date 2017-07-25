@@ -10,5 +10,6 @@ namespace OfficeLocationMicroservice.Core.Domain.CountryContext
     {
         public int CountryId { get; set; }
         public string Name { get; set; }
+        public string Slug { get; set; }
     }
 }
