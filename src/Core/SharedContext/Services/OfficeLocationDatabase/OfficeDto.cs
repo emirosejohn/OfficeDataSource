@@ -1,4 +1,4 @@
-namespace OfficeLocationMicroservice.Core.Services.SharedContext.OfficeLocationDatabase
+namespace OfficeLocationMicroservice.Core.SharedContext.Services.OfficeLocationDatabase
 {
     public class OfficeDto
     {
@@ -8,7 +8,7 @@ namespace OfficeLocationMicroservice.Core.Services.SharedContext.OfficeLocationD
 
         public string Address { get; set; }
 
-        public string Country { get; set; }
+        public string CountrySlug { get; set; }
 
         public string Switchboard { get; set; }
 

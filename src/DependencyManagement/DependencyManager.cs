@@ -1,11 +1,11 @@
 ﻿using Email;
 using Logging;
 using OfficeLocationMicroservice.Core;
-using OfficeLocationMicroservice.Core.Services;
-using OfficeLocationMicroservice.Core.Services.CountryFetcher.CountryWebApi;
-using OfficeLocationMicroservice.Core.Services.Email;
-using OfficeLocationMicroservice.Core.Services.SharedContext;
-using OfficeLocationMicroservice.Core.Services.SharedContext.OfficeLocationDatabase;
+using OfficeLocationMicroservice.Core.OfficeLocationContext.Services;
+using OfficeLocationMicroservice.Core.OfficeLocationContext.Services.OfficeLocationFacade.Email;
+using OfficeLocationMicroservice.Core.SharedContext.Services;
+using OfficeLocationMicroservice.Core.SharedContext.Services.CountryWebApi;
+using OfficeLocationMicroservice.Core.SharedContext.Services.OfficeLocationDatabase;
 using OfficeLocationMicroservice.Data;
 using OfficeLocationMicroservice.Data.CountryWebApi;
 using OfficeLocationMicroservice.Data.OfficeLocationDatabase;

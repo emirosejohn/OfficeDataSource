@@ -1,5 +1,5 @@
 ﻿using System.Web;
-using OfficeLocationMicroservice.Core.Services;
+using OfficeLocationMicroservice.Core.OfficeLocationContext.Services;
 
 namespace OfficeLocationMicroservice.WebUi.Helpers
 {

@@ -144,7 +144,7 @@
                             <h4>@office.Name</h4>
                             <div class="details">
                                 @Html.Raw(office.Address.Replace(CRLF, "<br/>"))<br />
-                                @office.Country <br />
+                                @office.Country.Name <br />
                                 Switchboard:
                                 @office.Switchboard <br />
                                 Fax: @office.Fax <br />
@@ -159,7 +159,7 @@
                             <h4>@office.Name</h4>
                             <div class="details">
                                 @Html.Raw(office.Address.Replace(CRLF, "<br/>"))<br />
-                                @office.Country <br />
+                                @office.Country.Name <br />
                                 Switchboard:
                                 @office.Switchboard <br />
                                 Fax: @office.Fax <br />
@@ -179,7 +179,7 @@
                             <h4>@office.Name</h4>
                             <div class="details">
                                 @Html.Raw(office.Address.Replace(CRLF, "<br/>"))<br />
-                                @office.Country <br />
+                                @office.Country.Name <br />
                                 Switchboard:
                                 @office.Switchboard <br />
                                 Fax: @office.Fax <br />
@@ -248,13 +248,13 @@
                                            @required = "True"
                                        })
 
-                                            @Html.DropDownListFor(m => m.Offices[i].Country,
-                                        new SelectList(Model.Countries, "Name", "Name", Model.Offices[i].Country)
+                                            @Html.DropDownListFor(m => m.Offices[i].Country.Slug,
+                                        new SelectList(Model.Countries, "Slug", "Name", Model.Offices[i].Country.Slug)
                                         , null, new
                                         {
                                             @class = "form-control",
                                             @id = "Country_" + @Model.Offices[i].OfficeId,
-                                            @data_original_value = @Model.Offices[i].Country,
+                                            @data_original_value = @Model.Offices[i].Country.Slug,
                                             @disabled = "True"
                                         })
 
@@ -320,7 +320,9 @@
                                             @class = "form-control",
                                             @id = "Operating_" + @Model.Offices[i].OfficeId,
                                             @data_original_value = @Model.Offices[i].Operating,
-                                            @disabled = "True"
+                                            @disabled = "True",
+                                            @value = @Model.Offices[i].Operating
+
                                         })
 
                                         </div>
@@ -403,13 +405,13 @@
                                        @required = "True"
                                    })
 
-                                        @Html.DropDownListFor(m => m.NewOffice.Country,
-                                    new SelectList(Model.Countries, "Name", "Name", string.Empty)
+                                        @Html.DropDownListFor(m => m.NewOffice.Country.Slug,
+                                    new SelectList(Model.Countries, "Slug", "Name", string.Empty)
                                     , null, new
                                     {
                                         @class = "form-control",
                                         @id = "Country_newOffice",
-                                        @data_original_value = @Model.NewOffice.Country,
+                                        @data_original_value = @Model.NewOffice.Country.Slug,
                                         @placeholder = "Country",
                                     })
 
@@ -477,6 +479,7 @@
                                         @class = "form-control",
                                         @id = "Operating_newOffice",
                                         @data_original_value = @Model.NewOffice.Operating,
+                                        @value = @Model.NewOffice.Operating
                                     })
                                     </div>
 

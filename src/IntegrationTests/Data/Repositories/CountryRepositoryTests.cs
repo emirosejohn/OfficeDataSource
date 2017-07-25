@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using FluentAssertions;
 using OfficeLocationMicroservice.Core;
-using OfficeLocationMicroservice.Core.Domain.CountryContext;
+using OfficeLocationMicroservice.Core.OfficeLocationContext.Domain.CountryRepository;
 using Xunit;
 
 namespace OfficeLocationMicroservice.IntegrationTests.Data.Repositories

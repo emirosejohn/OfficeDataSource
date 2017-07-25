@@ -1,6 +1,4 @@
-﻿using OfficeLocationMicroservice.Core.Domain.OfficeLocationContext;
-
-namespace OfficeLocationMicroservice.Core.Services.SharedContext.OfficeLocationDatabase
+﻿namespace OfficeLocationMicroservice.Core.SharedContext.Services.OfficeLocationDatabase
 {
     public interface IOfficeDataTableGateway
     {

@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using OfficeLocationMicroservice.Core.Services.CountryFetcher.CountryWebApi;
+using OfficeLocationMicroservice.Core.SharedContext.Services.CountryWebApi;
 
-namespace OfficeLocationMicroservice.Core.Domain.CountryContext
+namespace OfficeLocationMicroservice.Core.OfficeLocationContext.Domain.CountryRepository
 {
     public class CountryRepository
     {
@@ -31,13 +31,18 @@ namespace OfficeLocationMicroservice.Core.Domain.CountryContext
                 {
                     countries.Add(new Country()
                     {
-                        CountryId = country.CountryId,
                         Name = country.Name,
                         Slug = country.Slug
                     });
                 }
             }
             return countries.OrderBy(x => x.Name).ToArray();
+        }
+
+        public Country GetCountryBySlug(string slug)
+        {
+            var countries = GetAllCountries();
+            return countries.Single(x => x.Slug == slug);
         }
     }
 

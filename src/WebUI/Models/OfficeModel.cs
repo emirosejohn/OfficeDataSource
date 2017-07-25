@@ -1,8 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Web.Mvc;
-using OfficeLocationMicroservice.Core.Domain.CountryContext;
-using OfficeLocationMicroservice.Core.Domain.OfficeLocationContext;
-using OfficeLocationMicroservice.Core.Services;
+﻿using OfficeLocationMicroservice.Core.OfficeLocationContext.Domain;
+using OfficeLocationMicroservice.Core.OfficeLocationContext.Domain.CountryRepository;
+using OfficeLocationMicroservice.Core.OfficeLocationContext.Services;
 
 namespace OfficeLocationMicroservice.WebUi.Models
 {

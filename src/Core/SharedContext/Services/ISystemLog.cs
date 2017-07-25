@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace OfficeLocationMicroservice.Core.Services.SharedContext
+namespace OfficeLocationMicroservice.Core.SharedContext.Services
 {
     public interface ISystemLog
     {

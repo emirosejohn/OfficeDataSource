@@ -1,4 +1,4 @@
-﻿namespace OfficeLocationMicroservice.Core.Services.CountryFetcher.CountryWebApi
+﻿namespace OfficeLocationMicroservice.Core.SharedContext.Services.CountryWebApi
 {
     public interface ICountryWebApiGateway
     {
