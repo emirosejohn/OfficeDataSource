@@ -1,9 +1,10 @@
 ﻿using System;
-using OfficeLocationMicroservice.Core.Services.SharedContext.OfficeLocationDatabase;
+using OfficeLocationMicroservice.Core.OfficeLocationContext.Domain;
+using OfficeLocationMicroservice.Core.SharedContext.Services.OfficeLocationDatabase;
 
-namespace OfficeLocationMicroservice.Core.Domain.OfficeLocationContext
+namespace OfficeLocationMicroservice.Core.OfficeLocationContext.Services.OfficeLocationFacade
 {
-    public static class OfficeLocationRepositoryHelper
+    public static class OfficeLocationFacadeHelper
     {
         private const string CRLF = @"
 ";
@@ -31,12 +32,12 @@ namespace OfficeLocationMicroservice.Core.Domain.OfficeLocationContext
                 changedName = "<span style='color:red;font-weight:bold;'>" + newOfficeLocation.Name + "</span>";
             }
 
-            string changedAddress = newOfficeLocation.Address.Replace(CRLF, "<br/>") + "<br/>" + newOfficeLocation.Country;
+            string changedAddress = newOfficeLocation.Address.Replace(CRLF, "<br/>") + "<br/>" + newOfficeLocation.Country.Name;
             if (newOfficeLocation.Address != originalOfficeLocation.Address ||
                 newOfficeLocation.Country != originalOfficeLocation.Country)
             {
                 changedAddress = "<span style='color:red;font-weight:bold;'>" + newOfficeLocation.Address.Replace(CRLF, "<br/>")
-                    + "<br/>" + newOfficeLocation.Country + "</span>";
+                    + "<br/>" + newOfficeLocation.Country.Name + "</span>";
             }
 
             string changedSwitchboard = newOfficeLocation.Switchboard;
@@ -105,7 +106,7 @@ namespace OfficeLocationMicroservice.Core.Domain.OfficeLocationContext
                 ODS Team
              ";
 
-            var originalOfficeAddress = originalOfficeLocation.Address.Replace(CRLF, "<br/>") + "<br/>" + originalOfficeLocation.Country;
+            var originalOfficeAddress = originalOfficeLocation.Address.Replace(CRLF, "<br/>") + "<br/>" + originalOfficeLocation.Country.Name;
 
             body = string.Format(body,
                 originalOfficeLocation.Name,
@@ -183,7 +184,7 @@ namespace OfficeLocationMicroservice.Core.Domain.OfficeLocationContext
                 OfficeId = officeLocation.OfficeId,
                 Name = officeLocation.Name,
                 Address = officeLocation.Address,
-                Country = officeLocation.Country,
+                CountrySlug = officeLocation.Country.Slug,
                 Switchboard = officeLocation.Switchboard,
                 Fax = officeLocation.Fax,
             };
@@ -204,39 +205,39 @@ namespace OfficeLocationMicroservice.Core.Domain.OfficeLocationContext
         }
     }
 
-    public static class OfficeDtoExtensions
-    {
-        public static OfficeLocation ExtractOfficeLocation(this OfficeDto officeDto)
-        {
-            if (officeDto == null)
-            {
-                return null;
-            }
-
-            var officeLocation = new OfficeLocation()
-            {
-                OfficeId = officeDto.OfficeId,
-                Name = officeDto.Name,
-                Address = officeDto.Address,
-                Country = officeDto.Country,
-                Switchboard = officeDto.Switchboard,
-                Fax = officeDto.Fax,
-            };
-
-            switch (officeDto.Operating)
-            {
-                case 1:
-                    officeLocation.Operating = "Active";
-                    break;
-                case 0:
-                    officeLocation.Operating = "Closed";
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-
-            return officeLocation;
-        }
-    }
+//    public static class OfficeDtoExtensions
+//    {
+//        public static OfficeLocation ExtractOfficeLocation(this OfficeDto officeDto)
+//        {
+//            if (officeDto == null)
+//            {
+//                return null;
+//            }
+//
+//            var officeLocation = new OfficeLocation()
+//            {
+//                OfficeId = officeDto.OfficeId,
+//                Name = officeDto.Name,
+//                Address = officeDto.Address,
+//                Country = officeDto.Country,
+//                Switchboard = officeDto.Switchboard,
+//                Fax = officeDto.Fax,
+//            };
+//
+//            switch (officeDto.Operating)
+//            {
+//                case 1:
+//                    officeLocation.Operating = "Active";
+//                    break;
+//                case 0:
+//                    officeLocation.Operating = "Closed";
+//                    break;
+//                default:
+//                    throw new ArgumentOutOfRangeException();
+//            }
+//
+//            return officeLocation;
+//        }
+//    }
 }
 

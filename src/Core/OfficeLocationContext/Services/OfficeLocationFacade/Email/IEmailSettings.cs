@@ -1,4 +1,4 @@
-﻿namespace OfficeLocationMicroservice.Core.Services.Email
+﻿namespace OfficeLocationMicroservice.Core.OfficeLocationContext.Services.OfficeLocationFacade.Email
 {
     public interface IEmailSettings
     {

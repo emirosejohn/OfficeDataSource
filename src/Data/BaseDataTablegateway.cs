@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Data.SqlClient;
 using System.Text;
-using OfficeLocationMicroservice.Core.Services.SharedContext;
+using OfficeLocationMicroservice.Core.SharedContext.Services;
 
 namespace OfficeLocationMicroservice.Data
 {

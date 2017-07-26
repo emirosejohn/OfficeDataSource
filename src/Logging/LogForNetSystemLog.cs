@@ -1,6 +1,6 @@
 ﻿using System;
 using log4net;
-using OfficeLocationMicroservice.Core.Services.SharedContext;
+using OfficeLocationMicroservice.Core.SharedContext.Services;
 
 namespace Logging
 {

@@ -1,9 +1,8 @@
 ﻿using System.Configuration;
-using Email;
-using OfficeLocationMicroservice.Core.Services;
-using OfficeLocationMicroservice.Core.Services.CountryFetcher.CountryWebApi;
-using OfficeLocationMicroservice.Core.Services.Email;
-using OfficeLocationMicroservice.Core.Services.SharedContext.OfficeLocationDatabase;
+using OfficeLocationMicroservice.Core.OfficeLocationContext.Services;
+using OfficeLocationMicroservice.Core.OfficeLocationContext.Services.OfficeLocationFacade.Email;
+using OfficeLocationMicroservice.Core.SharedContext.Services.CountryWebApi;
+using OfficeLocationMicroservice.Core.SharedContext.Services.OfficeLocationDatabase;
 
 namespace OfficeLocationMicroservice.IntegrationTests
 {

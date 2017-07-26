@@ -1,17 +1,45 @@
 ﻿using System;
-using System.ComponentModel;
+using OfficeLocationMicroservice.Core.OfficeLocationContext.Domain.CountryRepository;
+using OfficeLocationMicroservice.Core.SharedContext.Services.OfficeLocationDatabase;
 
-namespace OfficeLocationMicroservice.Core.Domain.OfficeLocationContext
+namespace OfficeLocationMicroservice.Core.OfficeLocationContext.Domain
 {
     public class OfficeLocation
     {
+        public OfficeLocation()
+        {
+            Country= new Country();
+        }
+
+        public OfficeLocation(OfficeDto officeDto, Country country)
+        {
+            this.OfficeId = officeDto.OfficeId;
+            this.Name = officeDto.Name;
+            this.Address = officeDto.Address;
+            this.Country = country;
+            this.Switchboard = officeDto.Switchboard;
+            this.Fax = officeDto.Fax;
+            switch (officeDto.Operating)
+            {
+                case 1:
+                    this.Operating = "Active";
+                    break;
+                case 0:
+                    this.Operating = "Closed";
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+
+
         public int OfficeId { get; set; }
 
         public string Name { get; set; }
 
         public string Address { get; set; }
 
-        public string Country { get; set; }
+        public Country Country { get; set; }
 
         public string Switchboard { get; set; }
 
@@ -32,7 +60,6 @@ namespace OfficeLocationMicroservice.Core.Domain.OfficeLocationContext
             {
                 return false;
             }
-
 
                 return (
                 x.OfficeId == y.OfficeId &&

@@ -1,4 +1,4 @@
-﻿namespace OfficeLocationMicroservice.Core.Services
+﻿namespace OfficeLocationMicroservice.Core.OfficeLocationContext.Services
 {
     public interface IUserWrapper
     {

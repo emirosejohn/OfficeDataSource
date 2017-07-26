@@ -1,4 +1,4 @@
-﻿using OfficeLocationMicroservice.Core.Services.CountryFetcher.CountryWebApi;
+﻿using OfficeLocationMicroservice.Core.SharedContext.Services.CountryWebApi;
 
 namespace OfficeLocationMicroservice.Data.CountryWebApi
 {

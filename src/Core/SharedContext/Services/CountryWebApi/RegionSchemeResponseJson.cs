@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace OfficeLocationMicroservice.Core.Services.CountryFetcher.CountryWebApi
+namespace OfficeLocationMicroservice.Core.SharedContext.Services.CountryWebApi
 {
 
     public class RegionSchemeResponseJson

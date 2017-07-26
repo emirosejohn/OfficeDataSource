@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 using OfficeLocationMicroservice.Core;
-using OfficeLocationMicroservice.Core.Domain.CountryContext;
-using OfficeLocationMicroservice.Core.Domain.OfficeLocationContext;
-using OfficeLocationMicroservice.Core.Services;
+using OfficeLocationMicroservice.Core.OfficeLocationContext.Domain;
+using OfficeLocationMicroservice.Core.OfficeLocationContext.Domain.CountryRepository;
+using OfficeLocationMicroservice.Core.OfficeLocationContext.Services;
+using OfficeLocationMicroservice.Core.OfficeLocationContext.Services.OfficeLocationFacade;
 using OfficeLocationMicroservice.WebUi.Helpers;
 using OfficeLocationMicroservice.WebUi.Models;
 
@@ -12,39 +14,33 @@ namespace OfficeLocationMicroservice.WebUi.Controllers
 {
     public class OfficeLocationController : Controller
     {
-        private readonly OfficeLocationRepository _officeLocationRepository;
-        private readonly CountryRepository _countryRepository;
         private readonly IUserWrapper _userWrapper;
+        private readonly OfficeLocationFacade _officeLocationFacade;
 
         public OfficeLocationController()
         {
-            _officeLocationRepository = MasterFactory.GetOfficeLocationRepository();
-            _countryRepository = MasterFactory.GetCountryRepository();
+            _officeLocationFacade = MasterFactory.GetOfficeLocationFacade();
             _userWrapper = new UserWrapper(MasterFactory.GroupNameConstants);
         }
 
         //for tests
         public OfficeLocationController(
-            OfficeLocationRepository officeLocationRepository,
-            CountryRepository countryRepository,
+            OfficeLocationFacade officeLocationFacade,
             IUserWrapper userWrapper)
         {
-            _officeLocationRepository = officeLocationRepository;
-            _countryRepository = countryRepository;
+            _officeLocationFacade = officeLocationFacade;
             _userWrapper = userWrapper;
         }
 
         public ActionResult Index(bool? notificationFlag = null, bool regularView = false)
         {
-
             OfficeModel officeModel = new OfficeModel();
 
             officeModel.User = _userWrapper;
 
-
-            officeModel.Offices = _officeLocationRepository.GetAll();
+            officeModel.Offices = _officeLocationFacade.GetAll();
+            officeModel.Countries = _officeLocationFacade.GetAllCountries();
             officeModel.NewOffice = new OfficeLocation();
-            officeModel.Countries = _countryRepository.GetAllCountries();
             officeModel.OperatingOptions = WebHelper.GenerateOperatingOptions();
 
             officeModel.NotificationFlag = notificationFlag;
@@ -62,11 +58,15 @@ namespace OfficeLocationMicroservice.WebUi.Controllers
                 {
                     foreach (var office in officeModel.Offices)
                     {
-                        if (office != null && office.HasChanged != null)
+                        if (office != null && office.HasChanged != null && office.Country!=null)
                         {
+                            var country = _officeLocationFacade.GetAllCountries()
+                                .Single(x => x.Slug == office.Country.Slug);
+                            office.Country = country;
+
                             if (Boolean.Parse(office.HasChanged))
                             {
-                                var officelocation = _officeLocationRepository.Update(office);
+                                var officelocation = _officeLocationFacade.Update(office);
                             }
                         }
                     }
@@ -74,9 +74,13 @@ namespace OfficeLocationMicroservice.WebUi.Controllers
 
                 if (officeModel.NewOffice != null && officeModel.NewOffice.HasChanged != null)
                 {
-                    if (Boolean.Parse(officeModel.NewOffice.HasChanged))
+                    if (Boolean.Parse(officeModel.NewOffice.HasChanged) && officeModel.NewOffice.Country != null)
                     {
-                        var officelocation = _officeLocationRepository.Update(officeModel.NewOffice);
+                        var country = _officeLocationFacade.GetAllCountries()
+                            .Single(x => x.Slug == officeModel.NewOffice.Country.Slug);
+                        officeModel.NewOffice.Country = country;
+
+                        var officelocation = _officeLocationFacade.Update(officeModel.NewOffice);
                     }
                 }
             }
