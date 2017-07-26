@@ -62,10 +62,20 @@ however, we will most likely lose this once internship is over. Corporate Servic
 Hernandez (Head of Hospitality Services-Americas ***REMOVED***) and Jenny Hill 
 (***REMOVED***), are responsible foer managing the office database through the UI only.
 
-## Pull request SLA (Service Level Agreement)
-???
-
 ## A list of deployable pieces (windows services, databases websites) and the servers used in each environment
+Deployable: 
+⋅⋅* Email
+⋅⋅* Website through Index.cshtml
+⋅⋅* OfficeLocationMicroservice Database
+Servers:
+⋅⋅* Local machine
+⋅⋅* Team City
+* Web Deployment - Dev
+* Web Deployment - Stg
+* Web Deployment - Prd
+* Database Deployment - Dev
+* Database Deployment - Stg
+* Database Deployment - Prd
 
 ## A description of the design/technical goals of the system
 The database is initialized in SQL data/mssql/OfficeLocationMicroservice/Up/0001_CREATETABLES.sql 
@@ -78,5 +88,3 @@ ideally be used in all Dimensional applications that involve office locations. *
 chart (Location-Workflow) for future integration with systems used in Dimensional by department.** We are working 
 to get the OfficeLocation data into a form that is usable for Sharepoint.
 
-
-## Optional link to roadmap
