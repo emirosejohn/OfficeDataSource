@@ -69,10 +69,11 @@ Deployable:
 ⋅⋅* OfficeLocationMicroservice Database
 Servers:
 ⋅⋅* Local machine
-⋅⋅* Team City
+
 * Web Deployment - Dev
 * Web Deployment - Stg
 * Web Deployment - Prd
+⋅⋅* Team City
 * Database Deployment - Dev
 * Database Deployment - Stg
 * Database Deployment - Prd
