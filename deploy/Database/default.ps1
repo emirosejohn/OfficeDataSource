@@ -19,7 +19,7 @@ formatTaskName {
 	write-host "********************** $taskName **********************" -ForegroundColor Green
 }
 
-task RebuildDatabase{
+task RebuildDatabase -requiredVariables environment {
 
     Write-Host $baseDir
     Write-Host $roundhouseExec
@@ -29,6 +29,7 @@ task RebuildDatabase{
 
     Write-Host "$versionFile exists: $exists"
     #databaseServer and environment are both passed in.
-    &$roundhouseExec /d=$databaseName /f=$dbFileDir /s=$databaseServer /vf=$versionFile /vx='//buildInfo/version' /env=$enviornment /simple /silent
-
+    Exec { 
+        &$roundhouseExec /d=$databaseName /f=$dbFileDir /s=$databaseServer /vf=$versionFile /vx='//buildInfo/version' /env=$environment /simple /silent
+    }
 }
