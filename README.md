@@ -65,8 +65,8 @@ Hernandez (Head of Hospitality Services-Americas ***REMOVED***) and Jenny Hill
 ## A list of deployable pieces (windows services, databases websites) and the servers used in each environment
 Deployable: 
 * Email
-* Website through Index.cshtml
-* OfficeLocationMicroservice Database
+* Website through Index.cshtml (dev http://***REMOVED***:1704/ and stg http://***REMOVED***:1704/)
+* OfficeLocationMicroservice Database ( ***REMOVED*** and ***REMOVED***)
 
 Servers:
 * Local machine
