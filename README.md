@@ -29,14 +29,14 @@ Core project in the Business Rules folder organizes data. In the Domain folder, 
 OfficeLocation and Country where all Office attributes in the OfficeLocation object per office 
 and the Country attributes in Country object per country. The Repositories call their respective Gateways 
 to init and update these objects.
-In teh Services folder, we have the OfficeDto, OperatingOptions, RegionSchemeResponseJson, and all of the Interfaces.
+In the Services folder, we have the OfficeDto, OperatingOptions, RegionSchemeResponseJson, and all of the Interfaces.
 
 The Tests folders (IntegrationTests and UnitTests) contain their own projects. We do not yet have any 
 meaningful unit tests but we have set up a UnitTests project. Under Integration Tests, we test the API, 
 Repositories, and Controllers. Only tests on UI are through the controller tests. We strive for Test Driven 
 Development.
 
-**we have included a workflow chart (Location-Workflow) for future integration with systems used in 
+**We have included a workflow chart (Location-Workflow) for future integration with systems used in 
 Dimensional by department.**
 
 ## Project specific Rules and Policies
@@ -46,6 +46,9 @@ suggestions unless it makes the code less readable. Each office has a unique ID 
 Name and Address. Each Office is required to have a name, address, switchboard (phone number) and operating 
 status. The operating status can either be Active or Closed; we do not delete any offices in order to minimize 
 discrepancies and maintain historical records and thus set them to closed instead.
+
+Tests must have a good name, clearly defining what the test means and the behavior. Test must also be contained 
+in the appropriate class, with other cases testing the same unit.
 
 ## The location of the Build system for that project
 the main directory holds our powershell scripts and the .build folder. To run tests use .build, to 
@@ -59,17 +62,20 @@ Hernandez (Head of Hospitality Services-Americas ***REMOVED***) and Jenny Hill
 (***REMOVED***), are responsible foer managing the office database through the UI only.
 
 ## Pull request SLA (Service Level Agreement)
+???
 
 ## A list of deployable pieces (windows services, databases websites) and the servers used in each environment
 
 ## A description of the design/technical goals of the system
 The database is initialized in SQL data/mssql/OfficeLocationMicroservice/Up/0001_CREATETABLES.sql 
-and the addresses are updated with correct formatting using 0002_ALTERTABLES.sql in the same file.
-WebUI is the main project that runs our UI. 
+and the addresses are updated with correct formatting using 0002_ALTERTABLES.sql and the slugs using 
+003_AddingCountrySlugs in the same file. Design is noted under SetUp. The technical goal of this project 
+is to have a central database that keeps records of Dimensional Offices and their locations around the world. 
+We have implemented a UI in order for Corporate Services to keep this information up to date. The project is 
+deployed through TeamCity and Paul will maintain the back end of the project. This database/service will 
+ideally be used in all Dimensional applications that involve office locations. **We have included a workflow 
+chart (Location-Workflow) for future integration with systems used in Dimensional by department.** We are working 
+to get the OfficeLocation data into a form that is usable for Sharepoint.
 
-
-
-Have a good name, clearly defining what the test means and the behavior being tests
- Be contained in the appropriate class, with other cases testing the same unit.
 
 ## Optional link to roadmap
