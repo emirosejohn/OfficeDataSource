@@ -69,13 +69,12 @@ Deployable:
 * OfficeLocationMicroservice Database
 Servers:
 * Local machine
-* Team City
-** Web Deployment - Dev
-** Web Deployment - Stg
-** Web Deployment - Prd
-** Database Deployment - Dev
-** Database Deployment - Stg
-** Database Deployment - Prd
+* Web Deployment - Dev
+* Web Deployment - Stg
+* Web Deployment - Prd
+* Database Deployment - Dev
+* Database Deployment - Stg
+* Database Deployment - Prd
 
 ## A description of the design/technical goals of the system
 The database is initialized in SQL data/mssql/OfficeLocationMicroservice/Up/0001_CREATETABLES.sql 
