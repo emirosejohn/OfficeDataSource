@@ -9,6 +9,7 @@ using OfficeLocationMicroservice.Core.OfficeLocationContext.Services;
 using OfficeLocationMicroservice.Core.OfficeLocationContext.Services.OfficeLocationFacade;
 using OfficeLocationMicroservice.WebUi.Helpers;
 using OfficeLocationMicroservice.WebUi.Models;
+using WebGrease.Css.Extensions;
 
 namespace OfficeLocationMicroservice.WebUi.Controllers
 {
@@ -38,9 +39,12 @@ namespace OfficeLocationMicroservice.WebUi.Controllers
 
             officeModel.User = _userWrapper;
 
-            officeModel.Offices = _officeLocationFacade.GetAll();
+            officeModel.Offices = _officeLocationFacade.GetAll().Select(x => new WebOfficeLocation(x)).ToArray();
+
+
+
             officeModel.Countries = _officeLocationFacade.GetAllCountries();
-            officeModel.NewOffice = new OfficeLocation();
+            officeModel.NewOffice = new WebOfficeLocation();
             officeModel.OperatingOptions = WebHelper.GenerateOperatingOptions();
 
             officeModel.NotificationFlag = notificationFlag;

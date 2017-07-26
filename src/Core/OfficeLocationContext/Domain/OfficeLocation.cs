@@ -32,7 +32,6 @@ namespace OfficeLocationMicroservice.Core.OfficeLocationContext.Domain
             }
         }
 
-
         public int OfficeId { get; set; }
 
         public string Name { get; set; }
@@ -46,8 +45,6 @@ namespace OfficeLocationMicroservice.Core.OfficeLocationContext.Domain
         public string Fax { get; set; }
 
         public string Operating { get; set; }
-
-        public string HasChanged { get; set; }
 
 
         public static bool operator ==(OfficeLocation x, OfficeLocation y)

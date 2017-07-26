@@ -6,8 +6,8 @@ namespace OfficeLocationMicroservice.WebUi.Models
 {
     public class OfficeModel
     {
-        public OfficeLocation[] Offices { get; set; }
-        public OfficeLocation NewOffice { get; set; }
+        public WebOfficeLocation[] Offices { get; set; }
+        public WebOfficeLocation NewOffice { get; set; }
         public bool? NotificationFlag { get; set; }
         public bool RegularView { get; set; }
 
