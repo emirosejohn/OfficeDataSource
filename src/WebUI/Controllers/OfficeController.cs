@@ -13,19 +13,19 @@ using WebGrease.Css.Extensions;
 
 namespace OfficeLocationMicroservice.WebUi.Controllers
 {
-    public class OfficeLocationController : Controller
+    public class OfficeController : Controller
     {
         private readonly IUserWrapper _userWrapper;
         private readonly OfficeLocationFacade _officeLocationFacade;
 
-        public OfficeLocationController()
+        public OfficeController()
         {
             _officeLocationFacade = MasterFactory.GetOfficeLocationFacade();
             _userWrapper = new UserWrapper(MasterFactory.GroupNameConstants);
         }
 
         //for tests
-        public OfficeLocationController(
+        public OfficeController(
             OfficeLocationFacade officeLocationFacade,
             IUserWrapper userWrapper)
         {
@@ -39,10 +39,10 @@ namespace OfficeLocationMicroservice.WebUi.Controllers
 
             officeModel.User = _userWrapper;
 
-            officeModel.Offices = _officeLocationFacade.GetAll().Select(x => new WebOfficeLocation(x)).ToArray();
+            officeModel.Offices = _officeLocationFacade.GetAll().Select(x => new WebOffice(x)).ToArray();
 
             officeModel.Countries = _officeLocationFacade.GetAllCountries();
-            officeModel.NewOffice = new WebOfficeLocation();
+            officeModel.NewOffice = new WebOffice();
             officeModel.OperatingOptions = WebHelper.GenerateOperatingOptions();
 
             officeModel.NotificationFlag = notificationFlag;

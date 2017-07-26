@@ -8,7 +8,7 @@ using OfficeLocationMicroservice.Core.SharedContext.Services.OfficeLocationDatab
 
 namespace OfficeLocationMicroservice.WebUi.Models
 {
-    public class WebOfficeLocation :OfficeLocation
+    public class WebOfficeLocation : Core.OfficeLocationContext.Domain.OfficeLocation
     {
         public WebOfficeLocation() : base()
         {
@@ -20,7 +20,7 @@ namespace OfficeLocationMicroservice.WebUi.Models
             HasChanged = "False";
         }
 
-        public WebOfficeLocation(OfficeLocation officeLocation) 
+        public WebOfficeLocation(Core.OfficeLocationContext.Domain.OfficeLocation officeLocation) 
         {
             this.HasChanged = "False";
             this.OfficeId = officeLocation.OfficeId;

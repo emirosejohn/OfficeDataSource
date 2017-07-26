@@ -8,59 +8,60 @@ using OfficeLocationMicroservice.Core.OfficeLocationContext.Domain.CountryReposi
 
 namespace OfficeLocationMicroservice.WebUi.Models
 {
-    public class OfficeLocation 
+    public class Office
     {
-        public OfficeLocation(Core.OfficeLocationContext.Domain.OfficeLocation officeLocation)
+        public Office(Core.OfficeLocationContext.Domain.Office office)
         {
-            this.OfficeId = officeLocation.OfficeId;
-            this.Address = officeLocation.Address;
-            this.Country = officeLocation.Country;
-            this.Fax = officeLocation.Fax;
-            this.Name = officeLocation.Name;
-            this.Operating = officeLocation.Operating;
-            this.Switchboard = officeLocation.Switchboard;
+            this.OfficeId = office.OfficeId;
+            this.Address = office.Address;
+            this.Country = office.Country;
+            this.Fax = office.Fax;
+            this.Name = office.Name;
+            this.Operating = office.Operating;
+            this.Switchboard = office.Switchboard;
         }
 
         /// <summary>
-        /// Generated Id identifying the office.
+        /// Generated Id for the Office
         /// </summary>
         [Required]
         public int OfficeId { get; set; }
 
         /// <summary>
-        /// Name of the city where the office is located.
+        /// city Name of the Office
         /// </summary>
         [Required]
         public string Name { get; set; }
 
         /// <summary>
-        /// Address information about the office.
+        /// Address of the Office
         /// </summary>
         [Required]
         public string Address { get; set; }
 
         /// <summary>
-        /// Country information of the office.
+        /// Country of the office
         /// </summary>
         [Required]
         public Country Country { get; set; }
 
         /// <summary>
-        /// Phone number used to contact the office.
+        /// Phone number of the office
         /// </summary>
         [Required]
         public string Switchboard { get; set; }
-
+        
         /// <summary>
-        /// Fax number used to contact the office.
+        /// Fax number of the office
         /// </summary>
         public string Fax { get; set; }
 
         /// <summary>
-        /// Operating status of the office.
+        /// Operating status of the office
         /// </summary>
         [Required]
         public string Operating { get; set; }
-
     }
+
+
 }

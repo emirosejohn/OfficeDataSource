@@ -4,7 +4,6 @@ using System.Net.Http;
 using System.Runtime.Remoting.Messaging;
 using System.Web.Http;
 using OfficeLocationMicroservice.Core;
-using OfficeLocationMicroservice.Core.OfficeLocationContext.Domain;
 using OfficeLocationMicroservice.Core.OfficeLocationContext.Services.OfficeLocationFacade;
 using OfficeLocationMicroservice.WebUi.Models;
 using Swashbuckle.Swagger.Annotations;
@@ -24,6 +23,7 @@ namespace OfficeLocationMicroservice.WebUi.Controllers
         {
             _officeLocationFacade = officeLocationFacade;
         }
+
         /// <summary>
         ///  Get all offices
         /// </summary>
@@ -86,7 +86,7 @@ namespace OfficeLocationMicroservice.WebUi.Controllers
                 officeLocations = officeLocations.Where(x => x.Country.Slug.ToUpper() == countrySlug.ToUpper()).ToArray();
             }
 
-            return officeLocations;
+            return officeLocations.Select(x => new OfficeLocation(x)).ToArray();
         }
     }
 }
