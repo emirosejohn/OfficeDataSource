@@ -11,10 +11,6 @@ Set [CountrySlug] = 'united-states'
 where [Country] ='United States';
 
 UPDATE [OfficeLocation].[Office]
-Set [CountrySlug] = 'netherlands'
-where [Country] ='Netherlands';
-
-UPDATE [OfficeLocation].[Office]
 Set [CountrySlug] = 'germany'
 where [Country] ='Germany';
 
@@ -38,4 +34,8 @@ UPDATE [OfficeLocation].[Office]
 Set [CountrySlug] = 'canada'
 where [Country] ='Canada';
 
+go
+
 ALTER TABLE [OfficeLocation].[Office] DROP COLUMN [Country];
+
+go
