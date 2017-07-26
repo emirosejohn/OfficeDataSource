@@ -69,7 +69,7 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
                 var controller = testHelper.CreateController();
 
                 var country1 = testHelper.GetCountryRepository().GetCountryBySlug(officeDto1.CountrySlug);
-                var locationModel = new OfficeLocation(officeDto1, country1);
+                var locationModel = new WebOfficeLocation(officeDto1, country1);
 
                 locationModel.HasChanged = "True";
 
@@ -168,7 +168,7 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
                 var updatedOfficeDto = SimulateUpdatingOfficeLocation(expectedOfficeId);
 
                 var country1 = testHelper.GetCountryRepository().GetCountryBySlug(updatedOfficeDto.CountrySlug);
-                var locationModel = new OfficeLocation(updatedOfficeDto, country1);
+                var locationModel = new WebOfficeLocation(updatedOfficeDto, country1);
 
                 locationModel.HasChanged = "True";
 
@@ -176,7 +176,7 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
                 {
                     Offices = new[]
                     {
-                        locationModel, null, new OfficeLocation()
+                        locationModel, null, new WebOfficeLocation()
                     },
                 };
 
@@ -259,7 +259,7 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
                 var controller = testHelper.CreateController();
 
                 var updatedCountry = testHelper.GetCountryRepository().GetCountryBySlug(updatedOfficeDto.CountrySlug);
-                var locationModel = new OfficeLocation(updatedOfficeDto, updatedCountry);
+                var locationModel = new WebOfficeLocation(updatedOfficeDto, updatedCountry);
 
                 locationModel.HasChanged = "True";
 
@@ -330,7 +330,7 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
                 var controller = testHelper.CreateController();
 
                 var Country1 = testHelper.GetCountryRepository().GetCountryBySlug(officeDto1.CountrySlug);
-                var locationModel = new OfficeLocation(officeDto1, Country1);
+                var locationModel = new WebOfficeLocation(officeDto1, Country1);
 
                 locationModel.HasChanged = "True";
 
@@ -424,7 +424,7 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
                 var controller = testHelper.CreateController();
 
                 var Country1 = testHelper.GetCountryRepository().GetCountryBySlug(officeDto1.CountrySlug);
-                var locationModel = new OfficeLocation(officeDto1, Country1);
+                var locationModel = new WebOfficeLocation(officeDto1, Country1);
 
                 locationModel.HasChanged = "True";
 
@@ -514,7 +514,7 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
                 var controller = testHelper.CreateController();
 
                 var Country1 = testHelper.GetCountryRepository().GetCountryBySlug(officeDto1.CountrySlug);
-                var locationModel = new OfficeLocation(officeDto1, Country1);
+                var locationModel = new WebOfficeLocation(officeDto1, Country1);
 
                 locationModel.HasChanged = "True";
 
