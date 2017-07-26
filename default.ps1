@@ -99,9 +99,10 @@ task copyBuildFiles -depends BuildSolution {
     $docFolder = "$buildTargetFolder\_PublishedWebsites\WebUI\documentation"
     $SwaggerXML = "$srcFolder\WebUI\documentation\OfficeLocationMicroservice.WebUi.XML"
 
+
+    mkdir $docFolder | out-null
     Write-Host "Copying $SwaggerXML to $docFolder"
     copy-item "$SwaggerXML" "$docFolder"
-
 
 
     $sourceFiles= "$buildTargetFolder\_PublishedWebsites\WebUI\*"
