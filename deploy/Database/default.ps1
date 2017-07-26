@@ -2,7 +2,7 @@
 	$baseDir = (resolve-path .\..\..)
     $teamCityFileLocation = "$baseDir\temp\$ProjectName"
 
-    $dataFolder = "$teamCityFileLocation\data"
+    $dataFolder = "$baseDir\data"
 
 
     $roundhouseExec = "$baseDir\lib\roundhouse\rh.exe"
