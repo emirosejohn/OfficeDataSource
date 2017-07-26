@@ -24,6 +24,10 @@ task RebuildDatabase{
     Write-Host $baseDir
     Write-Host $roundhouseExec
     Get-ChildItem "$baseDir\lib\roundhouse"
+
+    $exists = (Test-Path "$versionFile")
+
+    Write-Host "$versionFile exists: $exists"
     #databaseServer and environment are both passed in.
     &$roundhouseExec /d=$databaseName /f=$dbFileDir /s=$databaseServer /vf=$versionFile /vx='//buildInfo/version' /env=$enviornment /simple /silent
 
