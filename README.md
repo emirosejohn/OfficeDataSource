@@ -67,6 +67,7 @@ Deployable:
 * Email
 * Website through Index.cshtml
 * OfficeLocationMicroservice Database
+
 Servers:
 * Local machine
 * Web Deployment - Dev
