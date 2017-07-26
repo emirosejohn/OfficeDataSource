@@ -1,8 +1,8 @@
 # README
 
-Max Booth
-
 Emily Johnson
+
+Max Booth
 
 July 2017
 
@@ -37,7 +37,8 @@ Repositories, and Controllers. Only tests on UI are through the controller tests
 Development.
 
 **We have included a workflow chart (Location-Workflow) for future integration with systems used in 
-Dimensional by department.**
+Dimensional by department** courtesy of Hal Norris (hal.norris@Dimensional.com) who was the Business Analyst intern 
+working under Julie Saft in Technology Planning and Strategy.
 
 ## Project specific Rules and Policies
 Developers must follow the Philosophy of the Coding Standards. We follow MVC design where the models, views 
