@@ -64,19 +64,18 @@ Hernandez (Head of Hospitality Services-Americas ***REMOVED***) and Jenny Hill
 
 ## A list of deployable pieces (windows services, databases websites) and the servers used in each environment
 Deployable: 
-⋅⋅* Email
-⋅⋅* Website through Index.cshtml
-⋅⋅* OfficeLocationMicroservice Database
+* Email
+* Website through Index.cshtml
+* OfficeLocationMicroservice Database
 Servers:
-⋅⋅* Local machine
-
-* Web Deployment - Dev
-* Web Deployment - Stg
-* Web Deployment - Prd
-⋅⋅* Team City
-* Database Deployment - Dev
-* Database Deployment - Stg
-* Database Deployment - Prd
+* Local machine
+* Team City
+** Web Deployment - Dev
+** Web Deployment - Stg
+** Web Deployment - Prd
+** Database Deployment - Dev
+** Database Deployment - Stg
+** Database Deployment - Prd
 
 ## A description of the design/technical goals of the system
 The database is initialized in SQL data/mssql/OfficeLocationMicroservice/Up/0001_CREATETABLES.sql 
