@@ -35,8 +35,8 @@ namespace OfficeLocationMicroservice.WebUi
                         //
                         c.SingleApiVersion("v1", "OfficeLocationMicroservice.WebUi");
 
-                        c.OperationFilter<AddDefaultValuesOperationFilter>();
-                        c.OperationFilter<AddResponsesOperationFilter>();
+                        // c.OperationFilter<AddDefaultValuesOperationFilter>();
+                        // c.OperationFilter<AddResponsesOperationFilter>();
 
                         // If you want the output Swagger docs to be indented properly, enable the "PrettyPrint" option.
                         //

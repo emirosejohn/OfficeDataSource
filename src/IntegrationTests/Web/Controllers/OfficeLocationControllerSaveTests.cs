@@ -5,6 +5,7 @@ using OfficeLocationMicroservice.Core.OfficeLocationContext.Services.OfficeLocat
 using OfficeLocationMicroservice.Core.SharedContext.Services.OfficeLocationDatabase;
 using OfficeLocationMicroservice.WebUi.Models;
 using Xunit;
+using OfficeLocation = OfficeLocationMicroservice.Core.OfficeLocationContext.Domain.OfficeLocation;
 
 namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
 {

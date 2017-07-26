@@ -8,6 +8,8 @@ using OfficeLocationMicroservice.Core.OfficeLocationContext.Services.OfficeLocat
 using OfficeLocationMicroservice.WebUi.Models;
 using Swashbuckle.Swagger.Annotations;
 
+using OfficeLocation = OfficeLocationMicroservice.WebUi.Models.OfficeLocation;
+
 namespace OfficeLocationMicroservice.WebUi.Controllers
 {
     public class OfficeApiController : ApiController
@@ -85,7 +87,7 @@ namespace OfficeLocationMicroservice.WebUi.Controllers
             {
                 officeLocations = officeLocations.Where(x => x.Country.Slug.ToUpper() == countrySlug.ToUpper()).ToArray();
             }
-
+            
             return officeLocations.Select(x => new OfficeLocation(x)).ToArray();
         }
     }
