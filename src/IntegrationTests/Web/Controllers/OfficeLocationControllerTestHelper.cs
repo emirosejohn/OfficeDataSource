@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Web.Mvc;
 using FluentAssertions;
-using OfficeLocationMicroservice.Core.Domain.CountryContext;
-using OfficeLocationMicroservice.Core.Domain.OfficeLocationContext;
-using OfficeLocationMicroservice.Core.Services.SharedContext.OfficeLocationDatabase;
+using OfficeLocationMicroservice.Core.OfficeLocationContext.Domain;
+using OfficeLocationMicroservice.Core.OfficeLocationContext.Domain.CountryRepository;
+using OfficeLocationMicroservice.Core.OfficeLocationContext.Services.OfficeLocationFacade;
+using OfficeLocationMicroservice.Core.SharedContext.Services.OfficeLocationDatabase;
 using OfficeLocationMicroservice.Data.CountryWebApi;
 using OfficeLocationMicroservice.Data.OfficeLocationDatabase;
 using OfficeLocationMicroservice.IntegrationTests.Email;
@@ -42,21 +43,25 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
 
         public OfficeLocationRepository GetOfficeLocationRepository()
         {
-            return new OfficeLocationRepository(_officeDataTableGateway, _emailClient);
+            var countryRepostiory = GetCountryRepository();
+            return new OfficeLocationRepository(_officeDataTableGateway, countryRepostiory);
         }
 
-        public Country[] GetAllCountries()
+        public CountryRepository GetCountryRepository()
         {
-            var countryRepository = new CountryRepository(_countryWebApiGateway);
-            return countryRepository.GetAllCountries();
+            return new CountryRepository(_countryWebApiGateway);
+        }
+
+        public OfficeLocationFacade GetOfficeLocationFacade()
+        {
+            var officeLocationRepository = this.GetOfficeLocationRepository();
+            return new OfficeLocationFacade(officeLocationRepository, _emailClient);
         }
 
         public OfficeLocationController CreateController()
         {
-            var officeLocationRepository = new OfficeLocationRepository(_officeDataTableGateway, _emailClient);
-            var countryRepository = new CountryRepository(_countryWebApiGateway);
-
-            return new OfficeLocationController(officeLocationRepository, countryRepository, _userWrapperFake);
+            var officeLocationFacade = GetOfficeLocationFacade();
+            return new OfficeLocationController(officeLocationFacade, _userWrapperFake);
         }
 
         public DateTime CurrentDate { get; set; }

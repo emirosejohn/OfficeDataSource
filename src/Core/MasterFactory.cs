@@ -1,10 +1,11 @@
-﻿using OfficeLocationMicroservice.Core.Domain.CountryContext;
-using OfficeLocationMicroservice.Core.Domain.OfficeLocationContext;
-using OfficeLocationMicroservice.Core.Services;
-using OfficeLocationMicroservice.Core.Services.CountryFetcher.CountryWebApi;
-using OfficeLocationMicroservice.Core.Services.Email;
-using OfficeLocationMicroservice.Core.Services.SharedContext;
-using OfficeLocationMicroservice.Core.Services.SharedContext.OfficeLocationDatabase;
+﻿using OfficeLocationMicroservice.Core.OfficeLocationContext.Domain;
+using OfficeLocationMicroservice.Core.OfficeLocationContext.Domain.CountryRepository;
+using OfficeLocationMicroservice.Core.OfficeLocationContext.Services;
+using OfficeLocationMicroservice.Core.OfficeLocationContext.Services.OfficeLocationFacade;
+using OfficeLocationMicroservice.Core.OfficeLocationContext.Services.OfficeLocationFacade.Email;
+using OfficeLocationMicroservice.Core.SharedContext.Services;
+using OfficeLocationMicroservice.Core.SharedContext.Services.CountryWebApi;
+using OfficeLocationMicroservice.Core.SharedContext.Services.OfficeLocationDatabase;
 
 namespace OfficeLocationMicroservice.Core
 {
@@ -19,7 +20,14 @@ namespace OfficeLocationMicroservice.Core
 
         public static OfficeLocationRepository GetOfficeLocationRepository()
         {
-            return new OfficeLocationRepository(OfficeDataTableGateway, EmailClient);
+            var countryRepository = GetCountryRepository();
+            return new OfficeLocationRepository(OfficeDataTableGateway, countryRepository);
+        }
+
+        public static OfficeLocationFacade GetOfficeLocationFacade()
+        {
+            var officeLocationRepository = GetOfficeLocationRepository();
+            return new OfficeLocationFacade(officeLocationRepository, EmailClient);
         }
 
         public static CountryRepository GetCountryRepository()

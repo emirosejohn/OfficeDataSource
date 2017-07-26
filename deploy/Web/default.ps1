@@ -24,14 +24,15 @@ formatTaskName {
 }
 
 
-task ConfigureWeb -requiredVariables enviornment, CountryWebApiUrl, EmailServerName, EmailTo, EmailFrom {
+task ConfigureWeb -requiredVariables enviornment, CountryWebApiUrl, EmailServerName, EmailTo, EmailFrom, AdminGroup {
 
-ChangeConnectionString $webConfigFile "OfficeLocationDatabase" (OfficeLocationMicroserviceConnectionString "$enviornment")
-ChangeAppSetting $webConfigFile "CountryWebApiUrl" $CountryWebApiUrl
+    ChangeConnectionString $webConfigFile "OfficeLocationDatabase" (OfficeLocationMicroserviceConnectionString "$enviornment")
+    ChangeAppSetting $webConfigFile "CountryWebApiUrl" $CountryWebApiUrl
 
-ChangeAppSetting $webConfigFile "EmailServerName" $EmailServerName
-ChangeAppSetting $webConfigFile "EmailTo" $EmailTo
-ChangeAppSetting $webConfigFile "EmailFrom" $EmailFrom
+    ChangeAppSetting $webConfigFile "EmailServerName" $EmailServerName
+    ChangeAppSetting $webConfigFile "EmailTo" $EmailTo
+    ChangeAppSetting $webConfigFile "EmailFrom" $EmailFrom
+    ChangeAppSetting $webConfigFile "AdminGroup" $AdminGroup
 
 } 
 
@@ -61,8 +62,10 @@ task CopyTempToSiteLocation -depends ConfigureWeb{
 task RebuildDatabase{
 
     #databaseServer and environment are both passed in.
-    &$roundhouseExec /d=$databaseName /f=$dbFileDir /s=$databaseServer /vf=$versionFile /vx='//buildInfo/version' /env=$enviornment /simple /silent
+    Exec {
+          &$roundhouseExec /d=$databaseName /f=$dbFileDir /s=$databaseServer /vf=$versionFile /vx='//buildInfo/version' /env=$enviornment /simple /silent
 
+    }
 }
 
 

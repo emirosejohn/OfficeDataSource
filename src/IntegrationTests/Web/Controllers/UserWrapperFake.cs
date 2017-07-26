@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using OfficeLocationMicroservice.Core.Services;
+using OfficeLocationMicroservice.Core.OfficeLocationContext.Services;
 
 namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
 {

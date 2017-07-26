@@ -1,6 +1,6 @@
 ﻿using FluentAssertions;
 using OfficeLocationMicroservice.Core;
-using OfficeLocationMicroservice.Core.Domain.OfficeLocationContext;
+using OfficeLocationMicroservice.Core.OfficeLocationContext.Domain;
 using Xunit;
 
 namespace OfficeLocationMicroservice.IntegrationTests.Data.Repositories

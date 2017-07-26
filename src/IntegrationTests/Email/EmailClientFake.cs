@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Net.Mail;
-using OfficeLocationMicroservice.Core.Services.Email;
+using OfficeLocationMicroservice.Core.OfficeLocationContext.Services.OfficeLocationFacade.Email;
 
 namespace OfficeLocationMicroservice.IntegrationTests.Email
 {

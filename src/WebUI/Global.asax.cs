@@ -5,6 +5,7 @@ using System.Web.Http;
 using System.Web.Routing;
 using OfficeLocationMicroservice.DependencyManagement;
 using OfficeLocationMicroservice.WebUi.Helpers;
+using Swashbuckle.Application;
 using WebUI;
 
 namespace OfficeLocationMicroservice.WebUi
@@ -23,8 +24,9 @@ namespace OfficeLocationMicroservice.WebUi
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-            GlobalConfiguration.Configuration.Formatters.Clear();
-            GlobalConfiguration.Configuration.Formatters.Add(new JsonMediaTypeFormatter());
+
+            //            GlobalConfiguration.Configuration.Formatters.Clear();             
+            //            GlobalConfiguration.Configuration.Formatters.Add(new JsonMediaTypeFormatter());
         }
     }
 }

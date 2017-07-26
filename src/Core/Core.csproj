@@ -45,24 +45,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Domain\CountryContext\Country.cs" />
-    <Compile Include="Domain\CountryContext\CountryRepository.cs" />
-    <Compile Include="Domain\OfficeLocationContext\OfficeLocationRepositoryHelper.cs" />
+    <Compile Include="OfficeLocationContext\Domain\CountryRepository\Country.cs" />
+    <Compile Include="OfficeLocationContext\Domain\CountryRepository\CountryRepository.cs" />
+    <Compile Include="OfficeLocationContext\Services\OfficeLocationFacade\OfficeLocationFacadeHelper.cs" />
+    <Compile Include="OfficeLocationContext\Services\OfficeLocationFacade\OfficeLocationFacade.cs" />
     <Compile Include="MasterFactory.cs" />
-    <Compile Include="Services\CountryFetcher\CountryWebApi\ICountryWebApiGateway.cs" />
-    <Compile Include="Services\CountryFetcher\CountryWebApi\ICountryWebApiSettings.cs" />
-    <Compile Include="Services\CountryFetcher\CountryWebApi\RegionSchemeResponseJson.cs" />
-    <Compile Include="Services\Email\IEmailClient.cs" />
-    <Compile Include="Services\Email\IEmailSettings.cs" />
-    <Compile Include="Services\IGroupNameConstants.cs" />
-    <Compile Include="Services\IUserWrapper.cs" />
-    <Compile Include="Services\OperatingOption.cs" />
-    <Compile Include="Services\SharedContext\OfficeLocationDatabase\IOfficeLocationDatabaseSettings.cs" />
-    <Compile Include="Services\SharedContext\OfficeLocationDatabase\IOfficeDataTableGateway.cs" />
-    <Compile Include="Services\SharedContext\ISystemLog.cs" />
-    <Compile Include="Services\SharedContext\OfficeLocationDatabase\OfficeDto.cs" />
-    <Compile Include="Domain\OfficeLocationContext\OfficeLocation.cs" />
-    <Compile Include="Domain\OfficeLocationContext\OfficeLocationRepository.cs" />
+    <Compile Include="SharedContext\Services\CountryWebApi\ICountryWebApiGateway.cs" />
+    <Compile Include="SharedContext\Services\CountryWebApi\ICountryWebApiSettings.cs" />
+    <Compile Include="SharedContext\Services\CountryWebApi\RegionSchemeResponseJson.cs" />
+    <Compile Include="OfficeLocationContext\Services\OfficeLocationFacade\Email\IEmailClient.cs" />
+    <Compile Include="OfficeLocationContext\Services\OfficeLocationFacade\Email\IEmailSettings.cs" />
+    <Compile Include="OfficeLocationContext\Services\IGroupNameConstants.cs" />
+    <Compile Include="OfficeLocationContext\Services\IUserWrapper.cs" />
+    <Compile Include="OfficeLocationContext\Services\OperatingOption.cs" />
+    <Compile Include="SharedContext\Services\OfficeLocationDatabase\IOfficeLocationDatabaseSettings.cs" />
+    <Compile Include="SharedContext\Services\OfficeLocationDatabase\IOfficeDataTableGateway.cs" />
+    <Compile Include="SharedContext\Services\ISystemLog.cs" />
+    <Compile Include="SharedContext\Services\OfficeLocationDatabase\OfficeDto.cs" />
+    <Compile Include="OfficeLocationContext\Domain\OfficeLocation.cs" />
+    <Compile Include="OfficeLocationContext\Domain\OfficeLocationRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

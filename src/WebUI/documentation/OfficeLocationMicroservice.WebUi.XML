@@ -1,0 +1,103 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>OfficeLocationMicroservice.WebUi</name>
+    </assembly>
+    <members>
+        <member name="M:OfficeLocationMicroservice.WebUi.Controllers.OfficeApiController.GetOffices">
+            <summary>
+             Get all offices
+            </summary>
+            <remarks>
+            Get a list of offices
+            </remarks>
+            <returns></returns>
+        </member>
+        <member name="M:OfficeLocationMicroservice.WebUi.Controllers.OfficeApiController.GetOffice(System.String,System.Nullable{System.Int32},System.String)">
+            <summary>
+             Get the specified list of offices
+            </summary>
+            <remarks>
+            Get a list of offices matching the given parameters.
+            </remarks>
+            <returns></returns>
+        </member>
+        <member name="M:OfficeLocationMicroservice.WebUi.Controllers.OfficeApiController.GetOfficeName(System.String,System.Nullable{System.Int32},System.String)">
+            <summary>
+             Get the specified list of office names
+            </summary>
+            <remarks>
+            Get the names of offices matching the given parameters.
+            </remarks>
+            <returns></returns>
+        </member>
+        <member name="T:OfficeLocationMicroservice.WebUi.Models.OfficeLocation">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:OfficeLocationMicroservice.WebUi.Models.OfficeLocation.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:OfficeLocationMicroservice.WebUi.Models.OfficeLocation.#ctor(OfficeLocationMicroservice.Core.OfficeLocationContext.Domain.OfficeLocation)">
+            <summary>
+            
+            </summary>
+            <param name="officeLocation"></param>
+        </member>
+        <member name="P:OfficeLocationMicroservice.WebUi.Models.OfficeLocation.OfficeId">
+            <summary>
+            Generated Id identifying the office
+            </summary>
+        </member>
+        <member name="P:OfficeLocationMicroservice.WebUi.Models.OfficeLocation.Name">
+            <summary>
+            Name of the city where the office is located
+            </summary>
+        </member>
+        <member name="P:OfficeLocationMicroservice.WebUi.Models.OfficeLocation.Address">
+            <summary>
+            Address information about the office
+            </summary>
+        </member>
+        <member name="P:OfficeLocationMicroservice.WebUi.Models.OfficeLocation.Country">
+            <summary>
+            Country information of the office
+            </summary>
+        </member>
+        <member name="P:OfficeLocationMicroservice.WebUi.Models.OfficeLocation.Switchboard">
+            <summary>
+            Phone number used to contact the office
+            </summary>
+        </member>
+        <member name="P:OfficeLocationMicroservice.WebUi.Models.OfficeLocation.Fax">
+            <summary>
+            Fax number used to contact the office
+            </summary>
+            [DataMember]
+        </member>
+        <member name="P:OfficeLocationMicroservice.WebUi.Models.OfficeLocation.Operating">
+            <summary>
+            Operating status of the office
+            </summary>
+        </member>
+        <member name="T:OfficeLocationMicroservice.WebUi.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:OfficeLocationMicroservice.WebUi.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:OfficeLocationMicroservice.WebUi.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+    </members>
+</doc>
