@@ -9,8 +9,8 @@ readme.md file at the root.
 
 ## New Developer Setup Instructions
 We use develop as our main branch to be deployed into the DEV environment. Create a new branch feature/[your_feature] 
-for each new step. We use GitExtensions and Visual Studio to handle commits and coding. Most files are in C#, although 
-we have three SQL scripts and the views use HTML, CSS, Javascript, and JQuery. 
+for each new step. We use GitExtensions and Visual Studio to handle commits and coding. Most files are 
+in C#, although we have three SQL scripts and the views use HTML, CSS, Javascript, and JQuery. 
 
 The Tests folders (IntegrationTests and UnitTests) are outside the WebUI project. We do not yet have any 
 meaningful unit tests but we have set up a UnitTests project. Under Integration Tests, we test the API, 
@@ -28,7 +28,9 @@ reset the database s.t. the project is usable, run .build.DatabaseOnly
 ## Important contacts 
 Paul Herrera paul.herrera@dimensional.com is the lead developer and will oversee the continuation of 
 this project. Max Booth (unrelated to David) and Emily Johnson also have priveledges to pull requests;
-however, we will most likely lose this once internship is over. 
+however, we will most likely lose this once internship is over. Corporate Services, specifically Karen 
+Hernandez (Head of Hospitality Services-Americas ***REMOVED***) and Jenny Hill 
+(***REMOVED***), are responsible foer managing the office database through the UI only.
 
 ## Pull request SLA (Service Level Agreement)
 
