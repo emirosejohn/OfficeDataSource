@@ -18,7 +18,7 @@ Invoke-psake -buildFile .\deploy\Web\default.ps1 `
 				 "enviornment" = "PRD"
                  "databaseServer" = "***REMOVED***"
                  "projectName" = "$projectName"
-                 "CountryWebApiUrl" = "***REMOVED***"
+                 "CountryWebApiUrl" = "***REMOVED***/"
 
                  "EmailServerName" = "***REMOVED***"
                  "EmailTo"= "***REMOVED***, ***REMOVED***"
