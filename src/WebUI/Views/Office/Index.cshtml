@@ -1,0 +1,864 @@
+﻿@using OfficeLocationMicroservice.WebUi.Helpers
+@model OfficeLocationMicroservice.WebUi.Models.OfficeModel
+@{
+    ViewBag.Title = "Index";
+}
+<!DOCTYPE HTML>
+<head>
+    <link href="~/Content/buttonStyle.css" rel="stylesheet" />
+    <link href="~/Content/SharedOfficelocationStyles.css" rel="stylesheet" />
+    <title>Dimensional Investing | Dimensional Fund Advisors</title>
+    <link href="/Assets/images/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+
+
+    <style>
+        .switchHelp:hover .tooltiptext {
+            visibility: visible;
+        }
+
+        .switchHelp .tooltiptext {
+            left: 45%;
+        }
+
+        .faxHelp:hover .tooltiptext {
+            visibility: visible;
+        }
+
+        .faxHelp .tooltiptext {
+            left: 45%;
+        }
+
+        .tooltiptext {
+            visibility: hidden;
+            display: inline-block;
+            background-color: #363d43;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px 5px;
+            position: absolute;
+            z-index: 900;
+        }
+
+        .card:hover {
+            box-shadow: 0 8px 10px 0 #000000, 0 8px 20px 0 #000000;
+            box-shadow: 0 8px 10px 0 rgba(0, 0, 0, 0.2), 0 8px 20px 0 rgba(0, 0, 0, 0.19);
+        }
+
+
+        .cardContainer {
+            z-index: 10;
+            width: 100%;
+            height: 100%;
+            justify-content: center;
+            flex-wrap: wrap;
+            display: flex;
+        }
+
+        .modal {
+            overflow-y: auto;
+            padding-right: 0px !important;
+        }
+
+        .modal-open {
+            overflow: auto;
+            padding-right: 0px !important;
+            margin-right: 0px !important;
+        }
+
+        .navbar-fixed-top {
+            padding-right: 0px !important;
+            margin-right: 0px !important;
+        }
+
+        .invalid {
+            border: 2px solid red;
+        }
+    </style>
+
+    <script language="JavaScript" type="text/javascript" src="/Scripts/jquery-1.10.2.js"></script>
+    <script language="JavaScript" type="text/javascript" src="/Scripts/jquery-1.10.2.min.js"></script>
+</head>
+
+@*style="overflow-y:hidden"*@
+<body id="body" style="width: 100%;">
+
+    <script>
+        $(document).ready(function () {
+            var x = "@Model.NotificationFlag";
+
+            if (x === "True") {
+                alert("Notifications Sent");
+                var url = document.location.href;
+                window.history.replaceState({}, "", url.split("?")[0]);
+                //gets rid of notificationflag parameter, so
+                //that the alert won't appear on reloads of page.
+            }
+        });
+
+    </script>
+
+    <div class="myContainer">
+
+        <div class="" style="clear: both; width: 80%;">
+
+            <h1 class="headline">Office Locations</h1>
+            <div class="headingDiv"></div>
+
+            @if (Model.User.IsInAdminGroup() && !Model.RegularView)
+            {
+
+                using (Html.BeginForm("Index", "Office", FormMethod.Post, new { id = "SwitchViewsForm" }))
+                {
+                    @Html.ActionLink("Switch Views", "Index", "Office",
+                        new { regularView = true }, new
+                        {
+                            @class = "btn addButton pull-right",
+                            style = "margin:0 0 0 5px"
+                        })
+                }
+                <button type="submit" class="addButton pull-right" onclick="toggleNewModal();">
+                    <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Add Office
+                </button>
+
+            }
+        </div>
+
+        <br />
+
+        <div class="cardContainer">
+            @{
+                var CRLF = @"
+";
+            }
+            @if (Model.User.IsInAdminGroup() && !Model.RegularView)
+            {
+
+                foreach (var office in Model.Offices)
+                {
+
+                    if (office.Operating != "Closed")
+                    {
+                        <div class="card" onclick="toggleModal(@office.OfficeId);">
+                            <h4>@office.Name</h4>
+                            <div class="details">
+                                @Html.Raw(office.Address.Replace(CRLF, "<br/>"))<br />
+                                @office.Country.Name <br />
+                                Switchboard:
+                                @office.Switchboard <br />
+                                Fax: @office.Fax <br />
+                                @office.Operating
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="card" onclick="toggleModal(@office.OfficeId);"
+                             style="background: #4b7eb0;">
+                            <h4>@office.Name</h4>
+                            <div class="details">
+                                @Html.Raw(office.Address.Replace(CRLF, "<br/>"))<br />
+                                @office.Country.Name <br />
+                                Switchboard:
+                                @office.Switchboard <br />
+                                Fax: @office.Fax <br />
+                                @office.Operating
+                            </div>
+                        </div>
+                    }
+                }
+            }
+            else
+            {
+                foreach (var office in Model.Offices)
+                {
+                    if (office.Operating != "Closed")
+                    {
+                        <div class="card" onclick="toggleModal(@office.OfficeId);" style="pointer-events: none;">
+                            <h4>@office.Name</h4>
+                            <div class="details">
+                                @Html.Raw(office.Address.Replace(CRLF, "<br/>"))<br />
+                                @office.Country.Name <br />
+                                Switchboard:
+                                @office.Switchboard <br />
+                                Fax: @office.Fax <br />
+                            </div>
+                        </div>
+                    }
+                }
+            }
+        </div>
+
+        @if (Model.User.IsInAdminGroup() && !Model.RegularView)
+        {
+            <div id="modals">
+
+                @using (Html.BeginForm("Save", "Office", FormMethod.Post, new { id = "OfficesForm" }))
+                {
+                    for (var i = 0; i < Model.Offices.Length; i++)
+                    {
+                        <div class="modal fade" id="modal_@Model.Offices[i].OfficeId" data-backdrop="static" data-keyboard="false">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+
+                                    @Html.HiddenFor(m => m.Offices[i].OfficeId, new { value = @Model.Offices[i].OfficeId })
+                                    @Html.HiddenFor(m => m.Offices[i].HasChanged,
+                                new
+                                {
+                                    id = "HasChanged_" + Model.Offices[i].OfficeId,
+                                })
+                                    <div class="modal-header">
+                                        <button type="button" class="close" onclick="modalCheck(@Model.Offices[i].OfficeId);">&times;</button>
+                                        <h4 class="modal-title">Edit</h4>
+                                    </div>
+
+                                    <div class="modal-body">
+
+                                        <div class="form-group">
+                                            <label for="Name_@Model.Offices[i].OfficeId"
+                                                   id="NameLabel_@Model.Offices[i].OfficeId">
+                                                Office <span style='color: red;' class="redIndicator">*</span>
+                                            </label>
+                                            @Html.TextBoxFor(m => m.Offices[i].Name, new
+                                       {
+                                           @placeholder = "Type Office Here",
+                                           @class = "form-control",
+                                           @rows = "1",
+                                           @id = "Name_" + @Model.Offices[i].OfficeId,
+                                           @data_original_value = @Model.Offices[i].Name,
+                                           @style = "min-width: 100%;",
+                                           @readonly = "True"
+                                       })
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="Address_@Model.Offices[i].OfficeId">
+                                                Address
+                                                <span style='color: red;' class="redIndicator">*</span>
+                                            </label>
+                                            @Html.TextAreaFor(m => m.Offices[i].Address, 3, 100, new
+                                       {
+                                           @placeholder = "Type Address Here",
+                                           @class = "form-control",
+                                           @id = "Address_" + @Model.Offices[i].OfficeId,
+                                           @data_original_value = @Model.Offices[i].Address,
+                                           @style = "min-width: 100%;",
+                                           @readonly = "True",
+                                           @required = "True"
+                                       })
+
+                                            @Html.DropDownListFor(m => m.Offices[i].Country.Slug,
+                                        new SelectList(Model.Countries, "Slug", "Name", Model.Offices[i].Country.Slug)
+                                        , null, new
+                                        {
+                                            @class = "form-control",
+                                            @id = "Country_" + @Model.Offices[i].OfficeId,
+                                            @data_original_value = @Model.Offices[i].Country.Slug,
+                                            @disabled = "True"
+                                        })
+
+                                        </div>
+
+                                        <div class="form-group">
+                                            <span style="display: inline-block">
+                                                <label for="Switchboard_@Model.Offices[i].OfficeId">
+                                                    Switchboard
+                                                    <span style='color: red;' class="redIndicator">*</span>
+                                                </label>
+                                                <span id="switchHelp_@Model.Offices[i].OfficeId" class="switchHelp" style='color: red; visibility: hidden;'>
+                                                    Incorrect Number Format
+                                                    <span class="tooltiptext">
+                                                        Match International Format: <br /> XXX-XXX-XXXX
+                                                        <br /> No Letters
+                                                    </span>
+                                                </span>
+                                            </span>
+                                            @Html.TextBoxFor(m => m.Offices[i].Switchboard, new
+                                       {
+                                           @placeholder = "Type Switchboard Here",
+                                           @class = "form-control",
+                                           @rows = "1",
+                                           @id = "Switchboard_" + @Model.Offices[i].OfficeId,
+                                           @data_original_value = @Model.Offices[i].Switchboard,
+                                           @style = "min-width: 100%;",
+                                           @readonly = "True"
+                                       })
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="Fax_@Model.Offices[i].OfficeId">Fax</label>
+                                            <span id="faxHelp_@Model.Offices[i].OfficeId" class="faxHelp" style='color: red; visibility: hidden;'>
+                                                Incorrect Number Format
+                                                <span class="tooltiptext">
+                                                    Match International Format: <br /> XXX-XXX-XXXX
+                                                    <br /> No Letters
+                                                </span>
+                                            </span>
+                                            @Html.TextBoxFor(m => m.Offices[i].Fax, new
+                                       {
+                                           @placeholder = "Type Fax Here",
+                                           @class = "form-control",
+                                           @rows = "1",
+                                           @id = "Fax_" + @Model.Offices[i].OfficeId,
+                                           @data_original_value = @Model.Offices[i].Fax,
+                                           @style = "min-width: 100%;",
+                                           @readonly = "True"
+                                       })
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="Operating_@Model.Offices[i].OfficeId">
+                                                Operating
+                                                <span style='color: red;' class="redIndicator">*</span>
+                                            </label>
+                                            @Html.DropDownListFor(m => m.Offices[i].Operating,
+                                        new SelectList(Model.OperatingOptions, "Name", "Name", Model.Offices[i].Operating),
+                                        null,
+                                        new
+                                        {
+                                            @class = "form-control",
+                                            @id = "Operating_" + @Model.Offices[i].OfficeId,
+                                            @data_original_value = @Model.Offices[i].Operating,
+                                            @disabled = "True",
+                                            @value = @Model.Offices[i].Operating
+
+                                        })
+
+                                        </div>
+
+                                        <br />
+                                        <span style='color: red;' class="redIndicator">* Required</span>
+                                    </div>
+
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-close" onclick="modalCheck(@Model.Offices[i].OfficeId);">Close</button>
+                                        <button type="button" class="btn btn-office" id="SaveBtn_@Model.Offices[i].OfficeId"
+                                                onclick="HasChanged(@Model.Offices[i].OfficeId, OfficesForm)"
+                                                style="display: none;">
+                                            Save Changes
+                                        </button>
+                                        <button type="button" class="btn btn-office" id="EditBtn_@Model.Offices[i].OfficeId"
+                                                onclick="editmodal(@Model.Offices[i].OfficeId);">
+                                            Edit
+                                        </button>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+
+            <div id="newModal">
+
+                @using (Html.BeginForm("Save", "Office", FormMethod.Post, new { id = "newOfficeForm" }))
+                {
+                    <div class="modal fade" id="emptyModals" data-backdrop="static" data-keyboard="false">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+
+                                @Html.HiddenFor(m => m.NewOffice.HasChanged, new
+                           {
+                               id = "HasChanged_newOffice",
+                               value = "False"
+                           })
+
+                                <div class="modal-header">
+                                    <button type="button" class="close" onclick="check_newModal();">&times;</button>
+                                    <h4 class="modal-title">New Item</h4>
+                                </div>
+
+                                <div class="modal-body">
+
+                                    <div class="form-group">
+                                        <label for="Name_newOffice">
+                                            Office
+                                            <span style='color: red;' class="redIndicator">*</span>
+                                        </label>
+                                        @Html.TextBoxFor(m => m.NewOffice.Name, new
+                                   {
+                                       @placeholder = "Type Office Here",
+                                       @class = "form-control",
+                                       @rows = "1",
+                                       @id = "Name_newOffice",
+                                       @data_original_value = @Model.NewOffice.Name,
+                                       @style = "min-width: 100%;",
+                                   })
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <label for="Address_newOffice">
+                                            Address
+                                            <span style='color: red;' class="redIndicator">*</span>
+                                        </label>
+                                        @Html.TextAreaFor(m => m.NewOffice.Address, 3, 100, new
+                                   {
+                                       @placeholder = "Type Address Here",
+                                       @class = "form-control",
+                                       @id = "Address_newOffice",
+                                       @data_original_value = @Model.NewOffice.Address,
+                                       @style = "min-width: 100%;",
+                                       @required = "True"
+                                   })
+
+                                        @Html.DropDownListFor(m => m.NewOffice.Country.Slug,
+                                    new SelectList(Model.Countries, "Slug", "Name", string.Empty)
+                                    , null, new
+                                    {
+                                        @class = "form-control",
+                                        @id = "Country_newOffice",
+                                        @data_original_value = @Model.NewOffice.Country.Slug,
+                                        @placeholder = "Country",
+                                    })
+
+                                    </div>
+
+                                    <div class="form-group">
+                                        <span style="display: inline-block">
+                                            <label for="Switchboard_newOffice">
+                                                Switchboard
+                                                <span style='color: red;' class="redIndicator">*</span>
+                                            </label>
+                                            <span id="switchHelp_newOffice" class="switchHelp" style='color: red; visibility: hidden;'>
+                                                Incorrect Number Format
+                                                <span class="tooltiptext">
+                                                    Match International Format: <br /> XXX-XXX-XXXX
+                                                    <br /> No Letters
+                                                </span>
+                                            </span>
+                                        </span>
+                                        @Html.TextBoxFor(m => m.NewOffice.Switchboard, new
+                                   {
+                                       @placeholder = "Type Switchboard Here",
+                                       @class = "form-control",
+                                       @rows = "1",
+                                       @id = "Switchboard_newOffice",
+                                       @data_original_value = @Model.NewOffice.Switchboard,
+                                       @style = "min-width: 100%;"
+                                   })
+                                    </div>
+
+                                    <div class="form-group">
+                                        <span style="display: inline-block">
+                                            <label for="Fax_newOffice">Fax</label>
+                                            <span id="faxHelp_newOffice" class="faxHelp" style='color: red; visibility: hidden;'>
+                                                Incorrect Number Format
+                                                <span class="tooltiptext">
+                                                    Match International Format: <br /> XXX-XXX-XXXX
+                                                    <br /> No Letters
+                                                </span>
+                                            </span>
+                                        </span>
+
+                                        @Html.TextBoxFor(m => m.NewOffice.Fax, new
+                                   {
+                                       @placeholder = "Type Fax Here",
+                                       @class = "form-control",
+                                       @rows = "1",
+                                       @id = "Fax_newOffice",
+                                       @data_original_value = @Model.NewOffice.Fax,
+                                       @style = "min-width: 100%;"
+                                       //@onkeydown = "testPhoneNumber(id, newOfficeAlert);"
+                                   })
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="Operating_newOffice">
+                                            Operating
+                                            <span style='color: red;' class="redIndicator">*</span>
+                                        </label>
+                                        @Html.DropDownListFor(m => m.NewOffice.Operating,
+                                    new SelectList(Model.OperatingOptions, "Name", "Name", string.Empty),
+                                    null,
+                                    new
+                                    {
+                                        @class = "form-control",
+                                        @id = "Operating_newOffice",
+                                        @data_original_value = @Model.NewOffice.Operating,
+                                        @value = @Model.NewOffice.Operating
+                                    })
+                                    </div>
+
+                                    <br />
+
+                                    <span style='color: red;' class="redIndicator">* Required</span>
+
+                                </div>
+
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" onclick="check_newModal();">Close</button>
+                                    <button onclick="javascript: HasChanged('newOffice', newOfficeForm);"
+                                            type="button" class="btn btn-office">
+                                        Save changes
+                                    </button>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+
+        }
+    </div>
+
+    @if (Model.User.IsInAdminGroup() && !Model.RegularView)
+    {
+
+        <script>
+            function phonenumber(inputtxt) {
+                var internationalFormat = /^\+? ?([0-9]{0,2}) ?([0-9]{2,5})[-. ]?([0-9]{2,4})[-. ]?([0-9]{0,4})$/;
+                var internationalAndParenthesis = /^\+? ?([0-9]{0,2}) ?\(([0-9]{1,3})\) ?([0-9]{2,5})[-. ]?([0-9]{2,4})[-. ]?([0-9]{0,4})$/;
+                var none = new RegExp("");
+                if (internationalFormat.test(inputtxt.value) || internationalAndParenthesis.test(inputtxt.value) || inputtxt.value == "") {
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            }
+
+            function testPhoneNumber(id, x, number) {
+                var textbox = document.getElementById(id);
+                var result = phonenumber(textbox);
+                var str = number + "Help_" + x;
+                if (!result) {
+                    var incorrect = document.getElementById(str);
+                    incorrect.style.visibility = "visible";
+                    return false;
+                } else {
+                    var incorrect = document.getElementById(str);
+                    incorrect.style.visibility = "hidden";
+                    return true;
+                }
+            }
+
+            function HasChanged(x, form) {
+                function validate(x) {
+                    var is_empty = x.val();
+                    if (is_empty) {
+                        x.removeClass("invalid").addClass("valid");
+                    } else {
+                        x.removeClass("valid").addClass("invalid");
+                    }
+                };
+
+                var Name = $('#Name_' + x.toString());
+                var Address = $('#Address_' + x.toString());
+                var Country = $('#Country_' + x.toString());
+                var Switchboard = $('#Switchboard_' + x.toString());
+                var Fax = $('#Fax_' + x.toString());
+                var Operating = $('#Operating_' + x.toString());
+
+                validate(Name);
+                validate(Address);
+                validate(Country);
+                validate(Operating);
+                validate(Switchboard);
+
+                var errorStr = "";
+                var hasError = false;
+
+                if (Name.hasClass("invalid")) {
+                    errorStr += "Office Name cannot be empty.\n";
+                    hasError = true;
+                }
+
+                if (Address.hasClass("invalid")) {
+                    errorStr += "Office Address cannot be empty.\n";
+                    hasError = true;
+                }
+
+                if (Country.hasClass("invalid")) {
+                    errorStr += "Office Country cannot be empty.\n";
+                    hasError = true;
+                }
+
+                if (Operating.hasClass("invalid")) {
+                    errorStr += "Office Operating cannot be empty.\n";
+                    hasError = true;
+                }
+
+                if (Switchboard.hasClass("invalid")) {
+                    errorStr += "Office Switchboard cannot be empty.\n";
+                    hasError = true;
+                }
+
+                if (hasError) {
+                    alert(errorStr);
+                    return;
+                }
+
+                $('#HasChanged_' + x).val("True");
+
+                var switchboard = "Switchboard_" + x;
+                var fax = "Fax_" + x;
+                var switchCorrect = testPhoneNumber(switchboard, x, "switch");
+                var faxCorrect = testPhoneNumber(fax, x, "fax");
+
+                var contentArray = [Name[0], Address[0], Country[0], Switchboard[0], Fax[0], Operating[0]];
+                if (switchCorrect && faxCorrect) {
+                    highlightChanges(contentArray, true);
+                    checkIt(x, form, contentArray);
+                }
+
+            }
+
+            function highlightChanges(myArray, bool) {
+
+                for (var i = 0; i < myArray.length; i++) {
+                    highlight(myArray[i], bool);
+                }
+            }
+
+            function resetHighlight(myArray) {
+                for (var i = 0; i < myArray.length; i++) {
+                    unHighlight(myArray[i]);
+                }
+            }
+
+            function checkIt(x, form, contentArray) {
+                setTimeout(function () {
+                    if (confirm('Are you sure you want to save the highlighted changes?')) {
+                        highlightChanges(contentArray, false);
+                        $(form).submit();
+                    } else {
+                        if (x == "newOffice") {
+                            $('#emptyModals').modal('hide');
+
+                            resetForm("newOffice");
+                        } else {
+                            $('#modal_' + x).modal('hide');
+
+                            resetForm(x);
+                        }
+                    }
+                },
+                1000);
+            }
+
+            function highlight(x, bool) {
+                var color;
+                if (bool) {
+                    color = "red";
+                } else {
+                    color = "black";
+                }
+                if (x.nodeName == "INPUT" || x.nodeName == "TEXTAREA") {
+                    if (x.value != x.defaultValue) {
+                        x.style.color = color;
+                    }
+                } else if (x.nodeName == "SELECT") {
+                    //string manipulation
+                    var html = x.innerHTML;
+                    var start = html.search("selected");
+                    var newHtml = html.substring(start, html.length);
+                    var narrowStart = newHtml.search("value=");
+                    var narrowEnd = newHtml.search(">");
+                    var oldValue = newHtml.substring(narrowStart + 7, narrowEnd - 1);
+                    console.log(oldValue);
+
+                    if (x.value != oldValue) {
+                        x.style.color = color;
+                    }
+
+                }
+            }
+
+            function unHighlight(x) {
+                var color = "black";
+                x.style.color = color;
+            }
+
+            function enablebody() {
+                $('#body').css({
+                    'overflow-y': 'auto'
+                });
+            }
+
+            function disablebody() {
+                $('#body').css({
+                    'overflow-y': 'hidden'
+                });
+            }
+
+            function check_newModal() {
+                if (confirm('Are you sure you want to cancel. You will lose your unsaved changes')) {
+                    $('#emptyModals').modal('hide');
+
+                    resetForm("newOffice");
+                }
+            }
+
+            function modalCheck(x) {
+                if (confirm('Are you sure you want to cancel. You will lose your unsaved changes')) {
+                    $('#modal_' + x).modal('hide');
+
+                    resetForm(x);
+                }
+            }
+
+            var required = function () {
+                var input = $(this);
+                var is_empty = input.val();
+                if (is_empty) {
+                    input.removeClass("invalid").addClass("valid");
+                } else {
+                    input.removeClass("valid").addClass("invalid");
+                }
+            };
+
+            function toggleNewModal() {
+                var x = "newOffice";
+
+                var Name = $('#Name_' + x.toString());
+                var Address = $('#Address_' + x.toString());
+                var Country = $('#Country_' + x.toString());
+                var Switchboard = $('#Switchboard_' + x.toString());
+                var Fax = $('#Fax_' + x.toString());
+                var Operating = $('#Operating_' + x.toString());
+
+                Name.on('input', required);
+                Address.on('input', required);
+                Country.on('input', required);
+                Operating.on('input', required);
+                Switchboard.on('input', required);
+
+                Name.on('submit', required);
+                Address.on('submit', required);
+                Country.on('submit', required);
+                Operating.on('submit', required);
+                Switchboard.on('submit', required);
+
+                Name.attr('readonly', false);
+
+                Address.attr('readonly', false);
+
+                $('.redIndicator').show();
+
+
+                Country.attr('disabled', false);
+
+                Switchboard.attr('readonly', false);
+
+                Fax.attr('readonly', false);
+
+                Operating.attr('disabled', false);
+
+                $('#emptyModals').modal('show');
+
+                enablebody();
+            }
+
+            function toggleModal(x) {
+                $('#modal_' + x).modal('show');
+                $('.redIndicator').hide();
+                enablebody();
+            }
+
+            function checkForEmpty(x) {
+                console.log(x);
+                if (x[0].value === "" || x.value == null) {
+                    x[0].setCustomValidity('this field cannot be empty');
+                } else {
+                    x[0].setCustomValidity("");
+                }
+            }
+
+            function editmodal(x) {
+
+                var Name = $('#Name_' + x.toString());
+                var Address = $('#Address_' + x.toString());
+                var Country = $('#Country_' + x.toString());
+                var Switchboard = $('#Switchboard_' + x.toString());
+                var Fax = $('#Fax_' + x.toString());
+                var Operating = $('#Operating_' + x.toString());
+
+                var SaveBtn = $('#SaveBtn_' + x.toString());
+                var EditBtn = $('#EditBtn_' + x.toString());
+
+                Name.on('input', required);
+                Address.on('input', required);
+                Country.on('input', required);
+                Operating.on('input', required);
+                Switchboard.on('input', required);
+
+                $('.redIndicator').show();
+
+                Name.attr('readonly', false);
+
+                Address.attr('readonly', false);
+
+                Country.attr('disabled', false);
+
+                Switchboard.attr('readonly', false);
+
+                Fax.attr('readonly', false);
+
+                Operating.attr('disabled', false);
+
+                SaveBtn.show();
+
+                EditBtn.hide();
+            }
+
+
+            function resetForm(x) {
+                console.log("I was called : " + x);
+                var Name = $('#Name_' + x.toString());
+                var Address = $('#Address_' + x.toString());
+                var Country = $('#Country_' + x.toString());
+                var Switchboard = $('#Switchboard_' + x.toString());
+                var Fax = $('#Fax_' + x.toString());
+                var Operating = $('#Operating_' + x.toString());
+
+                var SaveBtn = $('#SaveBtn_' + x.toString());
+                var EditBtn = $('#EditBtn_' + x.toString());
+
+                Name.val(Name.data("original-value"));
+
+                Address.val(Address.data("original-value"));
+
+                Country.val(Country.data("original-value"));
+
+                Switchboard.val(Switchboard.data("original-value"));
+
+                Fax.val(Fax.data("original-value"));
+
+                Operating.val(Operating.data("original-value"));
+
+                Name.attr('readonly', true);
+
+                Address.attr('readonly', true);
+
+                Country.attr('disabled', true);
+
+                Switchboard.attr('readonly', true);
+
+                Fax.attr('readonly', true);
+
+                Operating.attr('disabled', true);
+
+                Name.removeClass('invalid');
+                Address.removeClass('invalid');
+                Country.removeClass('invalid');
+                Operating.removeClass('invalid');
+                Switchboard.removeClass('invalid');
+
+                $('.redIndicator').hide();
+
+                SaveBtn.hide();
+
+                EditBtn.show();
+                var contentArray = [Name[0], Address[0], Country[0], Switchboard[0], Fax[0], Operating[0]];
+                resetHighlight(contentArray);
+            }
+
+        </script>
+
+    }
+</body>
