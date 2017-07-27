@@ -21,7 +21,7 @@ Invoke-psake -buildFile .\deploy\Web\default.ps1 `
                  "CountryWebApiUrl" = "***REMOVED***"
 
                  "EmailServerName" = "***REMOVED***"
-                 "EmailTo"= "***REMOVED***, Global_Assistants.com"
+                 "EmailTo"= "***REMOVED***, ***REMOVED***"
                  "EmailFrom" = "***REMOVED***"
 
                  "AdminGroup" = "***REMOVED***"
