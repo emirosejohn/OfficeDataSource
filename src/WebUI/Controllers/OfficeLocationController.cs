@@ -3,13 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using OfficeLocationMicroservice.Core;
-using OfficeLocationMicroservice.Core.OfficeLocationContext.Domain;
-using OfficeLocationMicroservice.Core.OfficeLocationContext.Domain.CountryRepository;
 using OfficeLocationMicroservice.Core.OfficeLocationContext.Services;
 using OfficeLocationMicroservice.Core.OfficeLocationContext.Services.OfficeLocationFacade;
 using OfficeLocationMicroservice.WebUi.Helpers;
 using OfficeLocationMicroservice.WebUi.Models;
-using WebGrease.Css.Extensions;
 
 namespace OfficeLocationMicroservice.WebUi.Controllers
 {

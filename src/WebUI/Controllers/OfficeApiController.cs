@@ -1,11 +1,8 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Net.Http;
-using System.Runtime.Remoting.Messaging;
 using System.Web.Http;
 using OfficeLocationMicroservice.Core;
 using OfficeLocationMicroservice.Core.OfficeLocationContext.Services.OfficeLocationFacade;
-using OfficeLocationMicroservice.WebUi.Models;
 using Swashbuckle.Swagger.Annotations;
 
 using OfficeLocation = OfficeLocationMicroservice.WebUi.Models.OfficeLocation;
