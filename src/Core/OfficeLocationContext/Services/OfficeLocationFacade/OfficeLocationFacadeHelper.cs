@@ -159,7 +159,7 @@ namespace OfficeLocationMicroservice.Core.OfficeLocationContext.Services.OfficeL
                 ODS Team
              ";
 
-            var officeAddress = officeLocation.Address.Replace(CRLF, "<br/>") + "<br/>" + officeLocation.Country;
+            var officeAddress = officeLocation.Address.Replace(CRLF, "<br/>") + "<br/>" + officeLocation.Country.Name;
 
             body = string.Format(body,
                 officeLocation.Name, officeLocation.Name,
