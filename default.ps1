@@ -94,13 +94,24 @@ task copyBuildFiles -depends BuildSolution {
     # so we don't have conflicts.
     
     mkdir $buildWebFolder | out-null
-	
-	$sourceFiles = "$buildTargetFolder\_PublishedWebsites\WebUI\*"
+
+
+    $docFolder = "$buildTargetFolder\_PublishedWebsites\WebUI\documentation"
+    $SwaggerXML = "$srcFolder\WebUI\documentation\OfficeLocationMicroservice.WebUi.XML"
+
+
+    mkdir $docFolder | out-null
+    Write-Host "Copying $SwaggerXML to $docFolder"
+    copy-item "$SwaggerXML" "$docFolder"
+
+
+    $sourceFiles= "$buildTargetFolder\_PublishedWebsites\WebUI\*"
 	Write-Host "Copying files from '$sourceFiles' to '$buildWebFolder'"
 	copy-item $sourceFiles "$buildWebFolder" -recurse
 
+
     mkdir $builddeployFolder | out-null
-	
+
 	Write-Host "Copying files from '$deployFolder' to '$buildDeployFolder'"
 	copy-item "$deployFolder\*" "$buildDeployFolder" -recurse
 

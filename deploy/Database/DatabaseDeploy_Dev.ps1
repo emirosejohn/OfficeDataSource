@@ -23,7 +23,7 @@ Import-Module $psakeModule
 # you can put arguments to task in multiple lines using `
 Invoke-psake -buildFile .\deploy\Database\default.ps1 `
 			 -parameters @{
-				 "enviornment" = "DEV"
+				 "environment" = "DEV"
                  "databaseServer" = "***REMOVED***"
                  "projectName" = "$projectName"
 				}

@@ -3,8 +3,8 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using Dapper;
-using OfficeLocationMicroservice.Core.Services.SharedContext;
-using OfficeLocationMicroservice.Core.Services.SharedContext.OfficeLocationDatabase;
+using OfficeLocationMicroservice.Core.SharedContext.Services;
+using OfficeLocationMicroservice.Core.SharedContext.Services.OfficeLocationDatabase;
 
 namespace OfficeLocationMicroservice.Data.OfficeLocationDatabase
 {
@@ -27,7 +27,7 @@ namespace OfficeLocationMicroservice.Data.OfficeLocationDatabase
                  [OfficeId]
                 ,[Name]
                 ,[Address]
-                ,[Country]
+                ,[CountrySlug]
                 ,[Switchboard]
                 ,[Fax]
                 ,[Operating]
@@ -45,7 +45,7 @@ namespace OfficeLocationMicroservice.Data.OfficeLocationDatabase
                 @"SELECT [OfficeId]
                 ,[Name]
                 ,[Address]
-                ,[Country]
+                ,[CountrySlug]
                 ,[Switchboard]
                 ,[Fax]
                 ,[Operating]
@@ -64,7 +64,7 @@ namespace OfficeLocationMicroservice.Data.OfficeLocationDatabase
              [OfficeId]
             ,[Name]
             ,[Address]
-            ,[Country]
+            ,[CountrySlug]
             ,[Switchboard]
             ,[Fax]
             ,[Operating]
@@ -92,7 +92,7 @@ namespace OfficeLocationMicroservice.Data.OfficeLocationDatabase
             (
              [Name]
             ,[Address]
-            ,[Country]
+            ,[CountrySlug]
             ,[Switchboard]
             ,[Fax]
             ,[Operating])
@@ -100,7 +100,7 @@ namespace OfficeLocationMicroservice.Data.OfficeLocationDatabase
             (
              @Name
             ,@Address
-            ,@Country
+            ,@CountrySlug
             ,@Switchboard
             ,@Fax
             ,@Operating)
@@ -127,7 +127,7 @@ SELECT CAST(SCOPE_IDENTITY() as int)
         Set 
              [Name] = @Name
             ,[Address] = @Address
-            ,[Country] = @Country
+            ,[CountrySlug] = @CountrySlug
             ,[Switchboard] = @Switchboard
             ,[Fax] = @Fax
             ,[Operating] = @Operating

@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using OfficeLocationMicroservice.Core.Services.CountryFetcher.CountryWebApi;
+using OfficeLocationMicroservice.Core.SharedContext.Services.CountryWebApi;
 
 namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
 {
@@ -39,7 +39,7 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
             {
                 CountryId = 1,
                 Name  = "Country 1",
-                Slug = "1",
+                Slug = "C1",
                 ISOCountryCode = "1",
                 DFACountryCode = "1"
             };
@@ -48,7 +48,7 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
             {
                 CountryId = 2,
                 Name = "Country 2",
-                Slug = "2",
+                Slug = "C2",
                 ISOCountryCode = "2",
                 DFACountryCode = "2"
             };
@@ -57,7 +57,7 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
             {
                 CountryId = 3,
                 Name = "Country 3",
-                Slug = "3",
+                Slug = "C3",
                 ISOCountryCode = "3",
                 DFACountryCode = "3"
             };
@@ -66,7 +66,7 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
             {
                 CountryId = 4,
                 Name = "Country 4",
-                Slug = "4",
+                Slug = "C4",
                 ISOCountryCode = "4",
                 DFACountryCode = "4"
             };
@@ -75,7 +75,7 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
             {
                 CountryId = 5,
                 Name = "Country 5",
-                Slug = "5",
+                Slug = "C5",
                 ISOCountryCode = "5",
                 DFACountryCode = "5"
             };
@@ -84,7 +84,7 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
             {
                 CountryId = 6,
                 Name = "Country 6",
-                Slug = "6",
+                Slug = "C6",
                 ISOCountryCode = "6",
                 DFACountryCode = "6"
             };

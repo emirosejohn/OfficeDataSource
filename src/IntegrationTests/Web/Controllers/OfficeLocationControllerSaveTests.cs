@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using FluentAssertions;
-using OfficeLocationMicroservice.Core.Domain.OfficeLocationContext;
-using OfficeLocationMicroservice.Core.Services.SharedContext.OfficeLocationDatabase;
+using OfficeLocationMicroservice.Core.OfficeLocationContext.Domain;
+using OfficeLocationMicroservice.Core.OfficeLocationContext.Services.OfficeLocationFacade;
+using OfficeLocationMicroservice.Core.SharedContext.Services.OfficeLocationDatabase;
 using OfficeLocationMicroservice.WebUi.Models;
 using Xunit;
+using OfficeLocation = OfficeLocationMicroservice.Core.OfficeLocationContext.Domain.OfficeLocation;
 
 namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
 {
@@ -44,11 +41,12 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
 
             testHelper.DatabaseDataDeleter(() =>
             {
+
                 var officeDto0 = new OfficeDto()
                 {
                     Name = "Austin",
                     Address = "Dimensional Place 6300 Bee Cave Road",
-                    Country = "United States",
+                    CountrySlug = "C1",
                     Switchboard = "***REMOVED***",
                     Fax = "+***REMOVED***",
                     Operating = 1
@@ -58,7 +56,7 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
                 {
                     Name = "Berlin",
                     Address = "***REMOVED*** Kurfürstendamm 194, D - 10707 Berlin",
-                    Country = "Germany",
+                    CountrySlug = "C2",
                     Switchboard = "***REMOVED***",
                     Fax = "***REMOVED***",
                     Operating = 0
@@ -71,7 +69,8 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
 
                 var controller = testHelper.CreateController();
 
-                var locationModel = officeDto1.ExtractOfficeLocation();
+                var country1 = testHelper.GetCountryRepository().GetCountryBySlug(officeDto1.CountrySlug);
+                var locationModel = new WebOfficeLocation(officeDto1, country1);
 
                 locationModel.HasChanged = "True";
 
@@ -95,15 +94,22 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
                 offices[0].OfficeId.Should().Be(expectedOfficeId1);
                 offices[0].Name.Should().Be("Austin");
                 offices[0].Address.Should().Be("Dimensional Place 6300 Bee Cave Road");
-                offices[0].Country.Should().Be("United States");
+
+                offices[0].Country.Slug.Should().Be("C1");
+                offices[0].Country.Name.Should().Be("Country 1");
+
                 offices[0].Switchboard.Should().Be("***REMOVED***");
                 offices[0].Fax.Should().Be("+***REMOVED***");
                 offices[0].Operating.Should().Be("Active");
 
+
                 offices[1].OfficeId.Should().BeGreaterThan(0);
                 offices[1].Name.Should().Be("Berlin");
                 offices[1].Address.Should().Be("***REMOVED*** Kurfürstendamm 194, D - 10707 Berlin");
-                offices[1].Country.Should().Be("Germany");
+
+                offices[1].Country.Slug.Should().Be("C2");
+                offices[1].Country.Name.Should().Be("Country 2");
+
                 offices[1].Switchboard.Should().Be("***REMOVED***");
                 offices[1].Fax.Should().Be("***REMOVED***");
                 offices[1].Operating.Should().Be("Closed");
@@ -116,10 +122,10 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
 
                 var message = messages.First();
 
-                var expectedSubject = OfficeLocationRepositoryHelper.GenerateInsertEmailSubject(
+                var expectedSubject = OfficeLocationFacadeHelper.GenerateInsertEmailSubject(
                     locationModel);
 
-                var expectedBody = OfficeLocationRepositoryHelper.GenerateInsertEmailBody(
+                var expectedBody = OfficeLocationFacadeHelper.GenerateInsertEmailBody(
                     locationModel);
 
                 message.Body.Should().Be(expectedBody);
@@ -147,7 +153,7 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
                 {
                     Name = "Austin",
                     Address = "Dimensional Place 6300 Bee Cave Road",
-                    Country = "United States",
+                    CountrySlug = "C1",
                     Switchboard = "***REMOVED***",
                     Fax = "+***REMOVED***",
                     Operating = 1
@@ -155,14 +161,15 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
 
                 var expectedOfficeId = testHelper.InsertOfficeDto(officeDto0);
 
-                var updatedOfficeDto = SimulateUpdatingOfficeLocation(expectedOfficeId);
-
                 var userWrapper = testHelper.GetUserWrapper();
                 userWrapper.MakeUserPartOfGroup(userWrapper.GroupNameConstants.AdminGroup);
 
                 var controller = testHelper.CreateController();
 
-                var locationModel = updatedOfficeDto.ExtractOfficeLocation();
+                var updatedOfficeDto = SimulateUpdatingOfficeLocation(expectedOfficeId);
+
+                var country1 = testHelper.GetCountryRepository().GetCountryBySlug(updatedOfficeDto.CountrySlug);
+                var locationModel = new WebOfficeLocation(updatedOfficeDto, country1);
 
                 locationModel.HasChanged = "True";
 
@@ -170,7 +177,7 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
                 {
                     Offices = new[]
                     {
-                        locationModel, null, new OfficeLocation()
+                        locationModel, null, new WebOfficeLocation()
                     },
                 };
 
@@ -187,7 +194,10 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
                 offices[0].OfficeId.Should().Be(expectedOfficeId);
                 offices[0].Name.Should().Be("Changed");
                 offices[0].Address.Should().Be("Updated");
-                offices[0].Country.Should().Be("New string");
+
+                offices[0].Country.Name.Should().Be("Country 1");
+                offices[0].Country.Slug.Should().Be("C1");
+
                 offices[0].Switchboard.Should().Be("Different value here");
                 offices[0].Fax.Should().Be("This had changed");
                 offices[0].Operating.Should().Be("Closed");
@@ -200,11 +210,14 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
 
                 var message = messages.First();
 
-                var expectedSubject = OfficeLocationRepositoryHelper.GenerateUpdateEmailSubject(
-                    officeDto0.ExtractOfficeLocation());
+                var originalCountry = testHelper.GetCountryRepository().GetCountryBySlug(officeDto0.CountrySlug);
+                var originalOfficeLocation = new OfficeLocation(officeDto0, originalCountry);
 
-                var expectedBody = OfficeLocationRepositoryHelper.GenerateUpdateEmailBody(
-                    locationModel, officeDto0.ExtractOfficeLocation());
+                var expectedSubject = OfficeLocationFacadeHelper.GenerateUpdateEmailSubject(
+                    originalOfficeLocation);
+
+                var expectedBody = OfficeLocationFacadeHelper.GenerateUpdateEmailBody(
+                    locationModel, originalOfficeLocation);
 
                 message.Body.Should().Be(expectedBody);
                 message.Subject.Should().Be(expectedSubject);
@@ -230,7 +243,7 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
                 {
                     Name = "Austin",
                     Address = "Dimensional Place 6300 Bee Cave Road",
-                    Country = "United States",
+                    CountrySlug = "C1",
                     Switchboard = "***REMOVED***",
                     Fax = "+***REMOVED***",
                     Operating = 1
@@ -246,7 +259,8 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
 
                 var controller = testHelper.CreateController();
 
-                var locationModel = updatedOfficeDto.ExtractOfficeLocation();
+                var updatedCountry = testHelper.GetCountryRepository().GetCountryBySlug(updatedOfficeDto.CountrySlug);
+                var locationModel = new WebOfficeLocation(updatedOfficeDto, updatedCountry);
 
                 locationModel.HasChanged = "True";
 
@@ -270,7 +284,10 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
                 offices[0].OfficeId.Should().Be(expectedOfficeId);
                 offices[0].Name.Should().Be("Changed");
                 offices[0].Address.Should().Be("Updated");
-                offices[0].Country.Should().Be("New string");
+
+                offices[0].Country.Name.Should().Be("Country 1");
+                offices[0].Country.Slug.Should().Be("C1");
+
                 offices[0].Switchboard.Should().Be("Different value here");
                 offices[0].Fax.Should().Be("This had changed");
                 offices[0].Operating.Should().Be("Closed");
@@ -290,7 +307,7 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
                 {
                     Name = "Berlin",
                     Address = "***REMOVED*** Kurfürstendamm 194, D - 10707 Berlin",
-                    Country = "Germany",
+                    CountrySlug = "C1",
                     Switchboard = "***REMOVED***",
                     Fax = "***REMOVED***",
                     Operating = 1
@@ -300,7 +317,7 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
                 {
                     Name = "Austin",
                     Address = "Dimensional Place 6300 Bee Cave Road",
-                    Country = "United States",
+                    CountrySlug = "C2",
                     Switchboard = "***REMOVED***",
                     Fax = "+***REMOVED***",
                     Operating = 1
@@ -313,7 +330,8 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
 
                 var controller = testHelper.CreateController();
 
-                var locationModel = officeDto1.ExtractOfficeLocation();
+                var Country1 = testHelper.GetCountryRepository().GetCountryBySlug(officeDto1.CountrySlug);
+                var locationModel = new WebOfficeLocation(officeDto1, Country1);
 
                 locationModel.HasChanged = "True";
 
@@ -337,7 +355,10 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
                 offices[0].OfficeId.Should().BeGreaterThan(0);
                 offices[0].Name.Should().Be("Austin");
                 offices[0].Address.Should().Be("Dimensional Place 6300 Bee Cave Road");
-                offices[0].Country.Should().Be("United States");
+
+                offices[0].Country.Name.Should().Be("Country 2");
+                offices[0].Country.Slug.Should().Be("C2");
+
                 offices[0].Switchboard.Should().Be("***REMOVED***");
                 offices[0].Fax.Should().Be("+***REMOVED***");
                 offices[0].Operating.Should().Be("Active");
@@ -345,7 +366,10 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
                 offices[1].OfficeId.Should(). Be(expectedOfficeId1);
                 offices[1].Name.Should().Be("Berlin");
                 offices[1].Address.Should().Be("***REMOVED*** Kurfürstendamm 194, D - 10707 Berlin");
-                offices[1].Country.Should().Be("Germany");
+
+                offices[1].Country.Name.Should().Be("Country 1");
+                offices[1].Country.Slug.Should().Be("C1");
+
                 offices[1].Switchboard.Should().Be("***REMOVED***");
                 offices[1].Fax.Should().Be("***REMOVED***");
                 offices[1].Operating.Should().Be("Active");
@@ -365,7 +389,7 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
                 {
                     Name = "Office A",
                     Address = "Office A addr",
-                    Country = "Office A country",
+                    CountrySlug = "C1",
                     Switchboard = "Office A switchboard",
                     Fax = "Office A fax",
                     Operating = 0
@@ -375,7 +399,7 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
                 {
                     Name = "Office B",
                     Address = "Office B addr",
-                    Country = "Office B country",
+                    CountrySlug = "C1",
                     Switchboard = "Office B switchboard",
                     Fax = "Office B fax",
                     Operating = 1
@@ -385,7 +409,7 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
                 {
                     Name = "Office C",
                     Address = "Office C addr",
-                    Country = "Office C country",
+                    CountrySlug = "C1",
                     Switchboard = "Office C switchboard",
                     Fax = "Office C fax",
                     Operating = 0
@@ -400,7 +424,8 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
 
                 var controller = testHelper.CreateController();
 
-                var locationModel = officeDto1.ExtractOfficeLocation();
+                var Country1 = testHelper.GetCountryRepository().GetCountryBySlug(officeDto1.CountrySlug);
+                var locationModel = new WebOfficeLocation(officeDto1, Country1);
 
                 locationModel.HasChanged = "True";
 
@@ -424,7 +449,10 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
                 offices[0].OfficeId.Should().BeGreaterThan(0);
                 offices[0].Name.Should().Be("Office B");
                 offices[0].Address.Should().Be("Office B addr");
-                offices[0].Country.Should().Be("Office B country");
+
+                offices[0].Country.Name.Should().Be("Country 1");
+                offices[0].Country.Slug.Should().Be("C1");
+
                 offices[0].Switchboard.Should().Be("Office B switchboard");
                 offices[0].Fax.Should().Be("Office B fax");
                 offices[0].Operating.Should().Be("Active");
@@ -432,7 +460,10 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
                 offices[1].OfficeId.Should().Be(expectedOfficeId1);
                 offices[1].Name.Should().Be("Office A");
                 offices[1].Address.Should().Be("Office A addr");
-                offices[1].Country.Should().Be("Office A country");
+
+                offices[0].Country.Name.Should().Be("Country 1");
+                offices[0].Country.Slug.Should().Be("C1");
+
                 offices[1].Switchboard.Should().Be("Office A switchboard");
                 offices[1].Fax.Should().Be("Office A fax");
                 offices[1].Operating.Should().Be("Closed");
@@ -440,7 +471,10 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
                 offices[2].OfficeId.Should().Be(expectedOfficeId2);
                 offices[2].Name.Should().Be("Office C");
                 offices[2].Address.Should().Be("Office C addr");
-                offices[2].Country.Should().Be("Office C country");
+
+                offices[0].Country.Name.Should().Be("Country 1");
+                offices[0].Country.Slug.Should().Be("C1");
+
                 offices[2].Switchboard.Should().Be("Office C switchboard");
                 offices[2].Fax.Should().Be("Office C fax");
                 offices[2].Operating.Should().Be("Closed");
@@ -460,7 +494,7 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
                 {
                     Name = "Berlin",
                     Address = "***REMOVED*** Kurfürstendamm 194, D - 10707 Berlin",
-                    Country = "Germany",
+                    CountrySlug = "C1",
                     Switchboard = "***REMOVED***",
                     Fax = "***REMOVED***",
                     Operating = 0
@@ -470,7 +504,7 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
                 {
                     Name = "Austin",
                     Address = "Dimensional Place 6300 Bee Cave Road",
-                    Country = "United States",
+                    CountrySlug = "C1",
                     Switchboard = "***REMOVED***",
                     Fax = "+***REMOVED***",
                     Operating = 1
@@ -480,7 +514,9 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
 
                 var controller = testHelper.CreateController();
 
-                var locationModel = officeDto1.ExtractOfficeLocation();
+                var Country1 = testHelper.GetCountryRepository().GetCountryBySlug(officeDto1.CountrySlug);
+                var locationModel = new WebOfficeLocation(officeDto1, Country1);
+
                 locationModel.HasChanged = "True";
 
                 var locationOffice = new OfficeModel()
@@ -503,7 +539,10 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
                 offices[0].OfficeId.Should().Be(expectedOfficeId1);
                 offices[0].Name.Should().Be("Berlin");
                 offices[0].Address.Should().Be("***REMOVED*** Kurfürstendamm 194, D - 10707 Berlin");
-                offices[0].Country.Should().Be("Germany");
+
+                offices[0].Country.Name.Should().Be("Country 1");
+                offices[0].Country.Slug.Should().Be("C1");
+
                 offices[0].Switchboard.Should().Be("***REMOVED***");
                 offices[0].Fax.Should().Be("***REMOVED***");
                 offices[0].Operating.Should().Be("Closed");
@@ -519,7 +558,7 @@ namespace OfficeLocationMicroservice.IntegrationTests.Web.Controllers
                 OfficeId = expectedOfficeId,
                 Name = "Changed",
                 Address = "Updated",
-                Country = "New string",
+                CountrySlug = "C1",
                 Switchboard = "Different value here",
                 Fax = "This had changed",
                 Operating = 0

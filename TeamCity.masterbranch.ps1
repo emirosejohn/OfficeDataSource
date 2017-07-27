@@ -20,7 +20,7 @@ Invoke-psake -buildFile ./default.ps1 `
              -parameters @{
                 "projectVersion" = $projectVersion
                 } `
-			 -framework 4.66
+			 -framework 4.6
 
 Write-Host "Build exit code:" $LastExitCode
 
