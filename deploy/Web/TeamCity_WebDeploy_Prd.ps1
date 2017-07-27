@@ -1,6 +1,6 @@
 ﻿param(
 	[String]$ProjectName = 'OfficeLocationMicroservice',           #name of project
-    [String]$targetServerName = 'astdc-rpt02'                    #machine name where we are connecting to
+    [String]$targetServerName = '***REMOVED***'                    #machine name where we are connecting to
 )
 cls
 
